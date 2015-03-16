@@ -1,7 +1,7 @@
 <?php
 
 /*
-Template Name: Advertiser dashboard
+Template Name: Recruiter dashboard
 */
 
 //header('Location: '.admin_url('admin-ajax.php'));

@@ -27,6 +27,7 @@ while (have_posts()) {
 				<thead>
 					<tr>
 						<td>Name</td>
+						<td>Email</td>
 					</tr>
 				</thead>
 				<tbody>
@@ -36,7 +37,7 @@ while (have_posts()) {
 						
 						if (!empty($user_query->results)) {
 							foreach($user_query->results as $user) { ?>
-								<tr class="clickable" data-href="<?php echo DIRECTORY_UDPATEUSERPATH; ?>?i=<?php echo $user->ID; ?>">
+								<tr class="clickable" data-href="/update-user?i=<?php echo $user->ID; ?>">
 									<td><?php echo $user->display_name; ?></td>
 								</tr>
 							<?php }

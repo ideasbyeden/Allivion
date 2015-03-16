@@ -35,41 +35,46 @@ while (have_posts()) {
 //
 /////////////////////////////////////////////
 
-
+$user = get_user_by('id',$_REQUEST['i']);
+$usercustom = get_user_meta($_REQUEST['i']);
+foreach($usercustom as $k=>$v){
+	$usermeta[$k] = $v[0];
+}
+echo '<pre>'; print_r($usermeta); echo '</pre>';
 
 ?>
 
 <div class="section">
 	<div class="stage">
 		
-		<h1 class="purple">Create user</h1>
+		<h1 class="purple">Update user</h1>
 		
 			<div class="halfcol">
 
 				<form class="directory" id="createuser" action="<?php echo admin_url('admin-ajax.php'); ?>" method="post">
 				
-					<input type="hidden" name="group_id" value="<?php echo wp_get_current_user()->ID ?>" />
+					<input type="hidden" name="group_id" value="<?php echo $usermeta['group_id']; ?>" />
  					<input type="hidden" name="role" value="editor" />
-					<input type="hidden" name="nonce" value="<?php echo wp_create_nonce("directory_create_user_nonce"); ?>" />
- 					<input type="hidden" name="action" value="directory_create_user" />
- 					<input type="hidden" name="redirect" value="/advertiser-dashboard" />
+					<input type="hidden" name="nonce" value="<?php echo wp_create_nonce("directory_update_user_nonce"); ?>" />
+ 					<input type="hidden" name="action" value="directory_update_user" />
+ 					<input type="hidden" name="redirect" value="/user-list" />
 
 					<div class="qpanel">
 						<div class="question">
 							<label>First Name</label>
-							<input type="text" name="first_name" value="<?php echo $_SESSION['userdata']['first_name']; ?>"/>
+							<input type="text" name="first_name" value="<?php echo $user->first_name; ?>"/>
 						</div>
 						<div class="question">
 							<label>Last Name</label>
-							<input type="text" name="last_name" value="<?php echo $_SESSION['userdata']['last_name']; ?>" />
+							<input type="text" name="last_name" value="<?php echo $user->last_name; ?>" />
 						</div>
 						<div class="question">
 							<label>Email</label>
-							<input type="text" name="user_email" value="<?php echo $_SESSION['userdata']['user_email']; ?>" />
+							<input type="text" name="user_email" value="<?php echo $user->user_email; ?>" />
 						</div>
 						<div class="question">
 							<label>Password</label>
-							<input type="password" name="user_pass" value="<?php echo $_SESSION['userdata']['user_pass']; ?>" />
+							<input type="password" name="user_pass" value="" />
 						</div>
 						<div class="question">
 							<label>Confirm password</label>
