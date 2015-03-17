@@ -11,3 +11,4 @@
 		return new WP_User_Query(array('meta_key' => 'group_id', 'meta_value' => $group_id));
 		
 	}
+	

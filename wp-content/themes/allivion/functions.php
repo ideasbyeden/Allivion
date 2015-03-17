@@ -75,7 +75,7 @@ function loginout_menu_link($items) {
       if (is_user_logged_in()) {
          $items .= '<li class="fr purple"><a href="'. wp_logout_url('/index.php') .'">Log Out</a></li>';
       } else {
-         $items .= '<li class="fr purple"><a href="/log-in">Log In</a></li>';
+         $items .= '<li class="fr purple"><a href="/log-in" id="show_login">Log In</a></li>';
       }
    return $items;
 }

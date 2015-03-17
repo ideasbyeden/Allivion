@@ -313,3 +313,78 @@ img {
 tr.clickable:hover {
 	background-color: #DDDDDD;
 }
+
+/* login form */
+
+form#login{
+    display: none;
+    background-color: #FFFFFF;
+    position: fixed;
+    top: 20px;
+    width: 350px;
+    padding: 8px;
+    z-index: 999;
+    left: 50%;
+    margin-left: -200px;
+    border-radius: 8px;
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+    box-shadow: 0 3px 9px rgba(0,0,0,0.4);
+    -moz-box-shadow: 0 3px 9px rgba(0,0,0,0.4);
+    -webkit-box-shadow: 0 3px 9px rgba(0,0,0,0.4);
+}
+
+form#login .qpanel {
+	margin: 0px;
+}
+
+form#login .close {
+	position: absolute;
+	top: 5px;
+	right: 5px;
+}
+
+form#login label {
+	width: 29%;
+}
+
+form#login p.status{
+    display: none;
+}
+
+form#login .lost {
+	margin-top: 24px;
+}
+
+form#login .lost a {
+	color: #999999;
+}
+
+
+form#login input[type='submit'] {
+	font-family: "Source Sans Pro", sans-serif;
+	background: none;
+	border: 2px solid #592580;
+	color: #592580;
+	width: 40px;
+	height: 40px;
+	text-align: center;
+	border-radius: 50%;
+	-moz-border-radius: 50%;
+	-webkit-border-radius: 50%;
+	font-size: 1.2em;
+	position: relative;
+	float: right;
+	clear: none;
+	cursor: pointer;
+	margin-top: 8px;
+}
+
+.login_overlay{
+    height: 100%;
+    width: 100%;
+    background-color: #53247E;
+    opacity: 0.9;
+    position: fixed;
+    z-index: 998;
+}

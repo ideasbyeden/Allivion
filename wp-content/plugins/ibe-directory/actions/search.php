@@ -3,11 +3,6 @@
 add_action("wp_ajax_directory_search", "directory_search");
 add_action("wp_ajax_nopriv_directory_search", "directory_search"); // will need to be redirected to login or similar
 
-function ajaxtest(){
-	$result['check'] = 'ajaxreturn';
-	echo json_encode($result);
-}
-
 function directory_search($params = null){
 		
 	foreach($_REQUEST as $k=>$v) $params[$k] = $v;

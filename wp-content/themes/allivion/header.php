@@ -30,6 +30,8 @@
 
 <body <?php body_class(); ?>>
 	
+	<?php require_once(TEMPLATEPATH.'/includes/login_form.php'); ?>
+	
 		<div class="section" id="navigation">
 			<div class="stage">
 				<nav id="main">
