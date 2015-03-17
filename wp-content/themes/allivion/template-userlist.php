@@ -13,7 +13,7 @@ get_template_part('header','recadmin');
 while (have_posts()) { 
 		the_post();
 		the_content();
-} 
+ 
 
 
 ?>
@@ -21,12 +21,13 @@ while (have_posts()) {
 <div class="section">
 	<div class="stage">
 		
-		<h1 class="purple">Manage users</h1>
+		<h1 class="purple"><?php the_title(); ?><a href="create"><input type="button" value="New" class="arrow_right" /></a></h1>
 		
 			<table class="searchresults">
 				<thead>
 					<tr>
 						<td>Name</td>
+						<td>Role</td>
 					</tr>
 				</thead>
 				<tbody>
@@ -38,6 +39,7 @@ while (have_posts()) {
 							foreach($user_query->results as $user) { ?>
 								<tr class="clickable" data-href="/update-user?i=<?php echo $user->ID; ?>">
 									<td><?php echo $user->display_name; ?></td>
+									<td><?php echo ucfirst($user->roles[0]); ?></td>
 								</tr>
 							<?php }
 						} else {
@@ -52,7 +54,9 @@ while (have_posts()) {
 					
 		<div class="clear"></div>
 		
+		<pre><?php //print_r($user_query); ?></pre>
+		
 	</div>
 </div>
 
-<?php get_footer(); ?>
+<?php } get_footer(); ?>

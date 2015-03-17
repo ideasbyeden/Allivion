@@ -30,7 +30,7 @@
 
 <body <?php body_class(); ?>>
 	
-		<div class="section" id="navigation">
+		<div class="section" id="navigation" style="margin-bottom: 40px;">
 			<div class="stage">
 				<nav id="main">
 					<?php wp_nav_menu('theme_location=recadmin'); ?>
@@ -38,12 +38,5 @@
 					
 			</div>
 		</div>
-				
-		<div class="section" id="header">
-			<div class="stage">
-				<a href="/">
-					<img src="<?php bloginfo('template_url'); ?>/img/logo.png" id="logo" />
-				</a>
-			</div>
-		</div>
+			
 		

@@ -30,7 +30,6 @@ function directory_create_user(){
 		
 		if($newuserID = wp_insert_user($userdata)){
 			update_user_meta($newuserID,'group_id',$_REQUEST['group_id']);
-			//wp_new_user_notification( $newuserID, $userdata['user_pass'] );
 		};		
 	} else {
 		session_start();

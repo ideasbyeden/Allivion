@@ -69,7 +69,9 @@ function add_last_item_class($strHTML) {
 add_filter('wp_nav_menu','add_last_item_class');
 
 // add login / logout items to end of nav
-function loginout_menu_link( $items, $args ) {
+
+
+function loginout_menu_link($items) {
       if (is_user_logged_in()) {
          $items .= '<li class="fr purple"><a href="'. wp_logout_url('/index.php') .'">Log Out</a></li>';
       } else {
@@ -79,6 +81,18 @@ function loginout_menu_link( $items, $args ) {
 }
 
 add_filter( 'wp_nav_menu_items', 'loginout_menu_link', 10, 2 );
+
+function menu_logo( $items, $args ) {
+	if ($args->theme_location == 'recadmin') {
+		$items = '<li class="nav_logo"><img src="'.get_bloginfo('template_url').'/img/nav_logo.png" /></li>'.$items;
+	}
+    return $items;
+}
+
+add_filter( 'wp_nav_menu_items', 'menu_logo', 10, 2 );
+
+
+//add_filter( 'wp_nav_menu_items', 'loginout_menu_link', 10, 2 );
 
 
 

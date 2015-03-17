@@ -75,6 +75,7 @@ foreach($usercustom as $k=>$v){
 							<label>Confirm password</label>
 							<input type="password" name="confirm_user_pass" />
 						</div>
+
 						<?php
 							if($_SESSION){ 
 								foreach($_SESSION['errors'] as $error) { echo '<p class="formerror">'.$error.'</p>'; }

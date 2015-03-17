@@ -35,6 +35,14 @@ nav#main ul > li {
 	border-right: 1px solid white;
 }
 
+nav#main ul > li.nav_logo {
+	height: 52px;
+	padding: 7px 20px 7px 7px;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;	
+}
+
 nav#main ul > li.purple {
 	background: url(../img/nav_palepurple.png) repeat-x !important;
 }
