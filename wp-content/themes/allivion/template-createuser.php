@@ -10,7 +10,7 @@ Template Name: Create user
 //header('Location: '.admin_url('admin-ajax.php'));
 
 	
-get_header();
+get_template_part('header','recadmin');
 	
 while (have_posts()) { 
 		the_post();
@@ -51,7 +51,7 @@ while (have_posts()) {
  					<input type="hidden" name="role" value="editor" />
 					<input type="hidden" name="nonce" value="<?php echo wp_create_nonce("directory_create_user_nonce"); ?>" />
  					<input type="hidden" name="action" value="directory_create_user" />
- 					<input type="hidden" name="redirect" value="/advertiser-dashboard" />
+ 					<input type="hidden" name="redirect" value="/recruiter-dashboard" />
 
 					<div class="qpanel">
 						<div class="question">

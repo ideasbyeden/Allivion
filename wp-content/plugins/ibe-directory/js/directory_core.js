@@ -6,4 +6,10 @@ jQuery(function(){
 		//alert(jQuery(this).attr('class'));
 	});
 	
+	jQuery('body').on('click', '.logout', function () {  
+		//window.document.location = jQuery(this).data('href');
+		//alert($(this).attr('datahref'));
+		//alert(jQuery(this).attr('class'));
+	});
+	
 });

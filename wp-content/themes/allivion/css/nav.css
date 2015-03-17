@@ -13,7 +13,7 @@ nav#main {
 }
 
 
-nav#main .menu-main-navigation-container > ul {
+nav#main ul {
 	background: url(../img/navbar_bg.png) repeat-x center bottom;
 	margin: 0px;
 	padding: 0px;
@@ -24,7 +24,7 @@ nav#main .menu-main-navigation-container > ul {
 	overflow: hidden;
 }
 
-nav#main .menu-main-navigation-container > ul > li {
+nav#main ul > li {
 	display: block;
 	position: relative;
 	float: left;
@@ -35,17 +35,17 @@ nav#main .menu-main-navigation-container > ul > li {
 	border-right: 1px solid white;
 }
 
-nav#main .menu-main-navigation-container > ul > li.purple {
+nav#main ul > li.purple {
 	background: url(../img/nav_palepurple.png) repeat-x !important;
 }
 
 
-nav#main .menu-main-navigation-container > ul > li.fr {
+nav#main ul > li.fr {
 	border-right: none;
 	border-left: 1px solid white;
 }
 
-nav#main .menu-main-navigation-container > ul > li a {
+nav#main ul > li a {
 	padding: 15px 20px;
 	margin: 0px;
 	height: 52px;
@@ -55,7 +55,7 @@ nav#main .menu-main-navigation-container > ul > li a {
 	display: inline-block;
 }
 
-nav#main .menu-main-navigation-container > ul > li.current-menu-item a {
+nav#main ul > li.current-menu-item a {
 	background: url(../img/nav_active_bg.png) repeat-x center bottom;
 	color: white;	
 }

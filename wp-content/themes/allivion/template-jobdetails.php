@@ -8,7 +8,7 @@ $job->canEdit($_REQUEST['i']);
 $vals = $_REQUEST['i'] ? $job->getVals($_REQUEST['i']) : null;
 
 	
-get_header();
+get_template_part('header','recadmin');
 	
 while (have_posts()) { 
 		the_post();

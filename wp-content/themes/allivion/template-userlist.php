@@ -8,7 +8,7 @@ Template Name: User list
 $vals = $_REQUEST['i'] ? $job->getVals($_REQUEST['i']) : null;
 
 	
-get_header();
+get_template_part('header','recadmin');
 	
 while (have_posts()) { 
 		the_post();
@@ -27,7 +27,6 @@ while (have_posts()) {
 				<thead>
 					<tr>
 						<td>Name</td>
-						<td>Email</td>
 					</tr>
 				</thead>
 				<tbody>
@@ -50,7 +49,6 @@ while (have_posts()) {
 				</tbody>
 			</table>
 
-<pre><?php print_r($user_query); ?></pre>
 					
 		<div class="clear"></div>
 		

@@ -51,7 +51,10 @@ function add_excerpts_to_pages() {
 
 // enable wordpress menus
 register_nav_menus( array(
-	'main' => 'Main Navigation'
+	'main' => 'Main Navigation',
+	'recadmin' => 'Recruiter Navigation',
+	'advadmin' => 'Advertiser Navigation',
+	'candadmin' => 'Candidate Navigation'
 ) );
 
 
@@ -64,6 +67,19 @@ function add_last_item_class($strHTML) {
 	);
 }
 add_filter('wp_nav_menu','add_last_item_class');
+
+// add login / logout items to end of nav
+function loginout_menu_link( $items, $args ) {
+      if (is_user_logged_in()) {
+         $items .= '<li class="fr purple"><a href="'. wp_logout_url('/index.php') .'">Log Out</a></li>';
+      } else {
+         $items .= '<li class="fr purple"><a href="/log-in">Log In</a></li>';
+      }
+   return $items;
+}
+
+add_filter( 'wp_nav_menu_items', 'loginout_menu_link', 10, 2 );
+
 
 
 ///////////////////////////////////////////// image functions ///////////////////////////////////////////////
@@ -211,7 +227,10 @@ $caps = array(	'delete_posts' => true,
 				'upload_files' => true
 				);
 					
-add_role( 'newrole', 'New User Role', $caps );
+add_role( 'recruiter', 'Recruiter', $caps );
+add_role( 'recruiter_admin', 'Recruiter admin', $caps );
+add_role( 'advertiser', 'Advertiser', $caps );
+add_role( 'candidate', 'Candidate', $caps );
 
 ///////////////////////////////////////////// script functions ///////////////////////////////////////////////
 

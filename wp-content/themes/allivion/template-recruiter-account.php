@@ -7,7 +7,7 @@ Template Name: Recruiter dashboard
 //header('Location: '.admin_url('admin-ajax.php'));
 
 	
-get_header();
+get_template_part('header','recadmin');
 	
 while (have_posts()) { 
 		the_post();
