@@ -4,8 +4,15 @@
 Template Name: Job details
 */
 
-$job->canEdit($_REQUEST['i']);
+/*
+$post = get_post($_REQUEST['i']);
+$author_meta = get_user_meta($post->)
+*/
+
+
+$job->canAccess(array('group_id' => get_post_meta($_REQUEST['i'],'group_id',true)));
 $vals = $_REQUEST['i'] ? $job->getVals($_REQUEST['i']) : null;
+//echo '<pre>'; print_r($vals); echo '</pre>';
 
 	
 get_template_part('header','recadmin');
@@ -26,7 +33,7 @@ while (have_posts()) {
 			<form class="directory <?php echo $job->type; ?> update" id="jobdetails" action="<?php echo admin_url('admin-ajax.php'); ?>" method="post">
 				
 				<input type="hidden" name="post_id" value="<?php echo $_REQUEST['i']; ?>" />
-				<input type="hidden" name="varnames" value="<?php echo implode(',', $job->getVarNames()); ?>" />
+				<input type="hidden" name="type" value="<?php echo $job->getItemType(); ?>" />
 				<input type="hidden" name="nonce" value="<?php echo wp_create_nonce("directory_update_nonce"); ?>" />
 				<input type="hidden" name="action" value="directory_update" />
 				

@@ -4,8 +4,7 @@
 Template Name: Recruiter dashboard
 */
 
-//header('Location: '.admin_url('admin-ajax.php'));
-
+$allivion->canAccess(array('roles' => 'recruiter_admin'));
 	
 get_template_part('header','recadmin');
 	
@@ -52,11 +51,12 @@ $returnfields = array('job_title','job_ref','location');
  					<input type="hidden" name="redirect" value="/job-details-form" />
  					<input type="hidden" name="type" value="job" />
  					<input type="hidden" name="status" value="active" />
+ 					<input type="hidden" name="group_id" value="<?php echo $usermeta['group_id'] ? $usermeta['group_id'] : $user->ID; ?>" />
 
 					<div class="qpanel purplegrad">
 						<h2>Create a new ad</h2>
-						<?php $job->printQuestion('job_title',$vals); ?>
-						<?php $job->printQuestion('job_ref',$vals); ?>
+						<?php $job->printQuestion('job_title'); ?>
+						<?php $job->printQuestion('job_ref'); ?>
 						<input type="submit" value="Save and add details" class="fr"/>
 						<div class="clear"></div>
 					</div>
@@ -96,6 +96,8 @@ $returnfields = array('job_title','job_ref','location');
 			<?php 
 				$params = $_GET ? $_GET : array();
 				$params['type'] = 'job';
+				$params['author'] = $usermeta['group_id'] ? $usermeta['group_id'] : $user->ID;
+				//echo pre($params); 
 				$items = directory_search($params);
 			?>
 
@@ -111,7 +113,7 @@ $returnfields = array('job_title','job_ref','location');
 				<tbody>
 							
 				<?php foreach ($items->posts as $item){ ?>
-					<tr class="clickable" data-href="/job-details-form?i=<?php echo $item->ID; ?>">
+					<tr class="clickable" data-href="/job-details?i=<?php echo $item->ID; ?>">
 						<?php foreach($returnfields as $field){ ?>
 						<td><?php echo $item->meta[$field]; ?></td>
 						<?php } ?>

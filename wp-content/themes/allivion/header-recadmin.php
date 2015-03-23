@@ -30,13 +30,19 @@
 
 <body <?php body_class(); ?>>
 	
+	<?php require_once(TEMPLATEPATH.'/includes/login_form.php'); ?>
+	
+
 		<div class="section" id="navigation" style="margin-bottom: 40px;">
 			<div class="stage">
 				<nav id="main">
 					<?php wp_nav_menu('theme_location=recadmin'); ?>
 				</nav>
+				<?php global $user, $usermeta; if($user) echo '<p class="">Logged in as '.$user->display_name.'</p>'; ?>
 					
 			</div>
 		</div>
+		
+
 			
 		

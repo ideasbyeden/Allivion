@@ -12,7 +12,10 @@ function directory_update(){
 	
 	if(!$_REQUEST['post_id']) exit('No post ID was supplied');
 	
-	foreach(explode(',', $_REQUEST['varnames']) as $var){
+	$type = $_REQUEST['type'];
+	$varnames = $$type->getVarNames();
+	
+	foreach($varnames as $var){
 		update_post_meta($_REQUEST['post_id'],$var,$_REQUEST[$var]);
 		$result[$var] = $_REQUEST[$var];
 	}

@@ -10,20 +10,15 @@ function directory_search($params = null){
 	$type = post_type_exists($params['type']) ? $params['type'] : 'post';
 	global $$type;
 	$vars = $$type->getVarNames();
-	
 
-	//echo '<pre>'; print_r($params); echo '</pre>';
-	//echo '<pre>'; print_r($vars); echo '</pre>';
-	
-	
 	// set up basic query args
 	
 	$query_args = array(	'post_type' => $type,
-							'author' => wp_get_current_user()->ID,
 							'orderby' => 'date',
 							'order' => 'ASC'
 							); 
-							
+	
+	if($params['author']) $query_args['author'] = $params['author'];
 	
 	// remove unexpected search variables
 	
@@ -45,6 +40,7 @@ function directory_search($params = null){
 			);
 	}
 	
+	//echo '<pre>'; print_r($user); echo '</pre>';
 	
 	// wpdb keyword search
 	//

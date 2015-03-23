@@ -5,7 +5,7 @@ jQuery(function(){
         jQuery('body').prepend('<div class="login_overlay"></div>');
         jQuery('form#login').fadeIn(500);
         jQuery('div.login_overlay, form#login a.close').on('click', function(){
-            jQuery('div.login_overlay').remove();
+            jQuery('div.login_overlay').fadeOut();
             jQuery('form#login').hide();
         });
         e.preventDefault();

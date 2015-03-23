@@ -1,61 +1,11 @@
 <?php
 
-class itemdef {
+class directoryCore {
 	
-	public $type;
-	public $label;
-	public $single_label;
-	public $vars = array();
-
-	function __construct($type,$label,$single_label){
-		$this->type = $type;
-		$this->label = $label;
-		$this->single_label = $single_label;
+	function __construct(){	
 		
-		if( ! post_type_exists( $this->type ) )
-	    {
-	        add_action( 'init', array( &$this, 'register_cpt' ) );
-	    }
-	    
-	    add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_script' ), 99 );
 	}
 	
-	public function enqueue_script() {
-		
-		wp_enqueue_script( 'formsubmit', plugins_url('ibe-directory/js/form-submit-ajax.js', false ));
-	}
-	
-	public function register_cpt(){
-		
-		register_post_type($this->type, array(
-	        'labels' => array(
-	            'name' => ucfirst($this->label),
-	            'singular_name' => ucfirst($this->single_label),
-	            'add_new' => 'Add new '.$this->single_label,
-	            'edit_item' => 'Edit '.$this->single_label,
-	            'new_item' => 'New '.$this->single_label,
-	            'view_item' => 'View '.$this->single_label,
-	            'search_items' => 'Search '.$this->label,
-	            'not_found' => 'No '.$this->label.' found',
-	            'not_found_in_trash' => 'No '.$this->label.' found in Trash'
-	        ),
-	        'public' => true,
-			'show_ui' => true,
-			'capability_type' => 'post',
-			'hierarchical' => false,
-			'rewrite' => array( 'slug' => $this->label, 'with_front' => true ),
-			'query_var' => true,
-	        'supports' => array(
-	            'title',
-	            'editor',
-	            'excerpt',
-	            'thumbnail',
-	            'custom-fields',
-	            'page-attributes'
-	        )
-		));
-		
-	}
 	
 	public function setVars($vars){
 		$this->vars = $vars;
@@ -257,18 +207,49 @@ class itemdef {
 		}
 	}
 	
-	public function canEdit($post_id = null){
-
-		if(!is_user_logged_in()){
-			header("Location: ".DIRECTORY_LOGINPATH);
+		
+	public function canView($section){
+		
+		global $user, $usermeta;
+		if(!is_user_logged_in() || $usermeta['roles'][0] != $section){
+			if($user->roles[0] == 'recruiter' || $user->roles[0] == 'recruiter_admin') { header("Location: ".DIRECTORY_RECADMIN); }
+			else if($user->roles[0] == 'advertiser' ) { header("Location: ".DIRECTORY_ADVADMIN); }
+			else if($user->roles[0] == 'candidate' ) { header("Location: ".DIRECTORY_CANDADMIN); }
+			else { header("Location: ".DIRECTORY_LOGINPATH); }
 			die();
 		}
 		
-		if($post_id){
-			if(get_post_field( 'post_author', $post_id ) != wp_get_current_user()->ID){
-				header("Location: ".DIRECTORY_ACCOUNTPATH);
-				die();
+	}
+	
+	function canAccess($args){
+		global $user, $usermeta;
+
+		if(!$user) $redirect = true;
+		
+		if($args['roles']) {
+			$roles = explode(',', $args['roles']);
+			if(!in_array($user->roles[0], $roles)) $redirect = true;
+		}
+		
+		if($args['id']) {
+			if($args['id'] != $user->ID ) $redirect = true;
+		}
+		
+		if($args['group_id']) {
+			if($args['group_id'] != $user->ID && $args['group_id'] != $usermeta['group_id'][0]) $redirect = true;
+		}
+		
+		if($user->roles[0] == 'administrator') $redirect = false;
+		
+		if($redirect){
+			if($user){
+				if($user->roles[0] == 'recruiter' || $user->roles[0] == 'recruiter_admin') { header("Location: ".DIRECTORY_RECADMIN); die(); }
+				if($user->roles[0] == 'advertiser' ) { header("Location: ".DIRECTORY_ADVADMIN); die(); }
+				if($user->roles[0] == 'candidate' ) { header("Location: ".DIRECTORY_CANDADMIN); die(); }
+			} else {
+				header("Location: ".DIRECTORY_LOGINPATH); die();
 			}
+			die();
 		}
 	}
 	

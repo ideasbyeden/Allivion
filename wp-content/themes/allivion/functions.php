@@ -69,8 +69,6 @@ function add_last_item_class($strHTML) {
 add_filter('wp_nav_menu','add_last_item_class');
 
 // add login / logout items to end of nav
-
-
 function loginout_menu_link($items) {
       if (is_user_logged_in()) {
          $items .= '<li class="fr purple"><a href="'. wp_logout_url('/index.php') .'">Log Out</a></li>';
@@ -82,6 +80,7 @@ function loginout_menu_link($items) {
 
 add_filter( 'wp_nav_menu_items', 'loginout_menu_link', 10, 2 );
 
+// add logo to admin nav
 function menu_logo( $items, $args ) {
 	if ($args->theme_location == 'recadmin') {
 		$items = '<li class="nav_logo"><img src="'.get_bloginfo('template_url').'/img/nav_logo.png" /></li>'.$items;
@@ -144,65 +143,6 @@ register_sidebar( $sidebar0 );
 ///////////////////////////////////////////// CPT and taxonomy functions ///////////////////////////////////////////////
 
 
-// register new post type
-add_action('init', 'project_register_post_type');
-
-function project_register_post_type() {
-    register_post_type('project', array(
-        'labels' => array(
-            'name' => 'Projects',
-            'singular_name' => 'Project',
-            'add_new' => 'Add new project',
-            'edit_item' => 'Edit project',
-            'new_item' => 'New project',
-            'view_item' => 'View project',
-            'search_items' => 'Search projects',
-            'not_found' => 'No projects found',
-            'not_found_in_trash' => 'No projects found in Trash'
-        ),
-        'public' => true,
-		'show_ui' => true,
-		'capability_type' => 'post',
-		'hierarchical' => false,
-		'rewrite' => array( 'slug' => 'projects', 'with_front' => true ),
-		'query_var' => true,
-        'supports' => array(
-            'title',
-            'editor',
-            'excerpt',
-            'thumbnail',
-            'custom-fields',
-            'comments',
-            'page-attributes'
-        ),
-        'taxonomies' => array('projecttype')
-    ));
-}
-
-// register new taxonomy
-add_action( 'init', 'register_projecttype_taxonomy', 0 );
-
-function register_projecttype_taxonomy() {
-  register_taxonomy('projecttype','project', array(
-    'hierarchical' => true,
-    'labels' => array(
-	    'name' => _x( 'Projects types', 'taxonomy general name' ),
-	    'singular_name' => _x( 'Project type', 'taxonomy singular name' ),
-	    'search_items' =>  __( 'Search project types' ),
-	    'all_items' => __( 'All project types' ),
-	    'parent_item' => __( 'Parent project type' ),
-	    'parent_item_colon' => __( 'Parent project type:' ),
-	    'edit_item' => __( 'Edit project type' ), 
-	    'update_item' => __( 'Update project type' ),
-	    'add_new_item' => __( 'Add new project type' ),
-	    'new_item_name' => __( 'New project type name' ),
-	    'menu_name' => __( 'Project type' )
-	    ),
-    'show_ui' => true,
-    'query_var' => true
-  ));
-
-}
 
 
 ///////////////////////////////////////////// user and security functions ///////////////////////////////////////////////
@@ -231,20 +171,6 @@ function redirect_non_admin_users() {
 remove_action('wp_header', 'wp_generator');
 
 
-//create new user roles
-$caps = array(	'delete_posts' => true,
-				'delete_published_posts' => true,
-				'edit_posts' => true,
-				'edit_published_posts' => true,
-				'publish_posts' => true,
-				'read' => true,
-				'upload_files' => true
-				);
-					
-add_role( 'recruiter', 'Recruiter', $caps );
-add_role( 'recruiter_admin', 'Recruiter admin', $caps );
-add_role( 'advertiser', 'Advertiser', $caps );
-add_role( 'candidate', 'Candidate', $caps );
 
 ///////////////////////////////////////////// script functions ///////////////////////////////////////////////
 
