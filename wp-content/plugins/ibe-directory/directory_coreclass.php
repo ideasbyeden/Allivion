@@ -207,22 +207,10 @@ class directoryCore {
 		}
 	}
 	
-		
-	public function canView($section){
-		
-		global $user, $usermeta;
-		if(!is_user_logged_in() || $usermeta['roles'][0] != $section){
-			if($user->roles[0] == 'recruiter' || $user->roles[0] == 'recruiter_admin') { header("Location: ".DIRECTORY_RECADMIN); }
-			else if($user->roles[0] == 'advertiser' ) { header("Location: ".DIRECTORY_ADVADMIN); }
-			else if($user->roles[0] == 'candidate' ) { header("Location: ".DIRECTORY_CANDADMIN); }
-			else { header("Location: ".DIRECTORY_LOGINPATH); }
-			die();
-		}
-		
-	}
 	
 	function canAccess($args){
 		global $user, $usermeta;
+		//print_r($args);
 
 		if(!$user) $redirect = true;
 		
@@ -232,7 +220,8 @@ class directoryCore {
 		}
 		
 		if($args['id']) {
-			if($args['id'] != $user->ID ) $redirect = true;
+			$ids = explode(',', $args['id']);
+			if(!in_array($user->ID, $ids)) $redirect = true;
 		}
 		
 		if($args['group_id']) {
@@ -243,14 +232,14 @@ class directoryCore {
 		
 		if($redirect){
 			if($user){
-				if($user->roles[0] == 'recruiter' || $user->roles[0] == 'recruiter_admin') { header("Location: ".DIRECTORY_RECADMIN); die(); }
-				if($user->roles[0] == 'advertiser' ) { header("Location: ".DIRECTORY_ADVADMIN); die(); }
-				if($user->roles[0] == 'candidate' ) { header("Location: ".DIRECTORY_CANDADMIN); die(); }
+				if($user->roles[0] == 'recruiter' || $user->roles[0] == 'recruiter_admin') { header("Location: ".DIRECTORY_RECADMIN); }
+				if($user->roles[0] == 'advertiser' ) { header("Location: ".DIRECTORY_ADVADMIN); }
+				if($user->roles[0] == 'candidate' ) { header("Location: ".DIRECTORY_CANDADMIN); }
 			} else {
-				header("Location: ".DIRECTORY_LOGINPATH); die();
+				header("Location: ".DIRECTORY_LOGINPATH);
 			}
-			die();
 		}
+		
 	}
 	
 }

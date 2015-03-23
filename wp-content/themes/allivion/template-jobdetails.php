@@ -10,7 +10,7 @@ $author_meta = get_user_meta($post->)
 */
 
 
-$job->canAccess(array('group_id' => get_post_meta($_REQUEST['i'],'group_id',true)));
+$allivion->canAccess(array('group_id' => get_post_meta($_REQUEST['i'],'group_id',true)));
 $vals = $_REQUEST['i'] ? $job->getVals($_REQUEST['i']) : null;
 //echo '<pre>'; print_r($vals); echo '</pre>';
 

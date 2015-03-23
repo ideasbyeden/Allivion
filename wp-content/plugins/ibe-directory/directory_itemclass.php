@@ -54,26 +54,5 @@ class itemdef extends directoryCore {
 		));
 		
 	}
-	
-	public function canEdit($item_id = null){
-
-		if(!is_user_logged_in()){
-			header("Location: ".DIRECTORY_LOGINPATH);
-			die();
-		}
 		
-		if($item_id && is_int($item_id)){
-			global $user, $usermeta;
-			$thispostauthor = get_post_field( 'post_author', $item_id );
-
-			if($thispostauthor != $user->ID && $thispostauthor != $usermeta['group_id'][0]){
-				if($user['roles'][0] == 'recruiter' || $user['roles'][0] == 'recruiter_admin') { header("Location: ".DIRECTORY_RECADMIN); }
-				else if($user['roles'][0] == 'advertiser' ) { header("Location: ".DIRECTORY_ADVADMIN); }
-				else if($user['roles'][0] == 'candidate' ) { header("Location: ".DIRECTORY_CANDADMIN); }
-				else { header("Location: ".DIRECTORY_LOGINPATH); }
-				die();
-			}
-		}
-	}
-	
 }

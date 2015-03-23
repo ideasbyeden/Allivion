@@ -37,7 +37,7 @@ while (have_posts()) {
 						
 						if (!empty($user_query->results)) {
 							foreach($user_query->results as $user) { ?>
-								<tr class="clickable" data-href="/update-user?i=<?php echo $user->ID; ?>">
+								<tr class="clickable" data-href="/users/update?i=<?php echo $user->ID; ?>">
 									<td><?php echo $user->display_name; ?></td>
 									<td><?php echo ucfirst($user->roles[0]); ?></td>
 								</tr>
