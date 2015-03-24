@@ -2,11 +2,21 @@
 
 class directoryCore {
 	
+	public $vars = array();
+	public $adminroot = '/';
+	
 	function __construct(){	
 		
 	}
 	
+	public function setAdminRoot($ar){
+		$this->adminroot = $ar;
+	}
 	
+	public function AdminRoot(){
+		return $this->adminroot;
+	}
+		
 	public function setVars($vars){
 		$this->vars = $vars;
 	}
@@ -208,10 +218,12 @@ class directoryCore {
 	}
 	
 	
-	function canAccess($args){
+	public function canAccess($args){
+		
 		global $user, $usermeta;
-		//print_r($args);
-
+		$usertype = $user->roles[0];
+		global $$usertype;
+				
 		if(!$user) $redirect = true;
 		
 		if($args['roles']) {
@@ -230,11 +242,11 @@ class directoryCore {
 		
 		if($user->roles[0] == 'administrator') $redirect = false;
 		
-		if($redirect){
-			if($user){
-				if($user->roles[0] == 'recruiter' || $user->roles[0] == 'recruiter_admin') { header("Location: ".DIRECTORY_RECADMIN); }
-				if($user->roles[0] == 'advertiser' ) { header("Location: ".DIRECTORY_ADVADMIN); }
-				if($user->roles[0] == 'candidate' ) { header("Location: ".DIRECTORY_CANDADMIN); }
+		if($redirect){ // access denied
+			if($user){ // no user logged in
+				if(rtrim($_SERVER['REQUEST_URI'],'/') != $$usertype->AdminRoot()){ // avoids redirect loop if usertype redirect doesn't specify access permission
+					header("Location: ".$$usertype->AdminRoot());
+				}
 			} else {
 				header("Location: ".DIRECTORY_LOGINPATH);
 			}

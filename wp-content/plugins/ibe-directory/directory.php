@@ -38,6 +38,7 @@ foreach(glob(__DIR__ . '/userdefs/*.php') as $filename)
     global $$role;
     $$role = new userdef($role,$label);
     $$role->setVars($vars);
+    $$role->setAdminRoot($adminroot);
 }
 
 

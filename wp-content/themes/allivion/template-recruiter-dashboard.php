@@ -4,7 +4,7 @@
 Template Name: Recruiter dashboard
 */
 
-$allivion->canAccess(array('roles' => 'recruiter_admin'));
+$allivion->canAccess(array('roles' => 'recruiter_admin,recruiter'));
 	
 get_template_part('header','recadmin');
 	

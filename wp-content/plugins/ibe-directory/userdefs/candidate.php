@@ -21,6 +21,15 @@ $label = 'Candidate';
 
 ///////////////////////////////////////////
 //
+// Define user type admin root
+//
+///////////////////////////////////////////
+
+$adminroot = '/candidate-dashboard';
+
+
+///////////////////////////////////////////
+//
 // Define questions / values for item type
 // To add a question, add a new array to the end of $vars
 //

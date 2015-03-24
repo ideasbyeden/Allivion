@@ -4,7 +4,6 @@ class userdef extends directoryCore {
 	
 	public $role;
 	public $label;
-	public $vars = array();
 
 	function __construct($role,$label){
 		$this->role = $role;
@@ -18,7 +17,7 @@ class userdef extends directoryCore {
 	    
 	}
 
-	
+
 	
 	public function register_role(){
 		

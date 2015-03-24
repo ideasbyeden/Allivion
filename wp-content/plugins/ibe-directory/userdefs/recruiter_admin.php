@@ -21,6 +21,15 @@ $label = 'Recruiter admin';
 
 ///////////////////////////////////////////
 //
+// Define user type admin root
+//
+///////////////////////////////////////////
+
+$adminroot = '/recruiter-dashboard';
+
+
+///////////////////////////////////////////
+//
 // Define questions / values for item type
 // To add a question, add a new array to the end of $vars
 //
