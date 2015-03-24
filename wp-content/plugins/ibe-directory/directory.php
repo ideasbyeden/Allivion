@@ -51,7 +51,7 @@ function directory_enqueue() {
 add_action( 'init', 'directory_enqueue' );
 
 function directoryGetUser(){
-	global $user, $usermeta;
+	global $user, $usermeta, $wp_roles;
 	$user = $usermeta = null;
 	if(is_user_logged_in()) {
 		$user = wp_get_current_user();

@@ -1,5 +1,6 @@
 <?php
-	$allivion->canAccess(array('user_id' => get_user_meta($_REQUEST['i'],'group_id',true).','.$_REQUEST['i']));
+
+$allivion->canAccess(array('user_id' => get_user_meta($_REQUEST['i'],'group_id',true).','.$_REQUEST['i']));
 
 
 /*
@@ -55,6 +56,8 @@ foreach($usercustom as $k=>$v){
  					<input type="hidden" name="action" value="directory_update_user" />
  					<input type="hidden" name="redirect" value="/users" />
  					<input type="hidden" name="ID" value="<?php echo $this_user->ID; ?>" />
+ 					<input type="hidden" name="role" value="<?php echo $this_user->roles[0]; ?>" />
+ 					<input type="hidden" name="origin" value="updateuser" />
 
 					<div class="qpanel">
 						<div class="question">

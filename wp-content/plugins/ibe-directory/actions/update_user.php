@@ -4,6 +4,7 @@ add_action("wp_ajax_directory_update_user", "directory_update_user");
 add_action("wp_ajax_nopriv_directory_update_user", "directory_update_user");
 
 function directory_update_user(){
+	
 
 	// Nonce check
 	if ( !wp_verify_nonce( $_REQUEST['nonce'], 'directory_update_user_nonce')) {
@@ -13,11 +14,12 @@ function directory_update_user(){
 	
 	// supplied role object exists
 	$role = $_REQUEST['role'];
-	if(!$$role) die('Role does not exist');
+	global $$role, $user, $usermeta;
+	if(!$$role) die('Role "'.$role.'" does not exist');
 	
 	
 	// Logged in user can edit this entry
-	$$role->canEdit($_REQUEST['ID']);
+	// $$role->canEdit($_REQUEST['ID']);
 
 
 	// set up core user data (stored in wp_users)
@@ -25,7 +27,7 @@ function directory_update_user(){
 	
 	foreach($_REQUEST as $k=>$v){
 		if(in_array($k, $valid)){
-			$userdata[$k] = $v;
+			$this_user[$k] = $v;
 		}
 	}
 
@@ -33,33 +35,48 @@ function directory_update_user(){
 	$varnames = $$role->getVarNames();
 	$validmeta = array_diff($varnames,$valid);
 	
-	foreach($_REQUEST as $k=>$v){
+	foreach($_REQUEST as $k=>$v){ 
 		if(in_array($k, $validmeta)){
-			$usermeta[$k] = $v;
+			$this_usermeta[$k] = $v;
 		}
 	}	
 		
-	// validate supplied data
-	if($userdata['user_pass'] != '' && $userdata['user_pass'] != $_REQUEST['confirm_user_pass']) $error[] = 'Passwords do not match';
-	if(!$userdata['ID']) $error[] = 'No user ID was sent';
-		
+	// assemble / validate data for update user
+	if($_REQUEST['origin'] == 'updateuser'){
+		if($this_user['user_pass'] != '' && $this_user['user_pass'] != $_REQUEST['confirm_user_pass']) $error[] = 'Passwords do not match';
+		$this_user['user_login'] = $this_user['user_nicename'] = strtolower($this_user['first_name']).'_'.strtolower($this_user['last_name']);
+		$this_user['display_name'] = $this_user['first_name'].' '.$this_user['last_name'];	
+		unset($this_usermeta['confirm_user_pass']);
+	}
+	
+	// assemble / validate supplied data for update profile
+	if($_REQUEST['origin'] == 'updateprofile'){
+		$this_user['ID'] = $user->ID;
+	}	
+	
+	if(!$this_user['ID']) $error[] = 'No user ID was sent';
+	
+/*
+	echo '<pre>Item var names '; print_r($varnames); echo '</pre>';
+	echo '<pre>Valid meta fields '; print_r($validmeta); echo '</pre>';
+	echo '<pre>User '; print_r(array_filter($this_user)); echo '</pre>';
+	echo '<pre>Usermeta '; print_r($this_usermeta); echo '</pre>';
+	die();
+*/
 	
 	// If no errors, update user
 	if(!$error){
-		
-		$userdata['user_login'] = $userdata['user_nicename'] = strtolower($userdata['first_name']).'_'.strtolower($userdata['last_name']);
-		$userdata['display_name'] = $userdata['first_name'].' '.$userdata['last_name'];
-		wp_update_user($userdata);
-		
-		foreach($usermeta as $k=>$v){
-			update_user_meta($userdata['ID'],$k,$v);
+		wp_update_user($this_user);
+		foreach($this_usermeta as $k=>$v){
+			update_user_meta($this_user['ID'],$k,$v);
 		}
 	
 	// errors found, return to form with error details	
 	} else {
 		session_start();
 		$_SESSION['errors'] = $error;
-		$_SESSION['userdata'] = $userdata;
+		$_SESSION['userdata'] = $this_user;
+		$_SESSION['usermeta'] = $this_usermeta;
 		header('Location: '.$_SERVER['HTTP_REFERER']);
 		die();
 	}

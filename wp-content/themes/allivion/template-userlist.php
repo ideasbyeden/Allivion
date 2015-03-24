@@ -39,7 +39,7 @@ while (have_posts()) {
 							foreach($user_query->results as $user) { ?>
 								<tr class="clickable" data-href="/users/update?i=<?php echo $user->ID; ?>">
 									<td><?php echo $user->display_name; ?></td>
-									<td><?php echo ucfirst($user->roles[0]); ?></td>
+									<td><?php echo $wp_roles->roles[$user->roles[0]]['name']; ?></td>
 								</tr>
 							<?php }
 						} else {
