@@ -15,7 +15,6 @@ require_once('user_functions.php');
 require_once('dev_functions.php');
 
 
-
 global $wp_rewrite;
 $allivion = new directoryCore();
 
@@ -65,3 +64,14 @@ function directoryGetUser(){
 }
 
 add_action( 'init', 'directoryGetUser' );
+
+function directory_deactivate(){
+	foreach(glob(__DIR__ . '/userdefs/*.php') as $filename)
+	{
+	    remove_role( strtok($filename, '.') );
+	}
+
+}
+
+register_deactivation_hook( __FILE__, 'directory_deactivate' );
+

@@ -24,7 +24,7 @@ class itemdef extends directoryCore {
 	}
 	
 	public function register_cpt(){
-		
+				
 		register_post_type($this->type, array(
 	        'labels' => array(
 	            'name' => ucfirst($this->label),

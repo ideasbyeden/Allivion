@@ -9,11 +9,12 @@ class userdef extends directoryCore {
 		$this->role = $role;
 		$this->label = $label;
 		
-		if( ! get_role( $this->role ) ) {
+		//if( ! get_role( $this->role ) ) {
 	        add_action( 'init', array( &$this, 'register_role' ) );
-	    }
+	    //}
 	    
 	    $this->remove_wp_roles();
+	    
 	    
 	}
 
@@ -29,8 +30,9 @@ class userdef extends directoryCore {
 				'read' => true,
 				'upload_files' => true
 				);
+				
 					
-		add_role( $role, $label, $caps );
+		add_role( $this->role, $this->label, $caps );
 		
 	}
 	
