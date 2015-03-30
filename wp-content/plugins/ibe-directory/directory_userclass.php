@@ -43,14 +43,23 @@ class userdef extends directoryCore {
 		remove_role( 'contributor' );
 	}
 	
-	public function getVals(){
+	public function getVals($user_id = null){
 		
-		global $user, $usermeta;
-		foreach($usermeta as $k=>$v){
-			$vals[$k] = $v[0];
+		if($user_id){
+			foreach(get_user_meta($user_id) as $k=>$v){
+				$vals[$k] = $v[0];
+			}
+			$vals['user'] = get_user_by('id',$user_id);
+			
+		} else {
+			global $user, $usermeta;
+			foreach($usermeta as $k=>$v){
+				$vals[$k] = $v[0];
+			}
+			$vals['user'] = $user;
 		}
-		$vals['user'] = $user;
 		return $vals;
+		
 	}
 			
 }

@@ -13,6 +13,7 @@ function directory_update(){
 	if(!$_REQUEST['post_id']) exit('No post ID was supplied');
 	
 	$type = $_REQUEST['type'];
+	global $$type;
 	$varnames = $$type->getVarNames();
 	
 	foreach($varnames as $var){
@@ -24,7 +25,11 @@ function directory_update(){
 	if($_SERVER['HTTP_X_REQUESTED_WITH'] && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
 		echo json_encode($result);
 	} else {
-		header("Location: ".$_SERVER["HTTP_REFERER"]);
+		if($_REQUEST['redirect']){
+			header('Location: '.$_REQUEST['redirect']);
+		} else {
+			header('Location: '.$_SERVER['HTTP_REFERER']);
+		}
 	}
 	
 	die();

@@ -197,6 +197,13 @@ class directoryCore {
 					$output .= '/>';
 				break;
 				
+				case 'hidden':
+					$output .= '<input type="hidden" ';
+					$output .= $question['name'] ? 'name="'.$question['name'].'" ' : '';
+					$output .= 'value="'.$value.'" ';
+					$output .= '/>';
+				break;
+				
 				
 			}
 			
@@ -215,6 +222,28 @@ class directoryCore {
 		if($group){
 			foreach($group as $question) $this->printQuestion($question['name'],$vals[$question['name']]);
 		}
+	}
+	
+	public function printDetail($name,$value = null){
+		
+		$q = $this->getQuestion($name);
+		
+		// is single value or full vals array passed
+		if(is_array($value)) $value = $value[$name];
+		
+		// is value defined by checkbox / radio
+		$value_arr = unserialize($value);
+		if(is_array($value_arr)) {
+			$value = array_search($value_arr[0], $q['value']);
+		}
+		
+		// create output
+		$output .= '<p class="detail">';
+		$output .= '<span class="detail_label">'.$q['label'].'</span>';
+		$output .= '<span class="detail_value">'.$value.'</span>';
+		$output .= '</p>';
+		
+		echo $output;
 	}
 	
 	

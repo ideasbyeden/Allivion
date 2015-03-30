@@ -49,7 +49,7 @@ $vars = array(
 	
 	array(
 		'name' => 'first_name',
-		'label' => 'Fist name',
+		'label' => 'First name',
 		'placeholder' => '',
 		'fieldtype' => 'text',
 		'group' => 'headline',
@@ -64,7 +64,30 @@ $vars = array(
 		'fieldtype' => 'text',
 		'group' => 'headline'
 	),
-	
+	array(
+		'name' => 'email',
+		'label' => 'Email address',
+		'placeholder' => '',
+		'fieldtype' => 'email',
+		'group' => 'headline'
+	),
+	array(
+		'name' => 'message',
+		'label' => 'Message',
+		'placeholder' => '',
+		'fieldtype' => 'textarea',
+		'group' => 'headline'
+	),
+	array(
+		'name' => 'job_id',
+		'fieldtype' => 'hidden',
+		'group' => 'hidden'
+	),
+	array(
+		'name' => 'job_title',
+		'fieldtype' => 'hidden',
+		'group' => 'hidden'
+	),	
 	
 
 );

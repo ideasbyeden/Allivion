@@ -3,15 +3,18 @@ jQuery(function(){
 
 	jQuery('form.directory.update').submit(function(e){
 		e.preventDefault();
-		saveForm(jQuery(this));
+		submitForm(jQuery(this));
 	});
-	
-	jQuery('form.directory.update input, form.directory.update textarea, form.directory.update select').change(function(){
-		var form = jQuery(this).closest('form');
-		saveForm(form);
-	});	
-	
-	function saveForm(form){
+
+	if(jQuery('form.directory.create').attr('autosave') == 'true'){
+		autosave = true;
+		jQuery('form.directory.create input, form.directory.create textarea, form.directory.create select').change(function(){
+			var form = jQuery(this).closest('form');
+			submitForm(form);
+		});	
+	}
+		
+	function submitForm(form){
 		
 		var data = form.serialize();
 		
@@ -22,9 +25,17 @@ jQuery(function(){
 			dataType: 'json',
 					
 			success: function(result){
-				jQuery.each(result, function(k,v){
-					jQuery('.preview').find('span#'+k).html(v);				
-				});
+				if(autosave){
+					jQuery.each(result, function(k,v){
+						jQuery('.preview').find('span#'+k).html(v);				
+					});
+				}
+				if(result.redirect){
+					window.document.location(result.redirect);
+				}
+				if(result.message){
+					form.find('.message').html(result.message);
+				}
 			}
 		});
 	}

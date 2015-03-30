@@ -37,6 +37,7 @@
 				<nav id="main">
 					<?php wp_nav_menu('theme_location=main'); ?>
 				</nav>
+				<?php global $user, $usermeta; if($user) echo '<p class="">Logged in as '.$user->display_name.'</p>'; ?>
 					
 			</div>
 		</div>

@@ -1,7 +1,7 @@
 <?php
 
 /*
-Template Name: Job details
+Template Name: Recruiter job
 */
 
 /*
