@@ -44,6 +44,11 @@ class userdef extends directoryCore {
 	}
 	
 	public function getVals($user_id = null){
+
+		global $user, $usermeta;
+		if(!$user || $user_id == 0) {
+			return false;
+		}
 		
 		if($user_id){
 			foreach(get_user_meta($user_id) as $k=>$v){
@@ -52,7 +57,6 @@ class userdef extends directoryCore {
 			$vals['user'] = get_user_by('id',$user_id);
 			
 		} else {
-			global $user, $usermeta;
 			foreach($usermeta as $k=>$v){
 				$vals[$k] = $v[0];
 			}

@@ -69,7 +69,8 @@ $vars = array(
 		'label' => 'Email address',
 		'placeholder' => '',
 		'fieldtype' => 'email',
-		'group' => 'headline'
+		'group' => 'headline',
+		'altfields' => 'user_email' 
 	),
 	array(
 		'name' => 'message',

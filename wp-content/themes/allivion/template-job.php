@@ -82,16 +82,32 @@ $uservals['email'] = $user->user_email;
 				<input type="hidden" name="nonce" value="<?php echo wp_create_nonce("directory_create_nonce"); ?>" />
 				<input type="hidden" name="action" value="directory_create" />
  				<input type="hidden" name="success_message" value="Your application has been submitted" />
+ 				<input type="hidden" name="formafter" value="hide" />
 				
 				<div class="qpanel">
 					<?php $application->printGroup('headline',$uservals); ?>
 					<?php $application->printQuestion('job_id',$_REQUEST['i']); ?>
 					<?php $application->printQuestion('job_title',$vals['job_title']); ?>
+					<input type="submit" value="Submit application" />
 				</div>
-				
-				<input type="submit" value="Submit application" />
-				<p class="message"></p>
 
+			</form>
+
+			<p class="message"></p>
+			
+			<form class="directory candidate create" id="register_prompt" action="<?php echo admin_url('admin-ajax.php'); ?>" method="post" style="display:none;">
+			 	
+			 	<input type="hidden" name="role" value="candidate" />
+				<input type="hidden" name="nonce" value="<?php echo wp_create_nonce("directory_create_user_nonce"); ?>" />
+				<input type="hidden" name="action" value="directory_create_user" />
+				<input type="hidden" name="redirect" value="/candidate-dashboard" />
+				
+				<div class="qpanel">
+					<h4>Why not save your details for next time?</h4>
+					<p>By registering with Allivion, your profile can be searched by potential employers</p>
+					<?php $candidate->printGroup('basics',json_decode($_COOKIE['allivion_unli'])); ?>
+					<input type="submit" value="Register" />
+				</div>				
 			</form>
 		
 			

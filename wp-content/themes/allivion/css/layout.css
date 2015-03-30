@@ -138,6 +138,8 @@ img {
 	background-image: linear-gradient(to right, #B88EC0 0%, #592580 100%);
 	
 	color: white;
+	
+	min-height: 1000px;
 }
 
 /* misc */
