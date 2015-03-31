@@ -49,11 +49,11 @@ while (have_posts()) {
 
 				<form class="directory" id="createuser" action="<?php echo admin_url('admin-ajax.php'); ?>" method="post">
 				
-					<input type="hidden" name="group_id" value="<?php echo wp_get_current_user()->ID ?>" />
+					<input type="hidden" name="group_id" value="<?php echo $user->ID ?>" />
  					<input type="hidden" name="role" value="recruiter" />
 					<input type="hidden" name="nonce" value="<?php echo wp_create_nonce("directory_create_user_nonce"); ?>" />
  					<input type="hidden" name="action" value="directory_create_user" />
- 					<input type="hidden" name="redirect" value="/recruiter-dashboard" />
+ 					<input type="hidden" name="redirect" value="/users/" />
 
 					<div class="qpanel">
 						<div class="question">

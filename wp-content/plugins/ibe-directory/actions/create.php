@@ -39,6 +39,12 @@ function directory_create(){
 		}
 	}
 	
+	// Send notification of item creation to supplied email
+	if($_REQUEST['notify']){
+		$allivion->notify($_REQUEST);
+	}
+	
+		
 	// post-submission behaviour
 	$result['formafter'] = $_REQUEST['formafter'];
 	
@@ -48,6 +54,7 @@ function directory_create(){
 		setcookie('allivion_unli',json_encode($result),time()+3600);
 	}
 
+
 	
 	// Form submitted by AJAX
 	if($_SERVER['HTTP_X_REQUESTED_WITH'] && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
@@ -55,6 +62,7 @@ function directory_create(){
 		if($_REQUEST['success_message']){
 			$result['message'] = $_REQUEST['success_message'];
 		}
+
 		if($_REQUEST['redirect']){
 			$result['redirect'] = $_REQUEST['redirect'].'?i='.$newitemID.'&u='.$result['post_author'];
 		}

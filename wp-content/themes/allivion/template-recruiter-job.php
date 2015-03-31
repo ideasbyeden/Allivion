@@ -30,7 +30,7 @@ while (have_posts()) {
 		
 		<h1 class="purple">Create job advertisement</h1>
 
-			<form class="directory <?php echo $job->type; ?> update" id="jobdetails" action="<?php echo admin_url('admin-ajax.php'); ?>" method="post">
+			<form class="directory <?php echo $job->type; ?> update" id="jobdetails" action="<?php echo admin_url('admin-ajax.php'); ?>" method="post" autosave="true">
 				
 				<input type="hidden" name="post_id" value="<?php echo $_REQUEST['i']; ?>" />
 				<input type="hidden" name="type" value="<?php echo $job->getItemType(); ?>" />

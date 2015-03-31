@@ -273,6 +273,11 @@ $vars = array(
 		),
 		'group' => 'admin'
 	),
+	array(
+		'name' => 'group_id',
+		'fieldtype' => 'hidden',
+		'group' => 'admin'
+	)
 
 
 );

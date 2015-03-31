@@ -1,18 +1,17 @@
 jQuery(function(){
 	
-
 	jQuery('form.directory.update').submit(function(e){
 		e.preventDefault();
 		submitForm(jQuery(this));
 	});
 
-	if(jQuery('form.directory.create').attr('autosave') == 'true'){
-		autosave = true;
-		jQuery('form.directory.create input, form.directory.create textarea, form.directory.create select').change(function(){
-			var form = jQuery(this).closest('form');
+	jQuery('form.directory.update input, form.directory.update textarea, form.directory.update select').change(function(){
+		var form = jQuery(this).closest('form');
+		if(form.attr('autosave') == 'true'){
 			submitForm(form);
-		});	
-	}
+		}
+	});	
+	
 		
 	function submitForm(form){
 		

@@ -67,6 +67,8 @@ $uservals['email'] = $user->user_email;
 		</div>
 		
 		<div class="twothirdscol">
+			
+			<pre><?php print_r($employer); ?></pre>
 		
 			<h1 class="purple"><?php echo $vals['job_title']; ?>, <?php echo $vals['location']; ?></h1>
 			
@@ -81,6 +83,7 @@ $uservals['email'] = $user->user_email;
 				<input type="hidden" name="type" value="<?php echo $application->getItemType(); ?>" />
 				<input type="hidden" name="nonce" value="<?php echo wp_create_nonce("directory_create_nonce"); ?>" />
 				<input type="hidden" name="action" value="directory_create" />
+				<input type="hidden" name="notifyuser" value="<?php echo $employer['user']->ID; ?>" />
  				<input type="hidden" name="success_message" value="Your application has been submitted" />
  				<input type="hidden" name="formafter" value="hide" />
 				
@@ -95,12 +98,13 @@ $uservals['email'] = $user->user_email;
 
 			<p class="message"></p>
 			
-			<form class="directory candidate create" id="register_prompt" action="<?php echo admin_url('admin-ajax.php'); ?>" method="post" style="display:none;">
+			<form class="directory" id="register_prompt" action="<?php echo admin_url('admin-ajax.php'); ?>" method="post" style="display:none;">
 			 	
 			 	<input type="hidden" name="role" value="candidate" />
 				<input type="hidden" name="nonce" value="<?php echo wp_create_nonce("directory_create_user_nonce"); ?>" />
 				<input type="hidden" name="action" value="directory_create_user" />
-				<input type="hidden" name="redirect" value="/candidate-dashboard" />
+ 				<input type="hidden" name="redirect" value="/candidate-dashboard" />
+ 				<input type="hidden" name="autologin" value="true" />
 				
 				<div class="qpanel">
 					<h4>Why not save your details for next time?</h4>

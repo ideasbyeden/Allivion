@@ -48,7 +48,7 @@ $returnfields = array('job_title','job_ref','location');
 					<input type="hidden" name="varnames" value="<?php echo implode(',', $job->getVarNames()); ?>" />
 					<input type="hidden" name="nonce" value="<?php echo wp_create_nonce("directory_create_nonce"); ?>" />
  					<input type="hidden" name="action" value="directory_create" />
- 					<input type="hidden" name="redirect" value="/job-details-form" />
+ 					<input type="hidden" name="redirect" value="/job-details" />
  					<input type="hidden" name="type" value="job" />
  					<input type="hidden" name="status" value="active" />
  					<input type="hidden" name="group_id" value="<?php echo $usermeta['group_id'] ? $usermeta['group_id'] : $user->ID; ?>" />

@@ -48,7 +48,7 @@ $returnfields = array('job_title','job_ref','location');
 				$items = directory_search($params);
 			?>
 
-			
+			<pre><?php //print_r($items); ?></pre>
 			<table id="appslist" class="searchresults">
 				<thead>
 					<tr>
@@ -64,6 +64,7 @@ $returnfields = array('job_title','job_ref','location');
 						<?php foreach($returnfields as $field){ ?>
 						<td><?php echo $item->meta[$field]; ?></td>
 						<?php } ?>
+						<td><?php echo date('jS M Y, g.ia',strtotime($item->post_date)); ?></td>
 					</tr>
 				<?php } ?>
 				</tbody>
