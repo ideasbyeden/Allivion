@@ -24,8 +24,8 @@ function directory_update_user(){
 
 	// set up core user data (stored in wp_users)
 	$valid = array('ID','user_pass','user_login','user_nicename','user_url','user_email','display_name','nickname','first_name','last_name','description','rich_editing','user_registered','role','jabber','aim','yim');
-	
-	foreach($_REQUEST as $k=>$v){
+		
+	foreach(array_filter($_REQUEST) as $k=>$v){
 		if(in_array($k, $valid)){
 			$this_user[$k] = $v;
 		}
@@ -35,7 +35,7 @@ function directory_update_user(){
 	$varnames = $$role->getVarNames();
 	$validmeta = array_diff($varnames,$valid);
 	
-	foreach($_REQUEST as $k=>$v){ 
+	foreach(array_filter($_REQUEST) as $k=>$v){ 
 		if(in_array($k, $validmeta)){
 			$this_usermeta[$k] = $v;
 		}
@@ -67,8 +67,10 @@ function directory_update_user(){
 	// If no errors, update user
 	if(!$error){
 		wp_update_user($this_user);
-		foreach($this_usermeta as $k=>$v){
-			update_user_meta($this_user['ID'],$k,$v);
+		if($this_usermeta){
+			foreach($this_usermeta as $k=>$v){
+				update_user_meta($this_user['ID'],$k,$v);
+			}
 		}
 	
 	// errors found, return to form with error details	

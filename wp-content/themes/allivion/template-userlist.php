@@ -1,4 +1,7 @@
 <?php
+	
+$allivion->canAccess(array('roles' => 'recruiter_admin,recruiter'));
+
 
 /*
 Template Name: User list

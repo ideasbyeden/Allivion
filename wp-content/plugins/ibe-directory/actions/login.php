@@ -13,6 +13,7 @@ function directory_login(){
     $info['user_password'] = $_REQUEST['password'];
     $info['remember'] = true;
     
+    //die(print_r($_REQUEST));
 
     $login = wp_signon( $info, false );
     if (!is_wp_error($login) ){
