@@ -1,6 +1,6 @@
 <?php
 
-$allivion->canAccess(array('user_id' => get_user_meta($_REQUEST['i'],'group_id',true).','.$_REQUEST['i']));
+$result = $allivion->canAccess(array('id' => $_REQUEST['i'].','.get_user_meta($_REQUEST['i'],'group_id',true)));
 
 
 /*
@@ -40,6 +40,7 @@ foreach($usercustom as $k=>$v){
 }
 //echo '<pre>'; print_r($user); echo '</pre>';
 //echo '<pre>'; print_r($usermeta); echo '</pre>';
+
 
 ?>
 

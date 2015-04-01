@@ -253,6 +253,7 @@ class directoryCore {
 	
 	public function canAccess($args){
 		
+		//die(print_r($args));
 		global $user, $usermeta;
 		$usertype = $user->roles[0];
 		global $$usertype;
@@ -278,7 +279,8 @@ class directoryCore {
 		if($redirect){ // access denied
 			if($user){ // no user logged in
 				if(rtrim($_SERVER['REQUEST_URI'],'/') != $$usertype->AdminRoot()){ // avoids redirect loop if usertype redirect doesn't specify access permission
-					header("Location: ".$$usertype->AdminRoot());
+					//header("Location: ".$$usertype->AdminRoot());
+					header("Location: ".$_SERVER['HTTP_REFERER']);
 				}
 			} else {
 				header("Location: ".DIRECTORY_LOGINPATH);
