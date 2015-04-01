@@ -50,7 +50,7 @@ $returnfields = array('job_title','job_ref','location','job_status');
  					<input type="hidden" name="action" value="directory_create" />
  					<input type="hidden" name="redirect" value="/job-details" />
  					<input type="hidden" name="type" value="job" />
- 					<input type="hidden" name="status" value="active" />
+ 					<input type="hidden" name="job_status" value="active" />
  					<input type="hidden" name="group_id" value="<?php echo $usermeta['group_id'] ? $usermeta['group_id'] : $user->ID; ?>" />
 
 					<div class="qpanel purplegrad">
@@ -98,12 +98,11 @@ $returnfields = array('job_title','job_ref','location','job_status');
 				$params = $_GET ? $_GET : array();
 				$params['type'] = 'job';
 				$params['group_id'] = $usermeta['group_id'] ? $usermeta['group_id'] : $user->ID;
-				//echo pre($params); 
 				$items = directory_search($params);
 			?>
 
 			
-			<table id="jobslist" class="searchresults">
+			<table class="searchresults">
 				<thead>
 					<tr>
 						<?php foreach($returnfields as $field){ ?>
@@ -111,7 +110,7 @@ $returnfields = array('job_title','job_ref','location','job_status');
 						<?php } ?>
 					</tr>
 				</thead>
-				<tbody>
+				<tbody id="jobslist">
 							
 				<?php foreach ($items->posts as $item){ ?>
 					<tr class="clickable" data-href="/job-details?i=<?php echo $item->ID; ?>">

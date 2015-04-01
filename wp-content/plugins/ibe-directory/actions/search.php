@@ -63,7 +63,7 @@ function directory_search($params = null){
 	
 	// push meta values into post object
 	for($i=0; $i<count($result->posts); $i++){
-		
+		$cleanmeta = array();
 		$thispost = $result->posts[$i];
 		$meta = get_post_custom( $thispost->ID );
 		foreach($meta as $k=>$v){

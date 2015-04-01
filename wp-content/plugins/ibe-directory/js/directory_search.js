@@ -31,11 +31,11 @@ jQuery(function(){
 					
 			success: function(result){
 				jQuery('#'+target).html('');
-				jQuery('#'+target).append('<thead><tr><td>Job title</td><td>Reference</td></tr></thead>');
 				jQuery.each(result.posts, function(index,postdata){
 					console.log(postdata);
 					var row = '<tr class="clickable" data-href="/job-details-form?i='+postdata['ID']+'">';
 						jQuery.each(returndata, function(k,v){
+							if(typeof postdata.meta[v] == 'undefined') postdata.meta[v] = '';
 							row += '<td>'+postdata.meta[v]+'</td>';
 						});
 					row += '</tr>';
