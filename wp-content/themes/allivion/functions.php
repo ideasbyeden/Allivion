@@ -70,15 +70,28 @@ add_filter('wp_nav_menu','add_last_item_class');
 
 // add login / logout items to end of nav
 function loginout_menu_link($items) {
-      if (is_user_logged_in()) {
-         $items .= '<li class="fr purple"><a href="'. wp_logout_url('/index.php') .'">Log Out</a></li>';
-      } else {
-         $items .= '<li class="fr purple"><a href="/log-in" id="show_login">Log In</a></li>';
-      }
+	global $user, $usermeta;
+	if ($user) {
+		$items .= '<li class="fr purple"><a href="'. wp_logout_url('/index.php') .'">Log Out</a></li>';
+	} else {
+		$items .= '<li class="fr purple"><a href="/log-in" id="show_login">Log In</a></li>';
+	}
    return $items;
 }
 
 add_filter( 'wp_nav_menu_items', 'loginout_menu_link', 10, 2 );
+
+
+function postjob_menu_link($items) {
+	global $user, $usermeta;
+	if ($user && ($user->roles[0] == 'recruiter_admin' || $user->roles[0] == 'recruiter')) {
+		$items .= '<li class="fr purple"><a href="/recruiter_dashboard">Post a job</a></li>';
+	}
+	return $items;
+}
+
+add_filter( 'wp_nav_menu_items', 'postjob_menu_link', 10, 2 );
+
 
 // add logo to admin nav
 function menu_logo( $items, $args ) {

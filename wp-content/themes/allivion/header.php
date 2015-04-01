@@ -25,6 +25,19 @@
 
 	
 	<?php wp_head(); ?>
+	
+	<?php global $user, $usermeta; 
+		if($user) { ?>
+			<style>
+				.loggedinshow{display:inherit;}
+				.loggedinhide{display:none;}
+			</style>
+		<?php } else { ?>
+			<style>
+				.loggedinshow{display:none;}
+				.loggedinhide{display:inherit;}
+			</style>
+		<?php } ?> 
 
 </head>
 
@@ -37,7 +50,7 @@
 				<nav id="main">
 					<?php wp_nav_menu('theme_location=main'); ?>
 				</nav>
-				<?php global $user, $usermeta; if($user) echo '<p class="">Logged in as '.$user->display_name.'</p>'; ?>
+				<?php if($user) echo '<p class="">Logged in as '.$user->display_name.'</p>'; ?>
 					
 			</div>
 		</div>

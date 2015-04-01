@@ -24,7 +24,8 @@ jQuery(function(){
 			async: true,
 					
 			success: function(result){
-
+				if(!result.loggedin) jQuery('form#login').find('.message').html(result.message);
+				if(result.redirect) window.document.location = result.redirect;
 				if(result.roles[0] == 'recruiter' || result.roles[0] == 'recruiter_admin') { window.document.location = '/recruiter-dashboard'; }
 				else if(result.roles[0] == 'advertiser' ) { window.document.location = '/advertiser-dashboard'; }
 				else if(result.roles[0] == 'candidate' ) { window.document.location = '/candidate-dashboard'; }

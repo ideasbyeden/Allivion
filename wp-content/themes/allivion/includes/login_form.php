@@ -6,7 +6,7 @@
 
 	<a class="close" href=""><img src="<?php bloginfo('template_url'); ?>/img/close.png" /></a>
     <h1>Login</h1>
-    <p class="status"></p>
+    <p class="message"></p>
     <div class="qpanel">
 	    <div class="question">
 		    <label for="username">Username</label>

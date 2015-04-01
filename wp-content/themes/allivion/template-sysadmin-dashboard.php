@@ -40,31 +40,7 @@ $returnfields = array('job_title','job_ref','location','job_status');
 		
 		<h1 class="purple">Job advertisements</h1>
 		
-			<div class="halfcol">
-
-				<form class="directory <?php echo $job->type; ?>" id="createjob" action="<?php echo admin_url('admin-ajax.php'); ?>" method="post">
-				
-					<input type="hidden" name="post_id" value="<?php echo $_REQUEST['i']; ?>" />
-					<input type="hidden" name="varnames" value="<?php echo implode(',', $job->getVarNames()); ?>" />
-					<input type="hidden" name="nonce" value="<?php echo wp_create_nonce("directory_create_nonce"); ?>" />
- 					<input type="hidden" name="action" value="directory_create" />
- 					<input type="hidden" name="redirect" value="/job-details" />
- 					<input type="hidden" name="type" value="job" />
- 					<input type="hidden" name="status" value="active" />
- 					<input type="hidden" name="group_id" value="<?php echo $usermeta['group_id'] ? $usermeta['group_id'] : $user->ID; ?>" />
-
-					<div class="qpanel purplegrad">
-						<h2>Create a new ad</h2>
-						<?php $job->printQuestion('job_title'); ?>
-						<?php $job->printQuestion('job_ref'); ?>
-						<input type="submit" value="Save and add details" class="fr"/>
-						<div class="clear"></div>
-					</div>
-					
-				</form>
-				
-			</div>
-			
+						
 			<div class="halfcol">
 				
 

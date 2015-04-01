@@ -12,12 +12,14 @@ function directory_login(){
     $info['user_login'] = $_REQUEST['username'];
     $info['user_password'] = $_REQUEST['password'];
     $info['remember'] = true;
+    
 
-    $user = wp_signon( $info, false );
-    if (!is_wp_error($user) ){
-        echo json_encode($user);
+    $login = wp_signon( $info, false );
+    if (!is_wp_error($login) ){
+	    if($_REQUEST['redirect']) $login['redirect'] = $_REQUEST['redirect'];
+        echo json_encode($login);
     } else {
-        echo json_encode(array('loggedin'=>false, 'message'=>__('Wrong username or password.')));
+        echo json_encode(array('loggedin'=>false, 'message'=>'<span class="error">Username or password not recognised</span>'));
     }
 
 	die();

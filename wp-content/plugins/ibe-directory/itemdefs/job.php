@@ -22,6 +22,19 @@ $single_label ='job';
 
 ///////////////////////////////////////////
 //
+// Define value arrays for multiple use
+//
+///////////////////////////////////////////
+
+$sectors = array(
+			'Agrictulture, Food & Veterinary' 		=> 'agri/food/vet',	
+			'Architecture, Building & Planning' 	=> 'architecture/building',	
+			'Biological Sciences' 					=> 'biological_science'
+			);
+
+
+///////////////////////////////////////////
+//
 // Define questions / values for item type
 // To add a question, add a new array to the end of $vars
 //
@@ -159,10 +172,7 @@ $vars = array(
 		'label' => 'Industry',
 		'placeholder' => '',
 		'fieldtype' => 'check',
-		'value' => array(
-			'Agrictulture, Food & Veterinary' 		=> 'agri/food/vet',	
-			'Architecture, Building & Planning' 	=> 'architecture/building',	
-			'Biological Sciences' 					=> 'biological_science'		),
+		'value' => $sectors,
 		'group' => 'industry_location',
 		'keyword' => 'true'
 	),
@@ -261,6 +271,14 @@ $vars = array(
 		'placeholder' => '',
 		'fieldtype' => 'text',
 		'group' => 'extra'
+	),
+	array(
+		'name' => 'promote',
+		'label' => 'Promote for',
+		'fieldtype' => 'dropdown',
+		'addblank' => true,
+		'value' => $sectors,
+		'group' => 'admin'
 	),
 	array(
 		'name' => 'job_status',

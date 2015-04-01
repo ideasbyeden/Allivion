@@ -130,6 +130,9 @@ class directoryCore {
 					$output .= $question['placeholder'] ? 'placeholder="'.$question['placeholder'].'" ' : '';
 					$output .= $question['required'] ? 'required="'.$question['required'].'" ' : '';
 					$output .= '>';
+					if($question['addblank']){
+						$output .= '<option value="">Select</option>';
+					}
 					foreach($question['value'] as $k=>$v){
 						$output .= '<option value="'.$v.'" ';
 						if($value == $v){
@@ -145,7 +148,7 @@ class directoryCore {
 					foreach($question['value'] as $k=>$v){
 						if(strlen($k) > $l) $l = strlen($k);
 					}
-					$cols = round(50/$l, 0, PHP_ROUND_HALF_DOWN);
+					$cols = round(40/$l, 0, PHP_ROUND_HALF_DOWN);
 					$cols = $cols < 4 ? $cols : 4;
 					
 					$output .= $question['label'] ? '<label>'.$question['label'].'</label>' : '';
@@ -171,7 +174,7 @@ class directoryCore {
 					foreach($question['value'] as $k=>$v){
 						if(strlen($k) > $l) $l = strlen($k);
 					}
-					$cols = round(50/$l, 0, PHP_ROUND_HALF_DOWN);
+					$cols = round(40/$l, 0, PHP_ROUND_HALF_DOWN);
 					$cols = $cols < 4 ? $cols : 4;
 
 					$output .= $question['label'] ? '<label>'.$question['label'].'</label>' : '';

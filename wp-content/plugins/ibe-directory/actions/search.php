@@ -58,23 +58,36 @@ function directory_search($params = null){
 
 	
 	// run WP query
-	
 	$result = new WP_Query($query_args);
 	
 	
 	// push meta values into post object
-	
 	for($i=0; $i<count($result->posts); $i++){
 		
-		$meta = get_post_custom( $result->posts[$i]->ID );
+		$thispost = $result->posts[$i];
+		$meta = get_post_custom( $thispost->ID );
 		foreach($meta as $k=>$v){
 			$cleanmeta[$k] = $v[0];
 		}
-		$result->posts[$i]->meta = $cleanmeta;
+		$thispost->meta = $cleanmeta;
+		
+		
+		// update returned in search count
+		if($params['search_count']){
+			$search_count = get_post_meta($thispost->ID,'search_count',true);
+			//echo 'found post '.$thispost->ID.' with post count '.$search_count;
+			if($search_count != ''){
+				update_post_meta($thispost->ID,'search_count',intval($search_count)+1);
+			} else {
+				update_post_meta($thispost->ID,'search_count','1');
+			}
+		}
+		
 	}
 	
+
+	
 	// choose return path (AJAX or HTTP)
-		
 	if($_POST){
 		if($_SERVER['HTTP_X_REQUESTED_WITH'] && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
 			echo json_encode($result);
