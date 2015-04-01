@@ -46,7 +46,7 @@ class userdef extends directoryCore {
 	public function getVals($user_id = null){
 
 		global $user, $usermeta;
-		if(!$user || $user_id == 0) {
+		if(!$user && (!$user_id || $user_id == 0)) {
 			return false;
 		}
 		

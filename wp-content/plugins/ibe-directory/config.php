@@ -1,5 +1,22 @@
 <?php
 	
+/*-----------------------------------------------
+	
+Application name and email (used in notify function et al)
+
+-------------------------------------------------*/
+
+define('APPLICATION', 'Allivion');
+define('APPLICATION_EMAIL', 'noreply@allivion.com');
+define('NOTIFY_EMAIL', 'notifications@allivion.com');
+
+
+/*-----------------------------------------------
+	
+define urls for pages using specific templates
+
+-------------------------------------------------*/
+	
 define('DIRECTORY_LOGINPATH', '/');
 define('DIRECTORY_RECADMIN', '/recruiter-dashboard');
 define('DIRECTORY_ADVADMIN', '/advertiser-dashboard');
@@ -8,8 +25,6 @@ define('DIRECTORY_CREATEUSERPATH', '/user/create');
 define('DIRECTORY_UPDATEUSERPATH', '/user/update');
 define('POSTTITLEFIELD', 'job_title');
 
-// define urls for pages using specific templates
-// limit template usage to n pages
 
 /*-------------------------
 	

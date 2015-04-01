@@ -89,6 +89,11 @@ $vars = array(
 		'fieldtype' => 'hidden',
 		'group' => 'hidden'
 	),	
+	array(
+		'name' => 'job_ref',
+		'fieldtype' => 'hidden',
+		'group' => 'hidden'
+	),	
 	
 
 );

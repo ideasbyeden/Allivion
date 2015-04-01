@@ -62,10 +62,11 @@ class directoryCore {
 	}
 	
 	
-	public function printQuestion($name,$value = null){
+	public function printQuestion($name,$value = null,$hidden = false){
 		if($question = $this->getQuestion($name)){
 			
 			$value ? $value : ($question['value'] ? $question['value'] : '');
+			$question['fieldtype'] = $hidden ? 'hidden' : $question['fieldtype'];
 				
 			switch($question['fieldtype']){
 				
@@ -281,6 +282,32 @@ class directoryCore {
 			}
 		}
 		
+	}
+	
+	public function notify($data){
+		
+		if(!$data['notify']) return false;
+		
+		// build email body using template
+		$template = $data['notify_template'] ? $data['notify_template'] : 'default';
+		$body = file_get_contents(__DIR__ . '/templates/'.$template.'.php');
+		foreach($data as $k=>$v){
+			$body = preg_replace('/\['.$k.'\]/', $v, $body);
+		}
+			
+		// send email
+		$this->sendEmail($data['notify'],NOTIFY_EMAIL,$data['notify_subject'],$body);
+	}
+	
+	public function sendEmail($toemail,$fromemail = APPLICATION_EMAIL,$subject,$body,$fromname = APPLICATION,$toname = null){
+		
+		$to = $toname ? $toname.' <'.$toemail.'>' : $toemail;
+		$headers  = 'MIME-Version: 1.0' . "\r\n";
+		$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+		$headers .= 'From: '.$fromname.' <'.$fromemail.'>'."\r\n";
+		$option   = '-f '.$fromemail;
+		
+		mail($to, $subject, $body, $headers, $option);
 	}
 	
 }

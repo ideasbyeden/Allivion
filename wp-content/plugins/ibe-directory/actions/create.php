@@ -5,7 +5,9 @@ add_action("wp_ajax_nopriv_directory_create", "directory_create");
 
 function directory_create(){
 	
-	global $user;
+	global $user, $allivion;
+	
+	//die(print_r($_REQUEST));
 		
 	if ( !wp_verify_nonce( $_REQUEST['nonce'], 'directory_create_nonce')) {
       exit('You are not authorised to take this action');
@@ -18,13 +20,18 @@ function directory_create(){
 					);
 							
 	$newitem['post_author'] = $result['post_author'] = $user ? $user->ID : 0;
-	$newitemID = wp_insert_post($newitem);
+	$newitemID = wp_insert_post($newitem,true);
 	
+	// Error if item not created correctly
+	if(is_wp_error($newitemID)){
+    	header('Location: '.$_SERVER['HTTP_REFERER']);
+	}
 
 	// iterate through $_REQUEST and create post meta as appropriate
 	$type = $_REQUEST['type'];
 	global $$type;
 	$varnames = $$type->getVarNames();
+	//die(print_r($varnames));
 		
 	foreach($varnames as $var){
 		if($_REQUEST[$var]){
@@ -42,6 +49,7 @@ function directory_create(){
 	// Send notification of item creation to supplied email
 	if($_REQUEST['notify']){
 		$allivion->notify($_REQUEST);
+		$result['notifyuser'] = $_REQUEST['notify'];
 	}
 	
 		
@@ -54,6 +62,7 @@ function directory_create(){
 		setcookie('allivion_unli',json_encode($result),time()+3600);
 	}
 
+	//echo json_encode($result); die();
 
 	
 	// Form submitted by AJAX

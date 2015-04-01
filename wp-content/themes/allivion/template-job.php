@@ -67,9 +67,7 @@ $uservals['email'] = $user->user_email;
 		</div>
 		
 		<div class="twothirdscol">
-			
-			<pre><?php print_r($employer); ?></pre>
-		
+					
 			<h1 class="purple"><?php echo $vals['job_title']; ?>, <?php echo $vals['location']; ?></h1>
 			
 			<hr>
@@ -83,7 +81,9 @@ $uservals['email'] = $user->user_email;
 				<input type="hidden" name="type" value="<?php echo $application->getItemType(); ?>" />
 				<input type="hidden" name="nonce" value="<?php echo wp_create_nonce("directory_create_nonce"); ?>" />
 				<input type="hidden" name="action" value="directory_create" />
-				<input type="hidden" name="notifyuser" value="<?php echo $employer['user']->ID; ?>" />
+				<input type="hidden" name="notify" value="<?php echo $employer['default_app_email']; ?>" />
+				<input type="hidden" name="notify_subject" value="New application" />
+				<input type="hidden" name="notify_template" value="new_application" />
  				<input type="hidden" name="success_message" value="Your application has been submitted" />
  				<input type="hidden" name="formafter" value="hide" />
 				
@@ -91,6 +91,7 @@ $uservals['email'] = $user->user_email;
 					<?php $application->printGroup('headline',$uservals); ?>
 					<?php $application->printQuestion('job_id',$_REQUEST['i']); ?>
 					<?php $application->printQuestion('job_title',$vals['job_title']); ?>
+					<?php $application->printQuestion('job_ref',$vals['job_ref']); ?>
 					<input type="submit" value="Submit application" />
 				</div>
 
