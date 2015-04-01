@@ -97,7 +97,7 @@ $returnfields = array('job_title','job_ref','location','job_status');
 			<?php 
 				$params = $_GET ? $_GET : array();
 				$params['type'] = 'job';
-				$params['author'] = $usermeta['group_id'] ? $usermeta['group_id'] : $user->ID;
+				$params['group_id'] = $usermeta['group_id'] ? $usermeta['group_id'] : $user->ID;
 				//echo pre($params); 
 				$items = directory_search($params);
 			?>
