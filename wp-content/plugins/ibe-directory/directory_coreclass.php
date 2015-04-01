@@ -270,7 +270,7 @@ class directoryCore {
 		}
 		
 		if($args['group_id']) {
-			if($args['group_id'] != $user->ID && $args['group_id'] != $usermeta['group_id'][0]) $redirect = true;
+			if($args['group_id'] != $user->ID && $args['group_id'] != $usermeta['group_id']) $redirect = true;
 		}
 		
 		if($user->roles[0] == 'administrator') $redirect = false;
