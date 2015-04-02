@@ -65,5 +65,27 @@ class userdef extends directoryCore {
 		return $vals;
 		
 	}
+	
+	function getUsers($params){
+				
+		if($params['keywords']) 	$args['search'] = $_REQUEST['keywords'];
+		if($params['ID'])			$args['include'] = array($_REQUEST['ID']);
+
+		// set up core user data (stored in wp_users)
+		$valid = array('ID','user_pass','user_login','user_nicename','user_url','user_email','display_name','nickname','first_name','last_name','description','rich_editing','user_registered','role','jabber','aim','yim');
+			
+		// set up user meta data
+		$varnames = $$role->getVarNames();
+		$validmeta = array_diff($varnames,$valid);
+		
+		foreach(array_filter($_REQUEST) as $k=>$v){ 
+			if(in_array($k, $validmeta)){
+				$args['meta_query'][] = array('key' => $k,'value' => $v,'compare' => '=');
+			}
+		}
+		
+		die(print_r($args));
+		
+	}
 			
 }

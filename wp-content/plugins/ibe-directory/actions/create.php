@@ -60,6 +60,10 @@ function directory_create(){
 	}
 	
 	
+	// add search_count to item
+	update_post_meta($newitemID,'search_count',0);
+	
+	
 	// Send notification of item creation to supplied email
 	if($params['notify']){
 		$dircore->notify($params);

@@ -333,4 +333,27 @@ class directoryCore {
 		return $payload;
 	}
 	
+	public function getUsers($params){
+		
+		$users = new WP_User_Query();
+		$users->results = array();
+		
+		$args = array(	'orderby' => 'name',
+						'order' => 'ASC'
+		);
+		
+		if($params['roles']){
+			$roles = explode(',', $params['roles']);
+			foreach($roles as $role){
+				$args['role'] = $role;
+				$result = new WP_User_Query($args);
+				$users->results = array_merge($users->results,$result->results);
+				$users->count_total = $users->count_total + $result->count_total;
+			}
+		}
+		
+		return $users;
+		
+	}
+	
 }

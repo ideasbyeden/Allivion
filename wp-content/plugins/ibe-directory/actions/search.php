@@ -22,7 +22,7 @@ function directory_search($params = null){
 	// set up basic query args
 	$query_args = array(	'post_type' => $type,
 							'orderby' => 'date',
-							'order' => 'ASC'
+							'order' => 'DESC'
 							); 
 	
 	if($params['author']) $query_args['author'] = $params['author'];
@@ -31,7 +31,7 @@ function directory_search($params = null){
 	// remove unexpected search variables
 	$clean_params = array();
 	foreach($params as $k=>$v){
-		if(in_array($k, $vars)){
+		if(in_array($k, $vars) && $v != ''){
 			$clean_params[$k] = $v;
 		}
 	}
@@ -39,10 +39,11 @@ function directory_search($params = null){
 							
 	// set meta query for each valid search param
 	foreach($clean_params as $k=>$v){
+			$compare = strstr($v, '!') ? '!=' : '=';
 			$query_args['meta_query'][] = array(
 				'key' => $k,
-				'value' => $v,
-				'compare' => '='	
+				'value' => preg_replace('@!@','',$v),
+				'compare' => $compare	
 			);
 	}
 	
@@ -61,7 +62,7 @@ function directory_search($params = null){
 		$query_args['post__in'] = $post_ids_meta;
 	}
 	
-	//die(print_r($query_args));
+	//die(print_r($params));
 
 	
 	// run WP query
@@ -80,7 +81,7 @@ function directory_search($params = null){
 		
 		
 		// update returned in search count
-		if($params['search_count']){
+		if($params['inc_search_count']){
 			$search_count = get_post_meta($thispost->ID,'search_count',true);
 			//echo 'found post '.$thispost->ID.' with post count '.$search_count;
 			if($search_count != ''){

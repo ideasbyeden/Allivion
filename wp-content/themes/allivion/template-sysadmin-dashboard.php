@@ -4,9 +4,9 @@
 Template Name: Sysadmin dashboard
 */
 
-$dircore->canAccess(array('roles' => 'recruiter_admin,recruiter'));
+$dircore->canAccess(array('roles' => 'administrator'));
 	
-get_template_part('header','recadmin');
+get_template_part('header','sysadmin');
 	
 while (have_posts()) { 
 		the_post();
@@ -22,7 +22,7 @@ while (have_posts()) {
 
 // Fields to be shown in search results
 
-$returnfields = array('job_title','job_ref','location','job_status');
+$returnfields = array('job_title','job_ref','location','job_status','search_count');
 
 
 /////////////////////////////////////////////
@@ -38,28 +38,57 @@ $returnfields = array('job_title','job_ref','location','job_status');
 <div class="section">
 	<div class="stage">
 		
-		<h1 class="purple">Job advertisements</h1>
+		<h1 class="purple">Sysadmin</h1>
 		
 						
 			<div class="halfcol">
 				
 
-				<form class="directory <?php echo $job->type; ?> search" id="searchjobs" action="<?php echo admin_url('admin-ajax.php'); ?>" method="post" return="<?php echo implode(',', $returnfields); ?>" targetid="jobslist">
+				<form class="directory <?php echo $job->type; ?> search" id="searchjobs" action="<?php echo admin_url('admin-ajax.php'); ?>" method="post" return="<?php echo implode(',', $returnfields); ?>" targetid="jobslist" clickableurl="/job-details">
 				
-					<input type="hidden" name="type" value="job" />
 					<input type="hidden" name="nonce" value="<?php echo wp_create_nonce("directory_search_nonce"); ?>" />
 					<input type="hidden" name="action" value="directory_search" />
-					<input type="hidden" name="search_count" value="true" />
+					<input type="hidden" name="encrypted" value="<?php echo $dircore->encrypt('&type=job'); ?>" />
 				
 
 					<div class="qpanel">
 						<h2>Search jobs</h2>
-						<label>Keywords</label><input type="text" name="keywords" value="" />
-						<div class="clear"></div>
-						<div class="halfcol">
-						<?php $job->printQuestion('job_status'); ?>
+						
+						<div class="question"><label>Keywords</label><input type="text" name="keywords" value="" /></div>
+						
+						<?php $recusers = $dircore->getUsers(array('roles' => 'recruiter_admin')); //echo pre($recusers->results); ?>
+ 						<div class="question">
+	 						<label>Recruiter</label>
+	 						<select name="group_id">
+		 						<option value="">Select</option>
+		 						<?php foreach($recusers->results as $user){ 
+			 						$group_id = get_user_meta($user->ID,'group_id',true);
+			 						$group_id = $group_id != '' ? $group_id : $user->ID;
+		 						?>
+		 							<option value="<?php echo $group_id; ?>"><?php echo $user->data->display_name; ?></option>
+		 						<?php } ?>
+	 						</select>
+	 					</div>
+						
+						<div class="question">
+						<label>Appeared in search</label>						
+						<select name="search_count">
+							<option value="">Select</option>
+							<option value="!0">Yes</option>
+							<option value="0">No</option>
+						</select>
 						</div>
-						<?php //$user->printQuestion('name'); ?>
+						
+						<div class="question">
+						<label>Status</label>						
+						<select name="job_status">
+							<option value="">Select</option>
+							<option value="active">Active</option>
+							<option value="archived">Archived</option>
+						</select>
+						</div>
+						
+						
 						<input type="submit" value="Search" class="fr"/>
 						<div class="clear"></div>
 					</div>
@@ -78,7 +107,7 @@ $returnfields = array('job_title','job_ref','location','job_status');
 			?>
 
 			
-			<table id="jobslist" class="searchresults">
+			<table class="searchresults">
 				<thead>
 					<tr>
 						<?php foreach($returnfields as $field){ ?>
@@ -86,7 +115,7 @@ $returnfields = array('job_title','job_ref','location','job_status');
 						<?php } ?>
 					</tr>
 				</thead>
-				<tbody>
+				<tbody id="jobslist">
 							
 				<?php foreach ($items->posts as $item){ ?>
 					<tr class="clickable" data-href="/job-details?i=<?php echo $item->ID; ?>">

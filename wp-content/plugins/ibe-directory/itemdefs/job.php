@@ -295,6 +295,12 @@ $vars = array(
 		'name' => 'group_id',
 		'fieldtype' => 'hidden',
 		'group' => 'admin'
+	),
+	array(
+		'name' => 'search_count',
+		'label' => 'Search count',
+		'fieldtype' => 'hidden',
+		'group' => 'admin'
 	)
 
 

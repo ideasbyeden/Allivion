@@ -2,6 +2,7 @@ jQuery(function(){
 	
 	
 	var target;
+	var clickableurl;
 	var returndata;
 
 	jQuery('form.directory.search').submit(function(e){
@@ -10,6 +11,7 @@ jQuery(function(){
 		console.log('searching');
 
 		target = jQuery(this).attr('targetid');
+		clickableurl = jQuery(this).attr('clickableurl');
 		returndata = jQuery(this).attr('return');
 		returndata = returndata.split(',');
 
@@ -33,7 +35,7 @@ jQuery(function(){
 				jQuery('#'+target).html('');
 				jQuery.each(result.posts, function(index,postdata){
 					console.log(postdata);
-					var row = '<tr class="clickable" data-href="/job-details-form?i='+postdata['ID']+'">';
+					var row = '<tr class="clickable" data-href="'+clickableurl+'?i='+postdata['ID']+'">';
 						jQuery.each(returndata, function(k,v){
 							if(typeof postdata.meta[v] == 'undefined') postdata.meta[v] = '';
 							row += '<td>'+postdata.meta[v]+'</td>';

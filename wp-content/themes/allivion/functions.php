@@ -54,7 +54,8 @@ register_nav_menus( array(
 	'main' => 'Main Navigation',
 	'recadmin' => 'Recruiter Navigation',
 	'advadmin' => 'Advertiser Navigation',
-	'candadmin' => 'Candidate Navigation'
+	'candadmin' => 'Candidate Navigation',
+	'sysadmin' => 'Sysadmin Navigation'
 ) );
 
 
@@ -95,7 +96,7 @@ add_filter( 'wp_nav_menu_items', 'postjob_menu_link', 10, 2 );
 
 // add logo to admin nav
 function menu_logo( $items, $args ) {
-	if ($args->theme_location == 'recadmin') {
+	if ($args->theme_location == 'recadmin' || $args->theme_location == 'sysadmin') {
 		$items = '<li class="nav_logo"><img src="'.get_bloginfo('template_url').'/img/nav_logo.png" /></li>'.$items;
 	}
     return $items;
