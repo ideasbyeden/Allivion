@@ -1,6 +1,6 @@
 <?php
 	
-$allivion->canAccess(array('roles' => 'recruiter_admin'));
+$dircore->canAccess(array('roles' => 'recruiter_admin'));
 	
 session_start();
 

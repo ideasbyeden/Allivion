@@ -4,7 +4,7 @@
 Template Name: Recruiter profile
 */
 
-$allivion->canAccess(array('roles' => 'recruiter_admin'));
+$dircore->canAccess(array('roles' => 'recruiter_admin'));
 	
 get_template_part('header','recadmin');
 

@@ -4,7 +4,7 @@
 Template Name: Candidate dashboard
 */
 
-$allivion->canAccess(array('roles' => 'candidate'));
+$dircore->canAccess(array('roles' => 'candidate'));
 	
 get_template_part('header','recadmin');
 	

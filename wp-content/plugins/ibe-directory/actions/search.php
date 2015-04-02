@@ -6,22 +6,29 @@ add_action("wp_ajax_nopriv_directory_search", "directory_search"); // will need 
 function directory_search($params = null){
 		
 	foreach($_REQUEST as $k=>$v) $params[$k] = $v;
+	
+	if($params['encrypted']){
+		global $dircore;
+		parse_str($dircore->decrypt($params['encrypted']),$safeparams);
+		$params = array_merge($params,$safeparams);
+	}
+	
+	
 			
 	$type = post_type_exists($params['type']) ? $params['type'] : 'post';
 	global $$type;
 	$vars = $$type->getVarNames();
 
 	// set up basic query args
-	
 	$query_args = array(	'post_type' => $type,
 							'orderby' => 'date',
 							'order' => 'ASC'
 							); 
 	
 	if($params['author']) $query_args['author'] = $params['author'];
+
 	
 	// remove unexpected search variables
-	
 	$clean_params = array();
 	foreach($params as $k=>$v){
 		if(in_array($k, $vars)){
@@ -31,7 +38,6 @@ function directory_search($params = null){
 
 							
 	// set meta query for each valid search param
-		
 	foreach($clean_params as $k=>$v){
 			$query_args['meta_query'][] = array(
 				'key' => $k,
@@ -55,6 +61,7 @@ function directory_search($params = null){
 		$query_args['post__in'] = $post_ids_meta;
 	}
 	
+	//die(print_r($query_args));
 
 	
 	// run WP query

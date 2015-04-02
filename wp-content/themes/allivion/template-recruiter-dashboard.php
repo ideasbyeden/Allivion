@@ -4,7 +4,7 @@
 Template Name: Recruiter dashboard
 */
 
-$allivion->canAccess(array('roles' => 'recruiter_admin,recruiter'));
+$dircore->canAccess(array('roles' => 'recruiter_admin,recruiter'));
 	
 get_template_part('header','recadmin');
 	
@@ -21,8 +21,10 @@ while (have_posts()) {
 /////////////////////////////////////////////
 
 // Fields to be shown in search results
-
 $returnfields = array('job_title','job_ref','location','job_status');
+
+// Group ID
+$group_id = $usermeta['group_id'] ? $usermeta['group_id'] : $user->ID;
 
 
 /////////////////////////////////////////////
@@ -44,14 +46,10 @@ $returnfields = array('job_title','job_ref','location','job_status');
 
 				<form class="directory <?php echo $job->type; ?>" id="createjob" action="<?php echo admin_url('admin-ajax.php'); ?>" method="post">
 				
-					<input type="hidden" name="post_id" value="<?php echo $_REQUEST['i']; ?>" />
-					<input type="hidden" name="varnames" value="<?php echo implode(',', $job->getVarNames()); ?>" />
 					<input type="hidden" name="nonce" value="<?php echo wp_create_nonce("directory_create_nonce"); ?>" />
  					<input type="hidden" name="action" value="directory_create" />
  					<input type="hidden" name="redirect" value="/job-details" />
- 					<input type="hidden" name="type" value="job" />
- 					<input type="hidden" name="job_status" value="active" />
- 					<input type="hidden" name="group_id" value="<?php echo $usermeta['group_id'] ? $usermeta['group_id'] : $user->ID; ?>" />
+					<input type="hidden" name="encrypted" value="<?php echo $dircore->encrypt('group_id='.$group_id.'&type=job&job_status=active'); ?>" />
 
 					<div class="qpanel purplegrad">
 						<h2>Create a new ad</h2>
@@ -70,10 +68,11 @@ $returnfields = array('job_title','job_ref','location','job_status');
 
 				<form class="directory <?php echo $job->type; ?> search" id="searchjobs" action="<?php echo admin_url('admin-ajax.php'); ?>" method="post" return="<?php echo implode(',', $returnfields); ?>" targetid="jobslist">
 				
-					<input type="hidden" name="type" value="job" />
 					<input type="hidden" name="nonce" value="<?php echo wp_create_nonce("directory_search_nonce"); ?>" />
 					<input type="hidden" name="action" value="directory_search" />
 					<input type="hidden" name="search_count" value="true" />
+					
+					<input type="hidden" name="encrypted" value="<?php echo $dircore->encrypt('group_id='.$group_id.'&type=job'); ?>" />
 				
 
 					<div class="qpanel">
@@ -96,8 +95,7 @@ $returnfields = array('job_title','job_ref','location','job_status');
 			
 			<?php 
 				$params = $_GET ? $_GET : array();
-				$params['type'] = 'job';
-				$params['group_id'] = $usermeta['group_id'] ? $usermeta['group_id'] : $user->ID;
+				$params['encrypted'] = $dircore->encrypt('group_id='.$group_id.'&type=job');
 				$items = directory_search($params);
 			?>
 
@@ -121,9 +119,7 @@ $returnfields = array('job_title','job_ref','location','job_status');
 				<?php } ?>
 				</tbody>
 			</table>			
-			
-<!-- 			<pre>Search results: <?php print_r($items); ?></pre> -->
-				
+							
 
 		
 		<div class="clear"></div>

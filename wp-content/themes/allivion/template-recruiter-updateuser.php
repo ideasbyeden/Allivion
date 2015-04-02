@@ -1,6 +1,6 @@
 <?php
 
-$result = $allivion->canAccess(array('id' => $_REQUEST['i'].','.get_user_meta($_REQUEST['i'],'group_id',true)));
+$dircore->canAccess(array('id' => $_REQUEST['i'].','.get_user_meta($_REQUEST['i'],'group_id',true)));
 
 
 /*

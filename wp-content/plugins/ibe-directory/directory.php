@@ -16,7 +16,7 @@ require_once('dev_functions.php');
 
 
 global $wp_rewrite;
-$allivion = new directoryCore();
+$dircore = new directoryCore();
 
 foreach(glob(__DIR__ . '/itemdefs/*.php') as $filename)
 {

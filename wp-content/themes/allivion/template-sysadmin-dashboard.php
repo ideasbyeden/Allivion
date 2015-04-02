@@ -1,10 +1,10 @@
 <?php
 
 /*
-Template Name: Recruiter dashboard
+Template Name: Sysadmin dashboard
 */
 
-$allivion->canAccess(array('roles' => 'recruiter_admin,recruiter'));
+$dircore->canAccess(array('roles' => 'recruiter_admin,recruiter'));
 	
 get_template_part('header','recadmin');
 	
@@ -73,7 +73,6 @@ $returnfields = array('job_title','job_ref','location','job_status');
 			<?php 
 				$params = $_GET ? $_GET : array();
 				$params['type'] = 'job';
-				$params['author'] = $usermeta['group_id'] ? $usermeta['group_id'] : $user->ID;
 				//echo pre($params); 
 				$items = directory_search($params);
 			?>

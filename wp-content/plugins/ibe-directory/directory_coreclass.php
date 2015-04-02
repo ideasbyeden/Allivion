@@ -4,9 +4,10 @@ class directoryCore {
 	
 	public $vars = array();
 	public $adminroot = '/';
+
 	
 	function __construct(){	
-		
+
 	}
 	
 	public function setAdminRoot($ar){
@@ -279,8 +280,8 @@ class directoryCore {
 		if($redirect){ // access denied
 			if($user){ // no user logged in
 				if(rtrim($_SERVER['REQUEST_URI'],'/') != $$usertype->AdminRoot()){ // avoids redirect loop if usertype redirect doesn't specify access permission
-					//header("Location: ".$$usertype->AdminRoot());
-					header("Location: ".$_SERVER['HTTP_REFERER']);
+					header("Location: ".$$usertype->AdminRoot());
+					//header("Location: ".$_SERVER['HTTP_REFERER']);
 				}
 			} else {
 				header("Location: ".DIRECTORY_LOGINPATH);
@@ -313,6 +314,23 @@ class directoryCore {
 		$option   = '-f '.$fromemail;
 		
 		mail($to, $subject, $body, $headers, $option);
+	}
+	
+	
+	public function encrypt ($payload) {	
+		$iv = mcrypt_create_iv(IV_SIZE, MCRYPT_DEV_URANDOM);
+		$crypt = mcrypt_encrypt(MCRYPT_RIJNDAEL_128, CRYPTKEY, $payload, MCRYPT_MODE_CBC, $iv);
+		$combo = $iv . $crypt;
+		$garble = base64_encode($iv . $crypt);
+		return $garble;
+	}
+	
+	public function decrypt ($garble) {
+		$combo = base64_decode($garble);
+		$iv = substr($combo, 0, IV_SIZE);
+		$crypt = substr($combo, IV_SIZE, strlen($combo));
+		$payload = mcrypt_decrypt(MCRYPT_RIJNDAEL_128, CRYPTKEY, $crypt, MCRYPT_MODE_CBC, $iv);
+		return $payload;
 	}
 	
 }

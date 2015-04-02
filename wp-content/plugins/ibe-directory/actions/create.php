@@ -5,56 +5,71 @@ add_action("wp_ajax_nopriv_directory_create", "directory_create");
 
 function directory_create(){
 	
-	global $user, $allivion;
-	
-	//die(print_r($_REQUEST));
+	global $user, $dircore;
+	foreach($_REQUEST as $k=>$v) $params[$k] = $v;
 		
-	if ( !wp_verify_nonce( $_REQUEST['nonce'], 'directory_create_nonce')) {
+
+	// Nonce check
+	if ( !wp_verify_nonce( $params['nonce'], 'directory_create_nonce')) {
       exit('You are not authorised to take this action');
+	}
+	
+	
+	// extract encrypted new item vars
+	if($params['encrypted']){
+		global $dircore;
+		parse_str($dircore->decrypt($params['encrypted']),$safeparams);
+		$params = array_merge($params,$safeparams);
 	} 
 	
+	
 	// insert new post with data
-	$newitem = array(	'post_type' => $_REQUEST['type'],
-						'post_title' => $_REQUEST[POSTTITLEFIELD],
+	$newitem = array(	'post_type' => $params['type'],
+						'post_title' => $params[POSTTITLEFIELD],
 						'post_status' => 'publish'
 					);
 							
 	$newitem['post_author'] = $result['post_author'] = $user ? $user->ID : 0;
 	$newitemID = wp_insert_post($newitem,true);
 	
+	
 	// Error if item not created correctly
 	if(is_wp_error($newitemID)){
     	header('Location: '.$_SERVER['HTTP_REFERER']);
 	}
+	
 
-	// iterate through $_REQUEST and create post meta as appropriate
-	$type = $_REQUEST['type'];
+	// get correct class instance, get expected vars
+	$type = $params['type'];
 	global $$type;
 	$varnames = $$type->getVarNames();
-	//die(print_r($varnames));
+
 		
+	// iterate through params and create post meta as appropriate
 	foreach($varnames as $var){
-		if($_REQUEST[$var]){
-			update_post_meta($newitemID,$var,$_REQUEST[$var]);
-			$result[$var] = $_REQUEST[$var];
+		if($params[$var]){
+			update_post_meta($newitemID,$var,$params[$var]);
+			$result[$var] = $params[$var];
 		}
 		$q = $$type->getQuestion($var);
 		if($q['altfields']){
 			foreach(explode(',', $q['altfields']) as $field){
-				$result[$field] = $_REQUEST[$var];
+				$result[$field] = $params[$var];
 			}
 		}
 	}
 	
+	
 	// Send notification of item creation to supplied email
-	if($_REQUEST['notify']){
-		$allivion->notify($_REQUEST);
-		$result['notifyuser'] = $_REQUEST['notify'];
+	if($params['notify']){
+		$dircore->notify($params);
+		$result['notifyuser'] = $params['notify'];
 	}
 	
 		
 	// post-submission behaviour
-	$result['formafter'] = $_REQUEST['formafter'];
+	$result['formafter'] = $params['formafter'];
+	
 	
 	// If no logged in user, create cookie with $_REQUEST for registration prompt
 	// unli = User Not Logged In
@@ -62,25 +77,24 @@ function directory_create(){
 		setcookie('allivion_unli',json_encode($result),time()+3600);
 	}
 
-	//echo json_encode($result); die();
-
 	
 	// Form submitted by AJAX
 	if($_SERVER['HTTP_X_REQUESTED_WITH'] && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
 		$result['result'] = 'success';
-		if($_REQUEST['success_message']){
-			$result['message'] = $_REQUEST['success_message'];
+		if($params['success_message']){
+			$result['message'] = $params['success_message'];
 		}
 
-		if($_REQUEST['redirect']){
-			$result['redirect'] = $_REQUEST['redirect'].'?i='.$newitemID.'&u='.$result['post_author'];
+		if($params['redirect']){
+			$result['redirect'] = $params['redirect'].'?i='.$newitemID.'&u='.$result['post_author'];
 		}
 		echo json_encode($result);
+		
 	
 	// Form submitted by HTTP
 	} else {
-		if($_REQUEST['redirect']){
-			header('Location: '.$_REQUEST['redirect'].'?i='.$newitemID.'&u='.$result['post_author']);
+		if($params['redirect']){
+			header('Location: '.$params['redirect'].'?i='.$newitemID.'&u='.$result['post_author']);
 		} else {
 			header('Location: '.$_SERVER['HTTP_REFERER'].'?u='.$result['post_author']);
 		}
