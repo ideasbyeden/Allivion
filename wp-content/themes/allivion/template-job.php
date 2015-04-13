@@ -4,10 +4,10 @@
 Template Name: Job
 */
 
-/*
-$post = get_post($_REQUEST['i']);
-$author_meta = get_user_meta($post->)
-*/
+
+if(!$_REQUEST['i'] || !$job->itemExists($_REQUEST['i'])) header("Location: /index.php");
+
+
 
 
 //$allivion->canAccess(array('group_id' => get_post_meta($_REQUEST['i'],'group_id',true)));

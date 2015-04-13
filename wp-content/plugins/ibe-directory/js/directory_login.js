@@ -29,6 +29,7 @@ jQuery(function(){
 				if(result.roles[0] == 'recruiter' || result.roles[0] == 'recruiter_admin') { window.document.location = '/recruiter-dashboard'; }
 				else if(result.roles[0] == 'advertiser' ) { window.document.location = '/advertiser-dashboard'; }
 				else if(result.roles[0] == 'candidate' ) { window.document.location = '/candidate-dashboard'; }
+				else if(result.roles[0] == 'administrator' ) { window.document.location = '/sysadmin-dashboard'; }
 				else { window.document.location = '/wp-admin'; }
 
 			}

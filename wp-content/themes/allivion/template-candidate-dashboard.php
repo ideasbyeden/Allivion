@@ -6,7 +6,7 @@ Template Name: Candidate dashboard
 
 $dircore->canAccess(array('roles' => 'candidate'));
 	
-get_template_part('header','recadmin');
+get_template_part('header','candadmin');
 	
 while (have_posts()) { 
 		the_post();

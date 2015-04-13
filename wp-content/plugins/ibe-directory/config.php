@@ -31,7 +31,9 @@ Encryption keys
 
 -------------------------------------------------*/
 
+if(function_exists("mcrypt_encrypt")) {
 define('IV_SIZE', mcrypt_get_iv_size(MCRYPT_RIJNDAEL_128, MCRYPT_MODE_CBC));
+}
 define('CRYPTKEY','NFOLOOHWZ0DOAL1VH4K6W7C');
 
 

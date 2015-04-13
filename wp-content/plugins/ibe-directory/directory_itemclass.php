@@ -19,6 +19,10 @@ class itemdef extends directoryCore {
 	    
 	}
 	
+	public function itemExists($id) {
+		return is_string(get_post_status($id));
+	}
+	
 	public function getItemType(){
 		return $this->type;
 	}

@@ -34,6 +34,7 @@ class directoryCore {
 	}
 	
 	public function getVals($id){
+		$vals = null;
 		foreach(get_post_custom($id) as $k=>$v){
 			$vals[$k] = $v[0];
 		}
@@ -45,18 +46,22 @@ class directoryCore {
 	}
 	
 	public function getGroup($groupname){
-		foreach($this->vars as $var){
-			if($var['group'] == $groupname){
-				$group[] = $var;
+		if(is_array($this->vars)){
+			foreach($this->vars as $var){
+				if($var['group'] == $groupname){
+					$group[] = $var;
+				}
 			}
 		}
 		return $group ? $group : false;
 	}
 
 	public function getQuestion($name){
-		foreach($this->vars as $var){
-			if($var['name'] == $name){
-				return $var;
+		if(is_array($this->vars)){
+			foreach($this->vars as $var){
+				if($var['name'] == $name){
+					return $var;
+				}
 			}
 		}
 		return false;
