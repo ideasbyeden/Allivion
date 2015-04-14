@@ -56,6 +56,65 @@ img {
 	left: 0px;
 }
 
+/* homepage */
+
+#homesearch {
+	background-image: url(../img/homesearch_bg.jpg);
+	background-size: cover;
+	background-position: center top;
+	background-repeat: no-repeat;
+	padding: 30px;
+	color: white;
+	border-radius: 12px 12px 0 0;
+	-moz-border-radius: 12px 12px 0 0;
+	-webkit-border-radius: 12px 12px 0 0;
+}
+
+#homesearch form {
+	position: relative;
+	padding: 24px 90px 24px 24px;
+	background-color: rgba(0,0,0,0.1);
+	border-radius: 12px;
+	-moz-border-radius: 12px;
+	-webkit-border-radius: 12px;	
+}
+
+#homesearch form input[type='text']{
+	width: 100%;
+	font-size: 1.4em;
+	padding: 10px;
+	box-sizing:border-box;
+	-moz-box-sizing:border-box; 
+	-webkit-box-sizing:border-box;
+}
+
+#homesearch form input[type='submit'] {
+	position: absolute;
+	right: 24px;
+	top: 24px;
+	width: 45px;
+	height: 45px;
+	background: none;
+	border: 2px solid white;
+	border-radius: 50%;
+	-moz-border-radius: 50%;
+	-webkit-border-radius: 50%;
+	color: white;
+	font-size: 1.6em;	
+	line-height: 0.9em;
+	font-family: 'Source Sans Pro', sans-serif;
+	cursor: pointer;
+}
+
+#homecats {
+	background-color: #EEEEEE;
+	border-radius: 0 0 12px 12px;
+	-moz-border-radius: 0 0 12px 12px;
+	-webkit-border-radius: 0 0 12px 12px;
+	margin-bottom: 20px;
+	min-height: 200px;
+}
+
 
 /* columns */
 

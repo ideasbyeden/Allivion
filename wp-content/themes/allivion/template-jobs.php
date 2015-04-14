@@ -63,7 +63,7 @@ $returnfields = array('job_title','location','summary','recruiter_name','closing
 			
 			
 			<?php 
-				$params = $_GET ? $_GET : array();
+				$params = $_REQUEST ? $_REQUEST : array();
 				$params['encrypted'] = $dircore->encrypt('type=job');
 				$params['inc_search_count'] = true;
 				$items = directory_search($params);

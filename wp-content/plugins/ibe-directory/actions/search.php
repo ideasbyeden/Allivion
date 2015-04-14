@@ -114,7 +114,6 @@ function directory_search($params = null){
 		if($_SERVER['HTTP_X_REQUESTED_WITH'] && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
 			echo json_encode($result);
 		} else {
-			echo 'request exists';
 			header('Location: '.strtok($_SERVER["HTTP_REFERER"],'?').'?'.http_build_query($clean_params, '', '&amp;'));
 		}		
 	} else {
