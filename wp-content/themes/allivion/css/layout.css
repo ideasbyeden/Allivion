@@ -342,6 +342,10 @@ tr.clickable:hover {
 	font-weight: 300;
 }
 
+.prototype {
+	display: none;
+}
+
 
 /* login form */
 

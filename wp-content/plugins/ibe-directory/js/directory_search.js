@@ -8,12 +8,11 @@ jQuery(function(){
 	jQuery('form.directory.search').submit(function(e){
 		e.preventDefault();
 
-		console.log('searching');
-
 		target = jQuery(this).attr('targetid');
 		clickableurl = jQuery(this).attr('clickableurl');
 		returndata = jQuery(this).attr('return');
 		returndata = returndata.split(',');
+		console.log(returndata);
 
 		itemsearch(jQuery(this));
 
@@ -22,7 +21,6 @@ jQuery(function(){
 	function itemsearch(form){
 		
 		var data = form.serialize();
-		console.log(returndata);
 		
 		jQuery.ajax({
 			type: 'POST',
@@ -32,15 +30,30 @@ jQuery(function(){
 			async: true,
 					
 			success: function(result){
-				jQuery('#'+target).html('');
+				var prototype = jQuery('#'+target+' .prototype');
+				jQuery('#'+target+' .rowitem').remove();
 				jQuery.each(result.posts, function(index,postdata){
-					console.log(postdata);
-					var row = '<tr class="clickable" data-href="'+clickableurl+'?i='+postdata['ID']+'">';
+
+
+					if(prototype.length > 0){
+						var row = prototype.clone();
+						row.addClass('rowitem clickable');
+						row.removeClass('prototype');
+						row.attr('data-href', clickableurl+'?i='+postdata['ID']);
 						jQuery.each(returndata, function(k,v){
-							if(typeof postdata.meta[v] == 'undefined') postdata.meta[v] = '';
-							row += '<td>'+postdata.meta[v]+'</td>';
+							if(typeof postdata.meta[v] != 'undefined') row.html(row.html().replace('['+v+']',postdata.meta[v]));
+							if(typeof postdata.groupmeta[v] != 'undefined') row.html(row.html().replace('['+v+']',postdata.groupmeta[v]));
+							if(typeof postdata.authormeta[v] != 'undefined') row.html(row.html().replace('['+v+']',postdata.authormeta[v]));
 						});
-					row += '</tr>';
+						row.html(row.html().replace(/\[.*?\]/g,''));
+					} else {					
+						var row = '<tr class="clickable rowitem" data-href="'+clickableurl+'?i='+postdata['ID']+'">';
+							jQuery.each(returndata, function(k,v){
+								if(typeof postdata.meta[v] == 'undefined') postdata.meta[v] = '';
+								row += '<td>'+postdata.meta[v]+'</td>';
+							});
+						row += '</tr>';
+					}
 					jQuery('#'+target).append(row);				
 				});
 			}

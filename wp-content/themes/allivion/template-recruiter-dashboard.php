@@ -70,7 +70,6 @@ $group_id = $usermeta['group_id'] ? $usermeta['group_id'] : $user->ID;
 				
 					<input type="hidden" name="nonce" value="<?php echo wp_create_nonce("directory_search_nonce"); ?>" />
 					<input type="hidden" name="action" value="directory_search" />
-					<input type="hidden" name="search_count" value="true" />
 					
 					<input type="hidden" name="encrypted" value="<?php echo $dircore->encrypt('group_id='.$group_id.'&type=job'); ?>" />
 				

@@ -79,6 +79,20 @@ function directory_search($params = null){
 		}
 		$thispost->meta = $cleanmeta;
 		
+		//push author meta into post object
+		$authormeta = get_user_meta($thispost->post_author);
+		foreach($authormeta as $k=>$v){
+			$cleanauthormeta[$k] = $v[0];
+		}
+		$thispost->authormeta = $cleanauthormeta;
+		
+		//push group meta into post object
+		$groupmeta = get_user_meta($thispost->meta['group_id']);
+		foreach($groupmeta as $k=>$v){
+			$cleangroupmeta[$k] = $v[0];
+		}
+		$thispost->groupmeta = $cleangroupmeta;
+		
 		
 		// update returned in search count
 		if($params['inc_search_count']){
