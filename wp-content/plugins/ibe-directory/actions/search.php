@@ -29,20 +29,51 @@ function directory_search($params = null){
 
 	
 	// remove unexpected search variables
-	$clean_params = array();
-	foreach($params as $k=>$v){
-		if(in_array($k, $vars) && $v != ''){
-			$clean_params[$k] = $v;
+	if($params){
+		$clean_params = array();
+		foreach($params as $k=>$v){
+			if(in_array($k, $vars) && $v != ''){
+				$clean_params[$k] = $v;
+			}
 		}
 	}
 
-							
+	// check which params have multichoice answers
+	if($clean_params){
+		$mc_params = array();
+		foreach($clean_params as $k=>$v){
+			$q = $$type->getQuestion($k);
+			if(is_array($q['value'])){
+				$mc_params[] = $k;
+			}
+		}
+	}		
+
 	// set meta query for each valid search param
 	foreach($clean_params as $k=>$v){
-			$compare = strstr($v, '!') ? '!=' : '=';
+		
+
+			if(strstr($v, '!')){
+				$v = preg_replace('@!@','',$v);
+				if(in_array($k, $mc_params)){
+					$compare = 'NOT LIKE';
+					$v = '"'.$v.'"';
+				} else {
+					$compare = '!=';
+				}
+			} else {
+				if(in_array($k, $mc_params)){
+					$compare = 'LIKE';
+					$v = '"'.$v.'"';
+				} else {
+					$compare = '=';
+				}
+			}
+		
+		
 			$query_args['meta_query'][] = array(
 				'key' => $k,
-				'value' => preg_replace('@!@','',$v),
+				'value' => $v,
 				'compare' => $compare	
 			);
 	}
@@ -67,7 +98,7 @@ function directory_search($params = null){
 	
 	// run WP query
 	$result = new WP_Query($query_args);
-	
+		
 	
 	// push meta values into post object
 	for($i=0; $i<count($result->posts); $i++){

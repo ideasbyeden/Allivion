@@ -106,6 +106,14 @@ img {
 	cursor: pointer;
 }
 
+#homesearch #searchform_toggle {
+	color: white;
+	position: absolute;
+	right: 30px;
+	top: 30px;
+	cursor: pointer;
+}
+
 #homecats {
 	background-color: #EEEEEE;
 	border-radius: 0 0 12px 12px;

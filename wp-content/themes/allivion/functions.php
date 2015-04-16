@@ -83,6 +83,7 @@ function loginout_menu_link($items) {
 add_filter( 'wp_nav_menu_items', 'loginout_menu_link', 10, 2 );
 
 
+// add post job to main navigation (if recruiter)
 function postjob_menu_link($items) {
 	global $user, $usermeta;
 	if ($user && ($user->roles[0] == 'recruiter_admin' || $user->roles[0] == 'recruiter')) {
@@ -97,7 +98,7 @@ add_filter( 'wp_nav_menu_items', 'postjob_menu_link', 10, 2 );
 // add logo to admin nav
 function menu_logo( $items, $args ) {
 	if ($args->theme_location == 'recadmin' || $args->theme_location == 'sysadmin') {
-		$items = '<li class="nav_logo"><img src="'.get_bloginfo('template_url').'/img/nav_logo.png" /></li>'.$items;
+		$items = '<li class="nav_logo"><a href="/"><img src="'.get_bloginfo('template_url').'/img/nav_logo.png" /></a></li>'.$items;
 	}
     return $items;
 }
@@ -114,8 +115,7 @@ add_filter( 'wp_nav_menu_items', 'menu_logo', 10, 2 );
 
 // thumbnails and image sizes
 add_theme_support( 'post-thumbnails' );
-set_post_thumbnail_size( 60, 60, true );
-add_image_size('newsize', 230, 9999);
+add_image_size('tinythumb', 50, 50);
 
 
 // remove default image link

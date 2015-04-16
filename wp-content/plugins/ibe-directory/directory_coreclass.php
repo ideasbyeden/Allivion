@@ -68,11 +68,11 @@ class directoryCore {
 	}
 	
 	
-	public function printQuestion($name,$value = null,$hidden = false){
+	public function printQuestion($name,$value = null,$format = null){
 		if($question = $this->getQuestion($name)){
 			
 			$value ? $value : ($question['value'] ? $question['value'] : '');
-			$question['fieldtype'] = $hidden ? 'hidden' : $question['fieldtype'];
+			$question['fieldtype'] = $format ? $format : $question['fieldtype'];
 				
 			switch($question['fieldtype']){
 				
@@ -137,7 +137,7 @@ class directoryCore {
 					$output .= $question['required'] ? 'required="'.$question['required'].'" ' : '';
 					$output .= '>';
 					if($question['addblank']){
-						$output .= '<option value="">Select</option>';
+						$output .= '<option value="">'.$question['label'].'</option>';
 					}
 					foreach($question['value'] as $k=>$v){
 						$output .= '<option value="'.$v.'" ';

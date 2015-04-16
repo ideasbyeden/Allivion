@@ -21,11 +21,22 @@
 	<link rel="stylesheet" media="screen" href="<?php bloginfo('template_url') ?>/css/layout.css" />
 	<link rel="stylesheet" media="screen" href="<?php bloginfo('template_url') ?>/css/textstyles.css" />
 	<link rel="stylesheet" media="screen" href="<?php bloginfo('template_url') ?>/css/nav.css" />
+	<link rel="stylesheet" media="screen" href="<?php bloginfo('template_url') ?>/css/uniform.default.css" />
 	
 
 	
 	<?php wp_head(); ?>
-	
+
+	<script src="<?php bloginfo('template_url'); ?>/js/jquery.uniform.min.js"></script>
+	<script>
+		jQuery(function() {
+	 		jQuery('select, input[type=checkbox]').uniform();
+ 		});
+ 	</script>
+ 	
+ 	<script src="<?php bloginfo('template_url'); ?>/js/homesearch.js"></script>
+
+ 		
 	<?php global $user, $usermeta; 
 		if($user) { ?>
 			<style>

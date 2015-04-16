@@ -118,6 +118,7 @@ $vars = array(
 		'label' => 'Logo',
 		'placeholder' => '',
 		'fieldtype' => 'file',
+		'multiple' => 'false',
 		'group' => 'profile'
 	),
 	

@@ -33,7 +33,7 @@ while (have_posts()) {
 //
 /////////////////////////////////////////////
 
-//echo '<pre>'; print_r($user); echo '</pre>';
+//echo '<pre>'; print_r($usermeta); echo '</pre>';
 
 ?>
 
@@ -42,7 +42,7 @@ while (have_posts()) {
 		
 		<h1 class="purple"><?php the_title(); ?></h1>
 		
-			<form class="directory <?php echo $recruiter_admin->role; ?>" id="updateprofile" action="<?php echo admin_url('admin-ajax.php'); ?>" method="post">
+			<form class="directory <?php echo $recruiter_admin->role; ?>" id="updateprofile" action="<?php echo admin_url('admin-ajax.php'); ?>" method="post" enctype= "multipart/form-data">
 		<input type="submit" value="Save changes" />
 			
 				<div class="halfcol">
@@ -57,6 +57,9 @@ while (have_posts()) {
 
 					<div class="qpanel">
 						<?php $recruiter_admin->printQuestion('recruiter_name',$usermeta['recruiter_name']); ?>
+						
+						<?php foreach(unserialize($usermeta['logo']) as $image_id) echo wp_get_attachment_image($image_id); ?>
+					
 						<?php $recruiter_admin->printQuestion('logo',$usermeta['logo']); ?>
 						<?php $recruiter_admin->printQuestion('boilerplate',$usermeta['boilerplate']); ?>
 						<div class="clear"></div>

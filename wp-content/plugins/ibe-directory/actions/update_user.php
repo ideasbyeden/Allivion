@@ -64,6 +64,38 @@ function directory_update_user(){
 	die();
 */
 	
+	// If files, upload
+	
+	// check required data has been supplied
+	//if(!$_REQUEST['uploadname']) die('Upload name not supplied');
+
+	if ($_FILES) {
+		
+		$vars = $$role->getVars();
+		
+		//die(print_r($_FILES));
+		foreach($_FILES as $k=>$v){
+			if($q = $$role->getQuestion($k)){
+				
+				$attach_id = media_handle_upload($k,0);			
+			
+				if($q['multiple'] == 'true'){
+					$images = get_user_meta($user->ID, $k, true);
+					if(!is_array($images) || empty($images)) { $images = array(); }
+			     	$images[] = strval($attach_id);
+				} else {
+					$images = array();
+			     	$images[] = strval($attach_id);
+				}
+								
+				update_user_meta($user->ID, $k, $images);
+			}
+		}
+		unset($_FILES);
+	
+	}
+
+	
 	// If no errors, update user
 	if(!$error){
 		wp_update_user($this_user);

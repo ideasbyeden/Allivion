@@ -19,7 +19,7 @@ while (have_posts()) {
 /////////////////////////////////////////////
 
 // Fields to be shown in search results
-$returnfields = array('job_title','location','summary','recruiter_name','closing_date');
+$returnfields = array('logo','job_title','location','summary','recruiter_name','closing_date');
 
 
 /////////////////////////////////////////////
@@ -90,8 +90,11 @@ $returnfields = array('job_title','location','summary','recruiter_name','closing
 								
 					<?php foreach ($items->posts as $item){ ?>
 						<tr class="clickable rowitem" data-href="/job?i=<?php echo $item->ID; ?>">
-							
-							<?php if($item->meta['logo']) { ?><td><?php echo $item->meta['logo']; ?></td><?php } ?>
+							<td style="width: 60px;">
+								<?php if($item->groupmeta['logo']) { ?>
+										<?php foreach(unserialize($item->groupmeta['logo']) as $image_id) echo wp_get_attachment_image($image_id,'tinythumb'); ?>
+								<?php } ?>
+							</td>
 							<td>
 								<h4><?php echo $item->meta['job_title']; ?><?php if($item->meta['location']) echo ', '.$item->meta['location']; ?></h4>
 								<h5><?php echo $item->groupmeta['recruiter_name']; ?></h5>

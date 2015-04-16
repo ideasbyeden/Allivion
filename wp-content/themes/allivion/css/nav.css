@@ -63,6 +63,10 @@ nav#main ul > li a {
 	display: inline-block;
 }
 
+nav#main ul > li.nav_logo a {
+	padding: 0px;
+}
+
 nav#main ul > li.current-menu-item a {
 	background: url(../img/nav_active_bg.png) repeat-x center bottom;
 	color: white;	
