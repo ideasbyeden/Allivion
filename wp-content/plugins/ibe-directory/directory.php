@@ -13,6 +13,7 @@ require_once('directory_itemclass.php');
 require_once('directory_userclass.php');
 require_once('user_functions.php');
 require_once('dev_functions.php');
+require_once('jsapi.php');
 
 
 global $wp_rewrite;

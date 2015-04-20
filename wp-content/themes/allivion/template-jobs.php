@@ -19,7 +19,7 @@ while (have_posts()) {
 /////////////////////////////////////////////
 
 // Fields to be shown in search results
-$returnfields = array('logo','job_title','location','summary','recruiter_name','closing_date');
+$returnfields = array('logo','logo_image','job_title','location','summary','recruiter_name','closing_date');
 
 
 /////////////////////////////////////////////
@@ -28,9 +28,73 @@ $returnfields = array('logo','job_title','location','summary','recruiter_name','
 //
 /////////////////////////////////////////////
 
-
-
 ?>
+
+<script>
+	jQuery(document).ajaxSuccess(function( event, xhr, settings ) {
+		var data = queryStringToJSON(settings.data)
+		if(data.action == 'directory_search'){
+			var form = jQuery('input[name="action"][value="'+data.action+'"]').closest('form');
+			var userfields = [];
+			form.find('select').each(function(i){
+				userfields.push(jQuery(this).attr('name'));
+			});
+
+			var searchval;
+			jQuery('#job_bullets table').html('');
+
+			jQuery.each(data, function(k,v){
+				if(jQuery.inArray(k,userfields)!==-1 && v != ''){					
+
+					jQuery.ajax({
+				    	type: 'POST',
+				    	url:  '<?php echo admin_url('admin-ajax.php'); ?>',
+				    	data: 'action=jsapi&type=job&method=getquestion&name='+k,
+				    	dataType: 'json',
+								
+						success: function(question){
+							console.log(question.label);
+							if(typeof question.value != 'undefined'){
+								jQuery.each(question.value, function(qk,qv) {
+									if(qv == v) searchval = qk;
+								});
+							} else {
+								searchval = v;
+							}
+							jQuery('#job_bullets table').append('<tr><td>'+question.label+'</td><td><strong>'+searchval+'</strong></td></tr>').hide().fadeIn(100);
+						}
+					});
+
+					
+				}
+			});
+
+
+		}
+	});
+	
+	jQuery(function(){
+		jQuery('#togglesearchform').click(function(){
+			if(jQuery(this).hasClass('open')){
+				jQuery(this).removeClass('open').html('Refine search');
+				jQuery('.popoutform').hide();
+			} else {
+				jQuery(this).addClass('open').html('Close');			
+				jQuery('.popoutform').show();
+			}
+		});
+		
+	
+	
+	
+	});
+	
+	function formclose(c){
+		jQuery('.'+c).hide();
+		jQuery('#togglesearchform').removeClass('open').html('Refine search');
+	}
+	
+</script>
 
 <div class="section">
 	<div class="stage">
@@ -39,24 +103,50 @@ $returnfields = array('logo','job_title','location','summary','recruiter_name','
 		
 						
 			<div class="thirdcol">
-				<div class="qpanel purplegrad" id="job_bullets">				
+				<div class="qpanel darkpurplegrad" id="job_bullets">
+					<table style="width: 90%; margin-bottom: 30px;">
+					<?php
+						foreach($_GET as $k=>$v){
+							if($v){
+								if($q = $job->getQuestion($k)){
+									$v = ($q['value']) ? array_pop(array_keys($q['value'],$v)) : $v;
+								echo '<tr><td>'.$q['label'].'</td><td><strong>'.$v.'</strong></td></tr>';
+								}
+							}
+						}
+					?>
+					</table>				
+					<span id="togglesearchform">Refine search</span>
 
-					<form class="directory <?php echo $job->type; ?> search" id="searchjobs" action="<?php echo admin_url('admin-ajax.php'); ?>" method="post" return="<?php echo implode(',', $returnfields); ?>" targetid="jobslist" clickableurl="/job">
-					
-						<input type="hidden" name="nonce" value="<?php echo wp_create_nonce("directory_search_nonce"); ?>" />
-						<input type="hidden" name="action" value="directory_search" />
-						<input type="hidden" name="inc_search_count" value="true" />
+					<div class="qpanel purplegrad popoutform">
+						<form class="directory <?php echo $job->type; ?> search" id="searchjobs" action="<?php echo admin_url('admin-ajax.php'); ?>" method="post" return="<?php echo implode(',', $returnfields); ?>" targetid="jobslist" clickableurl="/job">
 						
-						<input type="hidden" name="encrypted" value="<?php echo $dircore->encrypt('type=job'); ?>" />
-					
-	
-						<h2>Search jobs</h2>
-						<label>Keywords</label><input type="text" name="keywords" value="<?php echo $_REQUEST['keywords']; ?>" />
-						<input type="submit" value="Search" class="fr"/>
-						<div class="clear"></div>
+							<input type="hidden" name="nonce" value="<?php echo wp_create_nonce("directory_search_nonce"); ?>" />
+							<input type="hidden" name="action" value="directory_search" />
+							<input type="hidden" name="inc_search_count" value="true" />
+							
+							<input type="hidden" name="encrypted" value="<?php echo $dircore->encrypt('type=job'); ?>" />
 						
-					</form>
-
+		
+							<div class="question">
+								<label>Keywords</label>
+								<input type="text" name="keywords" value="<?php echo $_GET['keywords']; ?>" />
+							</div>
+							<?php
+								$job->printQuestion('industry',$_GET['industry'],'dropdown',true);
+								$job->printQuestion('region',$_GET['region'],'dropdown',true);
+								$job->printQuestion('salary_range',$_GET['salary_range'],'dropdown',true);
+								$job->printQuestion('contract',$_GET['contract'],'dropdown',true);
+						
+								
+								
+								
+							?>
+							<input type="submit" value="Search" class="fr" onClick="formclose('popoutform');"/>
+							<div class="clear"></div>
+							
+						</form>
+					</div>
 				</div>
 			</div>
 				
@@ -79,7 +169,7 @@ $returnfields = array('logo','job_title','location','summary','recruiter_name','
 					<tbody id="jobslist">
 						
 					<tr class="prototype" data-href="/job?i=">
-						<td>[logo]</td>
+						<td>[logo_image]</td>
 						<td>
 							<h4>[job_title], [location]</h4>
 							<h5>[recruiter_name]</h5>
@@ -92,7 +182,7 @@ $returnfields = array('logo','job_title','location','summary','recruiter_name','
 						<tr class="clickable rowitem" data-href="/job?i=<?php echo $item->ID; ?>">
 							<td style="width: 60px;">
 								<?php if($item->groupmeta['logo']) { ?>
-										<?php foreach(unserialize($item->groupmeta['logo']) as $image_id) echo wp_get_attachment_image($image_id,'tinythumb'); ?>
+										<?php foreach($item->groupmeta['logo'] as $image_id) echo wp_get_attachment_image($image_id,'tinythumb'); ?>
 								<?php } ?>
 							</td>
 							<td>
@@ -111,6 +201,8 @@ $returnfields = array('logo','job_title','location','summary','recruiter_name','
 
 		
 			<div class="clear"></div>
+			
+			<pre><?php //print_r($items->posts); ?></pre>
 		</div>
 	</div>
 </div>

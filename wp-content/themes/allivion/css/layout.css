@@ -121,6 +121,18 @@ img {
 	-webkit-border-radius: 0 0 12px 12px;
 	margin-bottom: 20px;
 	min-height: 200px;
+	padding: 20px;
+}
+
+#homefeaturedjobs {
+	background-color: #EEEEEE;
+	border-radius: 12px;
+	-moz-border-radius: 12px;
+	-webkit-border-radius: 12px;
+	margin-bottom: 20px;
+	min-height: 200px;
+	padding: 20px;
+	
 }
 
 
@@ -209,6 +221,32 @@ img {
 	min-height: 1000px;
 }
 
+#footer .footer_button {
+	display: inline-block;
+	padding: 4px 8px;
+	border-radius: 4px;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	background-color: #F0F0F0;
+	margin-right: 4px;
+	color: black;
+}
+
+.feeditem {
+	padding-left: 70px;
+	min-height: 54px;
+	background-position: left top;
+	background-repeat: no-repeat;
+}
+
+.feeditem.news {
+	background-image: url(../img/feeditems_news.png);
+}
+
+.feeditem.careers-advice {
+	background-image: url(../img/feeditems_careersadvice.png);
+}
+
 /* misc */
 
 .clear {
@@ -254,9 +292,11 @@ img {
 	-webkit-border-radius: 8px;
 	padding: 12px;
 	margin-bottom: 6px;
+	position: relative;
 }
 
-.qpanel.purplegrad {
+
+.purplegrad {
 	background-image: -webkit-gradient(
 	linear,
 	left top,
@@ -269,6 +309,23 @@ img {
 	background-image: -webkit-linear-gradient(bottom, #B88EC0 0%, #592580 100%);
 	background-image: -ms-linear-gradient(bottom, #B88EC0 0%, #592580 100%);
 	background-image: linear-gradient(to bottom, #B88EC0 0%, #592580 100%);
+	
+	color: white;
+}
+
+.darkpurplegrad {
+	background-image: -webkit-gradient(
+	linear,
+	left top,
+	left bottom,
+	color-stop(0, #976AAA),
+	color-stop(1, #592580)
+	);
+	background-image: -o-linear-gradient(bottom, #976AAA 0%, #592580 100%);
+	background-image: -moz-linear-gradient(bottom, #976AAA 0%, #592580 100%);
+	background-image: -webkit-linear-gradient(bottom, #976AAA 0%, #592580 100%);
+	background-image: -ms-linear-gradient(bottom, #976AAA 0%, #592580 100%);
+	background-image: linear-gradient(to bottom, #976AAA 0%, #592580 100%);
 	
 	color: white;
 }
@@ -387,12 +444,28 @@ img {
 	margin-bottom: 4px;
 }
 
+.searchresults img {
+	width: 50px;
+}
+
 .clickable {
 	cursor: pointer;
 }
 
 tr.clickable:hover {
 	background-color: #DDDDDD;
+}
+
+#job_bullets {
+	min-height: 200px;
+	padding: 0px;
+}
+
+#job_bullets table {
+	position: absolute;
+	float: left;
+	clear: none;
+	margin: 12px;
 }
 
 #job_bullets p {
@@ -408,6 +481,65 @@ tr.clickable:hover {
 #job_bullets .detail_label {
 	font-weight: 300;
 }
+
+#job_bullets #togglesearchform {
+	position: absolute;
+	bottom: 12px;
+	left: 12px;
+	cursor: pointer;
+}
+
+#job_bullets .popoutform {
+	display: none;
+	position: relative;
+	left: 100%;
+	margin-left: -8px;
+	top: 0px;
+	width: 200%;
+	min-height: 200px;
+	z-index: 100;
+	border-radius: 0 8px 8px 0;
+	-moz-border-radius: 0 8px 8px 0;
+	-webkit-border-radius: 0 8px 8px 0;
+	
+	background-image: -webkit-gradient(
+	linear,
+	left top,
+	left bottom,
+	color-stop(0, #A579B3),
+	color-stop(1, #68368A)
+	);
+	background-image: -o-linear-gradient(bottom, #A579B3 0%, #68368A 100%);
+	background-image: -moz-linear-gradient(bottom, #A579B3 0%, #68368A 100%);
+	background-image: -webkit-linear-gradient(bottom, #A579B3 0%, #68368A 100%);
+	background-image: -ms-linear-gradient(bottom, #A579B3 0%, #68368A 100%);
+	background-image: linear-gradient(to bottom, #A579B3 0%, #68368A 100%);
+
+}
+
+#job_bullets .popoutform form {
+	width: 100%;
+	position: relative;
+	float: left;
+	clear: none;
+}
+
+
+#job_bullets .popoutform .question input[type='text'],
+#job_bullets .popoutform .question input[type='email'],
+#job_bullets .popoutform .question input[type='password'],
+#job_bullets .popoutform .question textarea,
+#job_bullets .popoutform .question select,
+#job_bullets .popoutform div.selector {
+	width: 60% !important;
+	display: inline-block;
+}
+
+#job_bullets .popoutform .question input[type='text'] {
+	margin-left: -3px !important;
+}
+
+
 
 .prototype {
 	display: none;

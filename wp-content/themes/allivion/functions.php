@@ -137,6 +137,13 @@ function remove_width_attribute( $html ) {
 add_filter( 'post_thumbnail_html', 'remove_width_attribute', 10 );
 add_filter( 'image_send_to_editor', 'remove_width_attribute', 10 );
 
+// remove width and height atts from placed images
+function remove_width_attribute_ga( $attr ) {
+   $attr['width'] = $attr['height'] = '';
+   return $attr;
+}
+
+add_filter( 'wp_get_attachment_image_attributes', 'remove_width_attribute_ga', 10);
 
 ///////////////////////////////////////////// sidebar functions ///////////////////////////////////////////////
 

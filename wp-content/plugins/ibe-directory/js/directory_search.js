@@ -41,9 +41,31 @@ jQuery(function(){
 						row.removeClass('prototype');
 						row.attr('data-href', clickableurl+'?i='+postdata['ID']);
 						jQuery.each(returndata, function(k,v){
-							if(typeof postdata.meta[v] != 'undefined') row.html(row.html().replace('['+v+']',postdata.meta[v]));
-							if(typeof postdata.groupmeta[v] != 'undefined') row.html(row.html().replace('['+v+']',postdata.groupmeta[v]));
-							if(typeof postdata.authormeta[v] != 'undefined') row.html(row.html().replace('['+v+']',postdata.authormeta[v]));
+							if(typeof postdata.meta[v] != 'undefined'){
+								if(jQuery.isArray(postdata.meta[v])){
+									row.html(row.html().replace('['+v+']',postdata.meta[v][0]));
+								} else {
+									row.html(row.html().replace('['+v+']',postdata.meta[v]));
+								}
+							}
+							
+							if(typeof postdata.groupmeta[v] != 'undefined'){
+								if(jQuery.isArray(postdata.groupmeta[v])){
+									row.html(row.html().replace('['+v+']',postdata.groupmeta[v][0]));
+								} else {
+									row.html(row.html().replace('['+v+']',postdata.groupmeta[v]));
+								}
+							}
+
+							if(typeof postdata.authormeta[v] != 'undefined'){
+								if(jQuery.isArray(postdata.authormeta[v])){
+									row.html(row.html().replace('['+v+']',postdata.authormeta[v][0]));
+								} else {
+									row.html(row.html().replace('['+v+']',postdata.authormeta[v]));
+								}
+							}
+							
+							
 						});
 						row.html(row.html().replace(/\[.*?\]/g,''));
 					} else {					

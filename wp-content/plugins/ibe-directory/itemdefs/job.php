@@ -29,7 +29,8 @@ $single_label ='job';
 $sectors = array(
 			'Agrictulture, Food & Veterinary' 		=> 'agri/food/vet',	
 			'Architecture, Building & Planning' 	=> 'architecture/building',	
-			'Biological Sciences' 					=> 'biological_science'
+			'Biological Sciences' 					=> 'biological_science',
+			'IT'									=> 'it'
 			);
 
 

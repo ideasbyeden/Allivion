@@ -68,7 +68,7 @@ class directoryCore {
 	}
 	
 	
-	public function printQuestion($name,$value = null,$format = null){
+	public function printQuestion($name,$value = null,$format = null,$add_blank = false){
 		if($question = $this->getQuestion($name)){
 			
 			$value ? $value : ($question['value'] ? $question['value'] : '');
@@ -136,7 +136,7 @@ class directoryCore {
 					$output .= $question['placeholder'] ? 'placeholder="'.$question['placeholder'].'" ' : '';
 					$output .= $question['required'] ? 'required="'.$question['required'].'" ' : '';
 					$output .= '>';
-					if($question['addblank']){
+					if($question['addblank'] || $add_blank){
 						$output .= '<option value="">'.$question['label'].'</option>';
 					}
 					foreach($question['value'] as $k=>$v){
@@ -206,6 +206,16 @@ class directoryCore {
 					$output .= $question['required'] ? 'required="'.$question['required'].'" ' : '';
 					$output .= '/>';
 				break;
+
+				case 'image':
+					$output .= $question['label'] ? '<label>'.$question['label'].'</label>' : '';
+					$output .= $question['instructions'] ? '<p class="instructions">'.$question['instructions'].'</p>' : '';
+					$output .= '<input type="file" ';
+					$output .= $question['name'] ? 'name="'.$question['name'].'" ' : '';
+					$output .= $question['required'] ? 'required="'.$question['required'].'" ' : '';
+					$output .= '/>';
+				break;
+
 				
 				case 'hidden':
 					$output .= '<input type="hidden" ';
@@ -360,5 +370,7 @@ class directoryCore {
 		return $users;
 		
 	}
+	
+
 	
 }

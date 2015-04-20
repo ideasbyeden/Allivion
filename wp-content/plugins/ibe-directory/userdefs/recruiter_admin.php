@@ -117,7 +117,7 @@ $vars = array(
 		'name' => 'logo',
 		'label' => 'Logo',
 		'placeholder' => '',
-		'fieldtype' => 'file',
+		'fieldtype' => 'image',
 		'multiple' => 'false',
 		'group' => 'profile'
 	),

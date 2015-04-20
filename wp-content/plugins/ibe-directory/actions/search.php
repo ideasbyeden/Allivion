@@ -98,7 +98,8 @@ function directory_search($params = null){
 	
 	// run WP query
 	$result = new WP_Query($query_args);
-		
+	
+	
 	
 	// push meta values into post object
 	for($i=0; $i<count($result->posts); $i++){
@@ -111,18 +112,49 @@ function directory_search($params = null){
 		$thispost->meta = $cleanmeta;
 		
 		//push author meta into post object
+		$cleanauthormeta = array();
 		$authormeta = get_user_meta($thispost->post_author);
 		foreach($authormeta as $k=>$v){
-			$cleanauthormeta[$k] = $v[0];
+			$cleanauthormeta[$k] = unserialize($v[0]) ? unserialize($v[0]) : $v[0];
+			$q = $$type->getQuestion($k);
+			if($q['fieldtype'] == 'image'){
+				foreach($cleanauthormeta[$k] as $img){
+					$src = wp_get_attachment_image_src($img,'full');
+					$cleanauthormeta[$k.'_image'][] = '<img src="'.$src[0].'" />';
+				}
+			}
 		}
 		$thispost->authormeta = $cleanauthormeta;
 		
 		//push group meta into post object
 		$groupmeta = get_user_meta($thispost->meta['group_id']);
+		
+		if(!$role){
+			$querieduser = new WP_User($thispost->meta['group_id']);
+			$role = $querieduser->roles[0];
+			global $$role;
+		}
+
+		$cleangroupmeta = array();
 		foreach($groupmeta as $k=>$v){
-			$cleangroupmeta[$k] = $v[0];
+			$cleangroupmeta[$k] = unserialize($v[0]) ? unserialize($v[0]) : $v[0];
+
+
+			$q = $$role->getQuestion($k);
+			if($q['fieldtype'] == 'image'){
+
+				foreach($cleangroupmeta[$k] as $img){
+					$src = wp_get_attachment_image_src($img,'full');
+					$cleangroupmeta[$k.'_image'][] = '<img src="'.$src[0].'" />';
+				}
+
+			}
+
+
 		}
 		$thispost->groupmeta = $cleangroupmeta;
+		
+		$result->posts[$i] = $thispost;
 		
 		
 		// update returned in search count

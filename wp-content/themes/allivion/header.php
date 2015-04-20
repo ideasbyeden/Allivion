@@ -34,7 +34,8 @@
  		});
  	</script>
  	
- 	<script src="<?php bloginfo('template_url'); ?>/js/homesearch.js"></script>
+ 	<script src="<?php bloginfo('template_url'); ?>/js/QueryToJSON.js"></script>
+ 	
 
  		
 	<?php global $user, $usermeta; 

@@ -30,6 +30,34 @@ $returnfields = array('job_title','location','summary','recruiter_name','closing
 
 ?>
 
+<script>
+	jQuery(function(){
+		var form = jQuery('form.homesearch');
+		var natheight = form.height();
+		jQuery('#searchform_toggle').click(function(){
+			var d = 0;
+			if(jQuery(this).hasClass('open')){
+				jQuery(this).removeClass('open').html('Use advanced search');
+				form.animate({
+					height: natheight
+				},500);
+				jQuery(jQuery('div.selector').get().reverse()).each(function() {
+				    jQuery(this).delay(d).fadeOut(400);
+				    d += 100;
+				});
+			} else {
+				jQuery(this).addClass('open').html('Use basic search');			
+				jQuery('div.selector').each(function() {
+				    jQuery(this).delay(d).fadeIn(400);
+				    d += 100;
+				});
+				form.animate({
+					height: '207'
+				},500);		}
+		})
+	});
+</script>
+
 <div class="section">
 	<div class="stage">
 		
@@ -42,6 +70,14 @@ $returnfields = array('job_title','location','summary','recruiter_name','closing
 					<div class="fields" style="width: 100%;">
 					<input type="text" name="keywords" value="<?php echo $_REQUEST['keywords']; ?>" placeholder="I'm looking for..." class="fl" />
 					<div class="clear"></div>
+					
+					<?php $industry = $job->getQuestion('industry'); ?>
+					<select name="industry">
+						<option value="">Industry</option>
+						<?php foreach($industry['value'] as $k=>$v){ ?>
+							<option value="<?php echo $v; ?>"><?php echo $k; ?></option>
+						<?php } ?>
+					</select>
 					
 					<?php $region = $job->getQuestion('region'); ?>
 					<select name="region">
@@ -76,7 +112,18 @@ $returnfields = array('job_title','location','summary','recruiter_name','closing
 			</div>
 			
 			<div id="homecats">
-				
+				<ul>
+				<?php $industry = $job->getQuestion('industry');
+					foreach($industry['value'] as $k=>$v){
+						echo '<li><a href="/jobs?industry='.$v.'">'.$k.'</a></li>';
+					}
+					
+				?>
+				</ul>
+			</div>
+			
+			<div id="homefeaturedjobs">
+				<h3>Featured Jobs</h3>
 			</div>
 				
 			<div class="clear"></div>
