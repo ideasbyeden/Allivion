@@ -32,8 +32,13 @@ jQuery(function(){
 			success: function(result){
 				var prototype = jQuery('#'+target+' .prototype');
 				jQuery('#'+target+' .rowitem').remove();
-				jQuery.each(result.posts, function(index,postdata){
+				
+				if(result.posts.length == 0){
+					jQuery('#'+target).append('<tr class="rowitem"><td colspan=99><h3>No results were found</h3><p>Please broaden your search and try again</p></td></tr>');
+					return false;
+				}
 
+				jQuery.each(result.posts, function(index,postdata){
 
 					if(prototype.length > 0){
 						var row = prototype.clone();

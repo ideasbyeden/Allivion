@@ -103,7 +103,7 @@ $returnfields = array('logo','logo_image','job_title','location','summary','recr
 		<h1 class="purple">Job advertisements</h1>
 		
 						
-			<div class="thirdcol">
+			<div class="qtrcol">
 				<div class="qpanel darkpurplegrad" id="job_bullets">
 					<table style="width: 90%; margin-bottom: 30px;">
 					<?php
@@ -163,7 +163,7 @@ $returnfields = array('logo','logo_image','job_title','location','summary','recr
 			
 			<pre><?php //print_r($items); ?></pre>
 
-			<div class="twothirdscol">
+			<div class="threeqtrscol">
 				<table class="searchresults">
 					
 					<thead>
@@ -240,12 +240,17 @@ $returnfields = array('logo','logo_image','job_title','location','summary','recr
 							</td>
 							<td>
 								<?php echo $item->meta['closing_date'] ? date('jS M Y',strtotime($item->meta['closing_date'])) : ''; ?>
-<!-- 								<p><?php echo $item->meta['closing_date'] ? time2str($item->meta['closing_date']) : ''; ?></p> -->
 							</td>
 						</tr>
-					<?php } ?>
+					<?php } 
+						if(count($items->posts) == 0) echo '<tr class="rowitem"><td colspan=99><h3>No results were found</h3><p>Please broaden your search and try again</p></td></tr>';
+						
+						
+					?>
 					</tbody>
-				</table>			
+				</table>
+				
+							
 			</div>
 
 		
