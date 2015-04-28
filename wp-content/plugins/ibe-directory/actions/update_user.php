@@ -95,6 +95,7 @@ function directory_update_user(){
 	
 	}
 
+	//die(print_r($user));
 	
 	// If no errors, update user
 	if(!$error){
@@ -115,25 +116,46 @@ function directory_update_user(){
 		die();
 	}
 	
+	// Form submitted by AJAX
+	if($_SERVER['HTTP_X_REQUESTED_WITH'] && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+		$result['result'] = 'success';
+		if($params['success_message']){
+			$result['message'] = $params['success_message'];
+		}
+
+		if($params['redirect']){
+			$result['redirect'] = $params['redirect'];
+		}
+		echo json_encode($result);
+		
 	
+	// Form submitted by HTTP
+	} else {
+		if($params['redirect']){
+			header('Location: '.$params['redirect']);
+		} else {
+			header('Location: '.$_SERVER['HTTP_REFERER']);
+		}
+	}
+	
+	
+/*
 	// If we're still here, we've updated the user. Now redirect to URL supplied or error.
 	if($_REQUEST['redirect']){
 		header('Location: '.$_REQUEST['redirect']);
 	} else {
-		die('You did not specify where to go after your item was updated. Simply add <input type="hidden" name="redirect" value="/mypage" /> to your form. Do not include any query strings');
+		//die('You did not specify where to go after your item was updated. Simply add <input type="hidden" name="redirect" value="/mypage" /> to your form. Do not include any query strings');
 	}
 
 	die();
+*/
 	
 }
 
-// AJAX disabled as form redirects after submission
-// add_action( 'init', 'directory_update_enqueue' );
+ add_action( 'init', 'directory_update_user_enqueue' );
 
-/*
 function directory_update_user_enqueue() {
    wp_register_script( 'directory_update_user', WP_PLUGIN_URL.'/ibe-directory/js/directory_update_user.js', array('jquery') );
    wp_localize_script( 'directory_update_user', 'directory_update_user', array( 'ajaxurl' => admin_url( 'admin-ajax.php' )));        
    wp_enqueue_script( 'directory_update_user' );
 }
-*/

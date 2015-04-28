@@ -35,30 +35,3 @@ if(function_exists("mcrypt_encrypt")) {
 define('IV_SIZE', mcrypt_get_iv_size(MCRYPT_RIJNDAEL_128, MCRYPT_MODE_CBC));
 }
 define('CRYPTKEY','NFOLOOHWZ0DOAL1VH4K6W7C');
-
-
-
-
-/*-------------------------
-	
-URLs
-----
-
-Recruiter admin urls
-
-/recruiter/dashboard
-/recruiter/users
-/recruiter/users/create
-/recruiter/users/update
-
-Recruiter urls
-
-/recruiter/dashboard
-/recruiter/profile
-/recruiter/<itemtype>
-
-/candidate/dashboard
-/candidate/profile
-/candidate/<itemtype>
-
-/advertiser/dashboard

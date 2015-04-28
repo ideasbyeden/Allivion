@@ -5,6 +5,6 @@ jQuery(function(){
 		window.document.location = jQuery(this).attr('data-href');
 	});
 	
-
+	jQuery('.datepicker').datepicker({ dateFormat : 'dd-mm-yy' });
 	
 });

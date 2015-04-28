@@ -19,7 +19,7 @@ while (have_posts()) {
 /////////////////////////////////////////////
 
 // Fields to be shown in search results
-$returnfields = array('logo','logo_image','job_title','location','summary','recruiter_name','closing_date');
+$returnfields = array('logo','logo_image','job_title','location','summary','recruiter_name','closing_date','publish_from');
 
 
 /////////////////////////////////////////////
@@ -31,6 +31,7 @@ $returnfields = array('logo','logo_image','job_title','location','summary','recr
 ?>
 
 <script>
+	// Updates purple panel with search params
 	jQuery(document).ajaxSuccess(function( event, xhr, settings ) {
 		var data = queryStringToJSON(settings.data)
 		if(data.action == 'directory_search'){
@@ -165,6 +166,49 @@ $returnfields = array('logo','logo_image','job_title','location','summary','recr
 			<div class="twothirdscol">
 				<table class="searchresults">
 					
+					<thead>
+						<tr>
+							<td></td>
+							<td>
+								<form class="directory <?php echo $job->type; ?> search sortform" id="searchjobs" action="<?php echo admin_url('admin-ajax.php'); ?>" method="post" return="<?php echo implode(',', $returnfields); ?>" targetid="jobslist" clickableurl="/job">
+									<?php foreach($_GET as $k=>$v) { ?>
+										<input type="hidden" name="<?php echo $k ; ?>" value="<?php echo $v; ?>" />
+									<?php } ?>
+									<input type="hidden" name="nonce" value="<?php echo wp_create_nonce("directory_search_nonce"); ?>" />
+									<input type="hidden" name="action" value="directory_search" />
+									<input type="hidden" name="encrypted" value="<?php echo $dircore->encrypt('type=job'); ?>" />
+									<input type="hidden" name="inc_search_count" value="false" />
+									<input type="hidden" name="orderby" value="job_title" />
+									<input type="hidden" name="order" value="ASC" />
+									<input type="submit" value="Job title" />
+								</form>
+							</td>
+							<td>
+								<form class="directory <?php echo $job->type; ?> search sortform" id="searchjobs" action="<?php echo admin_url('admin-ajax.php'); ?>" method="post" return="<?php echo implode(',', $returnfields); ?>" targetid="jobslist" clickableurl="/job">
+									<?php foreach($_GET as $k=>$v) { ?>
+										<input type="hidden" name="<?php echo $k ; ?>" value="<?php echo $v; ?>" />
+									<?php } ?>
+									<input type="hidden" name="nonce" value="<?php echo wp_create_nonce("directory_search_nonce"); ?>" />
+									<input type="hidden" name="action" value="directory_search" />
+									<input type="hidden" name="encrypted" value="<?php echo $dircore->encrypt('type=job'); ?>" />
+									<input type="hidden" name="inc_search_count" value="false" />
+									<input type="hidden" name="orderby" value="publish_from" />
+									<input type="submit" value="Published" />
+								</form>
+							</td>
+							<td><form class="directory <?php echo $job->type; ?> search sortform" id="searchjobs" action="<?php echo admin_url('admin-ajax.php'); ?>" method="post" return="<?php echo implode(',', $returnfields); ?>" targetid="jobslist" clickableurl="/job">
+									<?php foreach($_GET as $k=>$v) { ?>
+										<input type="hidden" name="<?php echo $k ; ?>" value="<?php echo $v; ?>" />
+									<?php } ?>
+									<input type="hidden" name="nonce" value="<?php echo wp_create_nonce("directory_search_nonce"); ?>" />
+									<input type="hidden" name="action" value="directory_search" />
+									<input type="hidden" name="encrypted" value="<?php echo $dircore->encrypt('type=job'); ?>" />
+									<input type="hidden" name="inc_search_count" value="false" />
+									<input type="hidden" name="orderby" value="closing_date" />
+									<input type="submit" value="Closes" />
+								</form></td>
+						</tr>
+					</thead>
 							
 					<tbody id="jobslist">
 						
@@ -175,6 +219,7 @@ $returnfields = array('logo','logo_image','job_title','location','summary','recr
 							<h5>[recruiter_name]</h5>
 							<p>[summary]</p>
 						</td>
+						<td>[publish_from]</td>
 						<td>[closing_date]</td>
 					</tr>
 								
@@ -191,7 +236,11 @@ $returnfields = array('logo','logo_image','job_title','location','summary','recr
 								<p><?php echo $item->meta['summary']; ?></p>
 							</td>
 							<td>
-								<p><?php echo $item->meta['closing_date']; ?></p>
+								<?php echo $item->meta['publish_from'] ? time2str($item->meta['publish_from']) : ''; ?>
+							</td>
+							<td>
+								<?php echo $item->meta['closing_date'] ? date('jS M Y',strtotime($item->meta['closing_date'])) : ''; ?>
+<!-- 								<p><?php echo $item->meta['closing_date'] ? time2str($item->meta['closing_date']) : ''; ?></p> -->
 							</td>
 						</tr>
 					<?php } ?>

@@ -105,8 +105,20 @@ class directoryCore {
 					$output .= $question['placeholder'] ? 'placeholder="'.$question['placeholder'].'" ' : '';
 					$output .= $question['required'] ? 'required="'.$question['required'].'" ' : '';
 					$output .= '>'.$value.'</textarea>';
+					//$output .= '<input type="hidden" name="richtext" value="true" />';
 				break;
 				
+				case 'date':
+					$output .= $question['label'] ? '<label>'.$question['label'].'</label>' : '';
+					$output .= $question['instructions'] ? '<p class="instructions">'.$question['instructions'].'</p>' : '';
+					$output .= '<input type="text" class="datepicker" ';
+					$output .= $question['name'] ? 'name="'.$question['name'].'" ' : '';
+					$output .= $question['placeholder'] ? 'placeholder="'.$question['placeholder'].'" ' : '';
+					$output .= $question['required'] ? 'required="'.$question['required'].'" ' : '';
+					$output .= 'value="'.$value.'" ';
+					$output .= '/>';
+				break;
+
 				case 'email':
 					$output .= $question['label'] ? '<label>'.$question['label'].'</label>' : '';
 					$output .= $question['instructions'] ? '<p class="instructions">'.$question['instructions'].'</p>' : '';

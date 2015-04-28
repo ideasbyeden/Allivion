@@ -1,11 +1,12 @@
 jQuery(function(){
 	
-	jQuery('form.directory.update').submit(function(e){
+	jQuery('form.directory.updateuser').submit(function(e){
 		e.preventDefault();
+		console.log('updating user');
 		submitForm(jQuery(this));
 	});
 
-	jQuery('form.directory.update input, form.directory.update textarea, form.directory.update select').change(function(){
+	jQuery('form.directory.updateuser input, form.directory.updateuser textarea, form.directory.updateuser select').change(function(){
 		var form = jQuery(this).closest('form');
 		if(form.attr('autosave') == 'true'){
 			submitForm(form);
@@ -15,6 +16,7 @@ jQuery(function(){
 		
 	function submitForm(form){
 		
+		//tinyMCE.triggerSave();
 		var data = form.serialize();
 		console.log(data);
 		

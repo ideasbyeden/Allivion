@@ -104,10 +104,44 @@ $vars = array(
 	),
 	
 	array(
-		'name' => 'cv',
-		'label' => 'CV',
+		'name' => 'cv_intro',
+		'label' => 'Introduction',
+		'instructions' => 'Please do not include any contact information in the fields below',
 		'placeholder' => '',
-		'fieldtype' => 'richtext',
+		'fieldtype' => 'textarea',
+		'group' => 'profile'
+	),
+
+	array(
+		'name' => 'cv_education',
+		'label' => 'Education',
+		'placeholder' => '',
+		'fieldtype' => 'textarea',
+		'group' => 'profile'
+	),
+	
+	array(
+		'name' => 'cv_summary',
+		'label' => 'Summary',
+		'placeholder' => '',
+		'fieldtype' => 'textarea',
+		'group' => 'profile'
+	),
+
+	array(
+		'name' => 'cv_interests',
+		'label' => 'Acheivements & Interests',
+		'placeholder' => '',
+		'fieldtype' => 'textarea',
+		'group' => 'profile'
+	),
+
+	array(
+		'name' => 'cv_positions',
+		'label' => 'Positions',
+		'placeholder' => '',
+		'multiple' => 'true',
+		'fieldtype' => 'textarea',
 		'group' => 'profile'
 	),
 

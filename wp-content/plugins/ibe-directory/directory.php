@@ -12,6 +12,7 @@ require_once('directory_coreclass.php');
 require_once('directory_itemclass.php');
 require_once('directory_userclass.php');
 require_once('user_functions.php');
+require_once('item_functions.php');
 require_once('dev_functions.php');
 require_once('jsapi.php');
 
@@ -46,6 +47,9 @@ function directory_enqueue() {
 
    wp_register_script( 'directory_core', WP_PLUGIN_URL.'/ibe-directory/js/directory_core.js', array('jquery') );
    wp_enqueue_script( 'directory_core' );
+   
+	wp_enqueue_script('jquery-ui-datepicker');
+	wp_enqueue_style('jquery-style', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/themes/smoothness/jquery-ui.css');
 
 }
 
@@ -75,4 +79,3 @@ function directory_deactivate(){
 }
 
 register_deactivation_hook( __FILE__, 'directory_deactivate' );
-

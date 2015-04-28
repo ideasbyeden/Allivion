@@ -44,7 +44,7 @@ $sectors = array(
 //		'label' => 'How question 2 is labelled?',
 //		'instructions' => 'Further instructions on how to complete this question'
 //		'placeholder' => 'field suggestion for question 2',
-//		'fieldtype' => 'check', (can be 'text', 'textarea', 'richtext', 'dropdown', 'check', 'radio', 'password', 'email', 'file')
+//		'fieldtype' => 'check', (can be 'text', 'date', 'textarea', 'richtext', 'dropdown', 'check', 'radio', 'password', 'email', 'file')
 //		'value' => array(
 //			'Option 1' 		=> '1',	
 //			'Option 2' 		=> '2',	
@@ -272,6 +272,18 @@ $vars = array(
 		'placeholder' => '',
 		'fieldtype' => 'text',
 		'group' => 'extra'
+	),
+	array(
+		'name' => 'publish_from',
+		'label' => 'Publish from',
+		'fieldtype' => 'date',
+		'group' => 'extra'	
+	),
+	array(
+		'name' => 'closing_date',
+		'label' => 'Closing date',
+		'fieldtype' => 'date',
+		'group' => 'extra'	
 	),
 	array(
 		'name' => 'promote',

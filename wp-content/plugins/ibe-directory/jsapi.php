@@ -13,5 +13,11 @@ function jsapi(){
 		echo json_encode($$type->getQuestion($_POST['name']));	
 		exit();
 	}
+	
+	if($_POST['method'] == 'time2str'){
+		if(!$_POST['date']) return false;
+		echo json_encode(time2str($_POST['date']));	
+		exit();
+	}
 
 }

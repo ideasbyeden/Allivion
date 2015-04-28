@@ -23,7 +23,7 @@ img {
 .stage {
 	position: relative;
 	width: 100%;
-	max-width: 960px;
+	max-width: 1200px;
 	margin: 0 auto;
 	padding: 0 10px;
 	box-sizing:border-box;
@@ -543,6 +543,20 @@ tr.clickable:hover {
 
 .prototype {
 	display: none;
+}
+
+.sortform input[type='submit'] {
+	border: none;
+	background: none;
+	background-image: url(../img/sort_arrow.png);
+	background-repeat: no-repeat;
+	background-position: right center;
+	padding: 0 12px 0 0;
+	font-size: inherit;
+	font-family: inherit;
+	cursor: pointer;
+	outline: none;
+	
 }
 
 

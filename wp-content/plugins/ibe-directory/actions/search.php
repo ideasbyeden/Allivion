@@ -1,11 +1,11 @@
 <?php
 	
 add_action("wp_ajax_directory_search", "directory_search");
-add_action("wp_ajax_nopriv_directory_search", "directory_search"); // will need to be redirected to login or similar
+add_action("wp_ajax_nopriv_directory_search", "directory_search"); 
 
 function directory_search($params = null){
 		
-	foreach($_REQUEST as $k=>$v) $params[$k] = $v;
+	if($_REQUEST) foreach($_REQUEST as $k=>$v) $params[$k] = $v;
 	
 	if($params['encrypted']){
 		global $dircore;
@@ -13,20 +13,30 @@ function directory_search($params = null){
 		$params = array_merge($params,$safeparams);
 	}
 	
-	
+
 			
 	$type = post_type_exists($params['type']) ? $params['type'] : 'post';
 	global $$type;
 	$vars = $$type->getVarNames();
+	
+
+	$order = $params['order'] ? $params['order'] : 'DESC';
+
 
 	// set up basic query args
 	$query_args = array(	'post_type' => $type,
 							'orderby' => 'date',
-							'order' => 'DESC'
+							'order' => $order
 							); 
 	
 	if($params['author']) $query_args['author'] = $params['author'];
 
+	
+	// add ordering if requested
+	if($params['orderby']){
+		$query_args['meta_key']	= $params['orderby'];
+		$query_args['orderby'] = 'meta_value';
+	}
 	
 	// remove unexpected search variables
 	if($params){
@@ -93,7 +103,7 @@ function directory_search($params = null){
 		$query_args['post__in'] = $post_ids_meta;
 	}
 	
-	//die(print_r($params));
+	//die(print_r($query_args));
 
 	
 	// run WP query
@@ -158,7 +168,7 @@ function directory_search($params = null){
 		
 		
 		// update returned in search count
-		if($params['inc_search_count']){
+		if($params['inc_search_count'] == 'true'){
 			$search_count = get_post_meta($thispost->ID,'search_count',true);
 			//echo 'found post '.$thispost->ID.' with post count '.$search_count;
 			if($search_count != ''){
@@ -170,7 +180,7 @@ function directory_search($params = null){
 		
 	}
 	
-
+	//if(count($result->posts) == 0) $result['query'] = $query_args;
 	
 	// choose return path (AJAX or HTTP)
 	if($_POST){
