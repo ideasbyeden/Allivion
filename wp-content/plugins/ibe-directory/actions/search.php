@@ -117,6 +117,14 @@ function directory_search($params = null){
 		$thispost = $result->posts[$i];
 		$meta = get_post_custom( $thispost->ID );
 		foreach($meta as $k=>$v){
+			$q = $$type->getQuestion($k);
+			if($q['fieldtype'] == 'date' && $q['datedisplay']) {
+				if($q['datedisplay'] == 'relative'){
+					$v[0] = $v[0] ? time2str($v[0]) : '';
+				} else {
+					$v[0] = $v[0] ? date($q['datedisplay'],strtotime($v[0])) : '';
+				}
+			}
 			$cleanmeta[$k] = $v[0];
 		}
 		$thispost->meta = $cleanmeta;

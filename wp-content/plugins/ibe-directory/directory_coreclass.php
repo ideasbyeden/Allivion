@@ -317,9 +317,71 @@ class directoryCore {
 		
 	}
 	
+	public function formAfter($params){
+		
+		/* PSEUDO
+			
+			Could have come from
+			- a form processor function
+			- login
+			- a.n.other front end form
+			
+			Possible actions
+			- hide/fadeout form
+			- show a page element
+			- refresh some page content
+			- redirect
+		
+			Behaviour paramemeters
+			- Submitted by AJAX or HTTP
+			- Form action was success or fail
+			
+			Will need a syntax to carry all data in one field
+			
+			eg. formafter="hide,update:#contentarea,redirect:/myaccount"
+			
+			
+		*/
+		
+		
+		if(!$params['result']) return false;
+		
+		if($params['result'] == 'success'){
+			if($params['subtype'] == 'AJAX' && $params['formafter']){
+				
+			}
+			
+			if($params['redirect']) {
+				header('Location: '.$params['redirect']);
+			} else {
+				header('Location: '.$params['referer'].'?u='.$newuserID);
+			}
+			
+			
+		}
+		
+		if($params['result'] == 'fail'){
+			
+			
+		}
+		
+		
+	}
+	
 	public function notify($data){
 		
 		if(!$data['notify']) return false;
+		
+		// if the notify field does not contain an email address, get the value of the field named by notify
+		if(strstr($data['notify'], '@')) {
+			$to = $data['notify'];
+		} else {
+			$to = isset($data[$data['notify']]) ? $data[$data['notify']] : 'no email';
+		}
+		
+		// if the $to does not contain a valid email address
+		if (!filter_var($to, FILTER_VALIDATE_EMAIL)) return false;
+	
 		
 		// build email body using template
 		$template = $data['notify_template'] ? $data['notify_template'] : 'default';
@@ -327,9 +389,12 @@ class directoryCore {
 		foreach($data as $k=>$v){
 			$body = preg_replace('/\['.$k.'\]/', $v, $body);
 		}
+
+
+		//error_log("To: ".$to.'; Subject: '.$data['notify_subject'].'; Body: '.$body);
 			
 		// send email
-		$this->sendEmail($data['notify'],NOTIFY_EMAIL,$data['notify_subject'],$body);
+		$this->sendEmail($to,NOTIFY_EMAIL,$data['notify_subject'],$body);
 	}
 	
 	public function sendEmail($toemail,$fromemail = APPLICATION_EMAIL,$subject,$body,$fromname = APPLICATION,$toname = null){
@@ -344,7 +409,7 @@ class directoryCore {
 	}
 	
 	
-	public function encrypt ($payload) {	
+	public function encrypt($payload) {	
 		$iv = mcrypt_create_iv(IV_SIZE, MCRYPT_DEV_URANDOM);
 		$crypt = mcrypt_encrypt(MCRYPT_RIJNDAEL_128, CRYPTKEY, $payload, MCRYPT_MODE_CBC, $iv);
 		$combo = $iv . $crypt;
@@ -352,7 +417,7 @@ class directoryCore {
 		return $garble;
 	}
 	
-	public function decrypt ($garble) {
+	public function decrypt($garble) {
 		$combo = base64_decode($garble);
 		$iv = substr($combo, 0, IV_SIZE);
 		$crypt = substr($combo, IV_SIZE, strlen($combo));

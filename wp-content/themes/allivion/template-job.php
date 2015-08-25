@@ -1,4 +1,6 @@
 <?php
+	
+
 
 /*
 Template Name: Job
@@ -7,11 +9,10 @@ Template Name: Job
 
 if(!$_REQUEST['i'] || !$job->itemExists($_REQUEST['i'])) header("Location: /index.php");
 
+include(TEMPLATEPATH.'/includes/LinkedInGetAuth.php');
+include(TEMPLATEPATH.'/includes/linkedin.php');
 
 
-
-//$allivion->canAccess(array('group_id' => get_post_meta($_REQUEST['i'],'group_id',true)));
-//echo '<pre>'; print_r($vals); echo '</pre>';
 
 	
 get_template_part('header');
@@ -52,8 +53,8 @@ $uservals['email'] = $user->user_email;
 <div class="section">
 	<div class="stage">
 		
-		<div class="thirdcol">
-			<div class="qpanel purplegrad" id="job_bullets">
+		<div class="thirdcol sticky">
+			<div class="qpanel purplegrad" id="job_bullets" style="padding: 12px;">
 				<?php $job->printDetail('salary_details',$vals) ?>
 				<?php $job->printDetail('location',$vals) ?>
 				<?php $job->printDetail('industry',$vals) ?>
@@ -74,6 +75,8 @@ $uservals['email'] = $user->user_email;
 			<h6><span id="employer"><?php echo $employer['recruiter_name']; ?></span></h6>
 			<h6><span id="salary_details"><?php echo $vals['salary_details'] ? $vals['salary_details'] : 'Salary'; ?></span></h6>
 			<div><span id="full_description"><?php echo $vals['full_description'] ? $vals['full_description'] : 'Job description'; ?></span></div>
+			
+			<div class="clear" style="margin-bottom: 50px;"></div>
 
 			<form class="directory <?php echo $job->type; ?> create" id="job" action="<?php echo admin_url('admin-ajax.php'); ?>" method="post">
 				
@@ -87,7 +90,18 @@ $uservals['email'] = $user->user_email;
  				<input type="hidden" name="success_message" value="Your application has been submitted" />
  				<input type="hidden" name="formafter" value="hide" />
 				
-				<div class="qpanel">
+				<div class="qpanel tabbed">
+					<ul class="tabs">
+						<li class="active">Application form</li>
+						<?php if(!$user) echo '<li><a href="/log-in" class="show_login" redirect="'.$_SERVER['REQUEST_URI'].'">Log in</a></li>'; ?>
+						<li><a href="?linkedin=login">Apply with LinkedIn</a></li>
+					</ul>
+					
+					<?php if(!$user) { ?>
+					<h4>Already registered?</h4>
+					<p><a href="/log-in" class="show_login" redirect="<?php echo $_SERVER['REQUEST_URI']; ?>">Click here to login and autocomplete this form</a></p>
+					<?php } ?>
+
 					<?php $application->printGroup('headline',$uservals); ?>
 					<?php $application->printQuestion('job_id',$_REQUEST['i']); ?>
 					<?php $application->printQuestion('job_title',$vals['job_title']); ?>

@@ -50,6 +50,7 @@ $sectors = array(
 //			'Option 2' 		=> '2',	
 //			'Option 3' 		=> '3'	
 //		),
+//		'datedisplay' => 'relative' (can be 'relative' for '3 days ago' or use PHP date function syntax eg 'jS M Y' for '12th Jan 2015'. Only affects field of type 'date')
 //		'group' => 'package',
 //		'required' => 'publish', (can be 'save', 'publish'. Fields set to publish will also be required for save)
 //		'extra_class' => 'myclass'
@@ -277,12 +278,14 @@ $vars = array(
 		'name' => 'publish_from',
 		'label' => 'Publish from',
 		'fieldtype' => 'date',
+		'datedisplay' => 'relative',
 		'group' => 'extra'	
 	),
 	array(
 		'name' => 'closing_date',
 		'label' => 'Closing date',
 		'fieldtype' => 'date',
+		'datedisplay' => 'jS M Y',
 		'group' => 'extra'	
 	),
 	array(

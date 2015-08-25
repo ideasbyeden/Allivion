@@ -9,13 +9,19 @@ function directory_login(){
 	} 
 
     $info = array();
-    $info['user_login'] = $_REQUEST['username'];
     $info['user_password'] = $_REQUEST['password'];
     $info['remember'] = true;
     
-    //die(print_r($_REQUEST));
+	// allow login in by email address
+    if(filter_var($_REQUEST['username'], FILTER_VALIDATE_EMAIL)) {
+	    $user = get_user_by('email', $_REQUEST['username']);
+	    if($user) $info['user_login'] = $user->user_login;
+	} else {
+    	$info['user_login'] = $_REQUEST['username'];
+	}
 
     $login = wp_signon( $info, false );
+    $login = (array) $login;
     if (!is_wp_error($login) ){
 	    if($_REQUEST['redirect']) $login['redirect'] = $_REQUEST['redirect'];
         echo json_encode($login);

@@ -5,6 +5,7 @@ add_action("wp_ajax_nopriv_directory_create_user", "directory_create_user");
 
 function directory_create_user(){
 
+	global $dircore;
 			
 	if ( !wp_verify_nonce( $_REQUEST['nonce'], 'directory_create_user_nonce')) {
       exit('You are not authorised to take this action');
@@ -14,21 +15,21 @@ function directory_create_user(){
 	
 	foreach($_REQUEST as $k=>$v){
 		if(in_array($k, $valid)){
-			$userdata[$k] = $_REQUEST[$k];
+			$params[$k] = $_REQUEST[$k];
 		}
 	}
 	
 	
-	if($userdata['first_name'] == '') $error[] = 'First name missing';
-	if($userdata['user_email'] == '') $error[] = 'Email missing';
-	if($userdata['user_pass'] == '') $error[] = 'Password missing';
-	if($userdata['user_pass'] != $_REQUEST['confirm_user_pass']) $error[] = 'Passwords do not match';
+	if($params['first_name'] == '') $error[] = 'First name missing';
+	if($params['user_email'] == '') $error[] = 'Email missing';
+	if($params['user_pass'] == '') $error[] = 'Password missing';
+	if($params['user_pass'] != $_REQUEST['confirm_user_pass']) $error[] = 'Passwords do not match';
 	
 	
 
-	if(!$error){
-		$userdata['user_login'] = strtolower($userdata['first_name']).'_'.strtolower($userdata['last_name']);
-		$newuserID = wp_insert_user($userdata);
+	if(!$error){ // Data supplied is good, no errors
+		$params['user_login'] = strtolower($params['first_name']).'_'.strtolower($params['last_name']);
+		$newuserID = wp_insert_user($params);
 		if(!is_wp_error($newuserID)){
 			if($_REQUEST['group_id']) update_user_meta($newuserID,'group_id',$_REQUEST['group_id']);
 
@@ -36,19 +37,72 @@ function directory_create_user(){
 			    wp_set_current_user($id); // set the current wp user
 			    wp_set_auth_cookie($id); // start the cookie for the current registered user
 			}
+			
+			// Send notification of user creation to supplied email
+			if($_REQUEST['notify']){
+				$dircore->notify($_REQUEST);
+			}
 
 			if($_REQUEST['redirect']){
 				header('Location: '.$_REQUEST['redirect']);
 			} else {
 				header('Location: '.$_SERVER['HTTP_REFERER'].'?u='.$newuserID);
 			}
+		} else {
+			// insert user has errored, pass back to the registration form with details
 		}
-	} else {
+	} else { // Errors with data supplied
 		session_start();
 		$_SESSION['errors'] = $error;
-		$_SESSION['userdata'] = $userdata;
+		$_SESSION['userdata'] = $params;
 		header('Location: '.$_SERVER['HTTP_REFERER']);
 	}
+	
+	
+/////////////////////////////////////////////
+//
+// Form submitted by AJAX or HTTP
+//
+/////////////////////////////////////////////
+	
+	
+	$params['subtype'] = ($_SERVER['HTTP_X_REQUESTED_WITH'] && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') ? 'AJAX' : 'HTTP';
+	$params['referer'] = $_SERVER['HTTP_REFERER'];
+	$dircore->formAfter($params);
+	
+	
+	
+	// Form submitted by AJAX
+
+	if($_SERVER['HTTP_X_REQUESTED_WITH'] && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+		$result['result'] = 'success';
+		if($params['success_message']){
+			$result['message'] = $params['success_message'];
+		}
+
+		if($params['redirect']){
+			$result['redirect'] = $params['redirect'].'?i='.$newitemID.'&u='.$result['post_author'];
+		}
+		echo json_encode($result);
+		
+	
+	// Form submitted by HTTP
+	} else {
+		if($params['redirect']){
+			header('Location: '.$_REQUEST['redirect']);
+		} else {
+			header('Location: '.$_SERVER['HTTP_REFERER'].'?u='.$newuserID);
+		}
+	}
+
+	
+	
+/////////////////////////////////////////////
+//
+// End AJAX or HTTP
+//
+/////////////////////////////////////////////
+	
 
 
 	

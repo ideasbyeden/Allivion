@@ -58,7 +58,7 @@ while (have_posts()) {
 					<div class="qpanel">
 						<?php $recruiter_admin->printQuestion('recruiter_name',$usermeta['recruiter_name']); ?>
 						
-						<?php if(($usermeta['logo']) foreach(unserialize($usermeta['logo']) as $image_id) echo wp_get_attachment_image($image_id); ?>
+						<?php if($usermeta['logo']) foreach(unserialize($usermeta['logo']) as $image_id) echo wp_get_attachment_image($image_id); ?>
 					
 						<?php $recruiter_admin->printQuestion('logo',$usermeta['logo']); ?>
 						<?php $recruiter_admin->printQuestion('boilerplate',$usermeta['boilerplate']); ?>

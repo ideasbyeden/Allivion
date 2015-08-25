@@ -95,15 +95,20 @@ $returnfields = array('logo','logo_image','job_title','location','summary','recr
 		jQuery('#togglesearchform').removeClass('open').html('Refine search');
 	}
 	
+
+	
+
+	
+
 </script>
 
 <div class="section">
-	<div class="stage">
+	<div class="stage" >
 		
 		<h1 class="purple">Job advertisements</h1>
 		
 						
-			<div class="qtrcol">
+			<div class="qtrcol sticky">
 				<div class="qpanel darkpurplegrad" id="job_bullets">
 					<table style="width: 90%; margin-bottom: 30px;">
 					<?php

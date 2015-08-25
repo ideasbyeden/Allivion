@@ -295,6 +295,32 @@ img {
 	position: relative;
 }
 
+.qpanel.tabbed {
+	border-radius: 0 8px 8px 8px;
+	-moz-border-radius: 0 8px 8px 8px;
+	-webkit-border-radius: 0 8px 8px 8px;	
+}
+
+ul.tabs {
+	position: absolute;
+	top: -30px;
+	left: 0px;
+}
+
+ul.tabs li {
+	display: inline-block;
+	background-color: #DDDDDD;
+	height: 22px;
+	padding: 4px 8px 4px 8px;
+	margin: 0 2px 0 0;
+	border-radius: 4px 4px 0 0;
+	-moz-border-radius: 4px 4px 0 0;
+	-webkit-border-radius: 4px 4px 0 0;
+}
+
+ul.tabs li.active {
+	background-color: #EEEEEE;
+}
 
 .purplegrad {
 	background-image: -webkit-gradient(

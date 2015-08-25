@@ -46,41 +46,6 @@ jQuery(function(){
 						row.removeClass('prototype');
 						row.attr('data-href', clickableurl+'?i='+postdata['ID']);
 						jQuery.each(returndata, function(k,v){
-							
-/*
-							var question = return jQuery.ajax({
-							    	type: 'POST',
-							    	url:  url,
-							    	data: data,
-							    	dataType: 'json'
-							});
-							
-							
-							
-							
-							
-							jQuery.ajax({
-				    	type: 'POST',
-				    	url:  '<?php echo admin_url('admin-ajax.php'); ?>',
-				    	data: 'action=jsapi&type=job&method=getquestion&name='+k,
-				    	dataType: 'json',
-								
-						success: function(question){
-							console.log(question.label);
-							if(typeof question.value != 'undefined'){
-								jQuery.each(question.value, function(qk,qv) {
-									if(qv == v) searchval = qk;
-								});
-							} else {
-								searchval = v;
-							}
-							jQuery('#job_bullets table').append('<tr><td>'+question.label+'</td><td><strong>'+searchval+'</strong></td></tr>').hide().fadeIn(100);
-						}
-					});
-							
-*/
-							
-							
 							if(typeof postdata.meta[v] != 'undefined'){
 								if(jQuery.isArray(postdata.meta[v])){
 									row.html(row.html().replace('['+v+']',postdata.meta[v][0]));
@@ -107,6 +72,7 @@ jQuery(function(){
 							
 							
 						});
+						row.html(row.html().replace(/[\, ]\[.*?\]/g,''));
 						row.html(row.html().replace(/\[.*?\]/g,''));
 					} else {					
 						var row = '<tr class="clickable rowitem" data-href="'+clickableurl+'?i='+postdata['ID']+'">';

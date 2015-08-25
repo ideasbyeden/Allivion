@@ -11,6 +11,7 @@ require_once('config.php');
 require_once('directory_coreclass.php');
 require_once('directory_itemclass.php');
 require_once('directory_userclass.php');
+require_once('directory_taxclass.php');
 require_once('user_functions.php');
 require_once('item_functions.php');
 require_once('dev_functions.php');
@@ -41,6 +42,14 @@ foreach(glob(__DIR__ . '/userdefs/*.php') as $filename)
     $$role->setVars($vars);
     $$role->setAdminRoot($adminroot);
 }
+
+foreach(glob(__DIR__ . '/taxdefs/*.php') as $filename)
+{
+    include($filename);
+    global $$type;
+    $$type = new taxdef($type,$label,$single_label,$items,$terms);
+}
+
 
 
 function directory_enqueue() {
