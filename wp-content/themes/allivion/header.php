@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -72,6 +73,7 @@
 </head>
 
 <body <?php body_class(); ?>>
+
 	
 	<?php require_once(TEMPLATEPATH.'/includes/login_form.php'); ?>
 	

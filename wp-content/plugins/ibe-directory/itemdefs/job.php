@@ -19,6 +19,14 @@ $type = 'job';
 $label = 'jobs';
 $single_label ='job';
 
+///////////////////////////////////////////
+//
+// Item type is hierarchical
+//
+///////////////////////////////////////////
+
+$hierarchical = false;
+
 
 ///////////////////////////////////////////
 //
@@ -26,12 +34,14 @@ $single_label ='job';
 //
 ///////////////////////////////////////////
 
+/*
 $sectors = array(
 			'Agrictulture, Food & Veterinary' 		=> 'agri/food/vet',	
 			'Architecture, Building & Planning' 	=> 'architecture/building',	
 			'Biological Sciences' 					=> 'biological_science',
 			'IT'									=> 'it'
 			);
+*/
 
 
 ///////////////////////////////////////////
@@ -58,6 +68,7 @@ $sectors = array(
 //
 ///////////////////////////////////////////
 
+//$sectors = &$sector->getTerms();
 
 
 $vars = array(

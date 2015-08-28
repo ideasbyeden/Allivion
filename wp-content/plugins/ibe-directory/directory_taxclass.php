@@ -17,8 +17,13 @@ class taxdef extends directoryCore {
 		
 		if( ! taxonomy_exists( $this->type ) )
 	    {
-	        add_action( 'init', array( $this, 'addTaxonomy' ), 0 );
-	        add_action( 'init', array( $this, 'addTerms' ) , 10);
+	        add_action( 'init', array( $this, 'addTaxonomy' ), 1 );
+	        
+			if(!get_option('_dir_taxonomies_imported')) {
+	        	add_action( 'init', array( $this, 'addTerms' ) , 10);
+				add_option('_dir_taxonomies_imported',1);
+			}
+	        	
 	        //do_action('doterms' , $this->terms);
 	    }
 	    
@@ -47,31 +52,48 @@ class taxdef extends directoryCore {
 			
 	}
 	
-	public function addTerms($terms = NULL,$parent = NULL){
-				
-		$args = NULL;
-		if(!$terms) $terms = $this->terms; // Could be improved?
+	public function addTerms($terms = NULL,$parent = 0){
 		
-		foreach($terms as $k=>$v){
-			//if(!term_exists($k,$this->type)){
-				
-				if($parent) $args['parent'] = $parent;
-				if(!is_array($v)) $args['slug'] = $v;
-
-/*
-				if($args){
-					$term_reg = wp_insert_term($k,$this->type,$args);
-				} else {
-					$term_reg = wp_insert_term($k,$this->type);					
-				}
-*/
-
-				//echo '<pre>'; print_r($args); echo '</pre>';
-
-				if(is_array($v)) $this->addTerms($v,$term_reg->term_taxonomy_id);
+		
+			$args = NULL;
 			
-			//}
+			// start with terms array from taxdef
+			if(!$terms) $terms = $this->terms; // Could be improved?
+	
+			foreach($terms as $k=>$v){
+				
+				if(!is_array($v)) {
+					$args = array('slug' => $v,
+								  'parent' => $parent
+								 );
+					if(!term_exists($k,$this->type)) $term_reg = wp_insert_term($k,$this->type,$args);
+				} else {
+					if(!term_exists($k,$this->type)){
+						$term_reg = wp_insert_term($k,$this->type);
+					} else {
+						$term_reg = term_exists($k,$this->type);
+					}
+					$this->addTerms($v,$term_reg['term_id']);
+				}
+	
+			}
+			
+		
+		//}
+		
+	}
+	
+	public function getTerms(){
+		
+
+		if(taxonomy_exists($this->type)){
+			return get_terms($this->type,array( 'hide_empty' => 0 ));
+		} else {
+			return array('taxonomy not created','true');
 		}
+
+
+	return 'here be terms';
 		
 	}
 		

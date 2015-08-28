@@ -1,3 +1,12 @@
+	<pre>
+		<?php
+			echo 'Vars:';
+			$sectors = $sector->getTerms();
+			print_r($job->vars);
+		?>
+	</pre>
+
+
 <?php
 
 $dircore->canAccess(array('group_id' => get_post_meta($_REQUEST['i'],'group_id',true)));

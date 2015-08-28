@@ -17,7 +17,8 @@ class directoryCore {
 	public function AdminRoot(){
 		return $this->adminroot;
 	}
-		
+	
+	// put this inside an call action on init?	
 	public function setVars($vars){
 		$this->vars = $vars;
 	}
@@ -385,7 +386,7 @@ class directoryCore {
 		
 		// build email body using template
 		$template = $data['notify_template'] ? $data['notify_template'] : 'default';
-		$body = file_get_contents(__DIR__ . '/templates/'.$template.'.php');
+		$body = file_get_contents(__DIR__ . '/email_templates/'.$template.'.php');
 		foreach($data as $k=>$v){
 			$body = preg_replace('/\['.$k.'\]/', $v, $body);
 		}

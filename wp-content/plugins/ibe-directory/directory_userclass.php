@@ -9,11 +9,9 @@ class userdef extends directoryCore {
 		$this->role = $role;
 		$this->label = $label;
 		
-		//if( ! get_role( $this->role ) ) {
-	        add_action( 'init', array( &$this, 'register_role' ) );
-	    //}
+	        add_action( 'init', array( &$this, 'register_role' ), 1 );
+			add_filter( 'editable_roles', 'exclude_role' );
 	    
-	    $this->remove_wp_roles();
 	    
 	    
 	}
@@ -36,11 +34,26 @@ class userdef extends directoryCore {
 		
 	}
 	
-	public function remove_wp_roles(){
-		remove_role( 'subscriber' );
-		remove_role( 'editor' );
-		remove_role( 'author' );
-		remove_role( 'contributor' );
+	function exclude_role($roles) {
+
+	    if (isset($roles['author'])) {
+	      unset($roles['author']);
+	    }
+
+		if (isset($roles['editor'])) {
+	      unset($roles['editor']);
+	    }
+
+		if (isset($roles['subscriber'])) {
+	      unset($roles['subscriber']);
+	    }
+
+		if (isset($roles['contributor'])) {
+	      unset($roles['contributor']);
+	    }
+
+	    return $roles;
+	    
 	}
 	
 	public function getVals($user_id = null){

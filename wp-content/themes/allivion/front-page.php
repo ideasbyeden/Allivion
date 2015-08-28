@@ -111,22 +111,56 @@ $returnfields = array('job_title','location','summary','recruiter_name','closing
 
 			</div>
 			
-			<div id="homecats">
-				<ul>
-				<?php $industry = $job->getQuestion('industry');
-					foreach($industry['value'] as $k=>$v){
-						echo '<li><a href="/jobs?industry='.$v.'">'.$k.'</a></li>';
-					}
-					
-				?>
-				</ul>
-			</div>
-			
 			<div id="homefeaturedjobs">
-				<h3>Featured Jobs</h3>
+				<div class="thirdcol">
+					<h3>Academic</h3>
+					<ul>
+					<?php
+						$parent = get_term_by('name','Academic','sector');					
+						$terms = get_term_children( intval($parent->term_id), 'sector' );
+						foreach($terms as $term){
+							$term = get_term_by('id',$term,'sector');					
+							echo '<li><a href="/jobs?industry='.$term->slug.'">'.$term->name.'</a></li>';
+						}
+						
+					?>
+					</ul>
+				</div>
+				
+				<div class="thirdcol">
+					<h3>Featured Jobs</h3>
+				</div>
+				
+				<div class="thirdcol">
+					<h3>Professional</h3>
+					<ul>
+					<?php
+						$parent = get_term_by('name','Professional','sector');					
+						$terms = get_term_children( intval($parent->term_id), 'sector' );
+						foreach($terms as $term){
+							$term = get_term_by('id',$term,'sector');					
+							echo '<li><a href="/jobs?industry='.$term->slug.'">'.$term->name.'</a></li>';
+						}
+						
+					?>
+					</ul>
+					
+					<h3>Studentships</h3>
+					<ul>
+					<?php
+						$parent = get_term_by('name','Studentships','sector');					
+						$terms = get_term_children( intval($parent->term_id), 'sector' );
+						foreach($terms as $term){
+							$term = get_term_by('id',$term,'sector');					
+							echo '<li><a href="/jobs?industry='.$term->slug.'">'.$term->name.'</a></li>';
+						}
+						
+					?>
+					</ul>
+				</div>
+			<div class="clear"></div>
 			</div>
 				
-			<div class="clear"></div>
 	</div>
 </div>
 

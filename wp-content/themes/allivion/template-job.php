@@ -4,6 +4,7 @@
 
 /*
 Template Name: Job
+Post Template: Job
 */
 
 

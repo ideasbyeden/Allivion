@@ -7,14 +7,14 @@ class itemdef extends directoryCore {
 	public $single_label;
 	public $vars = array();
 
-	function __construct($type,$label,$single_label){
+	function __construct($type,$label,$single_label,$hierarchical){
 		$this->type = $type;
 		$this->label = $label;
 		$this->single_label = $single_label;
 		
 		if( ! post_type_exists( $this->type ) )
 	    {
-	        add_action( 'init', array( &$this, 'register_cpt' ) );
+	        add_action( 'init', array( &$this, 'register_cpt' ), 11 );
 	    }
 	    
 	}
@@ -44,7 +44,7 @@ class itemdef extends directoryCore {
 	        'public' => true,
 			'show_ui' => true,
 			'capability_type' => 'post',
-			'hierarchical' => false,
+			'hierarchical' => true,
 			'rewrite' => array( 'slug' => $this->label, 'with_front' => true ),
 			'query_var' => true,
 	        'supports' => array(
@@ -57,6 +57,14 @@ class itemdef extends directoryCore {
 	        )
 		));
 		
+	}
+	
+	public function getTax($name){
+		if(taxonomy_exists($name)){
+			return get_terms($name,array( 'hide_empty' => 0 ));
+		} else {
+			return array('taxonomy not created from item','true');
+		}
 	}
 		
 }
