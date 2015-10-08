@@ -12,6 +12,7 @@
 
 <?php 
 
+/*
 	echo '<h3>';
 //	$taxterms = get_terms('sector',array( 'hide_empty' => 0));
 	echo '<pre>'; print_r($sector->taxTree()); echo '</pre>';
@@ -19,6 +20,7 @@
 
 	//echo '<h4>'; print_r(get_term_children(406,'sector')); echo '</h4>';
 	//echo '<h5>'; print_r(get_term(409,'sector')); echo '</h5>';
+*/
 $dircore->canAccess(array('group_id' => get_post_meta($_REQUEST['i'],'group_id',true)));
 
 /*
@@ -26,7 +28,6 @@ Template Name: Recruiter job
 */
 
 $vals = $_REQUEST['i'] ? $job->getVals($_REQUEST['i']) : null;
-//echo '<pre>'; print_r($vals); echo '</pre>';
 
 	
 get_template_part('header','recadmin');

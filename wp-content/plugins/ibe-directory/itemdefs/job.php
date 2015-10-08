@@ -115,15 +115,15 @@ $vars = array(
 		'placeholder' => '',
 		'fieldtype' => 'check',
 		'value' => array(
-			'£0 - £9999' 		=> '0-9999',	
-			'£10,000 - £14,999' => '10000-14999',	
-			'£15,000 - £19,999' => '15000-19999',	
-			'£20,000 - £29,999' => '20000-29999',	
-			'£30,000 - £39,999' => '30000-39999',	
-			'£40,000 - £49,999' => '40000-49999',	
-			'£50,000 - £69,999' => '50000-69999',	
-			'£70,000 - £99,999' => '70000-99999',	
-			'£100,000+' 		=> '100000',	
+			'£0 - £9999' 		=> array('slug' => '0-9999'),	
+			'£10,000 - £14,999' => array('slug' => '10000-14999'),	
+			'£15,000 - £19,999' => array('slug' => '15000-19999'),	
+			'£20,000 - £29,999' => array('slug' => '20000-29999'),	
+			'£30,000 - £39,999' => array('slug' => '30000-39999'),	
+			'£40,000 - £49,999' => array('slug' => '40000-49999'),	
+			'£50,000 - £69,999' => array('slug' => '50000-69999'),	
+			'£70,000 - £99,999' => array('slug' => '70000-99999'),	
+			'£100,000+' 		=> array('slug' => '100000'),	
 		),
 		'group' => 'package',
 		//'required' => 'publish'
@@ -135,9 +135,9 @@ $vars = array(
 		'placeholder' => '',
 		'fieldtype' => 'dropdown',
 		'value' => array(
-			'British pounds'	=> 'GBP',	
-			'Euro' 				=> 'EUR',	
-			'US Dollars' 		=> 'USD'	
+			'British pounds'	=> array('slug' => 'GBP'),	
+			'Euro' 				=> array('slug' => 'EUR'),	
+			'US Dollars' 		=> array('slug' => 'USD')	
 		),
 		'group' => 'package'
 	),
@@ -172,10 +172,10 @@ $vars = array(
 		'placeholder' => '',
 		'fieldtype' => 'check',
 		'value' => array(
-			'Part time' 		=> 'parttime',	
-			'Full time'			=> 'fulltime',	
-			'Contract' 			=> 'contract',	
-			'Job share' 		=> 'jobshare'
+			'Part time' 		=> array('slug' => 'parttime'),	
+			'Full time'			=> array('slug' => 'fulltime'),	
+			'Contract' 			=> array('slug' => 'contract'),	
+			'Job share' 		=> array('slug' => 'jobshare')
 		),
 		'group' => 'package'
 	),
@@ -187,7 +187,8 @@ $vars = array(
 		'fieldtype' => 'check',
 		'value' => $sector->taxTree(),
 		'group' => 'industry_location',
-		'keyword' => 'true'
+		'keyword' => 'true',
+		'select_parent' => 'false'
 	),
 
 	array(
@@ -196,20 +197,20 @@ $vars = array(
 		'placeholder' => '',
 		'fieldtype' => 'check',
 		'value' => array(
-			'South East'		=> 'southeast',	
-			'South West'		=> 'southwest',	
-			'West Midlands'		=> 'westmidlands',	
-			'East Midlands'		=> 'eastmidlands',	
-			'East Anglia'		=> 'eastanglia',	
-			'North West'		=> 'northwest',	
-			'North East'		=> 'northeast',	
-			'Scotland'			=> 'scotland',	
-			'Ireland'			=> 'ireland',	
-			'Wales'				=> 'wales',	
-			'Europe'			=> 'europe',	
-			'Asia'				=> 'asia',	
-			'Americas'			=> 'americas',	
-			'International'		=> 'international',	
+			'South East'		=> array('slug' => 'southeast'),	
+			'South West'		=> array('slug' => 'southwest'),	
+			'West Midlands'		=> array('slug' => 'westmidlands'),	
+			'East Midlands'		=> array('slug' => 'eastmidlands'),	
+			'East Anglia'		=> array('slug' => 'eastanglia'),	
+			'North West'		=> array('slug' => 'northwest'),	
+			'North East'		=> array('slug' => 'northeast'),	
+			'Scotland'			=> array('slug' => 'scotland'),	
+			'Ireland'			=> array('slug' => 'ireland'),	
+			'Wales'				=> array('slug' => 'wales'),	
+			'Europe'			=> array('slug' => 'europe'),	
+			'Asia'				=> array('slug' => 'asia'),	
+			'Americas'			=> array('slug' => 'americas'),	
+			'International'		=> array('slug' => 'international'),	
 		),
 		'group' => 'industry_location'
 	),
@@ -271,9 +272,9 @@ $vars = array(
 		'placeholder' => '',
 		'fieldtype' => 'dropdown',
 		'value' => array(
-			'Send an email'		=> 'email',	
-			'Link to website'	=> 'website',	
-			'Application form'	=> 'form'
+			'Send an email'		=> array('slug' =>'email'),	
+			'Link to website'	=> array('slug' =>'website'),	
+			'Application form'	=> array('slug' =>'form')
 		),
 		'group' => 'extra'
 	),
@@ -304,7 +305,7 @@ $vars = array(
 		'label' => 'Promote for',
 		'fieldtype' => 'dropdown',
 		'addblank' => true,
-		'value' => $sector->getTerms(),
+		'value' => $sector->taxTree(),
 		'group' => 'admin'
 	),
 	array(
@@ -313,8 +314,8 @@ $vars = array(
 		'placeholder' => '',
 		'fieldtype' => 'dropdown',
 		'value' => array(
-			'Active'	=> 'active',	
-			'Archived' 	=> 'archived'	
+			'Active'	=> array('slug' => 'active'),	
+			'Archived' 	=> array('slug' => 'archived')
 		),
 		'group' => 'admin'
 	),

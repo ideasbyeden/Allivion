@@ -153,11 +153,18 @@ class directoryCore {
 						$output .= '<option value="">'.$question['label'].'</option>';
 					}
 					foreach($question['value'] as $k=>$v){
-						$output .= '<option value="'.$v.'" ';
-						if($value == $v){
+						$output .= '<option value="'.$v['slug'].'" ';
+						if($value == $v['slug']){
 							$output .= 'SELECTED ';
 						}
 						$output .= '>'.$k.'</option>';
+						if(isset($v['children'])) foreach ($v['children'] as $k=>$v){
+							$output .= '<option value="'.$v['slug'].'" ';
+							if($value == $v['slug']){
+								$output .= 'SELECTED ';
+							}
+							$output .= '>- '.$k.'</option>';
+						}
 					}
 					$output .= '</select>';
 				break;
@@ -175,18 +182,41 @@ class directoryCore {
 					$output .= '<fieldset class="cc'.$cols.' ">';
 					foreach($question['value'] as $k=>$v){
 						$output .= '<p>';
-						$output .= '<input type="checkbox" value="'.$v.'" ';
-						$output .= $question['name'] ? 'name="'.$question['name'].'[]" ' : '';
-						$output .= $question['required'] ? 'required="'.$question['required'].'" ' : '';
-						if($value && in_array($v, unserialize($value))){
-						//if($v == $value){
-							$output .= 'CHECKED ';
+						if($question['select_parent'] !== 'false'){
+							$output .= '<input type="checkbox" value="'.$v['slug'].'" ';
+							$output .= $question['name'] ? 'name="'.$question['name'].'[]" ' : '';
+							$output .= $question['required'] ? 'required="'.$question['required'].'" ' : '';
+							if($value && in_array($v['slug'], unserialize($value))){
+								$output .= 'CHECKED ';
+							}
+							$output .= '/>';
 						}
-						$output .= '/><label>'.$k.'</label>';
+						$output .= '<label>'.$k.'</label>';
 						$output .= '</p>';
+
+						if(isset($v['children'])) foreach($v['children'] as $k=>$v){
+							$output .= '<p class="inset1">';
+							$output .= '<input type="checkbox" value="'.$v['slug'].'" ';
+							$output .= $question['name'] ? 'name="'.$question['name'].'[]" ' : '';
+							$output .= $question['required'] ? 'required="'.$question['required'].'" ' : '';
+							if($value && in_array($v['slug'], unserialize($value))){
+							//if($v == $value){
+								$output .= 'CHECKED ';
+							}
+							$output .= '/><label>'.$k.'</label>';
+							$output .= '</p>';
+						}
+
+
 					}
 					$output .= '</fieldset>';
 				break;
+				
+/*
+				case 'check':
+					$output = '<pre>'.print_r($question['value'],true).'</pre>';
+				break;
+*/
 				
 				case 'radio':
 					$l = 0;

@@ -83,6 +83,17 @@ class taxdef extends directoryCore {
 		
 	}
 	
+	public function getTerms(){
+		
+
+		if(taxonomy_exists($this->type)){
+			return get_terms($this->type,array( 'hide_empty' => 0 ));
+		} else {
+			return array('taxonomy not created','true');
+		}
+		
+	}
+	
 	
 	public function taxTree(){
 		

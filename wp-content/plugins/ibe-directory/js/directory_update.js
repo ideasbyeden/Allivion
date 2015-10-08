@@ -1,6 +1,6 @@
 jQuery(function(){
 	
-	var autosave;
+	var autosave = false;
 	
 	jQuery('form.directory.update').submit(function(e){
 		e.preventDefault();
@@ -8,19 +8,20 @@ jQuery(function(){
 	});
 
 	jQuery('form.directory.update input, form.directory.update textarea, form.directory.update select').change(function(){
+		console.log('changes made');
 		var form = jQuery(this).closest('form');
 		autosave = form.attr('autosave');
 		if (typeof autosave !== 'undefined' && autosave == 'true') {
 			autosave = true;
+			console.log('autosaving');
 			submitForm(form,autosave);
 		}
 	});	
-	
 		
-	function submitForm(form,autosave = false){
+
+	function submitForm(form,autosave){
 		
 		var data = form.serialize();
-		//console.log(data);
 		
 		jQuery.ajax({
 			type: 'POST',
@@ -42,7 +43,9 @@ jQuery(function(){
 				}
 			}
 		});
+
 	}
+
 
 
 });
