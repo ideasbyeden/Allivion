@@ -12,10 +12,7 @@ class itemdef extends directoryCore {
 		$this->label = $label;
 		$this->single_label = $single_label;
 		
-		if( ! post_type_exists( $this->type ) )
-	    {
-	        add_action( 'init', array( &$this, 'register_cpt' ), 11 );
-	    }
+		if( ! post_type_exists( $this->type ) ){ $this->register_cpt(); }
 	    
 	}
 	

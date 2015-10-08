@@ -29,7 +29,7 @@
     <p class="message"></p>
     <div class="qpanel">
 	    <div class="question">
-		    <label for="username">Username or email address</label>
+		    <label for="username">Email address</label>
 		    <input id="username" type="text" name="username">
 	    </div>
 	    <div class="question">

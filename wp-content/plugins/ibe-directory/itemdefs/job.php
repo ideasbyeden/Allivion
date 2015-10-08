@@ -35,7 +35,7 @@ $hierarchical = false;
 ///////////////////////////////////////////
 
 /*
-$sectors = array(
+$sector_vals = array(
 			'Agrictulture, Food & Veterinary' 		=> 'agri/food/vet',	
 			'Architecture, Building & Planning' 	=> 'architecture/building',	
 			'Biological Sciences' 					=> 'biological_science',
@@ -68,7 +68,7 @@ $sectors = array(
 //
 ///////////////////////////////////////////
 
-//$sectors = &$sector->getTerms();
+//$sector_vals = &$sector->getTerms();
 
 
 $vars = array(
@@ -185,7 +185,7 @@ $vars = array(
 		'label' => 'Industry',
 		'placeholder' => '',
 		'fieldtype' => 'check',
-		'value' => $sectors,
+		'value' => $sector->taxTree(),
 		'group' => 'industry_location',
 		'keyword' => 'true'
 	),
@@ -304,7 +304,7 @@ $vars = array(
 		'label' => 'Promote for',
 		'fieldtype' => 'dropdown',
 		'addblank' => true,
-		'value' => $sectors,
+		'value' => $sector->getTerms(),
 		'group' => 'admin'
 	),
 	array(

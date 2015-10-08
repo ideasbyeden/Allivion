@@ -34,7 +34,7 @@ img {
 /* header */
 
 #navigation {
-	height: 80px;
+	height: 100px;
 	background: url(../img/navbar_bg.png) repeat-x;
 }
 
@@ -54,6 +54,16 @@ img {
 	position: absolute;
 	bottom: 20px;
 	left: 0px;
+}
+
+.loginstatus {
+	position: absolute;
+	right: 12px;
+	top: 10px;
+}
+
+.loginstatus .name {
+	font-weight: 700;
 }
 
 /* homepage */

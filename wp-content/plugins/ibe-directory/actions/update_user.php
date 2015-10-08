@@ -69,7 +69,7 @@ function directory_update_user(){
 	// check required data has been supplied
 	//if(!$_REQUEST['uploadname']) die('Upload name not supplied');
 
-	if ($_FILES) {
+	if ($_FILES) { // removes image if no file supplied?
 		
 		$vars = $$role->getVars();
 		
@@ -77,15 +77,16 @@ function directory_update_user(){
 		foreach($_FILES as $k=>$v){
 			if($q = $$role->getQuestion($k)){
 				
-				$attach_id = media_handle_upload($k,0);			
-			
-				if($q['multiple'] == 'true'){
-					$images = get_user_meta($user->ID, $k, true);
-					if(!is_array($images) || empty($images)) { $images = array(); }
-			     	$images[] = strval($attach_id);
-				} else {
-					$images = array();
-			     	$images[] = strval($attach_id);
+				$attach_id = media_handle_upload($k,0);	// silent error - needs better handlling		
+				if(!is_wp_error($attach_id)){
+					if($q['multiple'] == 'true'){
+						$images = get_user_meta($user->ID, $k, true);
+						if(!is_array($images) || empty($images)) { $images = array(); }
+				     	$images[] = strval($attach_id);
+					} else {
+						$images = array();
+				     	$images[] = strval($attach_id);
+					}
 				}
 								
 				update_user_meta($user->ID, $k, $images);
@@ -152,10 +153,7 @@ function directory_update_user(){
 	
 }
 
- add_action( 'init', 'directory_update_user_enqueue' );
 
-function directory_update_user_enqueue() {
-   wp_register_script( 'directory_update_user', WP_PLUGIN_URL.'/ibe-directory/js/directory_update_user.js', array('jquery') );
-   wp_localize_script( 'directory_update_user', 'directory_update_user', array( 'ajaxurl' => admin_url( 'admin-ajax.php' )));        
-   wp_enqueue_script( 'directory_update_user' );
-}
+wp_register_script( 'directory_update_user', WP_PLUGIN_URL.'/ibe-directory/js/directory_update_user.js', array('jquery') );
+wp_localize_script( 'directory_update_user', 'directory_update_user', array( 'ajaxurl' => admin_url( 'admin-ajax.php' )));        
+wp_enqueue_script( 'directory_update_user' );

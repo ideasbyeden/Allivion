@@ -5,7 +5,7 @@ nav#main {
 	-moz-border-radius: 12px 12px 0 0; 
 	-webkit-border-radius: 12px 12px 0 0;
 	position: relative;
-	margin-top: 20px;
+	margin-top: 40px;
 	padding: 8px 8px 0 8px;
 	box-sizing: border-box;
 	-moz-box-sizing: border-box;
@@ -70,4 +70,15 @@ nav#main ul > li.nav_logo a {
 nav#main ul > li.current-menu-item a {
 	background: url(../img/nav_active_bg.png) repeat-x center bottom;
 	color: white;	
+}
+
+nav#secondary {
+	position: absolute;
+	left: 12px;
+	top: 10px;
+}
+
+nav#secondary ul li {
+	display: inline-block;
+	margin-right: 20px;
 }

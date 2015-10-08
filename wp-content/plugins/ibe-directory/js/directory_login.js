@@ -1,5 +1,6 @@
 jQuery(function(){
 
+	console.log('directory_login loaded');
     
     jQuery('form#login').submit(function(e){
 	    e.preventDefault();

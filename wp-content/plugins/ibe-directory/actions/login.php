@@ -1,6 +1,7 @@
 <?php
 	
 add_action("wp_ajax_nopriv_directory_login", "directory_login");
+add_action("wp_ajax_directory_login", "directory_login");
 
 function directory_login(){
 		
@@ -34,10 +35,7 @@ function directory_login(){
 }
 
 
-add_action( 'init', 'directory_login_enqueue' );
 
-function directory_login_enqueue() {
-   wp_register_script( 'directory_login', WP_PLUGIN_URL.'/ibe-directory/js/directory_login.js', array('jquery') );
-   wp_localize_script( 'directory_login', 'directory_login', array( 'ajaxurl' => admin_url( 'admin-ajax.php' )));        
-   wp_enqueue_script( 'directory_login' );
-}
+wp_register_script( 'directory_login', WP_PLUGIN_URL.'/ibe-directory/js/directory_login.js', array('jquery') );
+wp_localize_script( 'directory_login', 'directory_login', array( 'ajaxurl' => admin_url( 'admin-ajax.php' )));        
+wp_enqueue_script( 'directory_login' );

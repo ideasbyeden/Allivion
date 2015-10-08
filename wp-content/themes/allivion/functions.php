@@ -52,7 +52,9 @@ function add_excerpts_to_pages() {
 // enable wordpress menus
 register_nav_menus( array(
 	'main' => 'Main Navigation',
-	'recadmin' => 'Recruiter Navigation',
+	'secondary' => 'Secondary Navigation',
+	'recadmin' => 'Recruiter Admin Navigation',
+	'recruiter' => 'Recruiter Navigation',
 	'advadmin' => 'Advertiser Navigation',
 	'candadmin' => 'Candidate Navigation',
 	'sysadmin' => 'Sysadmin Navigation'
@@ -70,13 +72,15 @@ function add_last_item_class($strHTML) {
 add_filter('wp_nav_menu','add_last_item_class');
 
 // add login / logout items to end of nav
-function loginout_menu_link($items) {
-	global $user, $usermeta;
-	if ($user) {
-		$items .= '<li class="fr purple"><a href="'. wp_logout_url('/index.php') .'">Log Out</a></li>';
-	} else {
-		$items .= '<li class="fr purple"><a href="/log-in" class="show_login">Log In</a></li>';
-		$items .= '<li class="fr purple"><a href="/register">Register</a></li>';
+function loginout_menu_link($items,$args) {
+    if($args->theme_location != 'secondary'){
+		global $user, $usermeta;
+		if ($user) {
+			$items .= '<li class="fr purple"><a href="'. wp_logout_url('/index.php') .'">Log Out</a></li>';
+		} else {
+			$items .= '<li class="fr purple"><a href="/log-in" class="show_login">Log In</a></li>';
+			$items .= '<li class="fr purple"><a href="/register">Register</a></li>';
+		}
 	}
    return $items;
 }
@@ -85,10 +89,15 @@ add_filter( 'wp_nav_menu_items', 'loginout_menu_link', 10, 2 );
 
 
 // add post job to main navigation (if recruiter)
-function postjob_menu_link($items) {
-	global $user, $usermeta;
-	if ($user && ($user->roles[0] == 'recruiter_admin' || $user->roles[0] == 'recruiter')) {
-		$items .= '<li class="fr purple"><a href="/recruiter-dashboard">Post a job</a></li>';
+function postjob_menu_link($items,$args) {
+    if($args->theme_location != 'secondary'){
+		global $user, $usermeta;
+		if ($user && ($user->roles[0] == 'recruiter_admin' || $user->roles[0] == 'recruiter')) {
+			$items .= '<li class="fr purple"><a href="/recruiter-dashboard">Post a job</a></li>';
+		} 
+		if (!$user) {
+			$items .= '<li class="fr purple"><a href="/log-in" class="show_login">Post a job</a></li>';
+		} 
 	}
 	return $items;
 }
@@ -206,5 +215,6 @@ include ('functions/columns.php');
 include ('functions/footer_feed.php');
 include ('functions/news.php');
 include ('functions/subpages_nav.php');
+include ('functions/taxtree.php');
 
 ?>

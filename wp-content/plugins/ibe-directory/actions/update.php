@@ -37,10 +37,7 @@ function directory_update(){
 }
 
 
-add_action( 'init', 'directory_update_enqueue' );
 
-function directory_update_enqueue() {
-   wp_register_script( 'directory_update', WP_PLUGIN_URL.'/ibe-directory/js/directory_update.js', array('jquery') );
-   wp_localize_script( 'directory_update', 'directory_update', array( 'ajaxurl' => admin_url( 'admin-ajax.php' )));        
-   wp_enqueue_script( 'directory_update' );
-}
+wp_register_script( 'directory_update', WP_PLUGIN_URL.'/ibe-directory/js/directory_update.js', array('jquery') );
+wp_localize_script( 'directory_update', 'directory_update', array( 'ajaxurl' => admin_url( 'admin-ajax.php' )));        
+wp_enqueue_script( 'directory_update' );

@@ -17,10 +17,10 @@ class taxdef extends directoryCore {
 		
 		if( ! taxonomy_exists( $this->type ) )
 	    {
-	        add_action( 'init', array( $this, 'addTaxonomy' ), 1 );
+	        $this->addTaxonomy();
 	        
 			if(!get_option('_dir_taxonomies_imported')) {
-	        	add_action( 'init', array( $this, 'addTerms' ) , 10);
+	        	$this->addTerms();
 				add_option('_dir_taxonomies_imported',1);
 			}
 	        	
@@ -83,18 +83,36 @@ class taxdef extends directoryCore {
 		
 	}
 	
-	public function getTerms(){
+	
+	public function taxTree(){
 		
 
-		if(taxonomy_exists($this->type)){
-			return get_terms($this->type,array( 'hide_empty' => 0 ));
-		} else {
-			return array('taxonomy not created','true');
+
+		$taxterms = get_terms($this->type,array( 'hide_empty' => 0, 'parent' => 0 ));
+		//echo '<pre>'; print_r($taxterms); echo '</pre>';
+
+
+		if(count($taxterms > 0)){
+			foreach($taxterms as $term){
+				$varr = array('id' => $term->term_id,'slug' => $term->slug);
+				// recursive
+				$children = get_term_children($term->term_id,$this->type);
+				if(count($children) > 0){
+					foreach($children as $child){
+						$cterm = get_term($child,$this->type);
+						$varr['children'][$cterm->name] = array('id' => $child,'slug' => $cterm->slug);
+					}
+				}
+				// end recursive (I think)
+				$taxtree[$term->name] = $varr;
+			}
 		}
+		
+		
+		return $taxtree;
 
-
-	return 'here be terms';
+		
 		
 	}
-		
+	
 }

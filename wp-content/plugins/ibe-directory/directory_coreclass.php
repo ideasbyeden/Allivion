@@ -318,6 +318,42 @@ class directoryCore {
 		
 	}
 	
+	public function makeFolder($path){
+		
+		$folder = $_SERVER['DOCUMENT_ROOT'].DIRECTORY_UPLOADPATH.ltrim($path.'\\');
+		
+		if (!file_exists($folder)) {
+			$old = umask(0);
+			$result = mkdir($folder,0777,true) ? $folder : false;
+			umask($old);
+			return $result;
+		}
+	}
+	
+	public function fileUpload($files,$path){
+		
+		$filelist = '';
+		$result['completed_upload'] = TRUE;
+		$result['uploaded_list'] = array();
+		$result['failed_upload'] = array();
+	
+
+		foreach($files as $file) {
+		
+		    $file['name'] = preg_replace('/ /', '_', $file['name']);
+			
+			if (move_uploaded_file($file['tmp_name'],$path.$file['name'])) {
+	           	$result['uploaded_list'][] = $path.$file['name'];
+	        } else {
+	        	$result['completed_upload'] = FALSE;
+		        $result['failed_upload'][] = $file['name'];
+	        }
+	        	
+		}
+		
+
+	}
+	
 	public function formAfter($params){
 		
 		/* PSEUDO

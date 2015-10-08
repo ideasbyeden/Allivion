@@ -1,14 +1,24 @@
+<!--
 	<pre>
 		<?php
-			echo 'Vars:';
-			$sectors = $sector->getTerms();
-			print_r($job->vars);
-		?>
+//Generate an array of custom taxonomy
+  $arr = wp_list_categories_array("sector");//Feed your taxonomy to generate array
+  
+  print_r($sector->taxTree());
+?>
 	</pre>
+-->
 
 
-<?php
+<?php 
 
+	echo '<h3>';
+//	$taxterms = get_terms('sector',array( 'hide_empty' => 0));
+	echo '<pre>'; print_r($sector->taxTree()); echo '</pre>';
+	echo '</h3>';
+
+	//echo '<h4>'; print_r(get_term_children(406,'sector')); echo '</h4>';
+	//echo '<h5>'; print_r(get_term(409,'sector')); echo '</h5>';
 $dircore->canAccess(array('group_id' => get_post_meta($_REQUEST['i'],'group_id',true)));
 
 /*
@@ -71,7 +81,7 @@ while (have_posts()) {
 						<input type="submit" value="Save changes" />
 						<hr>
 						<h4><span id="job_title"><?php echo $vals['job_title'] ? $vals['job_title'] : 'Job Title'; ?></span>, <span id="location"><?php echo $vals['location'] ? $vals['location'] : 'Location'; ?></span></h4>
-						<h6><span id="employer">Employer name</span></h6>
+						<h6><span id="employer"><?php echo get_user_meta($vals['group_id'],'recruiter_name',true); ?></span></h6>
 						<h6><span id="salary_details"><?php echo $vals['salary_details'] ? $vals['salary_details'] : 'Salary'; ?></span></h6>
 						<div><span id="full_description"><?php echo $vals['full_description'] ? $vals['full_description'] : 'Job description'; ?></span></div>
 					</div>

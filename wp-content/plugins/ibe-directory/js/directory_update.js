@@ -1,5 +1,7 @@
 jQuery(function(){
 	
+	var autosave;
+	
 	jQuery('form.directory.update').submit(function(e){
 		e.preventDefault();
 		submitForm(jQuery(this));
@@ -7,16 +9,18 @@ jQuery(function(){
 
 	jQuery('form.directory.update input, form.directory.update textarea, form.directory.update select').change(function(){
 		var form = jQuery(this).closest('form');
-		if(form.attr('autosave') == 'true'){
-			submitForm(form);
+		autosave = form.attr('autosave');
+		if (typeof autosave !== 'undefined' && autosave == 'true') {
+			autosave = true;
+			submitForm(form,autosave);
 		}
 	});	
 	
 		
-	function submitForm(form){
+	function submitForm(form,autosave = false){
 		
 		var data = form.serialize();
-		console.log(data);
+		//console.log(data);
 		
 		jQuery.ajax({
 			type: 'POST',

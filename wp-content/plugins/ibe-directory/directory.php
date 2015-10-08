@@ -23,50 +23,55 @@ require_once('cpt_template.php');
 global $wp_rewrite;
 $dircore = new directoryCore();
 
+function directoryInit(){
 
-foreach(glob(__DIR__ . '/taxdefs/*.php') as $filename)
-{
-    include($filename);
-    global $$type;
-    $$type = new taxdef($type,$label,$single_label,$items,$terms);
+	foreach(glob(__DIR__ . '/taxdefs/*.php') as $filename)
+	{
+	    include($filename);
+	    global $$type;
+	    $$type = new taxdef($type,$label,$single_label,$items,$terms);
+	    
+	}
+	
+	foreach(glob(__DIR__ . '/itemdefs/*.php') as $filename)
+	{
+	    //$sectors = &$sector->getTerms();
+	    include($filename);
+	    global $$type;
+	    $$type = new itemdef($type,$label,$single_label,$hierarchical);
+	    $$type->vars = $vars;
+	    $$type->tax = &$sector->getTerms();
+	    // this happens before wordpress init so can't access custom taxonomies 
+	    // if we put setvars inside itemdef, we're repeating code
+	    
+	    // Passing booleans into functions erratic / bad idea
+	    // Find a better way to control this
+	    // Hierarchical set to TRUE for all items in the interim (26/08/15)
+	    
+	    // Could be improved. Depends on variables of one file superceding the last
+	    // Unset between each file? Or get file contets as an object?
+	}
+	
+	foreach(glob(__DIR__ . '/actions/*.php') as $filename)
+	{
+	    include($filename);
+	}
+	
+	foreach(glob(__DIR__ . '/userdefs/*.php') as $filename)
+	{
+	    include($filename);
+	    global $$role;
+	    $$role = new userdef($role,$label);
+	    $$role->setVars($vars);
+	    $$role->setAdminRoot($adminroot);
+	}
+
 }
 
-foreach(glob(__DIR__ . '/itemdefs/*.php') as $filename)
-{
-    $sectors = &$sector->getTerms();
-    include($filename);
-    global $$type;
-    $$type = new itemdef($type,$label,$single_label,$hierarchical);
-    $$type->vars = $vars;
-    $$type->tax = &$sector->getTerms();
-    // this happens before wordpress init so can't access custom taxonomies 
-    // if we put setvars inside itemdef, we're repeating code
-    
-    // Passing booleans into functions erratic / bad idea
-    // Find a better way to control this
-    // Hierarchical set to TRUE for all items in the interim (26/08/15)
-    
-    // Could be improved. Depends on variables of one file superceding the last
-    // Unset between each file? Or get file contets as an object?
-}
-
-foreach(glob(__DIR__ . '/actions/*.php') as $filename)
-{
-    include($filename);
-}
-
-foreach(glob(__DIR__ . '/userdefs/*.php') as $filename)
-{
-    include($filename);
-    global $$role;
-    $$role = new userdef($role,$label);
-    $$role->setVars($vars);
-    $$role->setAdminRoot($adminroot);
-}
+add_action( 'init', 'directoryInit' );
 
 
-
-function directory_enqueue() {
+function directoryEnqueue() {
 
    wp_register_script( 'directory_core', WP_PLUGIN_URL.'/ibe-directory/js/directory_core.js', array('jquery') );
    wp_enqueue_script( 'directory_core' );
@@ -76,7 +81,7 @@ function directory_enqueue() {
 
 }
 
-add_action( 'init', 'directory_enqueue' );
+add_action( 'init', 'directoryEnqueue' );
 
 function directoryGetUser(){
 	global $user, $usermeta, $wp_roles;

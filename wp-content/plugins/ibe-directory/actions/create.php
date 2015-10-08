@@ -109,10 +109,7 @@ function directory_create(){
 }
 
 
-add_action( 'init', 'directory_create_enqueue' );
 
-function directory_create_enqueue() {
-   wp_register_script( 'directory_create', WP_PLUGIN_URL.'/ibe-directory/js/directory_create.js', array('jquery') );
-   wp_localize_script( 'directory_create', 'directory_create', array( 'ajaxurl' => admin_url( 'admin-ajax.php' )));        
-   wp_enqueue_script( 'directory_create' );
-}
+wp_register_script( 'directory_create', WP_PLUGIN_URL.'/ibe-directory/js/directory_create.js', array('jquery') );
+wp_localize_script( 'directory_create', 'directory_create', array( 'ajaxurl' => admin_url( 'admin-ajax.php' )));        
+wp_enqueue_script( 'directory_create' );

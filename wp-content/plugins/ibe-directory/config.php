@@ -25,6 +25,7 @@ define('DIRECTORY_CREATEUSERPATH', '/user/create');
 define('DIRECTORY_UPDATEUSERPATH', '/user/update');
 define('POSTTITLEFIELD', 'job_title');
 
+
 /*-----------------------------------------------
 	
 Encryption keys
@@ -35,3 +36,14 @@ if(function_exists("mcrypt_encrypt")) {
 define('IV_SIZE', mcrypt_get_iv_size(MCRYPT_RIJNDAEL_128, MCRYPT_MODE_CBC));
 }
 define('CRYPTKEY','NFOLOOHWZ0DOAL1VH4K6W7C');
+
+
+/*-----------------------------------------------
+	
+Default file upload path root
+
+-------------------------------------------------*/
+	
+define('DIRECTORY_UPLOADPATH', '/wp-content/uploads/files/');
+
+

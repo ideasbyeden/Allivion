@@ -35,10 +35,20 @@
 
 		<div class="section" id="navigation" style="margin-bottom: 40px;">
 			<div class="stage">
-				<nav id="main">
-					<?php wp_nav_menu('theme_location=recadmin'); ?>
+				<nav id="secondary">
+					<?php wp_nav_menu('theme_location=secondary'); ?>
 				</nav>
-				<?php global $user, $usermeta; if($user) echo '<p class="">Logged in as '.$user->display_name.'</p>'; ?>
+				<nav id="main">
+					<?php 
+						global $user, $usermeta;
+						$usertype = $user->roles[0];
+						if($usertype == 'recruiter') wp_nav_menu('theme_location=recruiter');
+						if($usertype == 'recruiter_admin') wp_nav_menu('theme_location=recadmin');						
+					?>
+				</nav>
+				<?php global $user, $usermeta;
+				if($user) echo '<p class="loginstatus">Logged in as <span class="name">'.$user->display_name.'</span></p>';
+				?>
 					
 			</div>
 		</div>

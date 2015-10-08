@@ -79,10 +79,13 @@
 	
 		<div class="section" id="navigation">
 			<div class="stage">
+				<nav id="secondary">
+					<?php wp_nav_menu('theme_location=secondary'); ?>
+				</nav>
 				<nav id="main">
 					<?php wp_nav_menu('theme_location=main'); ?>
 				</nav>
-				<?php if($user) echo '<p class="">Logged in as '.$user->display_name.'</p>'; ?>
+				<?php if($user) echo '<p class="loginstatus">Logged in as <span class="name">'.$user->display_name.'</span></p>'; ?>
 					
 			</div>
 		</div>

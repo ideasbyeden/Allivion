@@ -145,6 +145,8 @@ function directory_search($params = null){
 		$thispost->authormeta = $cleanauthormeta;
 		
 		//push group meta into post object
+		
+		//$groupid = $thispost->meta['group_id'] ? $thispost->meta['group_id'] : $thispost->post_author;
 		$groupmeta = get_user_meta($thispost->meta['group_id']);
 		
 		if(!$role){
@@ -160,16 +162,17 @@ function directory_search($params = null){
 
 			$q = $$role->getQuestion($k);
 			if($q['fieldtype'] == 'image'){
-
-				foreach($cleangroupmeta[$k] as $img){
-					$src = wp_get_attachment_image_src($img,'full');
-					$cleangroupmeta[$k.'_image'][] = '<img src="'.$src[0].'" />';
+				if(is_array($cleangroupmeta[$k])){
+					foreach($cleangroupmeta[$k] as $img){
+						$src = wp_get_attachment_image_src($img,'full');
+						$cleangroupmeta[$k.'_image'][] = '<img src="'.$src[0].'" />';
+					}
 				}
-
 			}
 
 
 		}
+		//print_r($cleangroupmeta);
 		$thispost->groupmeta = $cleangroupmeta;
 		
 		$result->posts[$i] = $thispost;
@@ -207,12 +210,6 @@ function directory_search($params = null){
 
 
 
-add_action( 'init', 'directory_search_enqueue' );
-
-function directory_search_enqueue() {
-
-   wp_register_script( 'directory_search', WP_PLUGIN_URL.'/ibe-directory/js/directory_search.js', array('jquery') );
-   wp_localize_script( 'directory_search', 'directory_search', array( 'ajaxurl' => admin_url( 'admin-ajax.php' )));        
-   wp_enqueue_script( 'directory_search' );
-
-}
+wp_register_script( 'directory_search', WP_PLUGIN_URL.'/ibe-directory/js/directory_search.js', array('jquery') );
+wp_localize_script( 'directory_search', 'directory_search', array( 'ajaxurl' => admin_url( 'admin-ajax.php' )));        
+wp_enqueue_script( 'directory_search' );

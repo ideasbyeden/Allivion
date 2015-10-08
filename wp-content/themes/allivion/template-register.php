@@ -61,6 +61,13 @@ while (have_posts()) {
 
 					<div class="qpanel">
 						<div class="question">
+							<label>I am a:</label><br />
+							<select name="role">
+								<option value="candidate" <?php echo $_SESSION['userdata']['role'] == 'candidate' ? 'SELECTED' : ''; ?>>Candidate</option>
+								<option value="recruiter" <?php echo $_SESSION['userdata']['role'] == 'recruiter' ? 'SELECTED' : ''; ?>>Recruiter</option>
+							</select>
+						</div>
+						<div class="question">
 							<label>First Name</label>
 							<input type="text" name="first_name" value="<?php echo $_SESSION['userdata']['first_name']; ?>"/>
 						</div>
@@ -85,7 +92,8 @@ while (have_posts()) {
 								foreach($_SESSION['errors'] as $error) { echo '<p class="formerror">'.$error.'</p>'; }
 								session_unset();
 							}
-						?>						<input type="submit" value="Save" class="fr"/>
+						?>
+						<input type="submit" value="Save" class="fr"/>
 						<div class="clear"></div>
 					</div>
 					
