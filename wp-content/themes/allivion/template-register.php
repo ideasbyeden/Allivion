@@ -64,7 +64,7 @@ while (have_posts()) {
 							<label>I am a:</label><br />
 							<select name="role">
 								<option value="candidate" <?php echo $_SESSION['userdata']['role'] == 'candidate' ? 'SELECTED' : ''; ?>>Candidate</option>
-								<option value="recruiter" <?php echo $_SESSION['userdata']['role'] == 'recruiter' ? 'SELECTED' : ''; ?>>Recruiter</option>
+								<option value="recruiter_admin" <?php echo $_SESSION['userdata']['role'] == 'recruiter_admin' ? 'SELECTED' : ''; ?>>Recruiter</option>
 							</select>
 						</div>
 						<div class="question">

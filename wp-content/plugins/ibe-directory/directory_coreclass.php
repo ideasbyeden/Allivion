@@ -145,7 +145,7 @@ class directoryCore {
 					$output .= $question['label'] ? '<label>'.$question['label'].'</label>' : '';
 					$output .= $question['instructions'] ? '<p class="instructions">'.$question['instructions'].'</p>' : '';
 					$output .= '<select ';
-					$output .= $question['name'] ? 'name="'.$question['name'].'" ' : '';
+					$output .= $question['name'] ? 'name="'.$question['name'].'[]" ' : '';
 					$output .= $question['placeholder'] ? 'placeholder="'.$question['placeholder'].'" ' : '';
 					$output .= $question['required'] ? 'required="'.$question['required'].'" ' : '';
 					$output .= '>';

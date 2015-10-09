@@ -309,6 +309,20 @@ $vars = array(
 		'group' => 'admin'
 	),
 	array(
+		'name' => 'promote_from',
+		'label' => 'Promote from',
+		'fieldtype' => 'date',
+		'datedisplay' => 'jS M Y',
+		'group' => 'admin'	
+	),
+	array(
+		'name' => 'promote_to',
+		'label' => 'Promote to',
+		'fieldtype' => 'date',
+		'datedisplay' => 'jS M Y',
+		'group' => 'admin'	
+	),
+	array(
 		'name' => 'job_status',
 		'label' => 'Status',
 		'placeholder' => '',

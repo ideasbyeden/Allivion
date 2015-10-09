@@ -43,7 +43,8 @@ function directory_search($params = null){
 		$clean_params = array();
 		foreach($params as $k=>$v){
 			if(in_array($k, $vars) && $v != ''){
-				$clean_params[$k] = $v;
+				// (below) supports individual search values presented as array but not multiple values within a search field
+				$clean_params[$k] = is_array($v) ? $v[0] : $v; 
 			}
 		}
 	}
@@ -117,7 +118,11 @@ function directory_search($params = null){
 		$thispost = $result->posts[$i];
 		$meta = get_post_custom( $thispost->ID );
 		foreach($meta as $k=>$v){
+			
+			
+			$cleanmeta[$k] = unserialize($v[0]) ? unserialize($v[0]) : $v[0];
 			$q = $$type->getQuestion($k);
+			
 			if($q['fieldtype'] == 'date' && $q['datedisplay']) {
 				if($q['datedisplay'] == 'relative'){
 					$v[0] = $v[0] ? time2str($v[0]) : '';
@@ -125,7 +130,6 @@ function directory_search($params = null){
 					$v[0] = $v[0] ? date($q['datedisplay'],strtotime($v[0])) : '';
 				}
 			}
-			$cleanmeta[$k] = $v[0];
 		}
 		$thispost->meta = $cleanmeta;
 		

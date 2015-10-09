@@ -1,7 +1,7 @@
 <?php
 
 /*
-Template Name: Sysadmin dashboard
+Template Name: Sysadmin promotions
 */
 
 $dircore->canAccess(array('roles' => 'administrator'));
@@ -22,7 +22,7 @@ while (have_posts()) {
 
 // Fields to be shown in search results
 
-$returnfields = array('job_title','job_ref','location','job_status','search_count');
+$returnfields = array('job_title','job_ref','promote','promote_from','promote_to');
 
 
 /////////////////////////////////////////////
@@ -38,7 +38,7 @@ $returnfields = array('job_title','job_ref','location','job_status','search_coun
 <div class="section">
 	<div class="stage">
 		
-		<h1 class="purple">Sysadmin</h1>
+		<h1 class="purple">Promotions</h1>
 		
 						
 			<div class="halfcol">
@@ -52,9 +52,8 @@ $returnfields = array('job_title','job_ref','location','job_status','search_coun
 				
 
 					<div class="qpanel">
-						<h2>Search jobs</h2>
+						<h2>Filter</h2>
 						
-						<div class="question"><label>Keywords</label><input type="text" name="keywords" value="" /></div>
 						
 						<?php $recusers = $dircore->getUsers(array('roles' => 'recruiter_admin')); //echo pre($recusers->results); ?>
  						<div class="question">
@@ -71,21 +70,7 @@ $returnfields = array('job_title','job_ref','location','job_status','search_coun
 	 					</div>
 						
 						<div class="question">
-						<label>Appeared in search</label>						
-						<select name="search_count">
-							<option value="">Select</option>
-							<option value="!0">Yes</option>
-							<option value="0">No</option>
-						</select>
-						</div>
-						
-						<div class="question">
-						<label>Status</label>						
-						<select name="job_status">
-							<option value="">Select</option>
-							<option value="active">Active</option>
-							<option value="archived">Archived</option>
-						</select>
+						<?php $job->printQuestion('promote'); ?>
 						</div>
 						
 						

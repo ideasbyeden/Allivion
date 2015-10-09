@@ -21,6 +21,7 @@ jQuery(function(){
 	function itemsearch(form){
 		
 		var data = form.serialize();
+		console.log(data);
 		
 		jQuery.ajax({
 			type: 'POST',
