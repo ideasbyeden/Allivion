@@ -120,7 +120,7 @@ $returnfields = array('job_title','location','summary','recruiter_name','closing
 						$terms = get_term_children( intval($parent->term_id), 'sector' );
 						foreach($terms as $term){
 							$term = get_term_by('id',$term,'sector');					
-							echo '<li><a href="/jobs?industry='.$term->slug.'">'.$term->name.'</a></li>';
+							echo '<li><a href="/jobs?industry='.$term->slug.'">'.$term->name.' ('.$term->count.')</a></li>';
 						}
 						
 					?>

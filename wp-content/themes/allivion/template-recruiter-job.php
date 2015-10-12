@@ -37,6 +37,8 @@ while (have_posts()) {
 		the_content();
 } 
 
+//echo '<pre>Question'; print_r($job->getQuestion('promote')); echo '</pre>';
+
 
 ?>
 

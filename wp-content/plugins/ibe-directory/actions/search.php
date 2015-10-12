@@ -119,8 +119,7 @@ function directory_search($params = null){
 		$meta = get_post_custom( $thispost->ID );
 		foreach($meta as $k=>$v){
 			
-			
-			$cleanmeta[$k] = unserialize($v[0]) ? unserialize($v[0]) : $v[0];
+			$foundkeys = array();
 			$q = $$type->getQuestion($k);
 			
 			if($q['fieldtype'] == 'date' && $q['datedisplay']) {
@@ -130,6 +129,31 @@ function directory_search($params = null){
 					$v[0] = $v[0] ? date($q['datedisplay'],strtotime($v[0])) : '';
 				}
 			}
+			
+			if(is_array($q['value']) && unserialize($v[0])){
+					foreach(unserialize($v[0]) as $vitem){
+						$vstring .= $vitem.',';
+						
+						foreach($q['value'] as $s=>$t){
+							if($t['slug'] == $vitem){
+								$foundkeys[] = $s;
+							}
+							if($t['children']) foreach($t['children'] as $f=>$g){
+								if($g['slug'] == $vitem){
+									$foundkeys[] = $f;
+								}
+							}
+						}
+	
+							//if($vitem == $v['slug']) $vstring .= $k.',';
+							//$vstring .= array_search($vitem,array_column($q['value'],);
+	
+					}
+				
+				$v[0] = implode(',&nbsp;', $foundkeys);
+			}
+			
+			$cleanmeta[$k] = unserialize($v[0]) ? unserialize($v[0]) : $v[0];
 		}
 		$thispost->meta = $cleanmeta;
 		

@@ -32,7 +32,6 @@ $returnfields = array('job_title','job_ref','promote','promote_from','promote_to
 /////////////////////////////////////////////
 
 
-
 ?>
 
 <div class="section">
