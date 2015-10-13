@@ -7,6 +7,7 @@ function directory_search($params = null){
 		
 	if($_REQUEST) foreach($_REQUEST as $k=>$v) $params[$k] = $v;
 	
+	
 	if($params['encrypted']){
 		global $dircore;
 		parse_str($dircore->decrypt($params['encrypted']),$safeparams);
@@ -19,6 +20,8 @@ function directory_search($params = null){
 	global $$type;
 	$vars = $$type->getVarNames();
 	
+	$params = $$type->prepVars($params);
+
 
 	$order = $params['order'] ? $params['order'] : 'DESC';
 
@@ -63,31 +66,44 @@ function directory_search($params = null){
 	// set meta query for each valid search param
 	foreach($clean_params as $k=>$v){
 		
-
-			if(strstr($v, '!')){
-				$v = preg_replace('@!@','',$v);
-				if(in_array($k, $mc_params)){
-					$compare = 'NOT LIKE';
-					$v = '"'.$v.'"';
+			$q = $$type->getQuestion($k);
+			
+			if($q['taxonomy']){
+				
+				$query_args['tax_query'][] = array( 'taxonomy' => $q['taxonomy'],
+													'field' => 'slug',
+													'terms' => $v
+													);
+				
+			} else {			
+	
+				if(strstr($v, '!')){
+					$v = preg_replace('@!@','',$v);
+					if(in_array($k, $mc_params)){
+						$compare = 'NOT LIKE';
+						$v = '"'.$v.'"';
+					} else {
+						$compare = '!=';
+					}
 				} else {
-					$compare = '!=';
+					if(in_array($k, $mc_params)){
+						$compare = 'LIKE';
+						$v = '"'.$v.'"';
+					} else {
+						$compare = '=';
+					}
 				}
-			} else {
-				if(in_array($k, $mc_params)){
-					$compare = 'LIKE';
-					$v = '"'.$v.'"';
-				} else {
-					$compare = '=';
-				}
+			
+				$query_args['meta_query'][] = array(
+					'key' => $k,
+					'value' => $v,
+					'compare' => $compare	
+				);
+			
 			}
-		
-		
-			$query_args['meta_query'][] = array(
-				'key' => $k,
-				'value' => $v,
-				'compare' => $compare	
-			);
 	}
+	
+
 	
 	//echo '<pre>'; print_r($user); echo '</pre>';
 	
@@ -105,12 +121,14 @@ function directory_search($params = null){
 	}
 	
 	//die(print_r($query_args));
+	//echo '<pre>'; print_r($query_args); echo '</pre>';
 
 	
 	// run WP query
 	$result = new WP_Query($query_args);
 	
-	
+	//setup posts array
+	$posts = array();
 	
 	// push meta values into post object
 	for($i=0; $i<count($result->posts); $i++){
@@ -131,24 +149,22 @@ function directory_search($params = null){
 			}
 			
 			if(is_array($q['value']) && unserialize($v[0])){
-					foreach(unserialize($v[0]) as $vitem){
-						$vstring .= $vitem.',';
-						
-						foreach($q['value'] as $s=>$t){
-							if($t['slug'] == $vitem){
-								$foundkeys[] = $s;
-							}
-							if($t['children']) foreach($t['children'] as $f=>$g){
-								if($g['slug'] == $vitem){
-									$foundkeys[] = $f;
-								}
+
+				foreach(unserialize($v[0]) as $vitem){
+					$vstring .= $vitem.',';
+					
+					foreach($q['value'] as $s=>$t){
+						if($t['slug'] == $vitem){
+							$foundkeys[] = $s;
+						}
+						if($t['children']) foreach($t['children'] as $f=>$g){
+							if($g['slug'] == $vitem){
+								$foundkeys[] = $f;
 							}
 						}
-	
-							//if($vitem == $v['slug']) $vstring .= $k.',';
-							//$vstring .= array_search($vitem,array_column($q['value'],);
-	
 					}
+
+				}
 				
 				$v[0] = implode(',&nbsp;', $foundkeys);
 			}
@@ -203,8 +219,6 @@ function directory_search($params = null){
 		//print_r($cleangroupmeta);
 		$thispost->groupmeta = $cleangroupmeta;
 		
-		$result->posts[$i] = $thispost;
-		
 		
 		// update returned in search count
 		if($params['inc_search_count'] == 'true'){
@@ -217,7 +231,18 @@ function directory_search($params = null){
 			}
 		}
 		
+		// build posts array with promoted items first
+		if($thispost->meta['promote'] != '' && $thispost->meta['promote_enabled'] != ''){
+			array_unshift($posts, $thispost);	
+		} else {
+			$posts[] = $thispost;
+		}
+
+
 	}
+	
+	// add new posts array back into returned object
+	$result->posts = $posts;
 	
 	//if(count($result->posts) == 0) $result['query'] = $query_args;
 	

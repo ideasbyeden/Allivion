@@ -28,6 +28,8 @@ Template Name: Recruiter job
 */
 
 $vals = $_REQUEST['i'] ? $job->getVals($_REQUEST['i']) : null;
+// 	echo '<pre>'; print_r($vals); echo '</pre>';
+
 
 	
 get_template_part('header','recadmin');
@@ -75,6 +77,11 @@ while (have_posts()) {
 					<div class="qpanel">
 						<?php $job->printGroup('admin',$vals); ?>
 					</div>
+					<?php if($user->roles[0] == 'administrator') { ?>
+						<div class="qpanel">
+							<?php $job->printGroup('sysadmin',$vals); ?>							
+						</div>
+					<?php } ?>
 				
 				</div>
 				

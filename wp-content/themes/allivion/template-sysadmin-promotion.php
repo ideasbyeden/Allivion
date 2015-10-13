@@ -22,7 +22,7 @@ while (have_posts()) {
 
 // Fields to be shown in search results
 
-$returnfields = array('job_title','job_ref','promote','promote_from','promote_to');
+$returnfields = array('job_title','job_ref','promote','promote_from','promote_to','promote_enabled');
 
 
 /////////////////////////////////////////////
@@ -68,9 +68,7 @@ $returnfields = array('job_title','job_ref','promote','promote_from','promote_to
 	 						</select>
 	 					</div>
 						
-						<div class="question">
 						<?php $job->printQuestion('promote'); ?>
-						</div>
 						
 						
 						<input type="submit" value="Search" class="fr"/>

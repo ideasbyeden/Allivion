@@ -21,7 +21,7 @@ jQuery(function(){
 	function itemsearch(form){
 		
 		var data = form.serialize();
-		console.log(data);
+		console.log('search running');
 		
 		jQuery.ajax({
 			type: 'POST',
@@ -40,6 +40,9 @@ jQuery(function(){
 				}
 
 				jQuery.each(result.posts, function(index,postdata){
+					
+											console.log('Promote: '+postdata.meta.promote);
+
 
 					if(prototype.length > 0){
 						var row = prototype.clone();
@@ -75,8 +78,10 @@ jQuery(function(){
 						});
 						row.html(row.html().replace(/[\, ]\[.*?\]/g,''));
 						row.html(row.html().replace(/\[.*?\]/g,''));
-					} else {					
-						var row = '<tr class="clickable rowitem" data-href="'+clickableurl+'?i='+postdata['ID']+'">';
+					} else {
+						//var promoted = '';
+						//if(typeof postdata.meta.promote != 'undefined' && typeof postdata.meta.promote_enabled != 'undefined') promoted = 'promoted';					
+						var row = '<tr class="clickable rowitem '+promoted+'" data-href="'+clickableurl+'?i='+postdata['ID']+'">';
 							jQuery.each(returndata, function(k,v){
 								if(typeof postdata.meta[v] == 'undefined') postdata.meta[v] = '';
 								row += '<td>'+postdata.meta[v]+'</td>';

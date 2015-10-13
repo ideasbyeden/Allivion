@@ -89,6 +89,11 @@ img {
 	-webkit-border-radius: 12px;	
 }
 
+#homesearch form label{
+	display: none;
+}
+
+
 #homesearch form input[type='text']{
 	width: 100%;
 	font-size: 1.4em;
@@ -478,6 +483,11 @@ ul.tabs li.active {
 	background-color: #EEEEEE;
 
 }
+
+.searchresults tbody tr.promoted {
+	background: #d5c9de url(../img/promote_palepurple.png) repeat-x !important;
+}
+
 
 .searchresults td {
 	padding: 8px;

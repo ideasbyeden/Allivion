@@ -27,6 +27,21 @@ class directoryCore {
 		return $this->vars;
 	}
 	
+	public function prepVars($vars = null){
+		if(!$vars) return null;
+		foreach($vars as $k=>$v){
+			if($v != ''){
+				$q = $this->getQuestion($k);
+				if(is_array($q['value']) && !is_array($v)){
+					$preppedVars[$k][] = $v;
+				} else {
+					$preppedVars[$k] = $v;
+				}
+			}
+		}
+		return $preppedVars ? $preppedVars : null;
+	}
+	
 	public function getVarNames(){
 		foreach($this->getVars() as $var){
 			$names[] = $var['name'];
@@ -34,10 +49,26 @@ class directoryCore {
 		return $names;
 	}
 	
+/*
 	public function getVals($id){
 		$vals = null;
 		foreach(get_post_custom($id) as $k=>$v){
 			$vals[$k] = $v[0];
+		}
+		return $vals;
+	}
+*/
+	
+	public function getVals($id){
+		$vals = null;
+		foreach($this->getVarNames() as $name){
+			$q = $this->getQuestion($name);
+			if($q['taxonomy']){
+				$terms = wp_get_post_terms($id,$q['taxonomy']);
+				foreach($terms as $term) $vals[$name][] = $term->slug;				 
+			} else {
+				$vals[$name] = get_post_meta($id,$name,true);
+			}
 		}
 		return $vals;
 	}
@@ -145,7 +176,7 @@ class directoryCore {
 					$output .= $question['label'] ? '<label>'.$question['label'].'</label>' : '';
 					$output .= $question['instructions'] ? '<p class="instructions">'.$question['instructions'].'</p>' : '';
 					$output .= '<select ';
-					$output .= $question['name'] ? 'name="'.$question['name'].'[]" ' : '';
+					$output .= $question['name'] ? 'name="'.$question['name'].'" ' : '';
 					$output .= $question['placeholder'] ? 'placeholder="'.$question['placeholder'].'" ' : '';
 					$output .= $question['required'] ? 'required="'.$question['required'].'" ' : '';
 					$output .= '>';
@@ -186,7 +217,7 @@ class directoryCore {
 							$output .= '<input type="checkbox" value="'.$v['slug'].'" ';
 							$output .= $question['name'] ? 'name="'.$question['name'].'[]" ' : '';
 							$output .= $question['required'] ? 'required="'.$question['required'].'" ' : '';
-							if($value && in_array($v['slug'], unserialize($value))){
+							if($value && in_array($v['slug'], $value)){
 								$output .= 'CHECKED ';
 							}
 							$output .= '/>';
@@ -199,7 +230,7 @@ class directoryCore {
 							$output .= '<input type="checkbox" value="'.$v['slug'].'" ';
 							$output .= $question['name'] ? 'name="'.$question['name'].'[]" ' : '';
 							$output .= $question['required'] ? 'required="'.$question['required'].'" ' : '';
-							if($value && in_array($v['slug'], unserialize($value))){
+							if($value && in_array($v['slug'], $value)){
 							//if($v == $value){
 								$output .= 'CHECKED ';
 							}
@@ -289,16 +320,64 @@ class directoryCore {
 	
 	public function printDetail($name,$value = null){
 		
+		//echo '<pre>'; print_r($value); echo '</pre>';
+		
 		$q = $this->getQuestion($name);
 		
-		// is single value or full vals array passed
-		if(is_array($value)) $value = $value[$name];
 		
 		// is value defined by checkbox / radio
-		$value_arr = unserialize($value);
+/*
+		$value_arr = unserialize($value) ? unserialize($value) : $value;
 		if(is_array($value_arr)) {
 			$value = array_search($value_arr[0], $q['value']);
 		}
+*/
+		if(is_array($value)){
+			
+			if(is_array($q['value'])){
+				$foundkeys = array();
+				foreach($value as $vitem){
+					 if(is_array($vitem)) foreach($vitem as $i){
+					
+						foreach($q['value'] as $s=>$t){
+							if($t['slug'] == $i){
+								$foundkeys[] = $s;
+							}
+							if($t['children']) foreach($t['children'] as $f=>$g){
+								if($g['slug'] == $i){
+									$foundkeys[] = $f;
+								}
+							}
+						}
+
+					} else {
+						
+						foreach($q['value'] as $s=>$t){
+							if($t['slug'] == $vitem){
+								$foundkeys[] = $s;
+							}
+							if($t['children']) foreach($t['children'] as $f=>$g){
+								if($g['slug'] == $vitem){
+									$foundkeys[] = $f;
+								}
+							}
+						}
+						
+					}
+						//if($vitem == $v['slug']) $vstring .= $k.',';
+						//$vstring .= array_search($vitem,array_column($q['value'],);
+
+				}
+				
+				$value = implode(',&nbsp;', $foundkeys);
+			} else {
+				$value = $value[$name];
+			}			
+			
+		}
+		
+
+		
 		
 		// create output
 		$output .= '<p class="detail">';
@@ -308,6 +387,8 @@ class directoryCore {
 		
 		echo $output;
 	}
+	
+
 	
 	
 	public function canAccess($args){
@@ -491,6 +572,22 @@ class directoryCore {
 		$payload = mcrypt_decrypt(MCRYPT_RIJNDAEL_128, CRYPTKEY, $crypt, MCRYPT_MODE_CBC, $iv);
 		return $payload;
 	}
+	
+	public function sort2d ($array, $index, $order='ASC', $natsort=TRUE, $case_sensitive=FALSE){
+        if(is_array($array) && count($array)>0){
+            foreach(array_keys($array) as $key)
+                $temp[$key]=$array[$key][$index];
+                if(!$natsort)($order=='ASC')? asort($temp) : arsort($temp);
+                else {
+                    ($case_sensitive)? natsort($temp) : natcasesort($temp);
+                    if($order!='ASC') $temp=array_reverse($temp,TRUE);
+                }
+            foreach(array_keys($temp) as $key) (is_numeric($key))? $sorted[]=$array[$key] : $sorted[$key]=$array[$key];
+            return $sorted;
+        }
+        return $array;
+    }
+
 	
 	public function getUsers($params){
 		

@@ -109,16 +109,19 @@ $returnfields = array('logo','logo_image','job_title','location','summary','recr
 		
 						
 			<div class="qtrcol sticky">
-				<div class="qpanel darkpurplegrad" id="job_bullets">
+				<div class="qpanel darkpurplegrad" id="job_bullets" style="padding: 12px;">
 					<table style="width: 90%; margin-bottom: 30px;">
 					<?php
 						foreach($_GET as $k=>$v){
+							if($v) $job->printDetail($k,$_GET);
+/*
 							if($v){
 								if($q = $job->getQuestion($k)){
 									$v = ($q['value']) ? array_pop(array_keys($q['value'],$v)) : $v;
 								echo '<tr><td>'.$q['label'].'</td><td><strong>'.$v.'</strong></td></tr>';
 								}
 							}
+*/
 						}
 					?>
 					</table>				
@@ -166,7 +169,7 @@ $returnfields = array('logo','logo_image','job_title','location','summary','recr
 				
 			?>
 			
-			<pre><?php //print_r($items); ?></pre>
+<!-- 			<pre><?php print_r($items); ?></pre> -->
 
 			<div class="threeqtrscol">
 				<table class="searchresults">
@@ -228,8 +231,9 @@ $returnfields = array('logo','logo_image','job_title','location','summary','recr
 						<td>[closing_date]</td>
 					</tr>
 								
-					<?php foreach ($items->posts as $item){ ?>
-						<tr class="clickable rowitem" data-href="/job?i=<?php echo $item->ID; ?>">
+					<?php if(count($items->posts) > 0) foreach ($items->posts as $item){ ?>
+<!-- 					<pre><?php print_r($item->meta); ?></pre> -->
+						<tr class="clickable rowitem <?php if(in_array($item->meta['promote'], $item->meta['industry']) || $item->meta['promote_enabled'] != '') echo 'promoted'; ?>" data-href="/job?i=<?php echo $item->ID; ?>">
 							<td style="width: 60px;">
 								<?php if($item->groupmeta['logo']) { ?>
 										<?php foreach($item->groupmeta['logo'] as $image_id) echo wp_get_attachment_image($image_id,'tinythumb'); ?>

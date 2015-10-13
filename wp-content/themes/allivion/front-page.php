@@ -71,37 +71,19 @@ $returnfields = array('job_title','location','summary','recruiter_name','closing
 					<input type="text" name="keywords" value="<?php echo $_REQUEST['keywords']; ?>" placeholder="I'm looking for..." class="fl" />
 					<div class="clear"></div>
 					
-					<?php $industry = $job->getQuestion('industry'); ?>
+					<?php $job->printQuestion('industry',null,'dropdown',true); ?>
+					<?php $job->printQuestion('region',null,'dropdown',true); ?>
+					<?php $job->printQuestion('salary_range',null,'dropdown',true); ?>
+					<?php $job->printQuestion('contract',null,'dropdown',true); ?>
+<!--
 					<select name="industry">
 						<option value="">Industry</option>
 						<?php foreach($industry['value'] as $k=>$v){ ?>
 							<option value="<?php echo $v; ?>"><?php echo $k; ?></option>
 						<?php } ?>
 					</select>
+-->
 					
-					<?php $region = $job->getQuestion('region'); ?>
-					<select name="region">
-						<option value="">Region</option>
-						<?php foreach($region['value'] as $k=>$v){ ?>
-							<option value="<?php echo $v; ?>"><?php echo $k; ?></option>
-						<?php } ?>
-					</select>
-					
-					<?php $salary_range = $job->getQuestion('salary_range'); ?>
-					<select name="salary_range">
-						<option value="">Salary</option>
-						<?php foreach($salary_range['value'] as $k=>$v){ ?>
-							<option value="<?php echo $v; ?>"><?php echo $k; ?></option>
-						<?php } ?>
-					</select>
-					
-					<?php $contract = $job->getQuestion('contract'); ?>
-					<select name="contract">
-						<option value="">Contract</option>
-						<?php foreach($contract['value'] as $k=>$v){ ?>
-							<option value="<?php echo $v; ?>"><?php echo $k; ?></option>
-						<?php } ?>
-					</select>
 					</div>
 					
 					<input type="submit" value="Go" class="fr"/>
@@ -139,7 +121,7 @@ $returnfields = array('job_title','location','summary','recruiter_name','closing
 						$terms = get_term_children( intval($parent->term_id), 'sector' );
 						foreach($terms as $term){
 							$term = get_term_by('id',$term,'sector');					
-							echo '<li><a href="/jobs?industry='.$term->slug.'">'.$term->name.'</a></li>';
+							echo '<li><a href="/jobs?industry='.$term->slug.'">'.$term->name.' ('.$term->count.')</a></li>';
 						}
 						
 					?>
@@ -152,7 +134,7 @@ $returnfields = array('job_title','location','summary','recruiter_name','closing
 						$terms = get_term_children( intval($parent->term_id), 'sector' );
 						foreach($terms as $term){
 							$term = get_term_by('id',$term,'sector');					
-							echo '<li><a href="/jobs?industry='.$term->slug.'">'.$term->name.'</a></li>';
+							echo '<li><a href="/jobs?industry='.$term->slug.'">'.$term->name.' ('.$term->count.')</a></li>';
 						}
 						
 					?>

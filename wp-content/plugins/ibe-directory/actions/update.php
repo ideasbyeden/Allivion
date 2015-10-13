@@ -17,7 +17,19 @@ function directory_update(){
 	$varnames = $$type->getVarNames();
 	
 	foreach($varnames as $var){
-		update_post_meta($_REQUEST['post_id'],$var,$_REQUEST[$var]);
+		$q = $$type->getQuestion($var);
+		if($q['taxonomy']){
+			foreach($_REQUEST[$var] as $v){
+				$term = get_term_by('slug',$v,$q['taxonomy']);
+				$terms[] = $term->term_id;
+			}
+			wp_set_object_terms($_REQUEST['post_id'],$terms,$q['taxonomy']);
+		} else {
+			if(is_array($q['value']) && !is_array($_REQUEST[$var])){
+				$_REQUEST[$var] = array($_REQUEST[$var]);
+			}
+			update_post_meta($_REQUEST['post_id'],$var,$_REQUEST[$var]);
+		}
 		$result[$var] = $_REQUEST[$var];
 	}
 	

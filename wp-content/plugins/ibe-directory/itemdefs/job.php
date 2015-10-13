@@ -186,6 +186,7 @@ $vars = array(
 		'placeholder' => '',
 		'fieldtype' => 'check',
 		'value' => $sector->taxTree(),
+		'taxonomy' => 'sector',
 		'group' => 'industry_location',
 		'keyword' => 'true',
 		'select_parent' => 'false'
@@ -321,6 +322,15 @@ $vars = array(
 		'fieldtype' => 'date',
 		'datedisplay' => 'jS M Y',
 		'group' => 'admin'	
+	),
+	array(
+		'name' => 'promote_enabled',
+		'label' => 'Promotion enabled',
+		'fieldtype' => 'check',
+		'value' => array(
+			'Enabled' 		=> array('slug' => 'enabled') // labelled as tick
+		),
+		'group' => 'sysadmin'
 	),
 	array(
 		'name' => 'job_status',

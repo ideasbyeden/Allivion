@@ -54,6 +54,7 @@ $uservals['email'] = $user->user_email;
 <div class="section">
 	<div class="stage">
 		
+		
 		<div class="thirdcol sticky">
 			<div class="qpanel purplegrad" id="job_bullets" style="padding: 12px;">
 				<?php $job->printDetail('salary_details',$vals) ?>
