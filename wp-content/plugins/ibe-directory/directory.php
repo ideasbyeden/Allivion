@@ -73,9 +73,12 @@ add_action( 'init', 'directoryInit' );
 
 function directoryEnqueue() {
 
-   wp_register_script( 'directory_core', WP_PLUGIN_URL.'/ibe-directory/js/directory_core.js', array('jquery') );
-   wp_enqueue_script( 'directory_core' );
-   
+	wp_register_script( 'directory_core', WP_PLUGIN_URL.'/ibe-directory/js/directory_core.js', array('jquery') );
+	wp_enqueue_script( 'directory_core' );
+
+	wp_register_script( 'serialize_object', WP_PLUGIN_URL.'/ibe-directory/js/jquery.serialize-object.js', array('jquery') );
+	wp_enqueue_script( 'serialize_object' );
+	
 	wp_enqueue_script('jquery-ui-datepicker');
 	wp_enqueue_style('jquery-style', 'http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/themes/smoothness/jquery-ui.css');
 

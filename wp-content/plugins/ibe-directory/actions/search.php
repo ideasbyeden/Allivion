@@ -148,6 +148,7 @@ function directory_search($params = null){
 				}
 			}
 			
+/*
 			if(is_array($q['value']) && unserialize($v[0])){
 
 				foreach(unserialize($v[0]) as $vitem){
@@ -168,6 +169,7 @@ function directory_search($params = null){
 				
 				$v[0] = implode(',&nbsp;', $foundkeys);
 			}
+*/
 			
 			$cleanmeta[$k] = unserialize($v[0]) ? unserialize($v[0]) : $v[0];
 		}
@@ -216,9 +218,18 @@ function directory_search($params = null){
 
 
 		}
-		//print_r($cleangroupmeta);
 		$thispost->groupmeta = $cleangroupmeta;
 		
+		//push all taxonomy terms into post object
+		foreach(get_taxonomies() as $tax){
+			$terms = wp_get_post_terms($thispost->ID,$tax);
+			if(count($terms > 0)){
+				$terms_arr = array();
+				foreach($terms as $term){ $terms_arr[] = (array)$term; }
+				$cleanterms[$tax] = $terms_arr;
+			}
+		}
+		$thispost->terms = $cleanterms;
 		
 		// update returned in search count
 		if($params['inc_search_count'] == 'true'){

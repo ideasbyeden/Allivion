@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAGA,IAAK;EACH,IAAI,EAAE,0BAAgB;EACtB,KAAK,EAJS,IAAI;;AAOpB,IAAK;EACJ,gBAAgB,EAAE,IAAI;EAEtB,OAAG;IACF,MAAM,EAAE,cAAc;IACtB,KAAK,EAAE,IAAI;;AAUb,eAAQ;EALP,aAAa,EAMU,IAAI;EAL3B,qBAAqB,EAKE,IAAI;EAJ3B,kBAAkB,EAIK,IAAI;;AAG5B,MAAO;EAEN,MAAM,EAAE,aAAa",
+"sources": ["../css/sasstest.scss"],
+"names": [],
+"file": "mycss.css"
+}

@@ -1,7 +1,7 @@
 body {
-	font-family: 'Source Sans Pro', sans-serif;
-	font-size: 0.9em;	
-	line-height: 1.5em;
+	font-family: 'Source Sans Pro', sans-serif !important;
+	font-size: 14px;	
+	line-height: 24px;
 	color: #666666;
 }
 
@@ -58,7 +58,7 @@ ul {
 }
 
 a, a:visited, a:active {
-	color: inherit;
+	color: inherit !important;
 	text-decoration: none;
 }
 

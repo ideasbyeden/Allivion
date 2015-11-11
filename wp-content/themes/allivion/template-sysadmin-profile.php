@@ -1,14 +1,14 @@
 <?php
 
 /*
-Template Name: Recruiter profile
+Template Name: Sysadmin recruiter profile
 */
 
-$dircore->canAccess(array('roles' => 'recruiter_admin'));
+$dircore->canAccess(array('roles' => 'administrator'));
 	
-get_template_part('header','recadmin');
+get_template_part('header','sysadmin');
 
-$vals = $usermeta;
+$vals = $_REQUEST['i'] ? $recruiter_admin->getVals($_REQUEST['i']) : null;
 //echo '<pre>'; print_r($usermeta); echo '</pre>';
 
 	
@@ -33,6 +33,12 @@ while (have_posts()) {
 //
 /////////////////////////////////////////////
 
+$this_user = get_user_by('id',$_REQUEST['i']);
+$usercustom = get_user_meta($_REQUEST['i']);
+foreach($usercustom as $k=>$v){
+	$this_usermeta[$k] = $v[0];
+}
+
 //echo '<pre>'; print_r($usermeta); echo '</pre>';
 
 ?>
@@ -56,12 +62,12 @@ while (have_posts()) {
  		
 
 					<div class="qpanel">
-						<?php $recruiter_admin->printQuestion('recruiter_name',$usermeta['recruiter_name']); ?>
+						<?php $recruiter_admin->printQuestion('recruiter_name',$vals['recruiter_name']); ?>
 						
-						<?php if($usermeta['logo']) foreach(unserialize($usermeta['logo']) as $image_id) echo wp_get_attachment_image($image_id); ?>
+						<?php if($usermeta['logo']) foreach(unserialize($vals['logo']) as $image_id) echo wp_get_attachment_image($image_id); ?>
 					
-						<?php $recruiter_admin->printQuestion('logo',$usermeta['logo']); ?>
-						<?php $recruiter_admin->printQuestion('boilerplate',$usermeta['boilerplate']); ?>
+						<?php $recruiter_admin->printQuestion('logo',$vals['logo']); ?>
+						<?php $recruiter_admin->printQuestion('boilerplate',$vals['boilerplate']); ?>
 						<div class="clear"></div>
 					</div>
 					
@@ -71,14 +77,14 @@ while (have_posts()) {
 				<div class="halfcol">
 					<div class="qpanel">
 						<?php $recruiter_admin->printQuestion('user_email',$user->user_email); ?>
-						<?php $recruiter_admin->printQuestion('contact_phone',$usermeta['contact_phone']); ?>
-						<?php $recruiter_admin->printQuestion('default_app_email',$usermeta['default_app_email']); ?>
+						<?php $recruiter_admin->printQuestion('contact_phone',$vals['contact_phone']); ?>
+						<?php $recruiter_admin->printQuestion('default_app_email',$vals['default_app_email']); ?>
 					</div>
 				</div>
 				
 				<?php if($user->roles[0] == 'administrator') { ?>
 					<div class="qpanel">
-						<?php $recruiter_admin->printQuestion('subscriber',$usermeta['subscriber']); ?>							
+						<?php $recruiter_admin->printQuestion('subscriber',$vals['subscriber']); ?>							
 					</div>
 				<?php } ?>
 

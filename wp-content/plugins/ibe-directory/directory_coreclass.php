@@ -380,10 +380,10 @@ class directoryCore {
 		
 		
 		// create output
-		$output .= '<p class="detail">';
-		$output .= '<span class="detail_label">'.$q['label'].'</span>';
-		$output .= '<span class="detail_value">'.$value.'</span>';
-		$output .= '</p>';
+		$output .= '<tr>';
+		$output .= '<td style="width:50%">'.$q['label'].'</td>';
+		$output .= '<td>'.$value.'</td>';
+		$output .= '</tr>';
 		
 		echo $output;
 	}
@@ -587,18 +587,68 @@ class directoryCore {
         }
         return $array;
     }
+    
+    public function recursive_array_search($needle,$haystack) {
+	 
+	    foreach($haystack as $key=>$value) {
+	        $current_key = $key;
+	        if($needle == $value OR (is_array($value) && $this->recursive_array_search($needle,$value) != false)) {
+	            return $current_key;
+	        }
+	    }
+	    return false;
+	}
+	
+	public function taxArraySearch($needle,$haystack,$selfcall = null) {
+	 	    
+	    foreach($haystack as $key=>$value) {
+	        if($needle == $value['slug']) {
+	            $found = $key;
+	        } elseif (is_array($value['children'])) {
+		        $this->taxArraySearch($needle,$value['children'],'twasme');
+		    }
+	    }
+	    echo 'selfcall: '.$selfcall.'\\n';
+	    echo 'Needle: '.$needle.'\\n';
+	    echo 'Found it - '. $found.'\\n';
+	    return 'steve';
+	}
 
 	
-	public function getUsers($params){
+/*
+	public function getUsers($params = null){
 		
-		$users = new WP_User_Query();
-		$users->results = array();
+		$args = array();
 		
-		$args = array(	'orderby' => 'name',
-						'order' => 'ASC'
-		);
 		
+		// Set up basic args - needs to be expanded to cover other search params eg. name, email etc.
+		if($params['orderby']){
+			if(in_array($params['orderby'], $varnames)){
+				$args['meta_key'] = $params['orderby'];
+				$args['orderby'] = 'meta_value';
+				$args['order'] = 'ASC';				
+			} else {
+				$args['orderby'] = $params['orderby'];				
+			}			
+		} else {
+			$args['orderby'] = 'name';
+			$args['order'] = 'ASC';				
+		}
+
+		// Set up meta query for search against role specific parameters
+		$varnames = $this->getVarNames();
+		
+		if(is_array($params)) foreach($params as $k=>$v){ // unsanitized $v
+			if(in_array($k, $varnames)){
+				$args['meta_query'][] = array('key' => $k,'value' => $v,'compare' => '=');
+			}
+		}
+
+		$users = new WP_User_Query($args);
+
+
 		if($params['roles']){
+			$users->results = array();
 			$roles = explode(',', $params['roles']);
 			foreach($roles as $role){
 				$args['role'] = $role;
@@ -607,10 +657,20 @@ class directoryCore {
 				$users->count_total = $users->count_total + $result->count_total;
 			}
 		}
+
+		
+		for($i=0; $i<count($users->results); $i++){
+			$users->results[$i]->meta = get_user_meta($thisuser->ID);
+		}
+				
 		
 		return $users;
 		
 	}
+*/
+	
+
+
 	
 
 	

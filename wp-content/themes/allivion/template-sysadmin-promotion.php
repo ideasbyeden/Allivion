@@ -54,7 +54,7 @@ $returnfields = array('job_title','job_ref','promote','promote_from','promote_to
 						<h2>Filter</h2>
 						
 						
-						<?php $recusers = $dircore->getUsers(array('roles' => 'recruiter_admin')); //echo pre($recusers->results); ?>
+						<?php $recusers = $recruiter_admin->getUsers(); //echo pre($recusers->results); ?>
  						<div class="question">
 	 						<label>Recruiter</label>
 	 						<select name="group_id">

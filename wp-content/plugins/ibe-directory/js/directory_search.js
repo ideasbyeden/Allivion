@@ -21,7 +21,11 @@ jQuery(function(){
 	function itemsearch(form){
 		
 		var data = form.serialize();
-		console.log('search running');
+		var datajson = form.serializeObject();
+		jQuery.each(datajson, function(k,v){
+			jQuery('input[name="'+k+'"]').val(v);
+		});
+		//console.log('');
 		
 		jQuery.ajax({
 			type: 'POST',
@@ -41,12 +45,12 @@ jQuery(function(){
 
 				jQuery.each(result.posts, function(index,postdata){
 					
-											console.log('Promote: '+postdata.meta.promote);
-
+					
 
 					if(prototype.length > 0){
 						var row = prototype.clone();
 						row.addClass('rowitem clickable');
+						
 						row.removeClass('prototype');
 						row.attr('data-href', clickableurl+'?i='+postdata['ID']);
 						jQuery.each(returndata, function(k,v){
@@ -81,13 +85,17 @@ jQuery(function(){
 					} else {
 						//var promoted = '';
 						//if(typeof postdata.meta.promote != 'undefined' && typeof postdata.meta.promote_enabled != 'undefined') promoted = 'promoted';					
-						var row = '<tr class="clickable rowitem '+promoted+'" data-href="'+clickableurl+'?i='+postdata['ID']+'">';
+						var row = '<tr class="clickable rowitem" data-href="'+clickableurl+'?i='+postdata['ID']+'">';
 							jQuery.each(returndata, function(k,v){
 								if(typeof postdata.meta[v] == 'undefined') postdata.meta[v] = '';
 								row += '<td>'+postdata.meta[v]+'</td>';
 							});
 						row += '</tr>';
 					}
+					if(postdata.meta.promote == datajson.industry && typeof postdata.meta.promote_enabled != 'undefined'){
+						row.addClass('promoted');
+					}
+
 					jQuery('#'+target).append(row);				
 				});
 			}

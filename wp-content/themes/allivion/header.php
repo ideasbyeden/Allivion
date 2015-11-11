@@ -17,6 +17,9 @@
 	<title></title>
 	
 	<link rel="shortcut icon" href="<?php bloginfo('template_url') ?>/favicon.ico" />
+	
+
+
 
 	<link rel="stylesheet" media="screen" href="<?php bloginfo('template_url') ?>/style.css" />
 	<link rel="stylesheet" media="screen" href="<?php bloginfo('template_url') ?>/css/layout.css" />
@@ -27,6 +30,8 @@
 
 	
 	<?php wp_head(); ?>
+
+
 
 	<script src="<?php bloginfo('template_url'); ?>/js/jquery.uniform.min.js"></script>
 	<script>

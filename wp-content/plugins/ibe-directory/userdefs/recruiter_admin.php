@@ -145,4 +145,14 @@ $vars = array(
 		'fieldtype' => 'text',
 		'group' => 'profile'
 	),
+	array(
+		'name' => 'subscriber',
+		'label' => 'Subscriber',
+		'fieldtype' => 'dropdown',
+		'value' => array(
+			'Annual'	=> array('slug' => 'annual'),	
+		),
+		'addblank' => true,
+		'group' => 'sysadmin'
+	),
 );

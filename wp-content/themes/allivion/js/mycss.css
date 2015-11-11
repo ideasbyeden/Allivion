@@ -1,0 +1,19 @@
+body {
+  font: 100% Helvetica, sans-serif;
+  color: #445; }
+
+#nav {
+  background-color: aqua; }
+  #nav ul {
+    border: 1px solid gray;
+    color: lime; }
+
+.button, .alert {
+  border-radius: 20px;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px; }
+
+.alert {
+  border: 1px solid red; }
+
+/*# sourceMappingURL=mycss.css.map */

@@ -56,7 +56,7 @@ $returnfields = array('job_title','job_ref','location','job_status','search_coun
 						
 						<div class="question"><label>Keywords</label><input type="text" name="keywords" value="" /></div>
 						
-						<?php $recusers = $dircore->getUsers(array('roles' => 'recruiter_admin')); //echo pre($recusers->results); ?>
+						<?php $recusers = $recruiter_admin->getUsers(); //echo pre($recusers->results); ?>
  						<div class="question">
 	 						<label>Recruiter</label>
 	 						<select name="group_id">

@@ -50,19 +50,21 @@ $returnfields = array('logo','logo_image','job_title','location','summary','recr
 					jQuery.ajax({
 				    	type: 'POST',
 				    	url:  '<?php echo admin_url('admin-ajax.php'); ?>',
-				    	data: 'action=jsapi&type=job&method=getquestion&name='+k,
+				    	data: 'action=jsapi&type=job&method=getquestion&name='+k+'&value='+v,
 				    	dataType: 'json',
 								
-						success: function(question){
-							console.log(question.label);
-							if(typeof question.value != 'undefined'){
-								jQuery.each(question.value, function(qk,qv) {
-									if(qv == v) searchval = qk;
-								});
+						success: function(result){
+							var label = '';
+							var value = '';
+							if(typeof result.question.label != 'undefined'){
+								label = result.question.label;
+							} 
+							if(typeof result.value != 'undefined'){
+								value = result.value;
 							} else {
-								searchval = v;
+								value = v;
 							}
-							jQuery('#job_bullets table').append('<tr><td>'+question.label+'</td><td><strong>'+searchval+'</strong></td></tr>').hide().fadeIn(100);
+							jQuery('#job_bullets table').append('<tr><td style="width:50%">'+label+'</td><td><strong>'+value+'</strong></td></tr>').hide().fadeIn(100);
 						}
 					});
 
@@ -232,8 +234,8 @@ $returnfields = array('logo','logo_image','job_title','location','summary','recr
 					</tr>
 								
 					<?php if(count($items->posts) > 0) foreach ($items->posts as $item){ ?>
-<!-- 					<pre><?php print_r($item->meta); ?></pre> -->
-						<tr class="clickable rowitem <?php if(in_array($item->meta['promote'], $item->meta['industry']) || $item->meta['promote_enabled'] != '') echo 'promoted'; ?>" data-href="/job?i=<?php echo $item->ID; ?>">
+					
+						<tr class="clickable rowitem <?php if($item->meta['promote'][0] == $_REQUEST['industry'] && $item->meta['promote_enabled'] != '') echo 'promoted'; ?>" data-href="/job?i=<?php echo $item->ID; ?>">
 							<td style="width: 60px;">
 								<?php if($item->groupmeta['logo']) { ?>
 										<?php foreach($item->groupmeta['logo'] as $image_id) echo wp_get_attachment_image($image_id,'tinythumb'); ?>

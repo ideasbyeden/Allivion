@@ -77,25 +77,100 @@ class userdef extends directoryCore {
 		
 	}
 	
-	function getUsers($params){
+	//////////////
+	
+	
+	public function getUsers($params = null){
+		
+		$args = array();
+		$args['role'] = $this->role;
+		if($params['id']) $args['include'] = $params['id'];
+		if($params['login']) $args['user_login'] = $params['login'];
+		if($params['email']) $args['user_email'] = $params['email'];
+		
+		
+		// Set up basic args - needs to be expanded to cover other search params eg. name, email etc.
+		if($params['orderby']){
+			if(in_array($params['orderby'], $varnames)){
+				$args['meta_key'] = $params['orderby'];
+				$args['orderby'] = 'meta_value';
+				$args['order'] = 'ASC';				
+			} else {
+				$args['orderby'] = $params['orderby'];				
+			}			
+		} else {
+			$args['orderby'] = 'name';
+			$args['order'] = 'ASC';				
+		}
+
+		// Set up meta query for search against role specific parameters
+		$varnames = $this->getVarNames();
+		
+		if(is_array($params)) foreach($params as $k=>$v){ // unsanitized $v
+			if(in_array($k, $varnames)){
+				$args['meta_query'][] = array('key' => $k,'value' => $v,'compare' => '=');
+			}
+		}
+
+		$users = new WP_User_Query($args);
+
+		for($i=0; $i<count($users->results); $i++){
+			$thisuser = $users->results[$i];
+			$cleanusermeta = array();
+			foreach(get_user_meta($thisuser->ID) as $k=>$v){
+				$cleanusermeta[$k] = unserialize($v[0]) ? unserialize($v[0])[0] : $v[0];
+			}
+			$thisuser->meta = $cleanusermeta;
+			$usersarr[] = $thisuser;
+		}
+		$users->results = $usersarr;
+		
+		return $users;
+		
+	}
+	
+	//////////////
+	
+	
+	
+	
+	
+	
+	function getUsersLegacy($params = null){
+		
+		$args = array();
 				
-		if($params['keywords']) 	$args['search'] = $_REQUEST['keywords'];
-		if($params['ID'])			$args['include'] = array($_REQUEST['ID']);
+		$args['role'] = $this->role;
+		if($params['id']) $args['include'] = $params['id'];
+		if($params['login']) $args['user_login'] = $params['login'];
+		if($params['email']) $args['user_email'] = $params['email'];
 
 		// set up core user data (stored in wp_users)
-		$valid = array('ID','user_pass','user_login','user_nicename','user_url','user_email','display_name','nickname','first_name','last_name','description','rich_editing','user_registered','role','jabber','aim','yim');
+		//$valid = array('display_name','nickname','first_name','last_name','description','rich_editing','user_registered','role','jabber','aim','yim');
 			
 		// set up user meta data
-		$varnames = $$role->getVarNames();
-		$validmeta = array_diff($varnames,$valid);
+		$varnames = $this->getVarNames();
 		
-		foreach(array_filter($_REQUEST) as $k=>$v){ 
-			if(in_array($k, $validmeta)){
+		if(is_array($params)) foreach($params as $k=>$v){ // unsanitized $v
+			if(in_array($k, $varnames)){
 				$args['meta_query'][] = array('key' => $k,'value' => $v,'compare' => '=');
 			}
 		}
 		
-		die(print_r($args));
+		if($params['orderby']){
+			if(in_array($params['orderby'], $varnames)){
+				$args['meta_key'] = $params['orderby'];
+				$args['orderby'] = 'meta_value';
+				$args['order'] = 'ASC';				
+			} else {
+				$args['orderby'] = $params['orderby'];				
+			}			
+		}
+		
+		// Nonsense meta query as WP_User_Query will return empty if no arguments provided
+		$args['meta_query'][] = array('key' => 'KJHBDFLKJ','compare' => 'NOT EXISTS');
+		
+		return new WP_User_Query($args);
 		
 	}
 			
