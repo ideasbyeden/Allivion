@@ -30,9 +30,11 @@ Template Name: Recruiter job
 $vals = $_REQUEST['i'] ? $job->getVals($_REQUEST['i']) : null;
 // 	echo '<pre>'; print_r($vals); echo '</pre>';
 
+$header = 'recadmin';
+if($user->roles[0] == 'administrator') $header = 'sysadmin';
+if($user->roles[0] == 'recruiter_admin') $header = 'recadmin';
 
-	
-get_template_part('header','recadmin');
+get_template_part('header',$header);
 	
 while (have_posts()) { 
 		the_post();
@@ -44,11 +46,12 @@ while (have_posts()) {
 
 ?>
 
-<div class="section">
-	<div class="stage">
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<h1 class="purple">Create job advertisement</h1>
+		</div>
 		
-		<h1 class="purple">Create job advertisement</h1>
-
 			<form class="directory <?php echo $job->type; ?> update" id="jobdetails" action="<?php echo admin_url('admin-ajax.php'); ?>" method="post" autosave="true">
 				
 				<input type="hidden" name="post_id" value="<?php echo $_REQUEST['i']; ?>" />
@@ -57,7 +60,7 @@ while (have_posts()) {
 				<input type="hidden" name="action" value="directory_update" />
 				
 				
-				<div class="halfcol">
+				<div class="col-md-6">
 
 					<div class="qpanel">
 						<?php $job->printGroup('headline',$vals); ?>
@@ -85,10 +88,10 @@ while (have_posts()) {
 				
 				</div>
 				
-				<div class="halfcol">
+				<div class="col-md-6">
 					<div id="adpreview" class="preview">
 						<h3>Ad preview</h3>
-						<input type="submit" value="Save changes" />
+						<input type="submit" value="Save changes" class="btn btn-default"/>
 						<hr>
 						<h4><span id="job_title"><?php echo $vals['job_title'] ? $vals['job_title'] : 'Job Title'; ?></span>, <span id="location"><?php echo $vals['location'] ? $vals['location'] : 'Location'; ?></span></h4>
 						<h6><span id="employer"><?php echo get_user_meta($vals['group_id'],'recruiter_name',true); ?></span></h6>

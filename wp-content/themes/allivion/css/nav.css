@@ -61,6 +61,8 @@ nav#main ul > li a {
 	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
 	display: inline-block;
+	color: #333333;
+	text-decoration: none;
 }
 
 nav#main ul > li.nav_logo a {
@@ -69,13 +71,14 @@ nav#main ul > li.nav_logo a {
 
 nav#main ul > li.current-menu-item a {
 	background: url(../img/nav_active_bg.png) repeat-x center bottom;
-	color: white;	
+	color: white !important;	
 }
 
 nav#secondary {
-	position: absolute;
-	left: 12px;
-	top: 10px;
+	position: relative;
+	float: left;
+	clear: none;
+	margin: 10px 0 0 0px;
 }
 
 nav#secondary ul li {

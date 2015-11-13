@@ -15,6 +15,7 @@ jQuery(function(){
 			async: true,
 					
 			success: function(result){
+				console.log(result);
 				if(!result.loggedin) jQuery('form#login').find('.message').html(result.message);
 				
 				if(result.redirect) { 

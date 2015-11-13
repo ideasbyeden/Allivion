@@ -37,15 +37,19 @@ while (have_posts()) {
 
 ?>
 
-<div class="section">
-	<div class="stage">
-		
-		<h1 class="purple"><?php the_title(); ?></h1>
+<div class="container">
 
 			<form class="directory <?php echo $candidate->role; ?> updateuser" id="updateprofile" action="<?php echo admin_url('admin-ajax.php'); ?>" method="post" enctype= "multipart/form-data">
-				<input type="submit" value="Save changes" />
-			
-				<div class="halfcol">
+	<div class="row">
+		<div class="col-md-8">
+			<h1 class="purple"><?php the_title(); ?></h1>
+		</div>
+		<div class="col-md-4" style="text-align: right;">
+			<input type="submit" class="btn btn-default" value="Save changes" style="margin-top: 20px;"/>
+		</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6">
 
 				
 					<input type="hidden" name="nonce" value="<?php echo wp_create_nonce("directory_update_user_nonce"); ?>" />
@@ -67,7 +71,7 @@ while (have_posts()) {
 				
 				</div>
 				
-				<div class="halfcol">
+				<div class="col-md-6">
 					<div class="qpanel">
 						<?php //wp_editor( $usermeta['intro'], 'intro', $settings = array('media_buttons' => false,'textarea_name' => 'cv','tinymce' => true,'teeny' => false,'quicktags' => true,'textarea_rows' => 50) ); ?>
 						<?php $candidate->printQuestion('cv_intro',$usermeta['cv_intro']); ?>

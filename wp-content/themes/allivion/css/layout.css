@@ -36,10 +36,15 @@ img {
 #navigation {
 	height: 100px;
 	background: url(../img/navbar_bg.png) repeat-x;
+	margin-bottom: 20px;
 }
 
 #navigation .stage {
 	overflow: auto;
+}
+
+#header {
+	margin-bottom: 20px;
 }
 
 #header .stage {
@@ -57,9 +62,10 @@ img {
 }
 
 .loginstatus {
-	position: absolute;
-	right: 12px;
-	top: 10px;
+	position: relative;
+	float: right;
+	clear: none;
+	margin: 10px 0 0 0;
 }
 
 .loginstatus .name {
@@ -75,9 +81,9 @@ img {
 	background-repeat: no-repeat;
 	padding: 30px;
 	color: white;
-	border-radius: 12px 12px 0 0;
-	-moz-border-radius: 12px 12px 0 0;
-	-webkit-border-radius: 12px 12px 0 0;
+	border-radius: 12px;
+	-moz-border-radius: 12px;
+	-webkit-border-radius: 12px;
 }
 
 #homesearch form {
@@ -101,6 +107,7 @@ img {
 	box-sizing:border-box;
 	-moz-box-sizing:border-box; 
 	-webkit-box-sizing:border-box;
+	color: #333333;
 }
 
 #homesearch form input[type='submit'] {
@@ -147,7 +154,6 @@ img {
 	padding: 0 1px 0 0;
 }
 
-
 #homefeaturedjobs .nav-tabs li a {
 	background: url(../img/nav_active_bg.png) repeat-x center bottom;
 	color: white !important;	
@@ -157,8 +163,47 @@ img {
 	text-align: left;
 	border-radius: 12px 12px 0 0;
 	-moz-border-radius: 12px 12px 0 0;
-	-webkit-border-radius: 12px 12px 0 0 ;
+	-webkit-border-radius: 12px 12px 0 0;
+	padding-left: 56px;
 }
+
+#homefeaturedjobs .nav-tabs li a .icon {
+	display: block;
+	width: 32px;
+	height: 32px;
+	position: absolute;
+	left: 15px;
+	top: 15px;
+	background-position: center center;
+	background-repeat: no-repeat;
+}
+
+#homefeaturedjobs .nav-tabs li a.academic .icon {
+	background-image: url(../img/sector_icon_academic_white.png);
+}
+
+#homefeaturedjobs .nav-tabs li a.professional .icon {
+	background-image: url(../img/sector_icon_professional_white.png);
+}
+
+#homefeaturedjobs .nav-tabs li a.studentships .icon {
+	background-image: url(../img/sector_icon_studentships_white.png);
+}
+
+#homefeaturedjobs .nav-tabs li.active a.academic .icon {
+	background-image: url(../img/sector_icon_academic.png);
+}
+
+#homefeaturedjobs .nav-tabs li.active a.professional .icon {
+	background-image: url(../img/sector_icon_professional.png);
+}
+
+#homefeaturedjobs .nav-tabs li.active a.studentships .icon {
+	background-image: url(../img/sector_icon_studentships.png);
+}
+
+
+
 
 #homefeaturedjobs .nav-tabs li.active a{
 	background: none;
@@ -183,7 +228,31 @@ img {
 	color: #333333;
 }
 
+#recruiters_carousel {
+	margin-top: 40px;
+	height: 180px;
+}
 
+#recruiters_carousel img {
+	max-width: 100%
+}
+
+.carousel-control {
+	width: 5% !important;
+	min-width: 20px !important;
+	background: none !important;
+	background-repeat: no-repeat !important;
+}
+
+.carousel-control.left {
+	background-position: left center !important;
+	background-image: url(../img/carousel-control-left.png) !important;
+}
+
+.carousel-control.right {
+	background-position: right center !important;
+	background-image: url(../img/carousel-control-right.png) !important;
+}
 
 /* columns */
 
@@ -259,7 +328,57 @@ img {
 	-webkit-column-count: 3;
 }
 
+/* adserver zones */
+
+.leaderboard {
+	width: 728px;
+	max-width: 100%;
+	float: right;
+}
+
+.leaderboard ins {
+	width: 100%;
+}
+
+.leaderboard ins img {
+	width: 100% !important;
+	max-width: 728px;
+	height: auto !important;
+}
+
+@media screen and (max-width: 1200px) {
+	.leaderboard {
+		float: left !important;
+		margin-top: 20px;
+	}
+}
+
+
+.boxad_array ins {
+	width: 100%;
+}
+
+.boxad_array ins img {
+	width: 100% !important;
+	max-width: 336px;
+	height: auto !important;
+	margin-bottom: 20px;
+}
+
 /* footer */
+
+
+#sharethis {
+	position: relative;
+	display: none;
+}
+
+#sharethis span {
+	display: inline-block;
+	height: auto;
+	position: relative;
+	margin-top: -10px;
+}
 
 #footer {
 	padding: 12px 0;
@@ -279,7 +398,6 @@ img {
 	
 	color: white;
 	
-	min-height: 1000px;
 }
 
 #footer .footer_button {
@@ -290,7 +408,7 @@ img {
 	-webkit-border-radius: 4px;
 	background-color: #F0F0F0;
 	margin-right: 4px;
-	color: black;
+	color: black !important;
 }
 
 .feeditem {
@@ -306,6 +424,15 @@ img {
 
 .feeditem.careers-advice {
 	background-image: url(../img/feeditems_careersadvice.png);
+}
+
+#supportedby {
+	background-color: #EEEEEE;
+	padding: 30px 0;
+}
+
+#supportedby img {
+	max-width: 100%;
 }
 
 /* misc */
@@ -344,6 +471,14 @@ img {
 	-webkit-column-count: 4;
 }
 
+.recruiter_icon_panel {
+	text-align: center;
+	height: 180px;
+}
+
+.recruiter_icon_panel img {
+	max-width: 100%;
+}
 /* ibe directory */
 
 .qpanel {
@@ -534,9 +669,13 @@ ul.tabs li.active {
 	background: #d5c9de url(../img/promote_palepurple.png) repeat-x !important;
 }
 
+.searchresults tbody tr.promoted h4 {
+	font-size: 2em;
+}
+
 
 .searchresults td {
-	padding: 8px;
+	padding: 0px 8px;
 	margin-bottom: 4px;
 }
 
@@ -557,11 +696,7 @@ tr.clickable:hover {
 	padding: 0px;
 }
 
-#job_bullets table {
-	position: absolute;
-	float: left;
-	clear: none;
-}
+
 
 #job_bullets table td {
 	vertical-align: top;

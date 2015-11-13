@@ -49,15 +49,6 @@ class directoryCore {
 		return $names;
 	}
 	
-/*
-	public function getVals($id){
-		$vals = null;
-		foreach(get_post_custom($id) as $k=>$v){
-			$vals[$k] = $v[0];
-		}
-		return $vals;
-	}
-*/
 	
 	public function getVals($id){
 		$vals = null;
@@ -243,11 +234,7 @@ class directoryCore {
 					$output .= '</fieldset>';
 				break;
 				
-/*
-				case 'check':
-					$output = '<pre>'.print_r($question['value'],true).'</pre>';
-				break;
-*/
+
 				
 				case 'radio':
 					$l = 0;
@@ -320,18 +307,10 @@ class directoryCore {
 	
 	public function printDetail($name,$value = null){
 		
-		//echo '<pre>'; print_r($value); echo '</pre>';
 		
 		$q = $this->getQuestion($name);
 		
 		
-		// is value defined by checkbox / radio
-/*
-		$value_arr = unserialize($value) ? unserialize($value) : $value;
-		if(is_array($value_arr)) {
-			$value = array_search($value_arr[0], $q['value']);
-		}
-*/
 		if(is_array($value)){
 			
 			if(is_array($q['value'])){
@@ -364,8 +343,6 @@ class directoryCore {
 						}
 						
 					}
-						//if($vitem == $v['slug']) $vstring .= $k.',';
-						//$vstring .= array_search($vitem,array_column($q['value'],);
 
 				}
 				
@@ -377,8 +354,6 @@ class directoryCore {
 		}
 		
 
-		
-		
 		// create output
 		$output .= '<tr>';
 		$output .= '<td style="width:50%">'.$q['label'].'</td>';
@@ -393,7 +368,6 @@ class directoryCore {
 	
 	public function canAccess($args){
 		
-		//die(print_r($args));
 		global $user, $usermeta;
 		$usertype = $user->roles[0];
 		global $$usertype;
@@ -420,7 +394,6 @@ class directoryCore {
 			if($user){ // no user logged in
 				if(rtrim($_SERVER['REQUEST_URI'],'/') != $$usertype->AdminRoot()){ // avoids redirect loop if usertype redirect doesn't specify access permission
 					header("Location: ".$$usertype->AdminRoot());
-					//header("Location: ".$_SERVER['HTTP_REFERER']);
 				}
 			} else {
 				header("Location: ".DIRECTORY_LOGINPATH);
@@ -538,8 +511,6 @@ class directoryCore {
 			$body = preg_replace('/\['.$k.'\]/', $v, $body);
 		}
 
-
-		//error_log("To: ".$to.'; Subject: '.$data['notify_subject'].'; Body: '.$body);
 			
 		// send email
 		$this->sendEmail($to,NOTIFY_EMAIL,$data['notify_subject'],$body);
@@ -615,63 +586,5 @@ class directoryCore {
 	}
 
 	
-/*
-	public function getUsers($params = null){
-		
-		$args = array();
-		
-		
-		// Set up basic args - needs to be expanded to cover other search params eg. name, email etc.
-		if($params['orderby']){
-			if(in_array($params['orderby'], $varnames)){
-				$args['meta_key'] = $params['orderby'];
-				$args['orderby'] = 'meta_value';
-				$args['order'] = 'ASC';				
-			} else {
-				$args['orderby'] = $params['orderby'];				
-			}			
-		} else {
-			$args['orderby'] = 'name';
-			$args['order'] = 'ASC';				
-		}
-
-		// Set up meta query for search against role specific parameters
-		$varnames = $this->getVarNames();
-		
-		if(is_array($params)) foreach($params as $k=>$v){ // unsanitized $v
-			if(in_array($k, $varnames)){
-				$args['meta_query'][] = array('key' => $k,'value' => $v,'compare' => '=');
-			}
-		}
-
-		$users = new WP_User_Query($args);
-
-
-		if($params['roles']){
-			$users->results = array();
-			$roles = explode(',', $params['roles']);
-			foreach($roles as $role){
-				$args['role'] = $role;
-				$result = new WP_User_Query($args);
-				$users->results = array_merge($users->results,$result->results);
-				$users->count_total = $users->count_total + $result->count_total;
-			}
-		}
-
-		
-		for($i=0; $i<count($users->results); $i++){
-			$users->results[$i]->meta = get_user_meta($thisuser->ID);
-		}
-				
-		
-		return $users;
-		
-	}
-*/
-	
-
-
-	
-
 	
 }

@@ -43,67 +43,71 @@ foreach($usercustom as $k=>$v){
 
 ?>
 
-<div class="section">
-	<div class="stage">
+<div class="container">
+	<div class="row">
 		
-		<h1 class="purple"><?php the_title(); ?></h1>
 		
-			<form class="directory <?php echo $recruiter_admin->role; ?>" id="updateprofile" action="<?php echo admin_url('admin-ajax.php'); ?>" method="post" enctype= "multipart/form-data">
-		<input type="submit" value="Save changes" />
+		<form class="directory <?php echo $recruiter_admin->role; ?>" id="updateprofile" action="<?php echo admin_url('admin-ajax.php'); ?>" method="post" enctype= "multipart/form-data">
 			
-				<div class="halfcol">
-
-				
-					<input type="hidden" name="nonce" value="<?php echo wp_create_nonce("directory_update_user_nonce"); ?>" />
- 					<input type="hidden" name="action" value="directory_update_user" />
- 					<input type="hidden" name="redirect" value="<?php echo DIRECTORY_RECADMIN; ?>" />
- 					<input type="hidden" name="role" value="<?php echo $user->roles[0]; ?>" />
- 					<input type="hidden" name="origin" value="updateprofile" />
- 		
-
-					<div class="qpanel">
-						<?php $recruiter_admin->printQuestion('recruiter_name',$vals['recruiter_name']); ?>
-						
-						<?php if($usermeta['logo']) foreach(unserialize($vals['logo']) as $image_id) echo wp_get_attachment_image($image_id); ?>
+			<div class="col-md-8">		
+				<h1 class="purple"><?php the_title(); ?></h1>
+			</div>
+			<div class="col-md-4" style="text-align: right">
+				<input type="submit" value="Save changes" class="btn btn-default" style="margin-top: 20px;"/>
+			</div>
 					
-						<?php $recruiter_admin->printQuestion('logo',$vals['logo']); ?>
-						<?php $recruiter_admin->printQuestion('boilerplate',$vals['boilerplate']); ?>
-						<div class="clear"></div>
-					</div>
+			<div class="col-sm-6">
+	
 					
+			<input type="hidden" name="nonce" value="<?php echo wp_create_nonce("directory_update_user_nonce"); ?>" />
+				<input type="hidden" name="action" value="directory_update_user" />
+				<input type="hidden" name="redirect" value="<?php echo DIRECTORY_SYSADMIN; ?>" />
+				<input type="hidden" name="role" value="recruiter_admin" />
+				<input type="hidden" name="encrypted" value="<?php echo $dircore->encrypt('ID='.$this_user->ID); ?>" />
+				<input type="hidden" name="origin" value="updateprofile" />
+	
+	
+				<div class="qpanel">
+					<?php $recruiter_admin->printQuestion('recruiter_name',$vals['recruiter_name']); ?>
+					
+					<?php if($this_usermeta['logo']) foreach(unserialize($vals['logo']) as $image_id) echo wp_get_attachment_image($image_id); ?>
 				
+					<?php $recruiter_admin->printQuestion('logo',$vals['logo']); ?>
+					<?php $recruiter_admin->printQuestion('boilerplate',$vals['boilerplate']); ?>
+					<div class="clear"></div>
 				</div>
 				
-				<div class="halfcol">
-					<div class="qpanel">
-						<?php $recruiter_admin->printQuestion('user_email',$user->user_email); ?>
-						<?php $recruiter_admin->printQuestion('contact_phone',$vals['contact_phone']); ?>
-						<?php $recruiter_admin->printQuestion('default_app_email',$vals['default_app_email']); ?>
-					</div>
+			
+			</div>
+		
+			<div class="col-sm-6">
+				<div class="qpanel">
+					<?php $recruiter_admin->printQuestion('user_email',$this_user->user_email); ?>
+					<?php $recruiter_admin->printQuestion('contact_phone',$vals['contact_phone']); ?>
+					<?php $recruiter_admin->printQuestion('default_app_email',$vals['default_app_email']); ?>
 				</div>
-				
+		
 				<?php if($user->roles[0] == 'administrator') { ?>
 					<div class="qpanel">
 						<?php $recruiter_admin->printQuestion('subscriber',$vals['subscriber']); ?>							
 					</div>
 				<?php } ?>
-
-				
-			</form>
+			</div>
+		
+		</form>
 
 			
-			<div class="clear"></div>
 
+		<div class="col-md-12">
 			<?php
 				if($_SESSION){ 
 					foreach($_SESSION['errors'] as $error) { echo '<p class="formerror">'.$error.'</p>'; }
 					session_unset();
 				}
 			?>
-			
+		</div>	
 			
 		
-		<div class="clear"></div>
 		
 	</div>
 </div>

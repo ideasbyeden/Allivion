@@ -35,13 +35,15 @@ $returnfields = array('job_title','job_ref','location','job_status','search_coun
 
 ?>
 
-<div class="section">
-	<div class="stage">
+<div class="container">
+	<div class="row">
 		
-		<h1 class="purple">Sysadmin</h1>
+		<div class="col-md-8">
+			<h1 class="purple">Sysadmin</h1>
+		</div>
 		
 						
-			<div class="halfcol">
+			<div class="col-md-6">
 				
 
 				<form class="directory <?php echo $job->type; ?> search" id="searchjobs" action="<?php echo admin_url('admin-ajax.php'); ?>" method="post" return="<?php echo implode(',', $returnfields); ?>" targetid="jobslist" clickableurl="/job-details">
@@ -106,7 +108,7 @@ $returnfields = array('job_title','job_ref','location','job_status','search_coun
 				$items = directory_search($params);
 			?>
 
-			
+			<div class="col-md-12" style="padding-top: 20px; padding-bottom: 20px;">
 			<table class="searchresults">
 				<thead>
 					<tr>
@@ -125,7 +127,8 @@ $returnfields = array('job_title','job_ref','location','job_status','search_coun
 					</tr>
 				<?php } ?>
 				</tbody>
-			</table>			
+			</table>
+			</div>			
 			
 <!-- 			<pre>Search results: <?php print_r($items); ?></pre> -->
 				

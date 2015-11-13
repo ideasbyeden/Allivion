@@ -37,12 +37,14 @@ $group_id = $usermeta['group_id'] ? $usermeta['group_id'] : $user->ID;
 
 ?>
 
-<div class="section">
-	<div class="stage">
+<div class="container">
+	<div class="row">
 		
+		<div class="col-md-12">
 		<h1 class="purple">Job advertisements</h1>
+		</div>
 		
-			<div class="halfcol">
+			<div class="col-md-6">
 
 				<form class="directory <?php echo $job->type; ?>" id="createjob" action="<?php echo admin_url('admin-ajax.php'); ?>" method="post">
 				
@@ -63,7 +65,7 @@ $group_id = $usermeta['group_id'] ? $usermeta['group_id'] : $user->ID;
 				
 			</div>
 			
-			<div class="halfcol">
+			<div class="col-md-6">
 				
 
 				<form class="directory <?php echo $job->type; ?> search" id="searchjobs" action="<?php echo admin_url('admin-ajax.php'); ?>" method="post" return="<?php echo implode(',', $returnfields); ?>" targetid="jobslist" clickableurl="/job-details">
@@ -98,7 +100,7 @@ $group_id = $usermeta['group_id'] ? $usermeta['group_id'] : $user->ID;
 				$items = directory_search($params);
 			?>
 
-			
+			<div class="col-md-12" style="padding-top: 20px; padding: 20px;">
 			<table class="searchresults">
 				<thead>
 					<tr>
@@ -117,7 +119,8 @@ $group_id = $usermeta['group_id'] ? $usermeta['group_id'] : $user->ID;
 					</tr>
 				<?php } ?>
 				</tbody>
-			</table>			
+			</table>
+			</div>			
 							
 
 		

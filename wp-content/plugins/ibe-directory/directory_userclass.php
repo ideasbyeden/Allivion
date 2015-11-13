@@ -77,7 +77,6 @@ class userdef extends directoryCore {
 		
 	}
 	
-	//////////////
 	
 	
 	public function getUsers($params = null){
@@ -88,6 +87,10 @@ class userdef extends directoryCore {
 		if($params['login']) $args['user_login'] = $params['login'];
 		if($params['email']) $args['user_email'] = $params['email'];
 		
+
+		// Set up meta query for search against role specific parameters
+		$varnames = $this->getVarNames();
+
 		
 		// Set up basic args - needs to be expanded to cover other search params eg. name, email etc.
 		if($params['orderby']){
@@ -103,10 +106,8 @@ class userdef extends directoryCore {
 			$args['order'] = 'ASC';				
 		}
 
-		// Set up meta query for search against role specific parameters
-		$varnames = $this->getVarNames();
 		
-		if(is_array($params)) foreach($params as $k=>$v){ // unsanitized $v
+		if(is_array($params)) foreach($params as $k=>$v){
 			if(in_array($k, $varnames)){
 				$args['meta_query'][] = array('key' => $k,'value' => $v,'compare' => '=');
 			}
@@ -129,49 +130,5 @@ class userdef extends directoryCore {
 		
 	}
 	
-	//////////////
-	
-	
-	
-	
-	
-	
-	function getUsersLegacy($params = null){
-		
-		$args = array();
-				
-		$args['role'] = $this->role;
-		if($params['id']) $args['include'] = $params['id'];
-		if($params['login']) $args['user_login'] = $params['login'];
-		if($params['email']) $args['user_email'] = $params['email'];
-
-		// set up core user data (stored in wp_users)
-		//$valid = array('display_name','nickname','first_name','last_name','description','rich_editing','user_registered','role','jabber','aim','yim');
-			
-		// set up user meta data
-		$varnames = $this->getVarNames();
-		
-		if(is_array($params)) foreach($params as $k=>$v){ // unsanitized $v
-			if(in_array($k, $varnames)){
-				$args['meta_query'][] = array('key' => $k,'value' => $v,'compare' => '=');
-			}
-		}
-		
-		if($params['orderby']){
-			if(in_array($params['orderby'], $varnames)){
-				$args['meta_key'] = $params['orderby'];
-				$args['orderby'] = 'meta_value';
-				$args['order'] = 'ASC';				
-			} else {
-				$args['orderby'] = $params['orderby'];				
-			}			
-		}
-		
-		// Nonsense meta query as WP_User_Query will return empty if no arguments provided
-		$args['meta_query'][] = array('key' => 'KJHBDFLKJ','compare' => 'NOT EXISTS');
-		
-		return new WP_User_Query($args);
-		
-	}
 			
 }

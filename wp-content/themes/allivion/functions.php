@@ -77,6 +77,10 @@ function loginout_menu_link($items,$args) {
 		global $user, $usermeta;
 		if ($user) {
 			$items .= '<li class="fr purple"><a href="'. wp_logout_url('/index.php') .'">Log Out</a></li>';
+			if($user->roles[0] == 'administrator') $items .= '<li class="fr purple"><a href="'. DIRECTORY_SYSADMIN .'">Dashboard</a></li>';
+			if($user->roles[0] == 'recruiter_admin') $items .= '<li class="fr purple"><a href="'. DIRECTORY_RECADMIN .'">Dashboard</a></li>';
+			if($user->roles[0] == 'recruiter') $items .= '<li class="fr purple"><a href="'. DIRECTORY_RECADMIN .'">Dashboard</a></li>';
+			if($user->roles[0] == 'candidate') $items .= '<li class="fr purple"><a href="'. DIRECTORY_CANDADMIN .'">Dashboard</a></li>';
 		} else {
 			$items .= '<li class="fr purple"><a href="/log-in" class="show_login">Log In</a></li>';
 			$items .= '<li class="fr purple"><a href="/register">Register</a></li>';
@@ -159,16 +163,18 @@ add_filter( 'wp_get_attachment_image_attributes', 'remove_width_attribute_ga', 1
 
 
 // register dynamic sidebars
-$sidebar0 = array(
-	'name'          => sprintf(__('Sidebar'), $i ),
-	'id'            => 'sidebar0',
-	'description'   => '',
-	'before_widget' => '<li>',
-	'after_widget'  => '</li>',
-	'before_title'  => '<h2 class="widgettitle">',
-	'after_title'   => '</h2>' );
+for($s=1; $s<=6; $s++){
+	$footer = array(
+		'name'          => sprintf(__('Footer Column '.$s), $i ),
+		'id'            => 'footer_col'.$s,
+		'description'   => '',
+		'before_widget' => '',
+		'after_widget'  => '',
+		'before_title'  => '',
+		'after_title'   => '' );
+	register_sidebar( $footer );	
+}
 
-register_sidebar( $sidebar0 );	
 
 
 ///////////////////////////////////////////// CPT and taxonomy functions ///////////////////////////////////////////////

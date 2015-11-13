@@ -4,9 +4,7 @@ get_template_part('header');
 	
 while (have_posts()) { 
 		the_post();
-		echo '<div class="section"><div class="stage">';
 		the_content();
-		echo '</div></div>';
 } 
 
 
@@ -61,7 +59,8 @@ $returnfields = array('job_title','location','summary','recruiter_name','closing
 <div class="container">
 	<div class="row">
 		
-		<div class="col-sm-12" id="homesearch">				
+		<div class="col-sm-12">
+			<div id="homesearch">				
 				<h2>Find your job</h2>
 				<p id="searchform_toggle">Use advanced search</p>
 
@@ -90,16 +89,33 @@ $returnfields = array('job_title','location','summary','recruiter_name','closing
 				<div class="clear"></div>
 				
 			</form>
+			</div>
 
 		</div>
 	</div>
 			
 	<div class="row"  id="homefeaturedjobs">
 		<div class="col-sm-12">
+			<h2 class="purple">Browse jobs by sector</h2>
 			<ul class="nav nav-tabs nav-justified">
-				<li role="presentation" class="active"><a data-toggle="tab" href="#academic_cats">Academic &<br />Research Careers</a></li>
-				<li role="presentation"><a data-toggle="tab" href="#professional_cats">Professional<br />Careers</a></li>
-				<li role="presentation"><a data-toggle="tab" href="#studentships_cats">Studentships<br />&nbsp;</a></li>
+				<li role="presentation" class="active">
+					<a data-toggle="tab" href="#academic_cats" class="academic">
+						<span class="icon"></span>
+						Academic &<br />Research Careers
+					</a>
+				</li>
+				<li role="presentation">
+					<a data-toggle="tab" href="#professional_cats" class="professional">
+						<span class="icon"></span>
+						Professional<br />Careers
+					</a>
+				</li>
+				<li role="presentation">
+					<a data-toggle="tab" href="#studentships_cats" class="studentships">
+						<span class="icon"></span>
+						Studentships<br />&nbsp;
+					</a>
+				</li>
 			</ul>
 			<div class="tab-content">
 				<div id="academic_cats" class="tab-pane fade in active">
@@ -109,7 +125,7 @@ $returnfields = array('job_title','location','summary','recruiter_name','closing
 						$terms = get_term_children( intval($parent->term_id), 'sector' );
 						foreach($terms as $term){
 							$term = get_term_by('id',$term,'sector');					
-							echo '<li><a href="/jobs?industry='.$term->slug.'">'.$term->name.' ('.$term->count.')</a></li>';
+							echo '<li><a href="/jobs?industry='.$term->slug.'">'.$term->name.' <span class="orange">('.$term->count.')</span></a></li>';
 						}
 						
 					?>
@@ -123,7 +139,7 @@ $returnfields = array('job_title','location','summary','recruiter_name','closing
 						$terms = get_term_children( intval($parent->term_id), 'sector' );
 						foreach($terms as $term){
 							$term = get_term_by('id',$term,'sector');					
-							echo '<li><a href="/jobs?industry='.$term->slug.'">'.$term->name.' ('.$term->count.')</a></li>';
+							echo '<li><a href="/jobs?industry='.$term->slug.'">'.$term->name.' <span class="orange">('.$term->count.')</span></a></li>';
 						}
 						
 					?>
@@ -137,7 +153,7 @@ $returnfields = array('job_title','location','summary','recruiter_name','closing
 						$terms = get_term_children( intval($parent->term_id), 'sector' );
 						foreach($terms as $term){
 							$term = get_term_by('id',$term,'sector');					
-							echo '<li><a href="/jobs?industry='.$term->slug.'">'.$term->name.' ('.$term->count.')</a></li>';
+							echo '<li><a href="/jobs?industry='.$term->slug.'">'.$term->name.' <span class="orange">('.$term->count.')</span></a></li>';
 						}
 						
 					?>
@@ -150,7 +166,30 @@ $returnfields = array('job_title','location','summary','recruiter_name','closing
 			
 			
 			<!-- Logo carousel -->
-	<?php require(TEMPLATEPATH.'/includes/logo_carousel.php'); ?>		
+	<?php require(TEMPLATEPATH.'/includes/logo_carousel.php'); ?>	
+	
+	
+	<div class="row boxad_array boxad_array_1" style="padding-top: 60px; padding-bottom: 40px;">
+		<div class="col-sm-4" style="text-align: center">
+			
+			<ins data-revive-zoneid="2" data-revive-id="523c04aa0cd365ce61130c872042caff"></ins>
+			<script async src="//revive.allivion.com/www/delivery/asyncjs.php"></script>
+			
+		</div>
+		<div class="col-sm-4" style="text-align: center">
+		
+	
+			<ins data-revive-zoneid="3" data-revive-id="523c04aa0cd365ce61130c872042caff"></ins>
+			<script async src="//revive.allivion.com/www/delivery/asyncjs.php"></script>
+
+		</div>
+		<div class="col-sm-4" style="text-align: center">
+
+
+			<ins data-revive-zoneid="4" data-revive-id="523c04aa0cd365ce61130c872042caff"></ins>
+			<script async src="//revive.allivion.com/www/delivery/asyncjs.php"></script>
+		</div>
+	</div>	
  
 				
 </div>
@@ -159,15 +198,13 @@ $returnfields = array('job_title','location','summary','recruiter_name','closing
 
 <script>
 	jQuery(function() {
-	jQuery('#myCarousel').carousel({
-	interval: 4000
+		jQuery('#recruiters_carousel').carousel({ interval: 4000 });
+    });
+</script>
+
+<script>
+	jQuery(function(){
+		jQuery('.tab-content')
 	})
-    
-    $('#myCarousel').on('slid.bs.carousel', function() {
-    	//alert("slid");
-	});
-    
-    
-});
 </script>
 

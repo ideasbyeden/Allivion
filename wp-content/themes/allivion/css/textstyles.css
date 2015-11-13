@@ -59,7 +59,7 @@ ul {
 
 a, a:visited, a:active {
 	color: inherit !important;
-	text-decoration: none;
+	text-decoration: none !important;
 }
 
 a:hover {
@@ -81,6 +81,10 @@ li {
 
 .purple {
 	color: #53247E !important;
+}
+
+.orange {
+	color: #FF6600 !important;
 }
 
 .error {

@@ -47,19 +47,21 @@ foreach($usercustom as $k=>$v){
 
 ?>
 
-<div class="section">
-	<div class="stage">
+<div class="container">
+	<div class="row">
 		
-		<h1 class="purple">Update user</h1>
+		<div class="col-md-8">
+			<h1 class="purple">Update user</h1>
+		</div>
 		
-			<div class="halfcol">
+			<div class="col-md-6">
 
 				<form class="directory" id="createuser" action="<?php echo admin_url('admin-ajax.php'); ?>" method="post">
 				
 					<input type="hidden" name="nonce" value="<?php echo wp_create_nonce("directory_update_user_nonce"); ?>" />
  					<input type="hidden" name="action" value="directory_update_user" />
  					<input type="hidden" name="redirect" value="/users" />
- 					<input type="hidden" name="ID" value="<?php echo $this_user->ID; ?>" />
+ 					<input type="hidden" name="encrypted" value="<?php echo $dircore->encrypt('ID='.$this_user->ID); ?>" />
  					<input type="hidden" name="role" value="<?php echo $this_user->roles[0]; ?>" />
  					<input type="hidden" name="origin" value="updateuser" />
 
@@ -91,7 +93,7 @@ foreach($usercustom as $k=>$v){
 								session_unset();
 							}
 						?>
-						<input type="submit" value="Save" class="fr"/>
+						<input type="submit" value="Save" class="btn btn-default fr" />
 						<div class="clear"></div>
 					</div>
 					

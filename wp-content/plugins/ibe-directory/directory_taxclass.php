@@ -24,7 +24,6 @@ class taxdef extends directoryCore {
 				add_option('_dir_taxonomies_imported',1);
 			}
 	        	
-	        //do_action('doterms' , $this->terms);
 	    }
 	    
 	}
@@ -100,7 +99,6 @@ class taxdef extends directoryCore {
 
 
 		$taxterms = get_terms($this->type,array( 'hide_empty' => 0, 'parent' => 0 ));
-		//echo '<pre>'; print_r($taxterms); echo '</pre>';
 
 
 		if(count($taxterms > 0)){
@@ -114,7 +112,7 @@ class taxdef extends directoryCore {
 						$varr['children'][$cterm->name] = array('id' => $child,'slug' => $cterm->slug);
 					}
 				}
-				// end recursive (I think)
+				// end recursive
 				$taxtree[$term->name] = $varr;
 			}
 		}

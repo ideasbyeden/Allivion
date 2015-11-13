@@ -34,52 +34,53 @@ $returnfields = array('job_title','job_ref','promote','promote_from','promote_to
 
 ?>
 
-<div class="section">
-	<div class="stage">
+<div class="container">
+	<div class="row">
 		
-		<h1 class="purple">Promotions</h1>
+		<div class="col-md-8">
+			<h1 class="purple">Promotions</h1>
+		</div>
 		
 						
-			<div class="halfcol">
-				
-
-				<form class="directory <?php echo $job->type; ?> search" id="searchjobs" action="<?php echo admin_url('admin-ajax.php'); ?>" method="post" return="<?php echo implode(',', $returnfields); ?>" targetid="jobslist" clickableurl="/job-details">
-				
-					<input type="hidden" name="nonce" value="<?php echo wp_create_nonce("directory_search_nonce"); ?>" />
-					<input type="hidden" name="action" value="directory_search" />
-					<input type="hidden" name="encrypted" value="<?php echo $dircore->encrypt('&type=job'); ?>" />
-				
-
-					<div class="qpanel">
-						<h2>Filter</h2>
-						
-						
-						<?php $recusers = $recruiter_admin->getUsers(); //echo pre($recusers->results); ?>
- 						<div class="question">
-	 						<label>Recruiter</label>
-	 						<select name="group_id">
-		 						<option value="">Select</option>
-		 						<?php foreach($recusers->results as $user){ 
-			 						$group_id = get_user_meta($user->ID,'group_id',true);
-			 						$group_id = $group_id != '' ? $group_id : $user->ID;
-		 						?>
-		 							<option value="<?php echo $group_id; ?>"><?php echo $user->data->display_name; ?></option>
-		 						<?php } ?>
-	 						</select>
-	 					</div>
-						
-						<?php $job->printQuestion('promote'); ?>
-						
-						
-						<input type="submit" value="Search" class="fr"/>
-						<div class="clear"></div>
-					</div>
-					
-				</form>
-				
-			</div>
+		<div class="col-md-6">
 			
-			<div class="clear"></div>
+
+			<form class="directory <?php echo $job->type; ?> search" id="searchjobs" action="<?php echo admin_url('admin-ajax.php'); ?>" method="post" return="<?php echo implode(',', $returnfields); ?>" targetid="jobslist" clickableurl="/job-details">
+			
+				<input type="hidden" name="nonce" value="<?php echo wp_create_nonce("directory_search_nonce"); ?>" />
+				<input type="hidden" name="action" value="directory_search" />
+				<input type="hidden" name="encrypted" value="<?php echo $dircore->encrypt('&type=job'); ?>" />
+			
+
+				<div class="qpanel">
+					<h2>Filter</h2>
+					
+					
+					<?php $recusers = $recruiter_admin->getUsers(); //echo pre($recusers->results); ?>
+						<div class="question">
+ 						<label>Recruiter</label>
+ 						<select name="group_id">
+	 						<option value="">Select</option>
+	 						<?php foreach($recusers->results as $user){ 
+		 						$group_id = get_user_meta($user->ID,'group_id',true);
+		 						$group_id = $group_id != '' ? $group_id : $user->ID;
+	 						?>
+	 							<option value="<?php echo $group_id; ?>"><?php echo $user->data->display_name; ?></option>
+	 						<?php } ?>
+ 						</select>
+ 					</div>
+					
+					<?php $job->printQuestion('promote'); ?>
+					
+					
+					<input type="submit" value="Search" class="fr"/>
+					<div class="clear"></div>
+				</div>
+				
+			</form>
+			
+		</div>
+			
 			
 			<?php 
 				$params = $_GET ? $_GET : array();
@@ -88,7 +89,7 @@ $returnfields = array('job_title','job_ref','promote','promote_from','promote_to
 				$items = directory_search($params);
 			?>
 
-			
+		<div class="col-md-12" style="padding-top: 20px; padding-bottom: 20px;">	
 			<table class="searchresults">
 				<thead>
 					<tr>
@@ -107,13 +108,12 @@ $returnfields = array('job_title','job_ref','promote','promote_from','promote_to
 					</tr>
 				<?php } ?>
 				</tbody>
-			</table>			
+			</table>
+		</div>			
 			
-<!-- 			<pre>Search results: <?php print_r($items); ?></pre> -->
 				
 
 		
-		<div class="clear"></div>
 		
 	</div>
 </div>

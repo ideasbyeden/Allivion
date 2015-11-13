@@ -31,7 +31,8 @@
 	
 	<?php wp_head(); ?>
 
-
+	<script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
+	<script type="text/javascript">stLight.options({publisher: "5c9feb5b-d9eb-44fb-95ef-a54292286d69", doNotHash: false, doNotCopy: false, hashAddressBar: false});</script>
 
 	<script src="<?php bloginfo('template_url'); ?>/js/jquery.uniform.min.js"></script>
 	<script>
@@ -59,6 +60,8 @@
 			})
 		});
  	</script>
+ 	
+ 	<style>#sharethis{display:block}</style>
 
 
  		
@@ -82,24 +85,36 @@
 	
 	<?php require_once(TEMPLATEPATH.'/includes/login_form.php'); ?>
 	
-		<div class="section" id="navigation">
-			<div class="stage">
-				<nav id="secondary">
-					<?php wp_nav_menu('theme_location=secondary'); ?>
-				</nav>
-				<nav id="main">
-					<?php wp_nav_menu('theme_location=main'); ?>
-				</nav>
-				<?php if($user) echo '<p class="loginstatus">Logged in as <span class="name">'.$user->display_name.'</span></p>'; ?>
-					
+		<div class="container-fluid" id="navigation">
+			<div class="container"
+				<div class="row">
+					<div class="col-sm-6">
+						<nav id="secondary">
+							<?php wp_nav_menu('theme_location=secondary'); ?>
+						</nav>
+					</div>
+					<div class="col-sm-6">
+						<?php if($user) echo '<p class="loginstatus">Logged in as <span class="name">'.$user->display_name.'</span></p>'; ?>
+					</div>
+						<nav id="main">
+							<?php wp_nav_menu('theme_location=main'); ?>
+						</nav>
+				</div>
 			</div>
 		</div>
 		
-		<div class="section" id="header">
-			<div class="stage">
-				<a href="/">
-					<img src="<?php bloginfo('template_url'); ?>/img/logo.png" id="logo" />
-				</a>
+		<div class="container" id="header">
+			<div class="row">
+				<div class="col-sm-12">
+					<a href="/">
+						<img src="<?php bloginfo('template_url'); ?>/img/logo.png" id="logo" />
+					</a>
+					
+					<div class="leaderboard">
+						<ins data-revive-zoneid="1" data-revive-id="523c04aa0cd365ce61130c872042caff"></ins>
+						<script async src="//revive.allivion.com/www/delivery/asyncjs.php"></script>
+					</div>
+				</div>
 			</div>
 		</div>
 		

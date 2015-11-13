@@ -19,7 +19,7 @@ while (have_posts()) {
 /////////////////////////////////////////////
 
 // Fields to be shown in search results
-$returnfields = array('logo','logo_image','job_title','location','summary','recruiter_name','closing_date','publish_from');
+$returnfields = array('job_title','location','summary','recruiter_name','closing_date','publish_from','logo','logo_image');
 
 
 /////////////////////////////////////////////
@@ -104,11 +104,12 @@ $returnfields = array('logo','logo_image','job_title','location','summary','recr
 
 </script>
 
-<div class="section">
-	<div class="stage" >
+<div class="container">
+	<div class="stage" style="margin: 0">
 		
-		<h1 class="purple">Job advertisements</h1>
-		
+		<div class="col-md-12">
+			<h1 class="purple">Job advertisements</h1>
+		</div>
 						
 			<div class="qtrcol sticky">
 				<div class="qpanel darkpurplegrad" id="job_bullets" style="padding: 12px;">
@@ -223,7 +224,6 @@ $returnfields = array('logo','logo_image','job_title','location','summary','recr
 					<tbody id="jobslist">
 						
 					<tr class="prototype" data-href="/job?i=">
-						<td>[logo_image]</td>
 						<td>
 							<h4>[job_title], [location]</h4>
 							<h5>[recruiter_name]</h5>
@@ -231,16 +231,12 @@ $returnfields = array('logo','logo_image','job_title','location','summary','recr
 						</td>
 						<td>[publish_from]</td>
 						<td>[closing_date]</td>
+						<td style="width: 60px;">[logo_image]</td>
 					</tr>
 								
 					<?php if(count($items->posts) > 0) foreach ($items->posts as $item){ ?>
 					
 						<tr class="clickable rowitem <?php if($item->meta['promote'][0] == $_REQUEST['industry'] && $item->meta['promote_enabled'] != '') echo 'promoted'; ?>" data-href="/job?i=<?php echo $item->ID; ?>">
-							<td style="width: 60px;">
-								<?php if($item->groupmeta['logo']) { ?>
-										<?php foreach($item->groupmeta['logo'] as $image_id) echo wp_get_attachment_image($image_id,'tinythumb'); ?>
-								<?php } ?>
-							</td>
 							<td>
 								<h4><?php echo $item->meta['job_title']; ?><?php if($item->meta['location']) echo ', '.$item->meta['location']; ?></h4>
 								<h5><?php echo $item->groupmeta['recruiter_name']; ?></h5>
@@ -251,6 +247,11 @@ $returnfields = array('logo','logo_image','job_title','location','summary','recr
 							</td>
 							<td>
 								<?php echo $item->meta['closing_date'] ? date('jS M Y',strtotime($item->meta['closing_date'])) : ''; ?>
+							</td>
+							<td style="width: 60px;">
+								<?php if($item->groupmeta['logo']) { ?>
+										<?php foreach($item->groupmeta['logo'] as $image_id) echo wp_get_attachment_image($image_id,'tinythumb'); ?>
+								<?php } ?>
 							</td>
 						</tr>
 					<?php } 
@@ -267,7 +268,6 @@ $returnfields = array('logo','logo_image','job_title','location','summary','recr
 		
 			<div class="clear"></div>
 			
-			<pre><?php //print_r($items->posts); ?></pre>
 		</div>
 	</div>
 </div>

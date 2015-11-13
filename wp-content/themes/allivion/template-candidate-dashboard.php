@@ -35,10 +35,10 @@ $returnfields = array('job_title','job_ref','location');
 
 ?>
 
-<div class="section">
-	<div class="stage">
-		
-		<h1 class="purple">My applications</h1>
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
+			<h1 class="purple">My applications</h1>
 			
 			<?php 
 				$params = $_GET ? $_GET : array();
@@ -48,7 +48,6 @@ $returnfields = array('job_title','job_ref','location');
 				$items = directory_search($params);
 			?>
 
-			<pre><?php //print_r($items); ?></pre>
 			<table id="appslist" class="searchresults">
 				<thead>
 					<tr>
@@ -74,8 +73,7 @@ $returnfields = array('job_title','job_ref','location');
 				
 
 		
-		<div class="clear"></div>
-		
+		</div>
 	</div>
 </div>
 

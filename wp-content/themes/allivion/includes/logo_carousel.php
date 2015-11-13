@@ -1,20 +1,21 @@
-<?php
+<?php  // Source: http://www.bootply.com/J0NcrdSwY6#
 	
 	$users = $recruiter_admin->getUsers(array('orderby' => 'recruiter_name'));
 	//echo '<pre>'; print_r($users); echo '</pre>';
 
 	if(is_array($users->results)) foreach($users->results as $user){
-		if(get_user_meta($user->ID,'subscriber',true) == 'annual' || get_user_meta($user->ID,'logo',true) != ''){
+		if(get_user_meta($user->ID,'subscriber',true) == 'annual' && get_user_meta($user->ID,'logo',true) != ''){
 			
 			$logo = get_user_meta($user->ID,'logo',true);
-			$logourl = wp_get_attachment_image($logo[0],'medium');
+			$logourl = wp_get_attachment_image($logo[0],'thumbnail');
 			
 			$params['encrypted'] = $dircore->encrypt('type=job');
 			$params['group_id'] = $user->ID;
 			$items = directory_search($params);
 
 			$recruiters[] = array('logourl' => $logourl,
-									'job_count' => count($items->posts)
+									'job_count' => count($items->posts),
+									'ID' => $user->ID
 									);
 		}
 	}
@@ -22,10 +23,8 @@
 	?>
    
    
-   <div class="col-md-12">
 
-        <div class="well">
-            <div id="myCarousel" class="carousel slide">
+            <div id="recruiters_carousel" class="carousel slide">
                 
                 <!-- Carousel items -->
                 <div class="carousel-inner">
@@ -33,16 +32,16 @@
                         <div class="row">
 	                        
 	                        <?php for($i=0; $i<count($recruiters); $i++){ ?>
-	                        <div class="col-sm-3" style="text-align: center;">
-		                        <a href="#x">
+	                        <div class="col-sm-2" style="text-align: center;">
+		                        <a href="jobs/?group_id=<?php echo $recruiters[$i]['ID']; ?>">
 			                        <?php echo $recruiters[$i]['logourl']; ?>
-			                        <p><?php echo $recruiters[$i]['job_count']; ?> role<?php echo $recruiters[$i]['job_count'] > 1 ? 's' : ''; ?></p>
+			                        <p class="orange"><?php echo $recruiters[$i]['job_count']; ?> role<?php echo $recruiters[$i]['job_count'] != 1 ? 's' : ''; ?></p>
 			                    </a>
 			                </div>
 		                        
-		                    <?php if($i+1 %4 == 0 && $i+1 < count($recruiters)) { ?></div><div class="row"><?php } ?>
+		                    <?php if(($i+1) %6 == 0 && ($i+1) < count($recruiters)) echo '</div></div><div class="item"><div class="row">'; ?>
 		                        
-	                        <?php } ?>
+	                        <?php } // end for loop ?>
 	                        
 
                         </div>
@@ -53,8 +52,13 @@
                     
                 </div>
                 <!--/carousel-inner-->
+                
+                <a class="left carousel-control" href="#recruiters_carousel" data-slide="prev"></a>
+
+                <a class="right carousel-control" href="#recruiters_carousel" data-slide="next"></a>
             </div>
             <!--/myCarousel-->
-        </div>
-        <!--/well-->
+    
+    <div class="col-md-12" style="text-align: center; margin-bottom: 20px;">
+	    <a href="/recruiters"><button type="button" class="btn btn-default">See all recruiters</button></a>
     </div>

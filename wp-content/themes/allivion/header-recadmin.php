@@ -33,25 +33,32 @@
 	<?php require_once(TEMPLATEPATH.'/includes/login_form.php'); ?>
 	
 
-		<div class="section" id="navigation" style="margin-bottom: 40px;">
-			<div class="stage">
-				<nav id="secondary">
-					<?php wp_nav_menu('theme_location=secondary'); ?>
-				</nav>
-				<nav id="main">
-					<?php 
-						global $user, $usermeta;
+
+		
+		
+		<div class="container-fluid" id="navigation">
+			<div class="container"
+				<div class="row">
+					<div class="col-sm-6">
+						<nav id="secondary">
+							<?php wp_nav_menu('theme_location=secondary'); ?>
+						</nav>
+					</div>
+					<div class="col-sm-6">
+						<?php global $user, $usermeta;
+							if($user) echo '<p class="loginstatus">Logged in as <span class="name">'.$user->display_name.'</span></p>'; ?>
+					</div>
+					<nav id="main">
+						<?php 
 						$usertype = $user->roles[0];
 						if($usertype == 'recruiter') wp_nav_menu('theme_location=recruiter');
-						if($usertype == 'recruiter_admin') wp_nav_menu('theme_location=recadmin');						
-					?>
-				</nav>
-				<?php global $user, $usermeta;
-				if($user) echo '<p class="loginstatus">Logged in as <span class="name">'.$user->display_name.'</span></p>';
-				?>
-					
+						if($usertype == 'recruiter_admin') wp_nav_menu('theme_location=recadmin');
+						?>
+					</nav>
+				</div>
 			</div>
 		</div>
+
 		
 
 			

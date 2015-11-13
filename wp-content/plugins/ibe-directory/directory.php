@@ -41,6 +41,7 @@ function directoryInit(){
 	    $$type = new itemdef($type,$label,$single_label,$hierarchical);
 	    $$type->vars = $vars;
 	    $$type->tax = &$sector->getTerms();
+	    
 	    // this happens before wordpress init so can't access custom taxonomies 
 	    // if we put setvars inside itemdef, we're repeating code
 	    

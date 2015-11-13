@@ -51,12 +51,13 @@ $uservals['email'] = $user->user_email;
 
 ?>
 
-<div class="section">
-	<div class="stage">
+<div class="container">
+	<div class="row">
 		
 		
-		<div class="thirdcol sticky">
+		<div class="col-md-4 sticky">
 			<div class="qpanel purplegrad" id="job_bullets" style="padding: 12px;">
+				<table>
 				<?php $job->printDetail('salary_details',$vals) ?>
 				<?php $job->printDetail('location',$vals) ?>
 				<?php $job->printDetail('industry',$vals) ?>
@@ -66,10 +67,11 @@ $uservals['email'] = $user->user_email;
 				<?php $job->printDetail('hours',$vals) ?>
 				<?php $job->printDetail('posted',$vals) ?>
 				<?php $job->printDetail('closes',$vals) ?>
+				</table>
 			</div>
 		</div>
 		
-		<div class="twothirdscol">
+		<div class="col-md-8">
 					
 			<h1 class="purple"><?php echo $vals['job_title']; ?>, <?php echo $vals['location']; ?></h1>
 			

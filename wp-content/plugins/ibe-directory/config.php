@@ -18,6 +18,7 @@ define urls for pages using specific templates
 -------------------------------------------------*/
 	
 define('DIRECTORY_LOGINPATH', '/');
+define('DIRECTORY_SYSADMIN', '/sysadmin-dashboard');
 define('DIRECTORY_RECADMIN', '/recruiter-dashboard');
 define('DIRECTORY_ADVADMIN', '/advertiser-dashboard');
 define('DIRECTORY_CANDADMIN', '/candidate-dashboard');

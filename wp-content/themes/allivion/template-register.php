@@ -42,12 +42,14 @@ while (have_posts()) {
 
 ?>
 
-<div class="section">
-	<div class="stage">
+<div class="container">
+	<div class="row">
 		
-		<h1 class="purple">Register</h1>
+		<div class="col-md-8">
+			<h1 class="purple">Register</h1>
+		</div>
 		
-			<div class="halfcol">
+			<div class="col-md-6">
 
 				<form class="directory" id="createuser" action="<?php echo admin_url('admin-ajax.php'); ?>" method="post">
 				
@@ -93,7 +95,7 @@ while (have_posts()) {
 								session_unset();
 							}
 						?>
-						<input type="submit" value="Save" class="fr"/>
+						<input type="submit" value="Save" class="btn btn-default fr" />
 						<div class="clear"></div>
 					</div>
 					

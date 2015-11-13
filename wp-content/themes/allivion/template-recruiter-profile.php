@@ -37,15 +37,18 @@ while (have_posts()) {
 
 ?>
 
-<div class="section">
-	<div class="stage">
-		
-		<h1 class="purple"><?php the_title(); ?></h1>
-		
+<div class="container">
+	<div class="row">
 			<form class="directory <?php echo $recruiter_admin->role; ?>" id="updateprofile" action="<?php echo admin_url('admin-ajax.php'); ?>" method="post" enctype= "multipart/form-data">
-		<input type="submit" value="Save changes" />
+		
+		<div class="col-md-8">
+			<h1 class="purple"><?php the_title(); ?></h1>
+		</div>
+		<div class="col-md-4" style="text-align: right">
+			<input type="submit" value="Save changes" class="btn btn-default" style="margin-top: 20px;"/>
+		</div>
 			
-				<div class="halfcol">
+				<div class="col-md-6">
 
 				
 					<input type="hidden" name="nonce" value="<?php echo wp_create_nonce("directory_update_user_nonce"); ?>" />
@@ -68,7 +71,7 @@ while (have_posts()) {
 				
 				</div>
 				
-				<div class="halfcol">
+				<div class="col-md-6">
 					<div class="qpanel">
 						<?php $recruiter_admin->printQuestion('user_email',$user->user_email); ?>
 						<?php $recruiter_admin->printQuestion('contact_phone',$usermeta['contact_phone']); ?>

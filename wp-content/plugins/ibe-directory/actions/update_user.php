@@ -11,11 +11,35 @@ function directory_update_user(){
       exit('You are not authorised to take this action');
 	}
 	
+	// assemble / validate supplied data for update profile
+/*
+	if($_REQUEST['origin'] == 'updateprofile'){
+		$this_user['ID'] = $user->ID;
+	}
+*/	
+	if($_REQUEST) foreach($_REQUEST as $k=>$v) $params[$k] = $v;
+
+	if($params['encrypted']){
+		global $dircore;
+		parse_str($dircore->decrypt($params['encrypted']),$safeparams);
+	}
+
+
+	// see if (encrypted) user ID has been supplied, if not use logged in user's ID
+	// Error if unsecured ID was provided
+	if($_REQUEST['ID']) die('Unsecured ID provided, please use encrypted field function');
+	$this_user['ID'] = $safeparams['ID'] ? $safeparams['ID'] : $user->ID; 
+	
+	//if(!$this_user['ID']) $error[] = 'No user ID was sent';
+
+
 	
 	// supplied role object exists
 	$role = $_REQUEST['role'];
 	global $$role, $user, $usermeta;
 	if(!$$role) die('Role "'.$role.'" does not exist');
+	
+	//die(print_r($_REQUEST));
 	
 	
 	// Logged in user can edit this entry
@@ -49,12 +73,6 @@ function directory_update_user(){
 		unset($this_usermeta['confirm_user_pass']);
 	}
 	
-	// assemble / validate supplied data for update profile
-	if($_REQUEST['origin'] == 'updateprofile'){
-		$this_user['ID'] = $user->ID;
-	}	
-	
-	if(!$this_user['ID']) $error[] = 'No user ID was sent';
 	
 /*
 	echo '<pre>Item var names '; print_r($varnames); echo '</pre>';

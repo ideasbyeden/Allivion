@@ -32,7 +32,6 @@ directory_coreclass.php
 	sort2d
 	recursive_array_search - INCOMPLETE??
 	taxArraySearch
-	getUsers - INCOMPLETE, DUPLICATE OF SIMILAR FUNCTION IN USERCLASS
 	
 	
 directory_itemclass.php
@@ -53,10 +52,10 @@ directory_taxclass.php
 
 directory_userclass.php
 
-	register_role
+	register_role - registers user type based on 
 	exclude_role - Removes unwanted standard wordpress roles: editor, subscriber, etc.
 	getVals - Overrides coreclass method as different code to get user details
-	getUsers
+	getUsers - returns users matching instance type that called method, plus other params. Adds user meta to returned object.
 	
 	
 	
@@ -128,7 +127,7 @@ jsapi.php
 	
 systemplate.php
 
-	register_systemplate
+	register_systemplate - registers the Systemplate post type
 	
 	
 user_functions.php
