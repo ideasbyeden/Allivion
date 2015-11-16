@@ -85,6 +85,7 @@
 	
 	<?php require_once(TEMPLATEPATH.'/includes/login_form.php'); ?>
 	
+		<?php if(is_front_page()){ ?>
 		<div class="container" id="header">
 			<div class="row">
 				<div class="col-sm-12">
@@ -99,6 +100,7 @@
 				</div>
 			</div>
 		</div>
+		<?php } ?>
 
 		<div class="container-fluid" id="navigation">
 			<div class="container"

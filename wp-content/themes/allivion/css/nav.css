@@ -74,6 +74,62 @@ nav#main ul > li.current-menu-item a {
 	color: white !important;	
 }
 
+nav#main ul > li.jobsearch a {
+	padding-left: 50px;
+	background-image: url(../img/navicon-jobsearch-grey.png);
+	background-repeat: no-repeat;
+	background-position: 20px center;
+}
+
+nav#main ul > li.studentships a {
+	padding-left: 58px;
+	background-image: url(../img/navicon-studentships-grey.png);
+	background-repeat: no-repeat;
+	background-position: 20px center;
+}
+
+nav#main ul > li.careeradvice a {
+	padding-left: 50px;
+	background-image: url(../img/navicon-careeradvice-grey.png);
+	background-repeat: no-repeat;
+	background-position: 20px center;
+}
+
+nav#main ul > li.advertisers a {
+	padding-left: 50px;
+	background-image: url(../img/navicon-advertisers-grey.png);
+	background-repeat: no-repeat;
+	background-position: 20px center;
+}
+
+nav#main ul > li.jobsearch.current-menu-item a {
+	background:
+		url(../img/navicon-jobsearch-white.png) no-repeat 20px center,
+		url(../img/nav_active_bg.png) repeat-x center bottom;
+}
+
+nav#main ul > li.studentships.current-menu-item a {
+	background:
+		url(../img/navicon-studentships-white.png) no-repeat 20px center,
+		url(../img/nav_active_bg.png) repeat-x center bottom;
+}
+
+nav#main ul > li.careeradvice.current-menu-item a {
+	background:
+		url(../img/navicon-careeradvice-white.png) no-repeat 20px center,
+		url(../img/nav_active_bg.png) repeat-x center bottom;
+}
+
+nav#main ul > li.advertisers.current-menu-item a {
+	background:
+		url(../img/navicon-advertisers-white.png) no-repeat 20px center,
+		url(../img/nav_active_bg.png) repeat-x center bottom;
+}
+
+
+
+/* secondary navigation */
+
 nav#secondary {
 	position: relative;
 	float: left;

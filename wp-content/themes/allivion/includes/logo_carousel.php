@@ -24,7 +24,7 @@
 	?>
    
    
-
+			<h2 class="purple">Featured employers</h2>
             <div id="recruiters_carousel" class="carousel slide">
                 
                 <!-- Carousel items -->

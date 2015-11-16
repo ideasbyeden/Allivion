@@ -37,7 +37,7 @@ $returnfields = array('job_title','location','summary','recruiter_name','closing
 			if(jQuery(this).hasClass('open')){
 				jQuery(this).removeClass('open').html('Use advanced search');
 				form.animate({
-					height: natheight
+					height: '155'
 				},500);
 				jQuery(jQuery('div.selector').get().reverse()).each(function() {
 				    jQuery(this).delay(d).fadeOut(400);
@@ -50,7 +50,7 @@ $returnfields = array('job_title','location','summary','recruiter_name','closing
 				    d += 100;
 				});
 				form.animate({
-					height: '207'
+					height: '317'
 				},500);		}
 		})
 	});
@@ -62,11 +62,11 @@ $returnfields = array('job_title','location','summary','recruiter_name','closing
 			<div class="col-sm-12">
 				
 				<div id="homesearch">				
-					<h2>Find your job</h2>
-					<p id="searchform_toggle">Use advanced search</p>
 	
 					<form class="directory <?php echo $job->type; ?> homesearch" id="searchjobs" action="/jobs" method="get">
-					
+					<h2 style="color: white;">Find your job</h2>
+					<p id="searchform_toggle">Use advanced search</p>
+
 						<div class="fields" style="width: 100%;">
 							<input type="text" name="keywords" value="<?php echo $_REQUEST['keywords']; ?>" placeholder="I'm looking for..." class="fl" />
 							<div class="clear"></div>
