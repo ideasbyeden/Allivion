@@ -56,44 +56,39 @@ $returnfields = array('job_title','location','summary','recruiter_name','closing
 	});
 </script>
 
-<div class="container">
-	<div class="row">
-		
-		<div class="col-sm-12">
-			<div id="homesearch">				
-				<h2>Find your job</h2>
-				<p id="searchform_toggle">Use advanced search</p>
-
-			<form class="directory <?php echo $job->type; ?> homesearch" id="searchjobs" action="/jobs" method="get">
-			
-				<div class="fields" style="width: 100%;">
-				<input type="text" name="keywords" value="<?php echo $_REQUEST['keywords']; ?>" placeholder="I'm looking for..." class="fl" />
-				<div class="clear"></div>
+<div class="container-fluid homesearch-container">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-12">
 				
-				<?php $job->printQuestion('industry',null,'dropdown',true); ?>
-				<?php $job->printQuestion('region',null,'dropdown',true); ?>
-				<?php $job->printQuestion('salary_range',null,'dropdown',true); ?>
-				<?php $job->printQuestion('contract',null,'dropdown',true); ?>
-<!--
-				<select name="industry">
-					<option value="">Industry</option>
-					<?php foreach($industry['value'] as $k=>$v){ ?>
-						<option value="<?php echo $v; ?>"><?php echo $k; ?></option>
-					<?php } ?>
-				</select>
--->
-				
+				<div id="homesearch">				
+					<h2>Find your job</h2>
+					<p id="searchform_toggle">Use advanced search</p>
+	
+					<form class="directory <?php echo $job->type; ?> homesearch" id="searchjobs" action="/jobs" method="get">
+					
+						<div class="fields" style="width: 100%;">
+							<input type="text" name="keywords" value="<?php echo $_REQUEST['keywords']; ?>" placeholder="I'm looking for..." class="fl" />
+							<div class="clear"></div>
+							
+							<?php $job->printQuestion('industry',null,'dropdown',true); ?>
+							<?php $job->printQuestion('region',null,'dropdown',true); ?>
+							<?php $job->printQuestion('salary_range',null,'dropdown',true); ?>
+							<?php $job->printQuestion('contract',null,'dropdown',true); ?>
+						</div>
+						
+						<input type="submit" value="Go" class="fr"/>
+						<div class="clear"></div>
+						
+					</form>
 				</div>
-				
-				<input type="submit" value="Go" class="fr"/>
-				<div class="clear"></div>
-				
-			</form>
+	
 			</div>
-
 		</div>
 	</div>
-			
+</div>
+	
+<div class="container">			
 	<div class="row"  id="homefeaturedjobs">
 		<div class="col-sm-12">
 			<h2 class="purple">Browse jobs by sector</h2>
@@ -198,7 +193,7 @@ $returnfields = array('job_title','location','summary','recruiter_name','closing
 
 <script>
 	jQuery(function() {
-		jQuery('#recruiters_carousel').carousel({ interval: 4000 });
+		jQuery('#recruiters_carousel').carousel({ interval: 400000 });
     });
 </script>
 

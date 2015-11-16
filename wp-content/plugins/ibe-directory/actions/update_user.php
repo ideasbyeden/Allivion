@@ -17,23 +17,23 @@ function directory_update_user(){
 		$this_user['ID'] = $user->ID;
 	}
 */	
-	if($_REQUEST) foreach($_REQUEST as $k=>$v) $params[$k] = $v;
 
+	// Error if unsecured ID was provided
+	if($_REQUEST['ID']) die('Unsecured ID provided, please use encrypted field function');
+
+	if($_REQUEST) foreach($_REQUEST as $k=>$v) $params[$k] = $v;
+	
 	if($params['encrypted']){
 		global $dircore;
 		parse_str($dircore->decrypt($params['encrypted']),$safeparams);
+		$params = array_merge($params,$safeparams);
 	}
 
 
 	// see if (encrypted) user ID has been supplied, if not use logged in user's ID
-	// Error if unsecured ID was provided
-	if($_REQUEST['ID']) die('Unsecured ID provided, please use encrypted field function');
-	$this_user['ID'] = $safeparams['ID'] ? $safeparams['ID'] : $user->ID; 
+	$this_user['ID'] = $params['ID'] ? $params['ID'] : $user->ID; 
 	
-	//if(!$this_user['ID']) $error[] = 'No user ID was sent';
 
-
-	
 	// supplied role object exists
 	$role = $_REQUEST['role'];
 	global $$role, $user, $usermeta;
@@ -74,13 +74,13 @@ function directory_update_user(){
 	}
 	
 	
-/*
+
 	echo '<pre>Item var names '; print_r($varnames); echo '</pre>';
 	echo '<pre>Valid meta fields '; print_r($validmeta); echo '</pre>';
 	echo '<pre>User '; print_r(array_filter($this_user)); echo '</pre>';
 	echo '<pre>Usermeta '; print_r($this_usermeta); echo '</pre>';
 	die();
-*/
+
 	
 	// If files, upload
 	
@@ -98,7 +98,7 @@ function directory_update_user(){
 				$attach_id = media_handle_upload($k,0);	// silent error - needs better handlling		
 				if(!is_wp_error($attach_id)){
 					if($q['multiple'] == 'true'){
-						$images = get_user_meta($user->ID, $k, true);
+						$images = get_user_meta($this_user->ID, $k, true);
 						if(!is_array($images) || empty($images)) { $images = array(); }
 				     	$images[] = strval($attach_id);
 					} else {
@@ -107,7 +107,7 @@ function directory_update_user(){
 					}
 				}
 								
-				update_user_meta($user->ID, $k, $images);
+				update_user_meta($this_user->ID, $k, $images);
 			}
 		}
 		unset($_FILES);

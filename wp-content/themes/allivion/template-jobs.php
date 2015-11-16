@@ -19,7 +19,7 @@ while (have_posts()) {
 /////////////////////////////////////////////
 
 // Fields to be shown in search results
-$returnfields = array('job_title','location','summary','recruiter_name','closing_date','publish_from','logo','logo_image');
+$returnfields = array('job_title','location','summary','recruiter_name','publish_from','salary_details','closing_date','logo','logo_image');
 
 
 /////////////////////////////////////////////
@@ -179,7 +179,6 @@ $returnfields = array('job_title','location','summary','recruiter_name','closing
 					
 					<thead>
 						<tr>
-							<td></td>
 							<td>
 								<form class="directory <?php echo $job->type; ?> search sortform" id="searchjobs" action="<?php echo admin_url('admin-ajax.php'); ?>" method="post" return="<?php echo implode(',', $returnfields); ?>" targetid="jobslist" clickableurl="/job">
 									<?php foreach($_GET as $k=>$v) { ?>
@@ -215,9 +214,24 @@ $returnfields = array('job_title','location','summary','recruiter_name','closing
 									<input type="hidden" name="action" value="directory_search" />
 									<input type="hidden" name="encrypted" value="<?php echo $dircore->encrypt('type=job'); ?>" />
 									<input type="hidden" name="inc_search_count" value="false" />
+									<input type="hidden" name="orderby" value="salary_details" />
+									<input type="submit" value="Salary" />
+								</form>
+							</td>
+							<td></td>
+							<td><form class="directory <?php echo $job->type; ?> search sortform" id="searchjobs" action="<?php echo admin_url('admin-ajax.php'); ?>" method="post" return="<?php echo implode(',', $returnfields); ?>" targetid="jobslist" clickableurl="/job">
+									<?php foreach($_GET as $k=>$v) { ?>
+										<input type="hidden" name="<?php echo $k ; ?>" value="<?php echo $v; ?>" />
+									<?php } ?>
+									<input type="hidden" name="nonce" value="<?php echo wp_create_nonce("directory_search_nonce"); ?>" />
+									<input type="hidden" name="action" value="directory_search" />
+									<input type="hidden" name="encrypted" value="<?php echo $dircore->encrypt('type=job'); ?>" />
+									<input type="hidden" name="inc_search_count" value="false" />
 									<input type="hidden" name="orderby" value="closing_date" />
 									<input type="submit" value="Closes" />
-								</form></td>
+								</form>
+							</td>
+
 						</tr>
 					</thead>
 							
@@ -230,8 +244,9 @@ $returnfields = array('job_title','location','summary','recruiter_name','closing
 							<p>[summary]</p>
 						</td>
 						<td>[publish_from]</td>
-						<td>[closing_date]</td>
+						<td>[salary_details]</td>
 						<td style="width: 60px;">[logo_image]</td>
+						<td>[closing_date]</td>
 					</tr>
 								
 					<?php if(count($items->posts) > 0) foreach ($items->posts as $item){ ?>
@@ -246,13 +261,17 @@ $returnfields = array('job_title','location','summary','recruiter_name','closing
 								<?php echo $item->meta['publish_from'] ? time2str($item->meta['publish_from']) : ''; ?>
 							</td>
 							<td>
-								<?php echo $item->meta['closing_date'] ? date('jS M Y',strtotime($item->meta['closing_date'])) : ''; ?>
+								<?php echo $item->meta['salary_details']; ?>
 							</td>
 							<td style="width: 60px;">
 								<?php if($item->groupmeta['logo']) { ?>
 										<?php foreach($item->groupmeta['logo'] as $image_id) echo wp_get_attachment_image($image_id,'tinythumb'); ?>
 								<?php } ?>
 							</td>
+							<td>
+								<?php echo $item->meta['closing_date'] ? date('jS M Y',strtotime($item->meta['closing_date'])) : ''; ?>
+							</td>
+							
 						</tr>
 					<?php } 
 						if(count($items->posts) == 0) echo '<tr class="rowitem"><td colspan=99><h3>No results were found</h3><p>Please broaden your search and try again</p></td></tr>';

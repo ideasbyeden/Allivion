@@ -14,6 +14,7 @@ $users = $recruiter_admin->getUsers(array('orderby' => 'recruiter_name'));
 			
 			$logo = get_user_meta($user->ID,'logo',true);
 			$logourl = wp_get_attachment_image($logo[0],'thumbnail');
+			$logourl = preg_replace( '/(width|height)="\d*"\s/', "", $logourl );
 			
 			$params['encrypted'] = $dircore->encrypt('type=job');
 			$params['group_id'] = $user->ID;
@@ -31,7 +32,6 @@ get_header();
 	
 while (have_posts()) { 
 		the_post();
-		the_content();
  
 
 
@@ -42,13 +42,16 @@ while (have_posts()) {
 		<div class="col-md-12">
 		
 		<h1 class="purple"><?php the_title(); ?></h1>
+		<?php the_content(); ?>
 		</div>
 		
 		<?php for($i=0; $i<count($recruiters); $i++){ ?>
         <div class="col-md-2 col-sm-3 col-xs-4 recruiter_icon_panel">
             <a href="jobs/?group_id=<?php echo $recruiters[$i]['ID']; ?>">
-                <?php echo $recruiters[$i]['logourl']; ?>
-                <p><?php echo $recruiters[$i]['job_count']; ?> role<?php echo $recruiters[$i]['job_count'] > 1 ? 's' : ''; ?></p>
+	            <div class="iconframe">
+	                <?php echo $recruiters[$i]['logourl']; ?>
+	                <p><?php echo $recruiters[$i]['job_count']; ?> role<?php echo $recruiters[$i]['job_count'] > 1 ? 's' : ''; ?></p>
+	            </div>
             </a>
         </div>
         <?php } ?>

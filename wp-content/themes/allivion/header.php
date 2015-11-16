@@ -85,6 +85,21 @@
 	
 	<?php require_once(TEMPLATEPATH.'/includes/login_form.php'); ?>
 	
+		<div class="container" id="header">
+			<div class="row">
+				<div class="col-sm-12">
+					<a href="/">
+						<img src="<?php bloginfo('template_url'); ?>/img/logo.png" id="logo" />
+					</a>
+					
+					<div class="leaderboard">
+						<ins data-revive-zoneid="1" data-revive-id="523c04aa0cd365ce61130c872042caff"></ins>
+						<script async src="//revive.allivion.com/www/delivery/asyncjs.php"></script>
+					</div>
+				</div>
+			</div>
+		</div>
+
 		<div class="container-fluid" id="navigation">
 			<div class="container"
 				<div class="row">
@@ -103,18 +118,5 @@
 			</div>
 		</div>
 		
-		<div class="container" id="header">
-			<div class="row">
-				<div class="col-sm-12">
-					<a href="/">
-						<img src="<?php bloginfo('template_url'); ?>/img/logo.png" id="logo" />
-					</a>
-					
-					<div class="leaderboard">
-						<ins data-revive-zoneid="1" data-revive-id="523c04aa0cd365ce61130c872042caff"></ins>
-						<script async src="//revive.allivion.com/www/delivery/asyncjs.php"></script>
-					</div>
-				</div>
-			</div>
-		</div>
+
 		
