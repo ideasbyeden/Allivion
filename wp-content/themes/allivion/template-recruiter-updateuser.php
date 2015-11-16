@@ -63,7 +63,6 @@ foreach($usercustom as $k=>$v){
  					<input type="hidden" name="redirect" value="/users" />
  					<input type="hidden" name="encrypted" value="<?php echo $dircore->encrypt('ID='.$this_user->ID); ?>" />
  					<input type="hidden" name="role" value="<?php echo $this_user->roles[0]; ?>" />
- 					<input type="hidden" name="origin" value="updateuser" />
 
 					<div class="qpanel">
 						<div class="question">
