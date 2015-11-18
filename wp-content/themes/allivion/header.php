@@ -90,7 +90,7 @@
 			<div class="row">
 				<div class="col-sm-12">
 					<a href="/">
-						<img src="<?php bloginfo('template_url'); ?>/img/logo.png" id="logo" />
+						<img src="<?php bloginfo('template_url'); ?>/img/logo_strap.png" id="logo" />
 					</a>
 					
 					<div class="leaderboard">

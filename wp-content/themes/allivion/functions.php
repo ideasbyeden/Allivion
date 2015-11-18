@@ -130,6 +130,7 @@ add_filter( 'wp_nav_menu_items', 'menu_logo', 10, 2 );
 // thumbnails and image sizes
 add_theme_support( 'post-thumbnails' );
 add_image_size('tinythumb', 50, 50);
+add_image_size('recruiter_icon', 300, 300);
 
 
 // remove default image link

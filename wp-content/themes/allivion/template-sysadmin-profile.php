@@ -64,7 +64,6 @@ foreach($usercustom as $k=>$v){
 				<input type="hidden" name="redirect" value="<?php echo DIRECTORY_SYSADMIN; ?>" />
 				<input type="hidden" name="role" value="recruiter_admin" />
 				<input type="hidden" name="encrypted" value="<?php echo $dircore->encrypt('ID='.$this_user->ID); ?>" />
-				<input type="hidden" name="origin" value="updateprofile" />
 	
 	
 				<div class="qpanel">

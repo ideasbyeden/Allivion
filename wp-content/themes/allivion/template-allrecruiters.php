@@ -13,7 +13,7 @@ $users = $recruiter_admin->getUsers(array('orderby' => 'recruiter_name'));
 		if(get_user_meta($user->ID,'subscriber',true) == 'annual' && get_user_meta($user->ID,'logo',true) != ''){
 			
 			$logo = get_user_meta($user->ID,'logo',true);
-			$logourl = wp_get_attachment_image($logo[0],'thumbnail');
+			$logourl = wp_get_attachment_image($logo[0],'recruiter_icon');
 			$logourl = preg_replace( '/(width|height)="\d*"\s/', "", $logourl );
 			
 			$params['encrypted'] = $dircore->encrypt('type=job');
@@ -49,9 +49,11 @@ while (have_posts()) {
         <div class="col-md-2 col-sm-3 col-xs-4 recruiter_icon_panel">
             <a href="jobs/?group_id=<?php echo $recruiters[$i]['ID']; ?>">
 	            <div class="iconframe">
+		            <div class="inner">
 	                <?php echo $recruiters[$i]['logourl']; ?>
-	                <p><?php echo $recruiters[$i]['job_count']; ?> role<?php echo $recruiters[$i]['job_count'] > 1 ? 's' : ''; ?></p>
+		            </div>
 	            </div>
+	            <p><?php echo $recruiters[$i]['job_count']; ?> role<?php echo $recruiters[$i]['job_count'] > 1 ? 's' : ''; ?></p>
             </a>
         </div>
         <?php } ?>

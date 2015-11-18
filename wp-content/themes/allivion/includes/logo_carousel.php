@@ -7,7 +7,7 @@
 		if(get_user_meta($user->ID,'subscriber',true) == 'annual' && get_user_meta($user->ID,'logo',true) != ''){
 			
 			$logo = get_user_meta($user->ID,'logo',true);
-			$logourl = wp_get_attachment_image($logo[0],'thumbnail');
+			$logourl = wp_get_attachment_image($logo[0],'recruiter_icon');
 			$logourl = preg_replace( '/(width|height)="\d*"\s/', "", $logourl );
 			
 			$params['encrypted'] = $dircore->encrypt('type=job');
@@ -34,12 +34,14 @@
 	                        
 	                        <?php for($i=0; $i<count($recruiters); $i++){ ?>
 	                        <div class="col-sm-2 recruiter_icon_panel" style="text-align: center;">
-		                        <div class="iconframe">
-			                        <a href="jobs/?group_id=<?php echo $recruiters[$i]['ID']; ?>">
-				                        <?php echo $recruiters[$i]['logourl']; ?>
-				                        <p class="orange"><?php echo $recruiters[$i]['job_count']; ?> role<?php echo $recruiters[$i]['job_count'] != 1 ? 's' : ''; ?></p>
-				                    </a>
-		                        </div>
+		                        <a href="jobs/?group_id=<?php echo $recruiters[$i]['ID']; ?>">
+	            <div class="iconframe">
+		            <div class="inner">
+	                <?php echo $recruiters[$i]['logourl']; ?>
+		            </div>
+	            </div>
+	            <p class="orange"><?php echo $recruiters[$i]['job_count']; ?> role<?php echo $recruiters[$i]['job_count'] > 1 ? 's' : ''; ?></p>
+            </a>
 			                </div>
 		                        
 		                    <?php if(($i+1) %6 == 0 && ($i+1) < count($recruiters)) echo '</div></div><div class="item"><div class="row">'; ?>

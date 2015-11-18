@@ -44,6 +44,7 @@
 <div class="containerfluid" id="supportedby">
 	<div class="container">
 		<div class="row">
+			<div class="col-sm-12"><h2>Supported by</h2></div>
 			<?php for($s=1; $s<=6; $s++){ ?>
 			<div class="col-sm-2"><?php dynamic_sidebar('footer_col'.$s); ?></div>
 			<?php } ?>

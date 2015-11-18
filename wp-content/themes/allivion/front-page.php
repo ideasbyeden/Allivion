@@ -120,7 +120,7 @@ $returnfields = array('job_title','location','summary','recruiter_name','closing
 						$terms = get_term_children( intval($parent->term_id), 'sector' );
 						foreach($terms as $term){
 							$term = get_term_by('id',$term,'sector');					
-							echo '<li><a href="/jobs?industry='.$term->slug.'">'.$term->name.' <span class="orange">('.$term->count.')</span></a></li>';
+							echo '<li><a href="/jobs?industry='.$term->slug.'">'.$term->name.' <span class="orange jobcount">('.$term->count.')</span></a></li>';
 						}
 						
 					?>
@@ -134,7 +134,7 @@ $returnfields = array('job_title','location','summary','recruiter_name','closing
 						$terms = get_term_children( intval($parent->term_id), 'sector' );
 						foreach($terms as $term){
 							$term = get_term_by('id',$term,'sector');					
-							echo '<li><a href="/jobs?industry='.$term->slug.'">'.$term->name.' <span class="orange">('.$term->count.')</span></a></li>';
+							echo '<li><a href="/jobs?industry='.$term->slug.'">'.$term->name.' <span class="orange jobcount">('.$term->count.')</span></a></li>';
 						}
 						
 					?>
@@ -142,17 +142,19 @@ $returnfields = array('job_title','location','summary','recruiter_name','closing
 				</div>
 
 				<div id="studentships_cats" class="tab-pane fade">
-					<ul class="cc1">
+					<div class="col-xs-4" style="padding: 0px">
+					<ul class="cc3">
 					<?php
 						$parent = get_term_by('name','Studentships','sector');					
 						$terms = get_term_children( intval($parent->term_id), 'sector' );
 						foreach($terms as $term){
 							$term = get_term_by('id',$term,'sector');					
-							echo '<li><a href="/jobs?industry='.$term->slug.'">'.$term->name.' <span class="orange">('.$term->count.')</span></a></li>';
+							echo '<li><a href="/jobs?industry='.$term->slug.'">'.$term->name.' <span class="orange jobcount">('.$term->count.')</span></a></li>';
 						}
 						
 					?>
 					</ul>
+					</div>
 				</div>
 
 			</div>
@@ -193,7 +195,7 @@ $returnfields = array('job_title','location','summary','recruiter_name','closing
 
 <script>
 	jQuery(function() {
-		jQuery('#recruiters_carousel').carousel({ interval: 400000 });
+		jQuery('#recruiters_carousel').carousel({ interval: 4000 });
     });
 </script>
 

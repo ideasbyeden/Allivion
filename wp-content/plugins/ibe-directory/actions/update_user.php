@@ -86,7 +86,7 @@ function directory_update_user(){
 		
 	
 	// If files, upload
-	if ($_FILES) { // removes image if no file supplied?
+	if ($_FILES) { 
 		
 		$vars = $$role->getVars();
 		
@@ -104,9 +104,9 @@ function directory_update_user(){
 						$images = array();
 				     	$images[] = strval($attach_id);
 					}
+					$update_usermeta[$k] = $images;
 				}
 				
-				$update_usermeta[$k] = $images;
 								
 			}
 		}
@@ -127,12 +127,12 @@ function directory_update_user(){
 
 
 	
-/*
+
 	echo '<pre>Item var names '; print_r($varnames); echo '</pre>';
 	echo '<pre>Valid meta fields '; print_r($validmeta); echo '</pre>';
 	echo '<pre>User '; print_r(array_filter($update_user)); echo '</pre>';
 	echo '<pre>Usermeta '; print_r($update_usermeta); echo '</pre>';
-*/
+
 	//die();
 
 
