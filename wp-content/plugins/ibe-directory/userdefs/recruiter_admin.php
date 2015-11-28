@@ -114,8 +114,30 @@ $vars = array(
 	),
 
 	array(
+		'name' => 'recruiter_sector',
+		'label' => 'Sector',
+		'fieldtype' => 'dropdown',
+		'value' => array(
+			'Private'	=> array('slug' => 'private'),	
+			'Public/Charity/University/HE'	=> array('slug' => 'public'),	
+		),
+		'group' => 'sysadmin'
+	),
+
+
+	array(
 		'name' => 'logo',
 		'label' => 'Logo',
+		'placeholder' => '',
+		'fieldtype' => 'image',
+		'multiple' => 'false',
+		'group' => 'profile'
+	),
+
+	array(
+		'name' => 'brand_header',
+		'label' => 'Brand header',
+		'instructions' => 'Recommended size 960px x 150px',
 		'placeholder' => '',
 		'fieldtype' => 'image',
 		'multiple' => 'false',
@@ -143,6 +165,13 @@ $vars = array(
 		'label' => 'Default application email',
 		'placeholder' => '',
 		'fieldtype' => 'text',
+		'group' => 'profile'
+	),
+	array(
+		'name' => 'website',
+		'label' => 'Website',
+		'placeholder' => '',
+		'fieldtype' => 'link',
 		'group' => 'profile'
 	),
 	array(

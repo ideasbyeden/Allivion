@@ -10,7 +10,7 @@ class userdef extends directoryCore {
 		$this->label = $label;
 		
 		$this->register_role();
-		add_filter( 'editable_roles', 'exclude_role' );
+		//add_filter( 'editable_roles', 'exclude_role' );
 	    
 	}
 

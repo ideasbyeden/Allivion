@@ -32,6 +32,7 @@ function directory_create_user(){
 		$newuserID = wp_insert_user($params);
 		if(!is_wp_error($newuserID)){
 			if($_REQUEST['group_id']) update_user_meta($newuserID,'group_id',$_REQUEST['group_id']);
+			if($_REQUEST['recruiter_sector']) update_user_meta($newuserID,'recruiter_sector',$_REQUEST['recruiter_sector']);
 
 			if($_REQUEST['autologin'] == 'true'){
 			    wp_set_current_user($id); // set the current wp user

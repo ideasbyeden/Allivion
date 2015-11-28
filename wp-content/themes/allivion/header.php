@@ -4,7 +4,8 @@
 <head>
 
 	<meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">	
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">	
 	
 	<?php
 	if ( is_tag() ) { echo "<meta name=\"robots\" content=\"noindex,follow\">"; }
@@ -30,9 +31,18 @@
 
 	
 	<?php wp_head(); ?>
+	
+	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
 
+<!--
 	<script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
 	<script type="text/javascript">stLight.options({publisher: "5c9feb5b-d9eb-44fb-95ef-a54292286d69", doNotHash: false, doNotCopy: false, hashAddressBar: false});</script>
+-->
 
 	<script src="<?php bloginfo('template_url'); ?>/js/jquery.uniform.min.js"></script>
 	<script>
@@ -62,6 +72,7 @@
  	</script>
  	
  	<style>#sharethis{display:block}</style>
+ 	
 
 
  		
@@ -94,8 +105,8 @@
 					</a>
 					
 					<div class="leaderboard">
-						<ins data-revive-zoneid="1" data-revive-id="523c04aa0cd365ce61130c872042caff"></ins>
-						<script async src="//revive.allivion.com/www/delivery/asyncjs.php"></script>
+						<?php include(TEMPLATEPATH.'/revive-zones/leaderboard_iframe.html'); ?>
+<!-- 						<img src="<?php bloginfo('template_url'); ?>/img/banner_ad.jpg" /> -->
 					</div>
 				</div>
 			</div>

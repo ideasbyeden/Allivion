@@ -506,6 +506,18 @@ img {
 	max-width: 100%;
 }
 
+/* single job page */
+
+#brand_header {
+	display: block;
+	width: 100%;
+}
+
+#brand_header img {
+	max-width: 100%;
+	height: auto !important;
+}
+
 /* misc */
 
 .clear {
@@ -655,6 +667,7 @@ ul.tabs li.active {
 	border-radius: 4px;
 	-moz-border-radius: 4px;
 	-webkit-border-radius: 4px;
+	color: #333 !important;
 }
 
 .question.widelabel input[type='text'],

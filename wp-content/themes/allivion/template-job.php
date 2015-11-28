@@ -55,30 +55,33 @@ $uservals['email'] = $user->user_email;
 	<div class="row">
 		
 		
-		<div class="col-md-4 sticky">
-			<div class="qpanel purplegrad" id="job_bullets" style="padding: 12px;">
-				<table>
-				<?php $job->printDetail('salary_details',$vals) ?>
-				<?php $job->printDetail('location',$vals) ?>
-				<?php $job->printDetail('industry',$vals) ?>
-				<?php $job->printDetail('job_func',$vals) ?>
-				<?php $job->printDetail('job_level',$vals) ?>
-				<?php $job->printDetail('contract',$vals) ?>
-				<?php $job->printDetail('hours',$vals) ?>
-				<?php $job->printDetail('posted',$vals) ?>
-				<?php $job->printDetail('closes',$vals) ?>
-				</table>
-			</div>
-		</div>
 		
 		<div class="col-md-8">
-					
-			<h1 class="purple"><?php echo $vals['job_title']; ?>, <?php echo $vals['location']; ?></h1>
+
+			<div>
+				<?php
+					if($vals['ad_type'][0] != 'standard' && $employer['brand_header']){
+						foreach(unserialize($employer['brand_header']) as $image_id) echo '<span id="brand_header">'.wp_get_attachment_image($image_id,'brand_header').'</span>';						
+					} else if($employer['logo']) {
+						foreach(unserialize($employer['logo']) as $image_id) echo '<span id="logo">'.wp_get_attachment_image($image_id,'recruiter_icon_small').'</span>';
+					} ?>
+			</div>					
+			<h1 class="purple"><?php echo $vals['job_title']; echo $vals['location'] ? ', '.$vals['location'] : ''; ?></h1>
 			
 			<hr>
+
 			<h6><span id="employer"><?php echo $employer['recruiter_name']; ?></span></h6>
 			<h6><span id="salary_details"><?php echo $vals['salary_details'] ? $vals['salary_details'] : 'Salary'; ?></span></h6>
-			<div><span id="full_description"><?php echo $vals['full_description'] ? $vals['full_description'] : 'Job description'; ?></span></div>
+			<div>
+				<span id="full_description">
+					<?php if($vals['ad_type'][0] == 'standard'){
+							echo $vals['full_description_limited'] ? $vals['full_description_limited'] : 'Job description'; 
+						} else {
+							echo $vals['full_description'] ? $vals['full_description'] : 'Job description'; 
+						}							
+						?>
+				</span>
+			</div>
 			
 			<div class="clear" style="margin-bottom: 50px;"></div>
 
@@ -135,6 +138,23 @@ $uservals['email'] = $user->user_email;
 		
 			
 		</div><!-- end threeqtrscol -->
+		
+		<div class="col-md-4 sticky">
+			<div class="qpanel purplegrad" id="job_bullets" style="padding: 12px;">
+				<table>
+				<?php $job->printDetail('salary_details',$vals) ?>
+				<?php $job->printDetail('location',$vals) ?>
+				<?php $job->printDetail('industry',$vals) ?>
+				<?php $job->printDetail('job_func',$vals) ?>
+				<?php $job->printDetail('job_level',$vals) ?>
+				<?php $job->printDetail('contract',$vals) ?>
+				<?php $job->printDetail('hours',$vals) ?>
+				<?php $job->printDetail('posted',$vals) ?>
+				<?php $job->printDetail('closes',$vals) ?>
+				</table>
+			</div>
+		</div>
+
 		<div class="clear"></div>
 		
 	</div>

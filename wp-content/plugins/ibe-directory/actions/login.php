@@ -22,8 +22,8 @@ function directory_login(){
 	}
 
     $login = wp_signon( $info, false );
-    $login = (array) $login;
     if (!is_wp_error($login) ){
+		$login = (array) $login;
 	    if($_REQUEST['redirect']) $login['redirect'] = $_REQUEST['redirect'];
         echo json_encode($login);
     } else {

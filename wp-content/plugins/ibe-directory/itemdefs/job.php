@@ -74,6 +74,20 @@ $sector_vals = array(
 $vars = array(
 	
 	array(
+		'name' => 'ad_type',
+		'label' => 'Ad type',
+		'placeholder' => '',
+		'fieldtype' => 'dropdown',
+		'value' => array(
+			'Standard' 	=> array('slug' => 'standard'),	
+			'Premium'	=> array('slug' => 'premium'),	
+			'Sponsored' => array('slug' => 'sponsored'),		
+		),
+		'group' => '',
+	),
+
+	
+	array(
 		'name' => 'job_title',
 		'label' => 'Job title',
 		'placeholder' => '',
@@ -233,11 +247,20 @@ $vars = array(
 	),
 
 	array(
+		'name' => 'full_description_limited',
+		'label' => 'Advert full description',
+		'placeholder' => '',
+		'fieldtype' => 'richtext',
+		'group' => 'details',
+		'limit' => '20'
+	),
+	
+	array(
 		'name' => 'full_description',
 		'label' => 'Advert full description',
 		'placeholder' => '',
 		'fieldtype' => 'richtext',
-		'group' => 'details'
+		'group' => 'details',
 	),
 
 	array(

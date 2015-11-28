@@ -80,6 +80,15 @@ function directory_update_user(){
 	
 	foreach(array_filter($params) as $k=>$v){ 
 		if(in_array($k, $validmeta)){
+			
+			// format urls with leading "http://"
+			if($q = $$role->getQuestion($k)){
+				if($q['fieldtype'] == 'link'){
+					$v = $$role->makeLink($v);
+				}
+			}
+			
+			
 			$update_usermeta[$k] = $v;
 		}
 	}	
@@ -88,10 +97,12 @@ function directory_update_user(){
 	// If files, upload
 	if ($_FILES) { 
 		
+		//die(print_r($_FILES));
+		
 		$vars = $$role->getVars();
 		
 		//die(print_r($_FILES));
-		foreach($_FILES as $k=>$v){
+		foreach($_FILES as $k=>$v){ // currently assumes all uploads are images
 			if($q = $$role->getQuestion($k)){
 				
 				$attach_id = media_handle_upload($k,0);	// silent error - needs better handlling		
@@ -128,10 +139,12 @@ function directory_update_user(){
 
 	
 
+/*
 	echo '<pre>Item var names '; print_r($varnames); echo '</pre>';
 	echo '<pre>Valid meta fields '; print_r($validmeta); echo '</pre>';
 	echo '<pre>User '; print_r(array_filter($update_user)); echo '</pre>';
 	echo '<pre>Usermeta '; print_r($update_usermeta); echo '</pre>';
+*/
 
 	//die();
 

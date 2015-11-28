@@ -89,6 +89,7 @@ foreach($usercustom as $k=>$v){
 				<?php if($user->roles[0] == 'administrator') { ?>
 					<div class="qpanel">
 						<?php $recruiter_admin->printQuestion('subscriber',$vals['subscriber']); ?>							
+						<?php $recruiter_admin->printQuestion('recruiter_sector',$vals['recruiter_sector']); ?>							
 					</div>
 				<?php } ?>
 			</div>

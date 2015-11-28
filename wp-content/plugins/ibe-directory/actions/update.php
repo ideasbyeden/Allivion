@@ -19,7 +19,7 @@ function directory_update(){
 	foreach($varnames as $var){
 		$q = $$type->getQuestion($var);
 		if($q['taxonomy']){
-			foreach($_REQUEST[$var] as $v){
+			if($_REQUEST[$var]) foreach($_REQUEST[$var] as $v){
 				$term = get_term_by('slug',$v,$q['taxonomy']);
 				$terms[] = $term->term_id;
 			}
@@ -32,6 +32,9 @@ function directory_update(){
 		}
 		$result[$var] = $_REQUEST[$var];
 	}
+	
+	//if($_FILES) die('files found');
+	if($_FILES) $$type->uploadFiles($_REQUEST['post_id']);
 	
 
 	if($_SERVER['HTTP_X_REQUESTED_WITH'] && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {

@@ -52,16 +52,20 @@ while (have_posts()) {
 			<h1 class="purple">Create job advertisement</h1>
 		</div>
 		
-			<form class="directory <?php echo $job->type; ?> update" id="jobdetails" action="<?php echo admin_url('admin-ajax.php'); ?>" method="post" autosave="true">
+			<form class="directory <?php echo $job->type; ?> update" id="jobdetails" action="<?php echo admin_url('admin-ajax.php'); ?>" method="post" autosave="true" enctype="multipart/form-data">
 				
 				<input type="hidden" name="post_id" value="<?php echo $_REQUEST['i']; ?>" />
 				<input type="hidden" name="type" value="<?php echo $job->getItemType(); ?>" />
 				<input type="hidden" name="nonce" value="<?php echo wp_create_nonce("directory_update_nonce"); ?>" />
 				<input type="hidden" name="action" value="directory_update" />
+				<input type="hidden" name="role" value="<?php echo $user->roles[0]; ?>" />
 				
 				
 				<div class="col-md-6">
 
+					<div class="qpanel">
+						<?php $job->printQuestion('ad_type',$vals['ad_type']); ?>
+					</div>
 					<div class="qpanel">
 						<?php $job->printGroup('headline',$vals); ?>
 					</div>
@@ -96,7 +100,16 @@ while (have_posts()) {
 						<h4><span id="job_title"><?php echo $vals['job_title'] ? $vals['job_title'] : 'Job Title'; ?></span>, <span id="location"><?php echo $vals['location'] ? $vals['location'] : 'Location'; ?></span></h4>
 						<h6><span id="employer"><?php echo get_user_meta($vals['group_id'],'recruiter_name',true); ?></span></h6>
 						<h6><span id="salary_details"><?php echo $vals['salary_details'] ? $vals['salary_details'] : 'Salary'; ?></span></h6>
-						<div><span id="full_description"><?php echo $vals['full_description'] ? $vals['full_description'] : 'Job description'; ?></span></div>
+						<div class="limited">
+							<span id="full_description_limited">
+								<?php echo $vals['full_description_limited'] ? $vals['full_description_limited'] : 'Job description'; ?>
+							</span>
+						</div>
+						<div class="unlimited">
+							<span id="full_description">
+								<?php echo $vals['full_description'] ? $vals['full_description'] : 'Job description'; ?>
+							</span>
+						</div>
 					</div>
 				</div>
 				
@@ -106,5 +119,29 @@ while (have_posts()) {
 		
 	</div>
 </div>
+
+<script type="text/javascript" src="<?php bloginfo('template_url'); ?>/js/wordlimit.js"></script>
+
+<script>
+	jQuery(function(){
+		if(jQuery('select[name="ad_type"]').val() != 'standard'){
+			jQuery('.limited').hide();
+			jQuery('.unlimited').show();
+		} else {
+			jQuery('.unlimited').hide();
+			jQuery('.limited').show();				
+		}
+		jQuery('select[name="ad_type"]').change(function(){
+			if(jQuery(this).val() != 'standard'){
+				jQuery('.limited').hide();
+				jQuery('.unlimited').show();
+			} else {
+				jQuery('.unlimited').hide();
+				jQuery('.limited').show();				
+			}
+		});
+	});
+</script>
+
 
 <?php get_footer(); ?>

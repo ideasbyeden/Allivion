@@ -69,6 +69,14 @@ while (have_posts()) {
 								<option value="recruiter_admin" <?php echo $_SESSION['userdata']['role'] == 'recruiter_admin' ? 'SELECTED' : ''; ?>>Recruiter</option>
 							</select>
 						</div>
+						<div class="question recruiter_admin" style="display:none;">
+							<label>Sector:</label><br />
+							<select name="recruiter_sector">
+								<option value="private" <?php echo $_SESSION['userdata']['role'] == 'private' ? 'SELECTED' : ''; ?>>Private</option>
+								<option value="public" <?php echo $_SESSION['userdata']['role'] == 'public' ? 'SELECTED' : ''; ?>>Public/Charity/University/HE</option>
+							</select>
+						</div>
+
 						<div class="question">
 							<label>First Name</label>
 							<input type="text" name="first_name" value="<?php echo $_SESSION['userdata']['first_name']; ?>"/>
@@ -116,3 +124,18 @@ while (have_posts()) {
 </div>
 
 <?php get_footer(); ?>
+
+<script>
+	jQuery(function(){
+		jQuery('select[name="role"]').change(function(){
+			var dd = jQuery(this);
+			jQuery('.'+dd.val()).fadeIn();
+			dd.find('option:not(:selected)').each(function(){
+				var hideclass = jQuery(this).val();
+				//hideclass = this.val();
+				jQuery('.'+hideclass).fadeOut();
+			});
+		});
+	});
+	
+</script>

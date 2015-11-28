@@ -92,6 +92,7 @@ class directoryCore {
 	
 	
 	public function printQuestion($name,$value = null,$format = null,$add_blank = false){
+		//$output .= '<p>'.$name.''.print_r($value).'</p>';
 		if($question = $this->getQuestion($name)){
 			
 			$value ? $value : ($question['value'] ? $question['value'] : '');
@@ -121,14 +122,17 @@ class directoryCore {
 				break;
 
 				case 'richtext':
+					$output .= $question['limit'] ? '<span class="limited">' : '<span class="unlimited">';
 					$output .= $question['label'] ? '<label>'.$question['label'].'</label>' : '';
 					$output .= $question['instructions'] ? '<p class="instructions">'.$question['instructions'].'</p>' : '';
-					$output .= '<textarea class="richtext" ';
+					$output .= '<textarea class="richtext " ';
 					$output .= $question['name'] ? 'name="'.$question['name'].'" ' : '';
 					$output .= $question['placeholder'] ? 'placeholder="'.$question['placeholder'].'" ' : '';
 					$output .= $question['required'] ? 'required="'.$question['required'].'" ' : '';
+					$output .= $question['limit'] ? 'limit="'.$question['limit'].'" ' : '';
 					$output .= '>'.$value.'</textarea>';
-					//$output .= '<input type="hidden" name="richtext" value="true" />';
+					$output .= $question['limit'] ? '<p class="wordlimit"><span class="wordcount">'.count(array_filter(explode(' ', $value))).'</span> of '.$question['limit'].' words</p>' : '';
+					$output .= '</span>';
 				break;
 				
 				case 'date':
@@ -146,6 +150,17 @@ class directoryCore {
 					$output .= $question['label'] ? '<label>'.$question['label'].'</label>' : '';
 					$output .= $question['instructions'] ? '<p class="instructions">'.$question['instructions'].'</p>' : '';
 					$output .= '<input type="email" ';
+					$output .= $question['name'] ? 'name="'.$question['name'].'" ' : '';
+					$output .= $question['placeholder'] ? 'placeholder="'.$question['placeholder'].'" ' : '';
+					$output .= $question['required'] ? 'required="'.$question['required'].'" ' : '';
+					$output .= 'value="'.$value.'" ';
+					$output .= '/>';
+				break;
+				
+				case 'link':
+					$output .= $question['label'] ? '<label>'.$question['label'].'</label>' : '';
+					$output .= $question['instructions'] ? '<p class="instructions">'.$question['instructions'].'</p>' : '';
+					$output .= '<input type="text" ';
 					$output .= $question['name'] ? 'name="'.$question['name'].'" ' : '';
 					$output .= $question['placeholder'] ? 'placeholder="'.$question['placeholder'].'" ' : '';
 					$output .= $question['required'] ? 'required="'.$question['required'].'" ' : '';
@@ -176,13 +191,13 @@ class directoryCore {
 					}
 					foreach($question['value'] as $k=>$v){
 						$output .= '<option value="'.$v['slug'].'" ';
-						if($value == $v['slug']){
+						if($value[0] == $v['slug']){
 							$output .= 'SELECTED ';
 						}
 						$output .= '>'.$k.'</option>';
 						if(isset($v['children'])) foreach ($v['children'] as $k=>$v){
 							$output .= '<option value="'.$v['slug'].'" ';
-							if($value == $v['slug']){
+							if($value[0] == $v['slug']){
 								$output .= 'SELECTED ';
 							}
 							$output .= '>- '.$k.'</option>';
@@ -404,17 +419,20 @@ class directoryCore {
 	
 	public function makeFolder($path){
 		
-		$folder = $_SERVER['DOCUMENT_ROOT'].DIRECTORY_UPLOADPATH.ltrim($path.'\\');
+		$folder = $_SERVER['DOCUMENT_ROOT'].ltrim($path,'\\');
 		
 		if (!file_exists($folder)) {
 			$old = umask(0);
-			$result = mkdir($folder,0777,true) ? $folder : false;
+			$result = mkdir($folder,0777,true) ? $folder : false; // Only give permission to read and write, not execute
 			umask($old);
 			return $result;
 		}
 	}
 	
 	public function fileUpload($files,$path){
+		
+		// Uploads files to a supplied path
+		// WILL OVERWRITE EXISTING FILES OF THE SAME NAME
 		
 		$filelist = '';
 		$result['completed_upload'] = TRUE;
@@ -435,6 +453,298 @@ class directoryCore {
 	        	
 		}
 		
+
+	}
+	
+	
+	public function uploadFiles($post_id = NULL){
+		
+		/*
+		
+			Iterate through $_FILES
+			Check each file type, decide if image or other
+			redirect to uploadImage() or uploadFile()
+			Pass $_FILES[$key] into each
+			
+		*/
+		
+		///////////////////////////////////////////
+		//
+		// Form is being submitted via ajax, so files not being uploaded?
+		//
+		///////////////////////////////////////////
+		
+
+		
+		foreach($_FILES as $k=>$v){
+			if (getimagesize($_FILES[$k]['tmp_name'])) {
+				$upload = $this->uploadImage($k, false, $post_id, true);
+				if(is_wp_error($upload)){
+					// return the $out['error'] array detailing the error
+				} else {
+					// return the attachment ID(s)
+				}
+			} else {
+				$upload = $this->uploadFile($k, true, $post_id);
+				// returns either error array or array containing ['filepath'] and ['filename']
+			}
+		}
+		
+		
+	}
+	
+	public function uploadImage ($file_field = null, $random_name = false, $post_id = NULL, $check_image = false) {
+		
+		/*
+		
+			Check file extension permitted
+			Check MIME type permitted
+			Chech file size does not exceed limit
+			Check file is a valid image
+			
+		*/
+		
+	   
+		//Config Section    
+		//Define upload path
+		//Set max file size in bytes
+		$max_size = 1000000;
+		//Set default file extension whitelist
+		$whitelist_ext = array('jpg','png','gif');
+		//Set default file type whitelist
+		$whitelist_type = array('image/jpeg', 'image/png','image/gif');
+		
+		//The Validation
+		// Create an array to hold any output
+		$out = array('error'=>null);
+		           
+		if (!$file_field) {
+		$out['error'][] = "Please specify a valid form field name";           
+		}
+		   
+		if (count($out['error'])>0) {
+		return $out;
+		}
+		
+		//Make sure that there is a file
+		if((!empty($_FILES[$file_field])) && ($_FILES[$file_field]['error'] == 0)) {
+			
+		     
+			// Get filename
+			$file_info = pathinfo($_FILES[$file_field]['name']);
+			$name = $file_info['filename'];
+			$ext = $file_info['extension'];
+			           
+			//Check file has the right extension           
+			if (!in_array($ext, $whitelist_ext)) {
+			  $out['error'][] = "Invalid file Extension";
+			}
+			           
+			//Check that the file is of the right type
+			if (!in_array($_FILES[$file_field]["type"], $whitelist_type)) {
+			  $out['error'][] = "Invalid file Type";
+			}
+			           
+			//Check that the file is not too big
+			if ($_FILES[$file_field]["size"] > $max_size) {
+			  $out['error'][] = "File is too big";
+			}
+			           
+			//If $check image is set as true
+			if ($check_image) {
+			  if (!getimagesize($_FILES[$file_field]['tmp_name'])) {
+			    $out['error'][] = "Uploaded file is not a valid image";
+			  }
+			}
+			
+			
+			if(get_class($this) == 'itemdef' && !$post_id){
+			    $out['error'][] = "Entity is an item but no post id provided";				
+			}
+			
+
+			
+			if(!$out['error']){ // Any errors?	
+				
+				//die('no errors, lets do this');			
+				
+				///////////////////////////////////////////
+				//
+				// WordPress upload to media library
+				//
+				///////////////////////////////////////////
+				
+				/*
+				
+					Work out if image upload for a user or item
+					Get question for user or item to validate
+					If item, pass post_id into media_handle_upload
+					
+				*/
+		
+				//die(print_r($_FILES));
+				
+				//$ent = $this->getEntity(); echo 'Entity: '.$ent;
+				
+				if($q = $this->getQuestion($file_field)){
+					//die('file matches an expected field');
+					return media_handle_upload($file_field,($post_id ? $post_id : 0));	// silent error - needs better handlling		
+				} else {
+					$out['error'][] = "File field does not match item or user vars";
+					return $out;
+				}
+				
+				///////////////////////////////////////////
+				//
+				// END WordPress upload to media library
+				//
+				///////////////////////////////////////////
+
+				
+				
+			} else {
+				return $out;
+			}
+		           
+		     
+		} else {
+			
+			$out['error'][] = "No file uploaded";
+			return $out;
+		}      
+	}
+
+
+	public function uploadFile ($file_field = null, $random_name = false, $post_id = NULL) {
+	   
+		//Config Section    
+		//Define upload path
+		$path = $this->uploadPath($post_id);
+		$this->makeFolder($path);
+		//Set max file size in bytes
+		$max_size = 1000000;
+		//Set default file extension whitelist
+		$whitelist_ext = array('txt','rtf','doc','docx','pdf');
+		//Set default file type whitelist
+		$whitelist_type = array('text/plain','application/rtf','text/rtf','application/msword','application/vnd.openxmlformats-officedocument.wordprocessingml.document','application/pdf');
+		
+		//The Validation
+		// Create an array to hold any output
+		$out = array('error'=>null);
+		           
+		if (!$file_field) {
+		$out['error'][] = "Please specify a valid form field name";           
+		}
+
+		if (!$path) {
+		$out['error'][] = "Upload path not defined (possibly function not called by known class object)";           
+		}
+		   
+		if (count($out['error'])>0) {
+		return $out;
+		}
+		
+		//Make sure that there is a file
+		if((!empty($_FILES[$file_field])) && ($_FILES[$file_field]['error'] == 0)) {
+		     
+			// Get filename
+			$file_info = pathinfo($_FILES[$file_field]['name']);
+			$name = $file_info['filename'];
+			$ext = $file_info['extension'];
+			           
+			//Check file has the right extension           
+			if (!in_array($ext, $whitelist_ext)) {
+			  $out['error'][] = "Invalid file Extension";
+			}
+			           
+			//Check that the file is of the right type
+			if (!in_array($_FILES[$file_field]["type"], $whitelist_type)) {
+			  $out['error'][] = "Invalid file Type";
+			}
+			           
+			//Check that the file is not too big
+			if ($_FILES[$file_field]["size"] > $max_size) {
+			  $out['error'][] = "File is too big";
+			}
+			
+			//Create full filename including path
+			if ($random_name) {
+				// Generate random filename
+				$tmp = str_replace(array('.',' '), array('',''), microtime());
+				               
+				if (!$tmp || $tmp == '') {
+				$out['error'][] = "File must have a name";
+				}     
+				$newname = $tmp.'.'.$ext;                                
+			} else {
+			    $newname = $name.'.'.$ext;
+			}
+			           
+			// Check if file already exists on server
+			// Disabled as happy to overwrite
+/*
+			if (file_exists($path.$newname)) {
+			  $out['error'][] = "A file with this name already exists";
+			}
+*/
+			
+			if (count($out['error'])>0) {
+			  //The file has not correctly validated
+			  return $out;
+			} 
+			
+			//Check field name matches object vars
+			if($q = $this->getQuestion($file_field)){
+				if (move_uploaded_file($_FILES[$file_field]['tmp_name'], $_SERVER['DOCUMENT_ROOT'].$path.$newname)) {
+				  //Success
+				  $out['filepath'] = $path;
+				  $out['filename'] = $newname;
+				  return $out;
+				} else {
+				  $out['error'][] = "Server Error!";
+				}
+			}
+		     
+		} else {
+			
+			$out['error'][] = "No file uploaded";
+			return $out;
+			
+		}      
+	}
+	
+	public function uploadPath($post_id = NULL){
+		
+		//Config Section    
+		//Upload pertains to a user
+		if(get_class($this) == 'userdef'){
+			global $user, $usermeta;
+			$usertype = $user->roles[0];
+			$path = DIRECTORY_UPLOADPATH.$usertype.'/'.$user->ID.'/';
+		}
+
+		if(get_class($this) == 'itemdef'){
+			if($post_id) {
+				$itemtype = $this->getItemType();
+				$path = DIRECTORY_UPLOADPATH.$itemtype.'/'.$post_id.'/';
+			} 
+		}
+
+		return $path ? $path : false;
+		
+	}
+	
+	public function getEntity(){
+
+		if(get_class($this) == 'userdef'){
+			global $user, $usermeta;
+			$usertype = $user->roles[0];
+			return $usertype;
+		} else if(get_class($this) == 'itemdef'){
+			return $this->getItemType();
+		} else {
+			return false;
+		}
 
 	}
 	
@@ -557,6 +867,10 @@ class directoryCore {
             return $sorted;
         }
         return $array;
+    }
+    
+    public function makeLink($url){
+	    return 'http://'.preg_replace('@http:\/\/@', '', $url);
     }
     
     public function recursive_array_search($needle,$haystack) {

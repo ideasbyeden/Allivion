@@ -2,10 +2,12 @@
 	<div class="row" id="sharethis">
 		<div class="col-md-12">
 		<h2>Share our content
+<!--
 			<span class='st_linkedin_hcount' displayText='LinkedIn'></span>
 			<span class='st_facebook_hcount' displayText='Facebook'></span>
 			<span class='st_twitter_hcount' displayText='Tweet'></span>
 			<span class='st_googleplus_hcount' displayText='Google +'></span>
+-->
 		</h2>
 		</div>
 	</div>
@@ -53,6 +55,18 @@
 </div>
 
 <?php wp_footer(); ?>
+
+ 	<!-- can't do this - cross domain -->
+ 	<script>
+	 	jQuery(function(){
+		 	jQuery('iframe#a3f7c9f1').on('load', function(){
+			 	var content = jQuery('iframe#a3f7c9f1').contents();
+			 	console.log(content);
+			 	//jQuery('iframe').contents().find('img').css({'width':'225px !important', 'height':'175px !important', 'opacity': '0.5'});			 	
+		 	});
+	 	});
+ 	</script>
+
 
 </body>
 </html>

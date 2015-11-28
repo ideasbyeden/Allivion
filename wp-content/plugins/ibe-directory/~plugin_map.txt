@@ -30,6 +30,7 @@ directory_coreclass.php
 	encrypt
 	decrypt
 	sort2d
+	makeLink - prepends http:// to supplied url
 	recursive_array_search - INCOMPLETE??
 	taxArraySearch
 	

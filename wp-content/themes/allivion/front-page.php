@@ -143,7 +143,7 @@ $returnfields = array('job_title','location','summary','recruiter_name','closing
 
 				<div id="studentships_cats" class="tab-pane fade">
 					<div class="col-xs-4" style="padding: 0px">
-					<ul class="cc3">
+					<ul class="cc1">
 					<?php
 						$parent = get_term_by('name','Studentships','sector');					
 						$terms = get_term_children( intval($parent->term_id), 'sector' );
@@ -169,22 +169,24 @@ $returnfields = array('job_title','location','summary','recruiter_name','closing
 	<div class="row boxad_array boxad_array_1" style="padding-top: 60px; padding-bottom: 40px;">
 		<div class="col-sm-4" style="text-align: center">
 			
-			<ins data-revive-zoneid="2" data-revive-id="523c04aa0cd365ce61130c872042caff"></ins>
-			<script async src="//revive.allivion.com/www/delivery/asyncjs.php"></script>
+			<?php include(TEMPLATEPATH.'/revive-zones/boxad_1.html'); ?>
+<!-- 			<img src="<?php bloginfo('template_url'); ?>/img/box_ad_1.jpg" /> -->
+
 			
 		</div>
 		<div class="col-sm-4" style="text-align: center">
 		
 	
-			<ins data-revive-zoneid="3" data-revive-id="523c04aa0cd365ce61130c872042caff"></ins>
-			<script async src="//revive.allivion.com/www/delivery/asyncjs.php"></script>
+			<?php //include(TEMPLATEPATH.'/revive-zones/boxad_2.html'); ?>
+			<img src="<?php bloginfo('template_url'); ?>/img/box_ad_2.jpg" />
 
 		</div>
 		<div class="col-sm-4" style="text-align: center">
 
 
-			<ins data-revive-zoneid="4" data-revive-id="523c04aa0cd365ce61130c872042caff"></ins>
-			<script async src="//revive.allivion.com/www/delivery/asyncjs.php"></script>
+			<?php //include(TEMPLATEPATH.'/revive-zones/boxad_3.html'); ?>
+			<img src="<?php bloginfo('template_url'); ?>/img/box_ad_3.jpg" />
+
 		</div>
 	</div>	
  
