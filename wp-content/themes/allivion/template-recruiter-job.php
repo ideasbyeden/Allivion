@@ -76,7 +76,11 @@ while (have_posts()) {
 						<?php $job->printGroup('industry_location',$vals); ?>
 					</div>
 					<div class="qpanel">
-						<?php $job->printGroup('details',$vals); ?>
+						<?php $job->printQuestion('summary',$vals['summary']); ?>
+						<?php $job->printQuestion('full_description_limited',$vals['full_description_limited']); ?>
+						<?php $job->printQuestion('full_description',$vals['full_description']); ?>
+						<?php $job->printQuestion('spec_upload',$vals['spec_upload']); ?>
+						<?php if($vals['spec_upload']) echo '<a href="'.$vals['spec_upload'].'" target="_blank">'.get_post_meta($_REQUEST['i'],'spec_upload_label',true).'</a>'; ?>
 					</div>
 					<div class="qpanel">
 						<?php $job->printGroup('extra',$vals); ?>

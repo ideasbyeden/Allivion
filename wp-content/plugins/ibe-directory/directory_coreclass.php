@@ -277,7 +277,7 @@ class directoryCore {
 				case 'file':
 					$output .= $question['label'] ? '<label>'.$question['label'].'</label>' : '';
 					$output .= $question['instructions'] ? '<p class="instructions">'.$question['instructions'].'</p>' : '';
-					$output .= '<input type="file" ';
+					$output .= '<input type="file" class="fileupload"';
 					$output .= $question['name'] ? 'name="'.$question['name'].'" ' : '';
 					$output .= $question['required'] ? 'required="'.$question['required'].'" ' : '';
 					$output .= '/>';
@@ -286,7 +286,7 @@ class directoryCore {
 				case 'image':
 					$output .= $question['label'] ? '<label>'.$question['label'].'</label>' : '';
 					$output .= $question['instructions'] ? '<p class="instructions">'.$question['instructions'].'</p>' : '';
-					$output .= '<input type="file" ';
+					$output .= '<input type="file" class="imageupload"';
 					$output .= $question['name'] ? 'name="'.$question['name'].'" ' : '';
 					$output .= $question['required'] ? 'required="'.$question['required'].'" ' : '';
 					$output .= '/>';
@@ -429,38 +429,12 @@ class directoryCore {
 		}
 	}
 	
-	public function fileUpload($files,$path){
-		
-		// Uploads files to a supplied path
-		// WILL OVERWRITE EXISTING FILES OF THE SAME NAME
-		
-		$filelist = '';
-		$result['completed_upload'] = TRUE;
-		$result['uploaded_list'] = array();
-		$result['failed_upload'] = array();
-	
-
-		foreach($files as $file) {
-		
-		    $file['name'] = preg_replace('/ /', '_', $file['name']);
-			
-			if (move_uploaded_file($file['tmp_name'],$path.$file['name'])) {
-	           	$result['uploaded_list'][] = $path.$file['name'];
-	        } else {
-	        	$result['completed_upload'] = FALSE;
-		        $result['failed_upload'][] = $file['name'];
-	        }
-	        	
-		}
-		
-
-	}
-	
 	
 	public function uploadFiles($post_id = NULL){
 		
 		/*
 		
+			Check $_FILES actually contains file data
 			Iterate through $_FILES
 			Check each file type, decide if image or other
 			redirect to uploadImage() or uploadFile()
@@ -475,21 +449,21 @@ class directoryCore {
 		///////////////////////////////////////////
 		
 
-		
-		foreach($_FILES as $k=>$v){
-			if (getimagesize($_FILES[$k]['tmp_name'])) {
-				$upload = $this->uploadImage($k, false, $post_id, true);
-				if(is_wp_error($upload)){
-					// return the $out['error'] array detailing the error
-				} else {
-					// return the attachment ID(s)
+		if($_FILES){
+			$uploads = false;
+			foreach($_FILES as $k=>$v){
+				if($_FILES[$k]['tmp_name'] && $_FILES[$k]['tmp_name'] != ''){
+					if (getimagesize($_FILES[$k]['tmp_name'])) {
+						$upload = $this->uploadImage($k, false, $post_id, true);
+					} else {
+						$upload = $this->uploadFile($k, true, $post_id);
+					}
 				}
-			} else {
-				$upload = $this->uploadFile($k, true, $post_id);
-				// returns either error array or array containing ['filepath'] and ['filename']
+				$uploads[] = $upload;	
 			}
-		}
-		
+			return $uploads;
+
+		}		
 		
 	}
 	
@@ -582,16 +556,20 @@ class directoryCore {
 					
 				*/
 		
-				//die(print_r($_FILES));
-				
-				//$ent = $this->getEntity(); echo 'Entity: '.$ent;
-				
+								
 				if($q = $this->getQuestion($file_field)){
 					//die('file matches an expected field');
-					return media_handle_upload($file_field,($post_id ? $post_id : 0));	// silent error - needs better handlling		
+					$attachment = media_handle_upload($file_field,((get_class($this) == 'itemdef' && $post_id) ? $post_id : 0));	// silent error - needs better handlling		
+					if(is_wp_error($attachment)) {
+						$out['error'][] = "Image was not uploaded to media library";
+					} else {
+						$out['varname'] = $file_field;
+						$out['attachment_id'] = $attachment;
+						$out['original_filename'] = $name.'.'.$ext;
+					}
+					
 				} else {
 					$out['error'][] = "File field does not match item or user vars";
-					return $out;
 				}
 				
 				///////////////////////////////////////////
@@ -601,17 +579,14 @@ class directoryCore {
 				///////////////////////////////////////////
 
 				
-				
-			} else {
-				return $out;
-			}
-		           
+			}		
 		     
-		} else {
-			
+		} else {			
 			$out['error'][] = "No file uploaded";
-			return $out;
 		}      
+		
+		return $out;
+		
 	}
 
 
@@ -697,8 +672,10 @@ class directoryCore {
 			if($q = $this->getQuestion($file_field)){
 				if (move_uploaded_file($_FILES[$file_field]['tmp_name'], $_SERVER['DOCUMENT_ROOT'].$path.$newname)) {
 				  //Success
+				  $out['varname'] = $file_field;
 				  $out['filepath'] = $path;
 				  $out['filename'] = $newname;
+				  $out['original_filename'] = $name.'.'.$ext;
 				  return $out;
 				} else {
 				  $out['error'][] = "Server Error!";

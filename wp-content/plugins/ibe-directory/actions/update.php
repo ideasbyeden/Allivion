@@ -4,16 +4,40 @@ add_action("wp_ajax_directory_update", "directory_update");
 
 function directory_update(){
 	
-	//echo '<pre>'; print_r($_REQUEST); echo '</pre>';
-	
+	// Nonce check	
 	if ( !wp_verify_nonce( $_REQUEST['nonce'], 'directory_update_nonce')) {
       exit('You are not authorised to take this action');
 	} 
 	
+	// Was post ID provided
 	if(!$_REQUEST['post_id']) exit('No post ID was supplied');
 	
+	
+	// get relevant object
 	$type = $_REQUEST['type'];
 	global $$type;
+	
+	
+	// Check if files were submitted with the form
+	// NB If handed by AJAX FormData, $_FILES still exists but array contains no file data
+	$uploads = $$type->uploadFiles($_REQUEST['post_id']);
+	if($uploads){
+		foreach($uploads as $upload){
+			// need to ensure these are mutually exclusive
+			if($upload['attachment_id']) {
+				update_post_meta($_REQUEST['post_id'],$upload['varname'],array($upload['attachment_id']));
+				update_post_meta($_REQUEST['post_id'],$upload['varname'].'_label',$upload['original_filename']);
+				//die(print_r($_REQUEST));
+			} else  {
+				update_post_meta($_REQUEST['post_id'],$upload['varname'],$upload['filepath'].$upload['filename']);
+				update_post_meta($_REQUEST['post_id'],$upload['varname'].'_label',$upload['original_filename']);
+			}
+		}
+		die(print_r($uploads));
+	}
+	//die(print_r($uploads));
+
+
 	$varnames = $$type->getVarNames();
 	
 	foreach($varnames as $var){
@@ -34,7 +58,6 @@ function directory_update(){
 	}
 	
 	//if($_FILES) die('files found');
-	if($_FILES) $$type->uploadFiles($_REQUEST['post_id']);
 	
 
 	if($_SERVER['HTTP_X_REQUESTED_WITH'] && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {

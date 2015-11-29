@@ -17,14 +17,18 @@ jQuery(function(){
 	function submitForm(form){
 		
 		//tinyMCE.triggerSave();
-		var data = form.serialize();
-		console.log(data);
+		//var data = form.serialize();
+		
+		var data = new FormData(form[0]);
+
 		
 		jQuery.ajax({
 			type: 'POST',
-			url:  directory_update.ajaxurl,
+			url:  directory_update_user.ajaxurl,
 			data: data,
-			dataType: 'json',
+			cache: false,
+			contentType: false,
+			processData: false,
 					
 			success: function(result){
 				if(autosave){

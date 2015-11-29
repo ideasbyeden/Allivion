@@ -104,9 +104,19 @@ $vars = array(
 	),
 	
 	array(
+		'name' => 'cv_upload',
+		'label' => 'Upload CV',
+		'placeholder' => '',
+		'fieldtype' => 'file',
+		'multiple' => 'false',
+		'group' => 'profile'
+	),
+
+	
+	array(
 		'name' => 'cv_intro',
 		'label' => 'Introduction',
-		'instructions' => 'Please do not include any contact information in the fields below',
+		'instructions' => 'Please do not include any contact information in the fields below. This is the information that recruiters will be able to search against to find candidates.',
 		'placeholder' => '',
 		'fieldtype' => 'textarea',
 		'group' => 'profile'

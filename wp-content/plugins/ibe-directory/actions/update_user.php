@@ -94,36 +94,7 @@ function directory_update_user(){
 	}	
 		
 	
-	// If files, upload
-	if ($_FILES) { 
-		
-		//die(print_r($_FILES));
-		
-		$vars = $$role->getVars();
-		
-		//die(print_r($_FILES));
-		foreach($_FILES as $k=>$v){ // currently assumes all uploads are images
-			if($q = $$role->getQuestion($k)){
-				
-				$attach_id = media_handle_upload($k,0);	// silent error - needs better handlling		
-				if(!is_wp_error($attach_id)){
-					if($q['multiple'] == 'true'){
-						$images = get_user_meta($update_user['ID'], $k, true);
-						if(!is_array($images) || empty($images)) { $images = array(); }
-				     	$images[] = strval($attach_id);
-					} else {
-						$images = array();
-				     	$images[] = strval($attach_id);
-					}
-					$update_usermeta[$k] = $images;
-				}
-				
-								
-			}
-		}
-		unset($_FILES);
-	
-	}
+
 	
 	// Set ID of user we're updating
 	if($params['ID']) die('Unsecured ID provided, please use encrypted field function');
@@ -147,6 +118,9 @@ function directory_update_user(){
 */
 
 	//die();
+	
+	
+
 
 
 	
@@ -158,6 +132,22 @@ function directory_update_user(){
 				update_user_meta($update_user['ID'],$k,$v);
 			}
 		}
+		
+		// Check if files were submitted with the form
+		// NB If handed by AJAX FormData, $_FILES still exists but array contains no file data
+		$uploads = $$role->uploadFiles();
+		if($uploads){
+			foreach($uploads as $upload){
+				if($upload['attachment_id']) {
+					update_user_meta($update_user['ID'],$upload['varname'],array($upload['attachment_id']));
+					update_user_meta($update_user['ID'],$upload['varname'].'_label',$upload['original_filename']);
+				} else  {
+					update_user_meta($update_user['ID'],$upload['varname'],$upload['filepath'].$upload['filename']);
+					update_user_meta($update_user['ID'],$upload['varname'].'_label',$upload['original_filename']);
+				}
+			}
+		}
+
 	
 	// errors found, return to form with error details	
 	} else {

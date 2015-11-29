@@ -38,6 +38,8 @@ while (have_posts()) {
 ?>
 
 <div class="container">
+	
+<!-- 			<pre><?php print_r($usermeta); ?></pre> -->
 
 			<form class="directory <?php echo $candidate->role; ?> updateuser" id="updateprofile" action="<?php echo admin_url('admin-ajax.php'); ?>" method="post" enctype= "multipart/form-data">
 	<div class="row">
@@ -74,6 +76,10 @@ while (have_posts()) {
 				<div class="col-md-6">
 					<div class="qpanel">
 						<?php //wp_editor( $usermeta['intro'], 'intro', $settings = array('media_buttons' => false,'textarea_name' => 'cv','tinymce' => true,'teeny' => false,'quicktags' => true,'textarea_rows' => 50) ); ?>
+						<?php $candidate->printQuestion('cv_upload',$usermeta['cv_intro']); ?>
+						<?php if($usermeta['cv_upload']) echo '<a href="'.$usermeta['cv_upload'].'" target="_blank">'.get_user_meta($user->ID,'cv_upload_label',true).'</a><p></p>'; ?>
+
+						
 						<?php $candidate->printQuestion('cv_intro',$usermeta['cv_intro']); ?>
 						<?php $candidate->printQuestion('cv_positions',$usermeta['cv_positions']); ?>
 						<?php $candidate->printQuestion('cv_education',$usermeta['cv_education']); ?>
