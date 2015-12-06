@@ -27,15 +27,12 @@ function directory_update(){
 			if($upload['attachment_id']) {
 				update_post_meta($_REQUEST['post_id'],$upload['varname'],array($upload['attachment_id']));
 				update_post_meta($_REQUEST['post_id'],$upload['varname'].'_label',$upload['original_filename']);
-				//die(print_r($_REQUEST));
 			} else  {
 				update_post_meta($_REQUEST['post_id'],$upload['varname'],$upload['filepath'].$upload['filename']);
 				update_post_meta($_REQUEST['post_id'],$upload['varname'].'_label',$upload['original_filename']);
 			}
 		}
-		die(print_r($uploads));
 	}
-	//die(print_r($uploads));
 
 
 	$varnames = $$type->getVarNames();
@@ -57,7 +54,6 @@ function directory_update(){
 		$result[$var] = $_REQUEST[$var];
 	}
 	
-	//if($_FILES) die('files found');
 	
 
 	if($_SERVER['HTTP_X_REQUESTED_WITH'] && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {

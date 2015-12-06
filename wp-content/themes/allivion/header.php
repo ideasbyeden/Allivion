@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -124,9 +123,9 @@
 					<div class="col-sm-6">
 						<?php if($user) echo '<p class="loginstatus">Logged in as <span class="name">'.$user->display_name.'</span></p>'; ?>
 					</div>
-						<nav id="main">
-							<?php wp_nav_menu('theme_location=main'); ?>
-						</nav>
+					<nav id="main">
+						<?php wp_nav_menu('theme_location=main'); ?>
+					</nav>
 				</div>
 			</div>
 		</div>

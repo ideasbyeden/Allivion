@@ -252,7 +252,7 @@ $vars = array(
 		'placeholder' => '',
 		'fieldtype' => 'richtext',
 		'group' => 'details',
-		'limit' => '20'
+		'limit' => '600'
 	),
 	
 	array(

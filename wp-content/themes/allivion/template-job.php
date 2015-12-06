@@ -55,12 +55,11 @@ $uservals['email'] = $user->user_email;
 	<div class="row">
 		
 		
-		
 		<div class="col-md-8">
 
 			<div>
 				<?php
-					if($vals['ad_type'][0] != 'standard' && $employer['brand_header']){
+					if($vals['ad_type'][0] && $vals['ad_type'][0] != 'standard' && $employer['brand_header']){
 						foreach(unserialize($employer['brand_header']) as $image_id) echo '<span id="brand_header">'.wp_get_attachment_image($image_id,'brand_header').'</span>';						
 					} else if($employer['logo']) {
 						foreach(unserialize($employer['logo']) as $image_id) echo '<span id="logo">'.wp_get_attachment_image($image_id,'recruiter_icon_small').'</span>';
