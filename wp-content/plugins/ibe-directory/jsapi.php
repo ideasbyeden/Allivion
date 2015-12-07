@@ -13,15 +13,16 @@ function jsapi(){
 		
 		$result['question'] = $$type->getQuestion($_POST['name']);
 		
-		if($_POST['value'] && $result['question']){
-			if(is_array($result['question']['value'])){
+		if($_POST['value'] && $result['question']){ // have a matching question and param supplied
+			if(is_array($result['question']['value'])){ // question is defined as multichoice
+				// Multichoice search (not necessarily a taxonomy)
 				$result['value'] = $$type->taxArraySearch($_POST['value'],$result['question']['value']);
+				echo 'jsapi: '.$result['value']; 
 			} else {
 				$result['value'] = $_POST['value'];
 			}
 		}
 		
-		echo 'Found value: '.$result['value'].' endfound';
 
 		echo json_encode($result);
 		exit();

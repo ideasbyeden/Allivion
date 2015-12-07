@@ -32,6 +32,7 @@ $returnfields = array('job_title','location','summary','recruiter_name','publish
 
 <script>
 	// Updates purple panel with search params
+/*
 	jQuery(document).ajaxSuccess(function( event, xhr, settings ) {
 		var data = queryStringToJSON(settings.data)
 		if(data.action == 'directory_search'){
@@ -75,6 +76,21 @@ $returnfields = array('job_title','location','summary','recruiter_name','publish
 
 		}
 	});
+*/
+
+	jQuery(function(){
+		jQuery('form.directory.search').submit(function(e){
+			jQuery('#job_bullets table').html('');
+			jQuery(this).find('select').each(function(){
+				if(jQuery(this).val() != ''){
+					var label = jQuery(this).attr('label');
+					var opval = jQuery(this).find('option:selected').text().replace(/^- /,'');
+					
+	 			jQuery('#job_bullets table').append('<tr><td style="width:50%">'+label+'</td><td><strong>'+opval+'</strong></td></tr>').hide().fadeIn(100);
+	 			}
+			});
+		});
+	});	
 	
 	jQuery(function(){
 		jQuery('#togglesearchform').click(function(){
@@ -104,11 +120,15 @@ $returnfields = array('job_title','location','summary','recruiter_name','publish
 
 </script>
 
+<!-- <pre><?php print_r($job->getVars()); ?></pre> -->
+
 <div class="container">
 	<div class="stage" style="margin: 0">
 		
 		<div class="col-md-12">
-			<h1 class="purple">Job advertisements</h1>
+			<div class="row">
+				<h1 class="purple">Job advertisements</h1>
+			</div>
 		</div>
 						
 			<div class="qtrcol sticky">
@@ -154,7 +174,7 @@ $returnfields = array('job_title','location','summary','recruiter_name','publish
 								
 								
 							?>
-							<input type="submit" value="Search" class="fr" onClick="formclose('popoutform');"/>
+							<input type="submit" value="Go" onClick="formclose('popoutform');"/>
 							<div class="clear"></div>
 							
 						</form>
@@ -174,11 +194,12 @@ $returnfields = array('job_title','location','summary','recruiter_name','publish
 			
 <!-- 			<pre><?php print_r($items); ?></pre> -->
 
-			<div class="threeqtrscol">
+			<div class="threeqtrscol" style="padding-right: 0px;">
 				<table class="searchresults">
 					
 					<thead>
 						<tr>
+							<td></td>
 							<td>
 								<form class="directory <?php echo $job->type; ?> search sortform" id="searchjobs" action="<?php echo admin_url('admin-ajax.php'); ?>" method="post" return="<?php echo implode(',', $returnfields); ?>" targetid="jobslist" clickableurl="/job">
 									<?php foreach($_GET as $k=>$v) { ?>
@@ -206,19 +227,7 @@ $returnfields = array('job_title','location','summary','recruiter_name','publish
 									<input type="submit" value="Published" />
 								</form>
 							</td>
-							<td><form class="directory <?php echo $job->type; ?> search sortform" id="searchjobs" action="<?php echo admin_url('admin-ajax.php'); ?>" method="post" return="<?php echo implode(',', $returnfields); ?>" targetid="jobslist" clickableurl="/job">
-									<?php foreach($_GET as $k=>$v) { ?>
-										<input type="hidden" name="<?php echo $k ; ?>" value="<?php echo $v; ?>" />
-									<?php } ?>
-									<input type="hidden" name="nonce" value="<?php echo wp_create_nonce("directory_search_nonce"); ?>" />
-									<input type="hidden" name="action" value="directory_search" />
-									<input type="hidden" name="encrypted" value="<?php echo $dircore->encrypt('type=job'); ?>" />
-									<input type="hidden" name="inc_search_count" value="false" />
-									<input type="hidden" name="orderby" value="salary_details" />
-									<input type="submit" value="Salary" />
-								</form>
-							</td>
-							<td></td>
+							
 							<td><form class="directory <?php echo $job->type; ?> search sortform" id="searchjobs" action="<?php echo admin_url('admin-ajax.php'); ?>" method="post" return="<?php echo implode(',', $returnfields); ?>" targetid="jobslist" clickableurl="/job">
 									<?php foreach($_GET as $k=>$v) { ?>
 										<input type="hidden" name="<?php echo $k ; ?>" value="<?php echo $v; ?>" />
@@ -238,36 +247,46 @@ $returnfields = array('job_title','location','summary','recruiter_name','publish
 					<tbody id="jobslist">
 						
 					<tr class="prototype" data-href="/job?i=">
+						<td style="width: 60px;">[logo_image]</td>
 						<td>
 							<h4>[job_title], [location]</h4>
-							<h5>[recruiter_name]</h5>
-							<p>[summary]</p>
+							<p>[department]</p>
+							<p><strong>[recruiter_name]</strong></p>
+							<p><strong>Salary </strong>[salary_details]</p>
 						</td>
 						<td>[publish_from]</td>
-						<td>[salary_details]</td>
-						<td style="width: 60px;">[logo_image]</td>
 						<td>[closing_date]</td>
 					</tr>
 								
 					<?php if(count($items->posts) > 0) foreach ($items->posts as $item){ ?>
 					
-						<tr class="clickable rowitem <?php if($item->meta['promote'][0] == $_REQUEST['industry'] && $item->meta['promote_enabled'] != '') echo 'promoted'; ?>" data-href="/job?i=<?php echo $item->ID; ?>">
-							<td>
-								<h4><?php echo $item->meta['job_title']; ?><?php if($item->meta['location']) echo ', '.$item->meta['location']; ?></h4>
-								<h5><?php echo $item->groupmeta['recruiter_name']; ?></h5>
-								<p><?php echo $item->meta['summary']; ?></p>
-							</td>
-							<td>
-								<?php echo $item->meta['publish_from'] ? time2str($item->meta['publish_from']) : ''; ?>
-							</td>
-							<td>
-								<?php echo $item->meta['salary_details']; ?>
-							</td>
+						<?php // Promoted (Sponsored) or Premium logic
+							$class = '';
+							if($item->meta['ad_type'][0] == 'premium') $class = 'premium';
+							if($item->meta['ad_type'][0] == 'sponsored') {
+								if($item->meta['promote'][0] == $_REQUEST['industry'] && $item->meta['promote_enabled'][0] == 'enabled') {
+									$class = 'promoted';
+								}
+							}
+							
+							?>
+					
+						<tr class="clickable rowitem <?php echo $class ?>" data-href="/job?i=<?php echo $item->ID; ?>">
 							<td style="width: 60px;">
 								<?php if($item->groupmeta['logo']) { ?>
 										<?php foreach($item->groupmeta['logo'] as $image_id) echo wp_get_attachment_image($image_id,'tinythumb'); ?>
 								<?php } ?>
 							</td>
+							<td>
+								<h4><?php echo $item->meta['job_title']; ?><?php if($item->meta['location']) echo ', '.$item->meta['location']; ?></h4>
+								<p><?php echo $item->meta['department'] ? $item->meta['department'].'<br />' : ''?>
+								<p><strong><?php echo $item->groupmeta['recruiter_name']; ?></strong></p>
+								<p><strong>Salary </strong><?php echo $item->meta['salary_details']; ?></p>
+							</td>
+							<td>
+								<?php echo $item->meta['publish_from'] ? time2str($item->meta['publish_from']) : ''; ?>
+							</td>
+
 							<td>
 								<?php echo $item->meta['closing_date'] ? date('jS M Y',strtotime($item->meta['closing_date'])) : ''; ?>
 							</td>

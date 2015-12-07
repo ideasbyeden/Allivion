@@ -1,4 +1,4 @@
-html {
+#html {
 	height: 100%;
 	padding: 0px;
 	margin: 0px;
@@ -165,7 +165,7 @@ img {
 }
 
 #homefeaturedjobs .nav-tabs {
-	margin-left: 0px;
+ 	margin-left: 0px;	
 }
 
 #homefeaturedjobs .nav-tabs li {
@@ -189,7 +189,7 @@ img {
 	display: block;
 	width: 32px;
 	height: 32px;
-	position: absolute;
+1	position: absolute;
 	left: 15px;
 	top: 15px;
 	background-position: center center;
@@ -571,21 +571,22 @@ img {
 }
 
 .qpanel.tabbed {
-	border-radius: 0 8px 8px 8px;
-	-moz-border-radius: 0 8px 8px 8px;
-	-webkit-border-radius: 0 8px 8px 8px;	
+	border-radius: 8px 8px 8px 8px;
+	-moz-border-radius: 8px 8px 8px 8px;
+	-webkit-border-radius: 8px 8px 8px 8px;	
 }
 
 ul.tabs {
 	position: absolute;
 	top: -30px;
 	left: 0px;
+	margin: 0px !important;
 }
 
 ul.tabs li {
 	display: inline-block;
 	background-color: #DDDDDD;
-	height: 22px;
+	height: 30px;
 	padding: 4px 8px 4px 8px;
 	margin: 0 2px 0 0;
 	border-radius: 4px 4px 0 0;
@@ -749,7 +750,6 @@ ul.tabs li.active {
 	background: #d5c9de url(../img/sponsored_paleorange.png) repeat-x !important;
 }
 
-
 .searchresults tbody tr.promoted {
 	background: #d5c9de url(../img/promote_palepurple.png) repeat-x !important;
 }
@@ -760,17 +760,12 @@ ul.tabs li.active {
 
 
 .searchresults td {
-	padding: 0px 8px 6px;
+	padding: 0px 8px;
 	margin-bottom: 4px;
 }
 
 .searchresults img {
 	width: 50px;
-}
-
-.searchresults p {
-	margin: 0 0 6px 0;
-	line-height: 1em;
 }
 
 .clickable {
@@ -782,7 +777,7 @@ tr.clickable:hover {
 }
 
 #job_bullets {
-	min-height: 200px;
+	min-height: 250px;
 	padding: 0px;
 }
 
@@ -846,6 +841,8 @@ tr.clickable:hover {
 	position: relative;
 	float: left;
 	clear: none;
+	padding-bottom: 40px;
+	padding-right: 12px;
 }
 
 
@@ -884,6 +881,19 @@ tr.clickable:hover {
 
 #job_bullets .popoutform .question input[type='text'] {
 	margin-left: -3px !important;
+}
+
+.application-form input[type='submit']{
+	border: 0px;
+	background: none;
+	font-family: "Source Sans Pro", sans-serif;
+	color: #53247E;
+	font-size: 1.2em;
+	float: right;
+	padding-right: 24px;
+	background-image: url(../img/submit-icon.png);
+	background-repeat: no-repeat;
+	background-position: right center;
 }
 
 

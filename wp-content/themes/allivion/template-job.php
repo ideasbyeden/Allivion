@@ -55,7 +55,7 @@ $uservals['email'] = $user->user_email;
 	<div class="row">
 		
 		
-		<div class="col-md-8">
+		<div class="col-md-12">
 
 			<div>
 				<?php
@@ -69,8 +69,14 @@ $uservals['email'] = $user->user_email;
 			
 			<hr>
 
-			<h6><span id="employer"><?php echo $employer['recruiter_name']; ?></span></h6>
-			<h6><span id="salary_details"><?php echo $vals['salary_details'] ? $vals['salary_details'] : 'Salary'; ?></span></h6>
+			<h4><span id="employer"><?php echo $employer['recruiter_name']; ?></span></h6>
+			<h4>
+				<span id="salary_details">
+					<?php
+						echo $job->getCurrencySymbol('en_GB',$vals['salary_currency'][0]);
+						echo $vals['salary_details'] ? number_format($vals['salary_details'],0,'.',',') : 'Salary'; ?>
+				</span>
+			</h6>
 			<div>
 				<span id="full_description">
 					<?php if($vals['ad_type'][0] == 'standard'){
@@ -84,7 +90,7 @@ $uservals['email'] = $user->user_email;
 			
 			<div class="clear" style="margin-bottom: 50px;"></div>
 
-			<form class="directory <?php echo $job->type; ?> create" id="job" action="<?php echo admin_url('admin-ajax.php'); ?>" method="post">
+			<form class="directory <?php echo $job->type; ?> create application-form" id="job" action="<?php echo admin_url('admin-ajax.php'); ?>" method="post">
 				
 				<input type="hidden" name="post_id" value="<?php echo $_REQUEST['i']; ?>" />
 				<input type="hidden" name="type" value="<?php echo $application->getItemType(); ?>" />
@@ -97,11 +103,14 @@ $uservals['email'] = $user->user_email;
  				<input type="hidden" name="formafter" value="hide" />
 				
 				<div class="qpanel tabbed">
+					<h3 class="purple" style="margin-top: 0px;">Apply now</h3>
+<!--
 					<ul class="tabs">
 						<li class="active">Application form</li>
 						<?php if(!$user) echo '<li><a href="/log-in" class="show_login" redirect="'.$_SERVER['REQUEST_URI'].'">Log in</a></li>'; ?>
 						<li><a href="?linkedin=login">Apply with LinkedIn</a></li>
 					</ul>
+-->
 					
 					<?php if(!$user) { ?>
 					<h4>Already registered?</h4>
@@ -113,6 +122,7 @@ $uservals['email'] = $user->user_email;
 					<?php $application->printQuestion('job_title',$vals['job_title']); ?>
 					<?php $application->printQuestion('job_ref',$vals['job_ref']); ?>
 					<input type="submit" value="Submit application" />
+					<div class="clear"></div>
 				</div>
 
 			</form>
@@ -138,21 +148,7 @@ $uservals['email'] = $user->user_email;
 			
 		</div><!-- end threeqtrscol -->
 		
-		<div class="col-md-4 sticky">
-			<div class="qpanel purplegrad" id="job_bullets" style="padding: 12px;">
-				<table>
-				<?php $job->printDetail('salary_details',$vals) ?>
-				<?php $job->printDetail('location',$vals) ?>
-				<?php $job->printDetail('industry',$vals) ?>
-				<?php $job->printDetail('job_func',$vals) ?>
-				<?php $job->printDetail('job_level',$vals) ?>
-				<?php $job->printDetail('contract',$vals) ?>
-				<?php $job->printDetail('hours',$vals) ?>
-				<?php $job->printDetail('posted',$vals) ?>
-				<?php $job->printDetail('closes',$vals) ?>
-				</table>
-			</div>
-		</div>
+
 
 		<div class="clear"></div>
 		

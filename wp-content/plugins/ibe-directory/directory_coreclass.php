@@ -183,6 +183,7 @@ class directoryCore {
 					$output .= $question['instructions'] ? '<p class="instructions">'.$question['instructions'].'</p>' : '';
 					$output .= '<select ';
 					$output .= $question['name'] ? 'name="'.$question['name'].'" ' : '';
+					$output .= $question['label'] ? 'label="'.$question['label'].'" ' : '';
 					$output .= $question['placeholder'] ? 'placeholder="'.$question['placeholder'].'" ' : '';
 					$output .= $question['required'] ? 'required="'.$question['required'].'" ' : '';
 					$output .= '>';
@@ -861,19 +862,41 @@ class directoryCore {
 	    return false;
 	}
 	
-	public function taxArraySearch($needle,$haystack,$selfcall = null) {
-	 	    
+	public function taxArraySearch($needle,$haystack,$found = null) {
+	 	
 	    foreach($haystack as $key=>$value) {
 	        if($needle == $value['slug']) {
-	            $found = $key;
-	        } elseif (is_array($value['children'])) {
-		        $this->taxArraySearch($needle,$value['children'],'twasme');
-		    }
+		        $found = $key;
+		        return $found;
+			} else if(!$found && $value['children'] && is_array($value['children'])){
+				$this->taxArraySearch($needle,$value['children'],$found);
+			}
+	        
 	    }
-	    echo 'selfcall: '.$selfcall.'\\n';
-	    echo 'Needle: '.$needle.'\\n';
-	    echo 'Found it - '. $found.'\\n';
-	    return 'steve';
+	    
+	    return false;	    
+		
+	}
+	
+	public function arraySearch($needle,$haystack){
+		$key = array_search($needle, array_column($haystack, 'slug'));
+		echo 'Found key: '.$key;
+	}
+	
+	public function getCurrencySymbol($locale, $currency)
+	{
+	    // Create a NumberFormatter
+	    $formatter = new NumberFormatter($locale, NumberFormatter::CURRENCY);
+	
+	    // Figure out what 0.00 looks like with the currency symbol
+	    $withCurrency = $formatter->formatCurrency(0, $currency);
+	
+	    // Figure out what 0.00 looks like without the currency symbol
+	    $formatter->setPattern(str_replace('¤', '', $formatter->getPattern()));
+	    $withoutCurrency = $formatter->formatCurrency(0, $currency);
+	
+	    // Extract just the currency symbol from the first string
+	    return str_replace($withoutCurrency, '', $withCurrency);    
 	}
 
 	

@@ -122,6 +122,15 @@ $vars = array(
 		'group' => 'headline',
 		'keyword' => 'true'
 	),
+
+	array(
+		'name' => 'department',
+		'label' => 'Department',
+		'placeholder' => '',
+		'fieldtype' => 'text',
+		'group' => 'headline',
+		'keyword' => 'true'
+	),
 	
 	array(
 		'name' => 'salary_range',

@@ -170,6 +170,16 @@ function directory_search($params = null){
 				$v[0] = implode(',&nbsp;', $foundkeys);
 			}
 */
+
+
+			// converts salary string to currency format
+			// needs better interception of strings already formatted
+			if($k == 'salary_details' && $v[0]){
+				$currcode = unserialize($meta['salary_currency'][0]);
+				$currsym = $$type->getCurrencySymbol('en_GB',$currcode[0]);
+				$salval = preg_replace("/[^0-9.]/", "", $v[0]);
+				$v[0] = $$currsym.number_format(floatval($salval),0,'.',',');
+			}
 			
 			$cleanmeta[$k] = unserialize($v[0]) ? unserialize($v[0]) : $v[0];
 		}
@@ -243,7 +253,7 @@ function directory_search($params = null){
 		}
 		
 		// build posts array with promoted items first
-		if($thispost->meta['promote'] != '' && $thispost->meta['promote_enabled'] != ''){
+		if($thispost->meta['promote'][0] != '' && $thispost->meta['promote_enabled'][0] != ''){
 			array_unshift($posts, $thispost);	
 		} else {
 			$posts[] = $thispost;
