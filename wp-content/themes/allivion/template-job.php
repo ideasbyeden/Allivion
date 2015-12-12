@@ -50,12 +50,12 @@ $uservals['email'] = $user->user_email;
 
 
 ?>
-
+<div class="container-fluid single-job">
 <div class="container">
 	<div class="row">
 		
-		
 		<div class="col-md-8">
+			<div class="whitepanel">
 
 			<div>
 				<?php
@@ -74,12 +74,12 @@ $uservals['email'] = $user->user_email;
 				<h5>Location: <strong><?php echo $vals['location']; ?></strong></h5>
 				<h5>Salary: <strong><?php echo $vals['salary_details']; ?></strong></h5>
 				<h5>Hours: <strong><?php echo $vals['hours']; ?></strong></h5>
-				<h5>Contract: <strong><?php echo $vals['contract']; ?></strong></h5>
+				<h5>Contract: <strong><?php echo $vals['contract'][0]; ?></strong></h5>
 				<h5>Job ref: <strong><?php echo $vals['job_ref']; ?></strong></h5>
 			</div>
 			<div class="col-md-4" style="">
 				<h5>Further information</h5>
-				
+				<?php if($vals['spec_upload']) echo '<a href="'.$vals['spec_upload'].'" target="_blank"><strong>'.get_post_meta($_REQUEST['i'],'spec_upload_label',true).'</strong></a><p></p>'; ?>
 			</div>
 			<div class="col-md-4" style="text-align: center;">
 				
@@ -163,21 +163,45 @@ $uservals['email'] = $user->user_email;
 				</div>				
 			</form>
 		
-			
+			</div>
 		</div><!-- end threeqtrscol -->
 		
 		<div class="col-md-4">
-			<h4 class="purple">Share this job</h4>
+			<h3 class="purple">Share this job</h3>
 			<span class='st_linkedin_hcount' displayText='LinkedIn'></span>
 			<span class='st_facebook_hcount' displayText='Facebook'></span>
 			<span class='st_twitter_hcount' displayText='Tweet'></span>
 			<span class='st_googleplus_hcount' displayText='Google +'></span>
+			
+			
+			<h3 class="purple">Other jobs from <?php echo $employer['recruiter_name']; ?></h3>
+			
+			<?php $args = array(
+					'post_type' => 'job',
+					'meta_query' => array(
+						array(
+							'key'     => 'group_id',
+							'value'   => $vals['group_id'],
+						),
+					)
+				);
+				
+				$others = new WP_Query($args);
+				
+				while($others->have_posts()) : $others->the_post(); if($_REQUEST['i'] != get_the_id()) { ?>
+				
+				<h5><a href="/job?i=<?php echo get_the_id(); ?>">
+					<?php echo get_post_meta(get_the_id(),'job_title',true); ?>
+				</a></h5>
+				
+				<?php } endwhile; wp_reset_postdata(); ?>
 		</div>
 
 
 		<div class="clear"></div>
 		
 	</div>
+</div>
 </div>
 
 <?php get_footer(); ?>

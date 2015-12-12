@@ -75,7 +75,7 @@
 
 
  		
-	<?php global $user, $usermeta; 
+	<?php global $user, $usermeta, $type; 
 		if($user) { ?>
 			<style>
 				.loggedinshow{display:inherit;}

@@ -248,10 +248,17 @@ $returnfields = array('job_title','location','summary','recruiter_name','publish
 							<h4>[job_title], [location]</h4>
 							<p>[department]</p>
 							<p><strong>[recruiter_name]</strong></p>
-							<p><strong>Salary </strong>[salary_details]</p>
+							<p>Salary <strong>[salary_details]</strong></p>
+							<p>Placed on <strong>[publish_from]</strong></p>
 						</td>
-						<td>[publish_from]</td>
-						<td>[closing_date]</td>
+						<td></td>
+						<td style="text-align: center">
+							<p>Closes</p>
+							<div class="calpanel">
+								<div class="day">[closing_date]</div>
+								<div class="month"></div>
+							</div>
+						</td>
 					</tr>
 								
 					<?php if(count($items->posts) > 0) foreach ($items->posts as $item){ ?>
@@ -277,14 +284,24 @@ $returnfields = array('job_title','location','summary','recruiter_name','publish
 								<h4><?php echo $item->meta['job_title']; ?><?php if($item->meta['location']) echo ', '.$item->meta['location']; ?></h4>
 								<p><?php echo $item->meta['department'] ? $item->meta['department'].'<br />' : ''?>
 								<p><strong><?php echo $item->groupmeta['recruiter_name']; ?></strong></p>
-								<p><strong>Salary </strong><?php echo $item->meta['salary_details']; ?></p>
+								<p>Salary <strong><?php echo $item->meta['salary_details']; ?></strong></p>
+								<p>Placed on <strong><?php echo $item->meta['publish_from']; ?></strong></p>
 							</td>
 							<td>
-								<?php echo $item->meta['publish_from']; ?>
+								<?php //echo $item->meta['publish_from']; ?>
 							</td>
 
-							<td>
-								<?php echo $item->meta['closing_date'];  ?>
+							<td style="text-align: center">
+								
+								<?php if($item->meta['closing_date']) {
+									$datearr = explode(' ', $item->meta['closing_date']); ?>
+									<p>Closes</p>
+									<div class="calpanel">
+										<div class="day"><?php echo $datearr[0]; ?></div>
+										<div class="month"><?php echo $datearr[1]; ?></div>
+									</div>
+								<?php } ?>
+								
 							</td>
 							
 						</tr>

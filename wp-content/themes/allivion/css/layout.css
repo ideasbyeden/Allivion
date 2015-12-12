@@ -441,6 +441,24 @@ img {
 
 /* single job page */
 
+.single-job {
+	background: url(../img/single-job-bg.jpg) no-repeat center top;
+	background-size: cover;
+}
+
+.whitepanel {
+	padding: 20px;
+	border: 1px solid #EEEEEE;
+	box-shadow: 0 0 8px rgba(0,0,0,0.1);
+	-moz-box-shadow: 0 0 8px rgba(0,0,0,0.1);
+	-webkit-box-shadow: 0 0 8px rgba(0,0,0,0.1);
+	background-color: white;
+	margin-top: 24px;
+	border-radius: 4px;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+}
+
 .jobspec {
 	margin: 30px 0px !important;
 	border-radius: 4px;
@@ -787,6 +805,10 @@ ul.tabs li.active {
 .searchresults tbody tr {
 	background-color: #EEEEEE;
 
+}
+
+.searchresults thead {
+	display: none;
 }
 
 .searchresults tbody tr.premium {

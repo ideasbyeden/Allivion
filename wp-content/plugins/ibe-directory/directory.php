@@ -102,6 +102,9 @@ function directoryGetUser(){
 
 add_action( 'init', 'directoryGetUser' );
 
+
+
+
 function directory_deactivate(){
 	foreach(glob(__DIR__ . '/userdefs/*.php') as $filename)
 	{
