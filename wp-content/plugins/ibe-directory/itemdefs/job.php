@@ -83,9 +83,28 @@ $vars = array(
 			'Premium'	=> array('slug' => 'premium'),	
 			'Sponsored' => array('slug' => 'sponsored'),		
 		),
-		'group' => '',
+		'group' => 'publishing',
 	),
-
+	array(
+		'name' => 'job_status',
+		'label' => 'Status',
+		
+		'placeholder' => '',
+		'fieldtype' => 'dropdown',
+		'value' => array(
+			'Draft'		=> array('slug' => 'draft'),	
+			'Published'	=> array('slug' => 'published'),	
+			'Archived' 	=> array('slug' => 'archived')
+		),
+		'group' => 'publishing'
+	),
+	array(
+		'name' => 'publish_from',
+		'label' => 'Publish from',
+		'fieldtype' => 'date',
+		'datedisplay' => 'j M Y',
+		'group' => 'publishing'	
+	),
 	
 	array(
 		'name' => 'job_title',
@@ -125,7 +144,7 @@ $vars = array(
 
 	array(
 		'name' => 'department',
-		'label' => 'Department',
+		'label' => 'Department/Faculty',
 		'placeholder' => '',
 		'fieldtype' => 'text',
 		'group' => 'headline',
@@ -319,18 +338,12 @@ $vars = array(
 		'fieldtype' => 'text',
 		'group' => 'extra'
 	),
-	array(
-		'name' => 'publish_from',
-		'label' => 'Publish from',
-		'fieldtype' => 'date',
-		'datedisplay' => 'relative',
-		'group' => 'extra'	
-	),
+
 	array(
 		'name' => 'closing_date',
 		'label' => 'Closing date',
 		'fieldtype' => 'date',
-		'datedisplay' => 'jS M Y',
+		'datedisplay' => 'j M Y',
 		'group' => 'extra'	
 	),
 	array(
@@ -345,14 +358,14 @@ $vars = array(
 		'name' => 'promote_from',
 		'label' => 'Promote from',
 		'fieldtype' => 'date',
-		'datedisplay' => 'jS M Y',
+		'datedisplay' => 'j M Y',
 		'group' => 'admin'	
 	),
 	array(
 		'name' => 'promote_to',
 		'label' => 'Promote to',
 		'fieldtype' => 'date',
-		'datedisplay' => 'jS M Y',
+		'datedisplay' => 'j M Y',
 		'group' => 'admin'	
 	),
 	array(
@@ -363,17 +376,6 @@ $vars = array(
 			'Enabled' 		=> array('slug' => 'enabled') // labelled as tick
 		),
 		'group' => 'sysadmin'
-	),
-	array(
-		'name' => 'job_status',
-		'label' => 'Status',
-		'placeholder' => '',
-		'fieldtype' => 'dropdown',
-		'value' => array(
-			'Active'	=> array('slug' => 'active'),	
-			'Archived' 	=> array('slug' => 'archived')
-		),
-		'group' => 'admin'
 	),
 	array(
 		'name' => 'group_id',

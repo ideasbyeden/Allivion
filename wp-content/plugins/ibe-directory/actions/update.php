@@ -49,6 +49,7 @@ function directory_update(){
 			if(is_array($q['value']) && !is_array($_REQUEST[$var])){
 				$_REQUEST[$var] = array($_REQUEST[$var]);
 			}
+			if($q['fieldtype'] == 'date') $_REQUEST[$var] = strtotime($_REQUEST[$var]);
 			update_post_meta($_REQUEST['post_id'],$var,$_REQUEST[$var]);
 		}
 		$result[$var] = $_REQUEST[$var];

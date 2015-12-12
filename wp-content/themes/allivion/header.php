@@ -104,8 +104,8 @@
 					</a>
 					
 					<div class="leaderboard">
-						<?php include(TEMPLATEPATH.'/revive-zones/leaderboard_iframe.html'); ?>
-<!-- 						<img src="<?php bloginfo('template_url'); ?>/img/banner_ad.jpg" /> -->
+						<?php //include(TEMPLATEPATH.'/revive-zones/leaderboard_iframe.html'); ?>
+						<img src="<?php bloginfo('template_url'); ?>/img/banner_ad.jpg" />
 					</div>
 				</div>
 			</div>

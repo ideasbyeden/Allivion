@@ -68,6 +68,9 @@ $returnfields = array('job_title','location','summary','recruiter_name','closing
 					<p id="searchform_toggle">Use advanced search</p>
 
 						<div class="fields" style="width: 100%;">
+							
+							
+							
 							<input type="text" name="keywords" value="<?php echo $_REQUEST['keywords']; ?>" placeholder="I'm looking for..." class="fl" />
 							<div class="clear"></div>
 							
@@ -169,8 +172,8 @@ $returnfields = array('job_title','location','summary','recruiter_name','closing
 	<div class="row boxad_array boxad_array_1" style="padding-top: 60px; padding-bottom: 40px;">
 		<div class="col-sm-4" style="text-align: center">
 			
-			<?php include(TEMPLATEPATH.'/revive-zones/boxad_1.html'); ?>
-<!-- 			<img src="<?php bloginfo('template_url'); ?>/img/box_ad_1.jpg" /> -->
+			<?php //include(TEMPLATEPATH.'/revive-zones/boxad_1.html'); ?>
+			<img src="<?php bloginfo('template_url'); ?>/img/box_ad_1.jpg" />
 
 			
 		</div>

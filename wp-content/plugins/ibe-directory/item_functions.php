@@ -44,3 +44,20 @@ function time2str($ts)
         return date('F Y', $ts);
     }
 }
+
+function formatDate($timestamp = null,$q,$default = 'j M Y'){
+	
+	if(!$timestamp) return null;
+	
+	if($q['datedisplay']){
+		if($q['datedisplay'] == 'relative'){
+			$date = time2str($timestamp);
+		} else {
+			$date = date($q['datedisplay'],$timestamp);
+		}
+	} else {
+		$date = date($default,$timestamp);
+	}
+	
+	return $date ? $date : null;
+}

@@ -604,14 +604,14 @@ ul.tabs li.active {
 	left bottom,
 	color-stop(0, #B88EC0),
 	color-stop(1, #592580)
-	);
-	background-image: -o-linear-gradient(bottom, #B88EC0 0%, #592580 100%);
-	background-image: -moz-linear-gradient(bottom, #B88EC0 0%, #592580 100%);
-	background-image: -webkit-linear-gradient(bottom, #B88EC0 0%, #592580 100%);
-	background-image: -ms-linear-gradient(bottom, #B88EC0 0%, #592580 100%);
-	background-image: linear-gradient(to bottom, #B88EC0 0%, #592580 100%);
+	) !important;
+	background-image: -o-linear-gradient(bottom, #B88EC0 0%, #592580 100%) !important;
+	background-image: -moz-linear-gradient(bottom, #B88EC0 0%, #592580 100%) !important;
+	background-image: -webkit-linear-gradient(bottom, #B88EC0 0%, #592580 100%) !important;
+	background-image: -ms-linear-gradient(bottom, #B88EC0 0%, #592580 100%) !important;
+	background-image: linear-gradient(to bottom, #B88EC0 0%, #592580 100%) !important;
 	
-	color: white;
+	color: white !important;
 }
 
 .darkpurplegrad {
@@ -621,14 +621,14 @@ ul.tabs li.active {
 	left bottom,
 	color-stop(0, #976AAA),
 	color-stop(1, #592580)
-	);
-	background-image: -o-linear-gradient(bottom, #976AAA 0%, #592580 100%);
-	background-image: -moz-linear-gradient(bottom, #976AAA 0%, #592580 100%);
-	background-image: -webkit-linear-gradient(bottom, #976AAA 0%, #592580 100%);
-	background-image: -ms-linear-gradient(bottom, #976AAA 0%, #592580 100%);
-	background-image: linear-gradient(to bottom, #976AAA 0%, #592580 100%);
+	) !important;
+	background-image: -o-linear-gradient(bottom, #976AAA 0%, #592580 100%) !important;
+	background-image: -moz-linear-gradient(bottom, #976AAA 0%, #592580 100%) !important;
+	background-image: -webkit-linear-gradient(bottom, #976AAA 0%, #592580 100%) !important;
+	background-image: -ms-linear-gradient(bottom, #976AAA 0%, #592580 100%) !important;
+	background-image: linear-gradient(to bottom, #976AAA 0%, #592580 100%) !important;
 	
-	color: white;
+	color: white !important;
 }
 
 .question {

@@ -157,7 +157,7 @@ $returnfields = array('job_title','location','summary','recruiter_name','publish
 							<input type="hidden" name="action" value="directory_search" />
 							<input type="hidden" name="inc_search_count" value="true" />
 							
-							<input type="hidden" name="encrypted" value="<?php echo $dircore->encrypt('type=job'); ?>" />
+							<input type="hidden" name="encrypted" value="<?php echo $dircore->encrypt('type=job&job_status=published'); ?>" />
 						
 		
 							<div class="question">
@@ -186,7 +186,7 @@ $returnfields = array('job_title','location','summary','recruiter_name','publish
 			
 			<?php 
 				$params = $_REQUEST ? $_REQUEST : array();
-				$params['encrypted'] = $dircore->encrypt('type=job');
+				$params['encrypted'] = $dircore->encrypt('type=job&job_status=published&publish_from=<'.strtotime('now'));
 				$params['inc_search_count'] = true;
 				$items = directory_search($params);
 				
@@ -284,11 +284,11 @@ $returnfields = array('job_title','location','summary','recruiter_name','publish
 								<p><strong>Salary </strong><?php echo $item->meta['salary_details']; ?></p>
 							</td>
 							<td>
-								<?php echo $item->meta['publish_from'] ? time2str($item->meta['publish_from']) : ''; ?>
+								<?php echo $item->meta['publish_from']; ?>
 							</td>
 
 							<td>
-								<?php echo $item->meta['closing_date'] ? date('jS M Y',strtotime($item->meta['closing_date'])) : ''; ?>
+								<?php echo $item->meta['closing_date'];  ?>
 							</td>
 							
 						</tr>

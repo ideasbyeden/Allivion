@@ -72,9 +72,7 @@ $uservals['email'] = $user->user_email;
 			<h4><span id="employer"><?php echo $employer['recruiter_name']; ?></span></h6>
 			<h4>
 				<span id="salary_details">
-					<?php
-						echo $job->getCurrencySymbol('en_GB',$vals['salary_currency'][0]);
-						echo $vals['salary_details'] ? number_format($vals['salary_details'],0,'.',',') : 'Salary'; ?>
+					<?php echo $vals['salary_details'] ? $vals['salary_details'] : 'Salary'; ?>
 				</span>
 			</h6>
 			<div>
@@ -102,7 +100,7 @@ $uservals['email'] = $user->user_email;
  				<input type="hidden" name="success_message" value="Your application has been submitted" />
  				<input type="hidden" name="formafter" value="hide" />
 				
-				<div class="qpanel tabbed">
+				<div class="qpanel">
 					<h3 class="purple" style="margin-top: 0px;">Apply now</h3>
 <!--
 					<ul class="tabs">

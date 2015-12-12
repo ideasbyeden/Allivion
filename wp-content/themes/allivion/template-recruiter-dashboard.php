@@ -57,7 +57,7 @@ $group_id = $usermeta['group_id'] ? $usermeta['group_id'] : $user->ID;
 						<h2>Create a new ad</h2>
 						<?php $job->printQuestion('job_title'); ?>
 						<?php $job->printQuestion('job_ref'); ?>
-						<input type="submit" value="Save and add details" class="fr"/>
+						<input type="submit" value="Save and add details" class="fr btn btn-default"/>
 						<div class="clear"></div>
 					</div>
 					
@@ -84,7 +84,7 @@ $group_id = $usermeta['group_id'] ? $usermeta['group_id'] : $user->ID;
 						<?php $job->printQuestion('job_status'); ?>
 						</div>
 						<?php //$user->printQuestion('name'); ?>
-						<input type="submit" value="Search" class="fr"/>
+						<input type="submit" value="Search" class="fr btn btn-default"/>
 						<div class="clear"></div>
 					</div>
 					
@@ -114,7 +114,12 @@ $group_id = $usermeta['group_id'] ? $usermeta['group_id'] : $user->ID;
 				<?php foreach ($items->posts as $item){ ?>
 					<tr class="clickable" data-href="/job-details?i=<?php echo $item->ID; ?>">
 						<?php foreach($returnfields as $field){ ?>
-						<td><?php echo $item->meta[$field]; ?></td>
+						<td>
+							<?php
+								$v = $item->meta[$field];
+								echo is_array($v) ? $v[0] : $v;
+							?>
+						</td>
 						<?php } ?>
 					</tr>
 				<?php } ?>

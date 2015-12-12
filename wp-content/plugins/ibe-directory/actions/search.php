@@ -75,7 +75,10 @@ function directory_search($params = null){
 													'terms' => $v
 													);
 				
-			} else {			
+			} else {
+				
+		
+					
 	
 				if(strstr($v, '!')){
 					$v = preg_replace('@!@','',$v);
@@ -85,7 +88,14 @@ function directory_search($params = null){
 					} else {
 						$compare = '!=';
 					}
-				} else {
+					
+				} else if(strstr($v, '<')) {
+					$v = preg_replace('@<@','',$v);
+					$compare = '<';
+				
+					
+					
+				} else  {
 					if(in_array($k, $mc_params)){
 						$compare = 'LIKE';
 						$v = '"'.$v.'"';
@@ -97,7 +107,8 @@ function directory_search($params = null){
 				$query_args['meta_query'][] = array(
 					'key' => $k,
 					'value' => $v,
-					'compare' => $compare	
+					'compare' => $compare,
+					'type' => $fieldtype	
 				);
 			
 			}
@@ -121,6 +132,7 @@ function directory_search($params = null){
 	}
 	
 	//die(print_r($query_args));
+	//echo '<pre>'; print_r($params); echo '</pre>';
 	//echo '<pre>'; print_r($query_args); echo '</pre>';
 
 	
@@ -140,46 +152,24 @@ function directory_search($params = null){
 			$foundkeys = array();
 			$q = $$type->getQuestion($k);
 			
-			if($q['fieldtype'] == 'date' && $q['datedisplay']) {
-				if($q['datedisplay'] == 'relative'){
-					$v[0] = $v[0] ? time2str($v[0]) : '';
-				} else {
-					$v[0] = $v[0] ? date($q['datedisplay'],strtotime($v[0])) : '';
-				}
+			if($q['fieldtype'] == 'date') {
+				$v[0] = formatDate($v[0],$q);
 			}
 			
-/*
-			if(is_array($q['value']) && unserialize($v[0])){
 
-				foreach(unserialize($v[0]) as $vitem){
-					$vstring .= $vitem.',';
-					
-					foreach($q['value'] as $s=>$t){
-						if($t['slug'] == $vitem){
-							$foundkeys[] = $s;
-						}
-						if($t['children']) foreach($t['children'] as $f=>$g){
-							if($g['slug'] == $vitem){
-								$foundkeys[] = $f;
-							}
-						}
-					}
-
-				}
-				
-				$v[0] = implode(',&nbsp;', $foundkeys);
-			}
-*/
 
 
 			// converts salary string to currency format
 			// needs better interception of strings already formatted
+			// Causes explosion on testing server
+/*
 			if($k == 'salary_details' && $v[0]){
 				$currcode = unserialize($meta['salary_currency'][0]);
 				$currsym = $$type->getCurrencySymbol('en_GB',$currcode[0]);
 				$salval = preg_replace("/[^0-9.]/", "", $v[0]);
 				$v[0] = $$currsym.number_format(floatval($salval),0,'.',',');
 			}
+*/
 			
 			$cleanmeta[$k] = unserialize($v[0]) ? unserialize($v[0]) : $v[0];
 		}

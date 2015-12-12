@@ -63,8 +63,14 @@ while (have_posts()) {
 				
 				<div class="col-md-6">
 
-					<div class="qpanel">
-						<?php $job->printQuestion('ad_type',$vals['ad_type']); ?>
+					<div class="qpanel purplegrad">
+						<p>Create or edit your ad here, any changes will be automatically saved and shown in the ad preview on the right.<br />When you're ready, publish your ad. If you've selected a 'publish from' date your ad will appear on the site after that date.</p>
+						
+
+						<?php $job->printGroup('publishing',$vals); ?>
+						
+						<input type="button" id="publish_ad" value="Publish" class="btn btn-default purplegrad" style="width: 100%; margin-top: 12px;<?php echo $vals['job_status'][0] == 'published' ? 'display:none;' : ''; ?>"/>
+						
 					</div>
 					<div class="qpanel">
 						<?php $job->printGroup('headline',$vals); ?>
@@ -101,9 +107,9 @@ while (have_posts()) {
 						<h3>Ad preview</h3>
 						<input type="submit" value="Save changes" class="btn btn-default"/>
 						<hr>
-						<h4><span id="job_title"><?php echo $vals['job_title'] ? $vals['job_title'] : 'Job Title'; ?></span>, <span id="location"><?php echo $vals['location'] ? $vals['location'] : 'Location'; ?></span></h4>
-						<h6><span id="employer"><?php echo get_user_meta($vals['group_id'],'recruiter_name',true); ?></span></h6>
-						<h6><span id="salary_details"><?php echo $vals['salary_details'] ? $vals['salary_details'] : 'Salary'; ?></span></h6>
+						<h2 class="purple"><span id="job_title"><?php echo $vals['job_title'] ? $vals['job_title'] : 'Job Title'; ?></span>, <span id="location"><?php echo $vals['location'] ? $vals['location'] : 'Location'; ?></span></h2>
+						<h4><span id="employer"><?php echo get_user_meta($vals['group_id'],'recruiter_name',true); ?></span></h4>
+						<h4><span id="salary_details"><?php echo $vals['salary_details'] ? $vals['salary_details'] : 'Salary'; ?></span></h4>
 						<div class="limited">
 							<span id="full_description_limited">
 								<?php echo $vals['full_description_limited'] ? $vals['full_description_limited'] : 'Job description'; ?>
@@ -127,6 +133,7 @@ while (have_posts()) {
 <script type="text/javascript" src="<?php bloginfo('template_url'); ?>/js/wordlimit.js"></script>
 
 <script>
+	// Show / hide limited or unlimited description fields based on ad type
 	jQuery(function(){
 		if(jQuery('select[name="ad_type"]').val() != 'standard'){
 			jQuery('.limited').hide();
@@ -143,6 +150,21 @@ while (have_posts()) {
 				jQuery('.unlimited').hide();
 				jQuery('.limited').show();				
 			}
+		});
+	});
+	
+	jQuery(function(){
+		jQuery('#publish_ad').click(function(){
+			var pf = jQuery('input[name="publish_from"]').val();
+
+			jQuery('select[name="job_status"]').val('published');
+			if(pf == ''){
+				jQuery('input[name="publish_from"]').val(moment().format('D MMM YYYY'));
+				var pm = 'Your ad is published'; 
+			} else {	
+				var pm = 'Your ad will be published on '+pf; 
+			}
+			jQuery(this).hide().after('<div class="alert alert-success" style="margin: 12px 0 0 0">'+pm+'</div>').closest('form').submit();
 		});
 	});
 </script>

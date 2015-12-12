@@ -39,7 +39,7 @@ jQuery(function(){
 			cache: false,
 			contentType: false,
 			processData: false,
-			//dataType: 'json',
+			dataType: 'json',
 					
 			success: function(result){
 				if(autosave == 'true'){

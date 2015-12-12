@@ -58,7 +58,9 @@ class directoryCore {
 				$terms = wp_get_post_terms($id,$q['taxonomy']);
 				foreach($terms as $term) $vals[$name][] = $term->slug;				 
 			} else {
-				$vals[$name] = get_post_meta($id,$name,true);
+				$v = get_post_meta($id,$name,true);;
+				if($q['fieldtype'] == 'date') $v = formatDate($v,$q);
+				$vals[$name] = $v;
 			}
 		}
 		return $vals;
@@ -862,6 +864,7 @@ class directoryCore {
 	    return false;
 	}
 	
+/*
 	public function taxArraySearch($needle,$haystack,$found = null) {
 	 	
 	    foreach($haystack as $key=>$value) {
@@ -877,11 +880,8 @@ class directoryCore {
 	    return false;	    
 		
 	}
+*/
 	
-	public function arraySearch($needle,$haystack){
-		$key = array_search($needle, array_column($haystack, 'slug'));
-		echo 'Found key: '.$key;
-	}
 	
 	public function getCurrencySymbol($locale, $currency)
 	{
