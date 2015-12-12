@@ -1,0 +1,6 @@
+				<?php //$linkedpostid = url_to_postid($dreamteam_hero['link']); ?>
+
+
+									<?php //echo in_category('videos',$linkedpostid) ? '<div class="vid-icon"></div>' : ''; ?>  
+
+dtfc.172.172.8.48.xip.io

@@ -439,6 +439,50 @@ img {
 	margin-bottom: 20px;
 }
 
+/* single job page */
+
+.jobspec {
+	margin: 30px 0px !important;
+	border-radius: 4px;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+/* 	background: #d5c9de url(../img/promote_palepurple.png) repeat-x !important; */
+	background-color: #F3F3F3;
+}
+
+.calpanel {
+	width: 70px;
+	border-radius: 4px;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	border: 1px solid #DDDDDD;
+	box-shadow: 0 0 2px #EEEEEE;
+	-moz-box-shadow: 0 0 2px #EEEEEE;
+	-webkit-box-shadow: 0 0 2px #EEEEEE;
+	text-align: center;
+	color: #53247E;
+	line-height: 1.4em;
+	overflow: hidden;
+	background-color: white;
+	margin: 0 auto;
+}
+
+.calpanel .day {
+	font-size: 2em;
+	line-height: 1.1em;
+	font-weight: bold;
+}
+
+.calpanel .month {
+	font-size: 1.3em;
+	background-color: #F0F0F0;
+	padding: 2px 0;	
+}
+
+.calpanel .year {
+	font-size: 1em;
+	background-color: #F0F0F0;	
+}
 /* footer */
 
 
@@ -561,7 +605,7 @@ img {
 /* ibe directory */
 
 .qpanel {
-	background-color: #EEEEEE;
+	background-color: #F3F3F3;
 	border-radius: 8px;
 	-moz-border-radius: 8px;
 	-webkit-border-radius: 8px;

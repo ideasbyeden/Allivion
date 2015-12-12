@@ -55,7 +55,7 @@ $uservals['email'] = $user->user_email;
 	<div class="row">
 		
 		
-		<div class="col-md-12">
+		<div class="col-md-8">
 
 			<div>
 				<?php
@@ -66,15 +66,35 @@ $uservals['email'] = $user->user_email;
 					} ?>
 			</div>					
 			<h1 class="purple"><?php echo $vals['job_title']; echo $vals['location'] ? ', '.$vals['location'] : ''; ?></h1>
+			<h4><span id="employer"><?php echo $employer['recruiter_name']; ?></span><?php echo $vals['department']; ?></h6>
+				<h5>Posted: <strong><?php echo $vals['publish_from']; ?></strong></h5>
 			
-			<hr>
-
-			<h4><span id="employer"><?php echo $employer['recruiter_name']; ?></span></h6>
-			<h4>
-				<span id="salary_details">
-					<?php echo $vals['salary_details'] ? $vals['salary_details'] : 'Salary'; ?>
-				</span>
-			</h6>
+			<div class="row jobspec">
+			<div class="col-md-4">
+				<h5>Location: <strong><?php echo $vals['location']; ?></strong></h5>
+				<h5>Salary: <strong><?php echo $vals['salary_details']; ?></strong></h5>
+				<h5>Hours: <strong><?php echo $vals['hours']; ?></strong></h5>
+				<h5>Contract: <strong><?php echo $vals['contract']; ?></strong></h5>
+				<h5>Job ref: <strong><?php echo $vals['job_ref']; ?></strong></h5>
+			</div>
+			<div class="col-md-4" style="">
+				<h5>Further information</h5>
+				
+			</div>
+			<div class="col-md-4" style="text-align: center;">
+				
+				<?php if($vals['closing_date']) {
+					$datearr = explode(' ', $vals['closing_date']); ?>
+					<h4 class="purple">Applications close</h4>
+				<div class="calpanel">
+					<div class="day"><?php echo $datearr[0]; ?></div>
+					<div class="month"><?php echo $datearr[1]; ?></div>
+				</div>
+				<?php } ?>
+				
+			</div>
+			</div>
+			
 			<div>
 				<span id="full_description">
 					<?php if($vals['ad_type'][0] == 'standard'){
@@ -119,7 +139,7 @@ $uservals['email'] = $user->user_email;
 					<?php $application->printQuestion('job_id',$_REQUEST['i']); ?>
 					<?php $application->printQuestion('job_title',$vals['job_title']); ?>
 					<?php $application->printQuestion('job_ref',$vals['job_ref']); ?>
-					<input type="submit" value="Submit application" />
+					<input type="submit" value="Submit application" class="btn btn-default"/>
 					<div class="clear"></div>
 				</div>
 
@@ -139,13 +159,20 @@ $uservals['email'] = $user->user_email;
 					<h4>Why not save your details for next time?</h4>
 					<p>By registering with Allivion, your profile can be searched by potential employers</p>
 					<?php $candidate->printGroup('basics',json_decode($_COOKIE['allivion_unli'])); ?>
-					<input type="submit" value="Register" />
+					<input type="submit" value="Register" class="btn btn-default"/>
 				</div>				
 			</form>
 		
 			
 		</div><!-- end threeqtrscol -->
 		
+		<div class="col-md-4">
+			<h4 class="purple">Share this job</h4>
+			<span class='st_linkedin_hcount' displayText='LinkedIn'></span>
+			<span class='st_facebook_hcount' displayText='Facebook'></span>
+			<span class='st_twitter_hcount' displayText='Tweet'></span>
+			<span class='st_googleplus_hcount' displayText='Google +'></span>
+		</div>
 
 
 		<div class="clear"></div>

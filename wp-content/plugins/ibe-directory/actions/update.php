@@ -18,21 +18,6 @@ function directory_update(){
 	global $$type;
 	
 	
-	// Check if files were submitted with the form
-	// NB If handed by AJAX FormData, $_FILES still exists but array contains no file data
-	$uploads = $$type->uploadFiles($_REQUEST['post_id']);
-	if($uploads){
-		foreach($uploads as $upload){
-			// need to ensure these are mutually exclusive
-			if($upload['attachment_id']) {
-				update_post_meta($_REQUEST['post_id'],$upload['varname'],array($upload['attachment_id']));
-				update_post_meta($_REQUEST['post_id'],$upload['varname'].'_label',$upload['original_filename']);
-			} else  {
-				update_post_meta($_REQUEST['post_id'],$upload['varname'],$upload['filepath'].$upload['filename']);
-				update_post_meta($_REQUEST['post_id'],$upload['varname'].'_label',$upload['original_filename']);
-			}
-		}
-	}
 
 
 	$varnames = $$type->getVarNames();
@@ -55,6 +40,21 @@ function directory_update(){
 		$result[$var] = $_REQUEST[$var];
 	}
 	
+	// Check if files were submitted with the form
+	// NB If handed by AJAX FormData, $_FILES still exists but array contains no file data
+	$uploads = $$type->uploadFiles($_REQUEST['post_id']);
+	if($uploads){
+		foreach($uploads as $upload){
+			// need to ensure these are mutually exclusive
+			if($upload['attachment_id']) {
+				update_post_meta($_REQUEST['post_id'],$upload['varname'],array($upload['attachment_id']));
+				update_post_meta($_REQUEST['post_id'],$upload['varname'].'_label',$upload['original_filename']);
+			} else  {
+				update_post_meta($_REQUEST['post_id'],$upload['varname'],$upload['filepath'].$upload['filename']);
+				update_post_meta($_REQUEST['post_id'],$upload['varname'].'_label',$upload['original_filename']);
+			}
+		}
+	}
 	
 
 	if($_SERVER['HTTP_X_REQUESTED_WITH'] && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {

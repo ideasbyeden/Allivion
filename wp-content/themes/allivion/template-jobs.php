@@ -81,10 +81,14 @@ $returnfields = array('job_title','location','summary','recruiter_name','publish
 	jQuery(function(){
 		jQuery('form.directory.search').submit(function(e){
 			jQuery('#job_bullets table').html('');
-			jQuery(this).find('select').each(function(){
+			jQuery(this).find('select, input[type="text"]').each(function(){
 				if(jQuery(this).val() != ''){
 					var label = jQuery(this).attr('label');
-					var opval = jQuery(this).find('option:selected').text().replace(/^- /,'');
+					if(jQuery(this).is('input')){
+						var opval = jQuery(this).val();						
+					} else {
+						var opval = jQuery(this).find('option:selected').text().replace(/^- /,'');						
+					}
 					
 	 			jQuery('#job_bullets table').append('<tr><td style="width:50%">'+label+'</td><td><strong>'+opval+'</strong></td></tr>').hide().fadeIn(100);
 	 			}
@@ -137,14 +141,6 @@ $returnfields = array('job_title','location','summary','recruiter_name','publish
 					<?php
 						foreach($_GET as $k=>$v){
 							if($v) $job->printDetail($k,$_GET);
-/*
-							if($v){
-								if($q = $job->getQuestion($k)){
-									$v = ($q['value']) ? array_pop(array_keys($q['value'],$v)) : $v;
-								echo '<tr><td>'.$q['label'].'</td><td><strong>'.$v.'</strong></td></tr>';
-								}
-							}
-*/
 						}
 					?>
 					</table>				
@@ -162,7 +158,7 @@ $returnfields = array('job_title','location','summary','recruiter_name','publish
 		
 							<div class="question">
 								<label>Keywords</label>
-								<input type="text" name="keywords" value="<?php echo $_GET['keywords']; ?>" />
+								<input type="text" name="keywords" label="Keywords" value="<?php echo $_GET['keywords']; ?>" />
 							</div>
 							<?php
 								$job->printQuestion('industry',$_GET['industry'],'dropdown',true);

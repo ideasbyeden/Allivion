@@ -1,14 +1,12 @@
 <div class="container">
 	<div class="row" id="sharethis">
 		<div class="col-md-12">
-		<h2>Share our content
-<!--
+		<h3 class="purple">Share our content</h3>
+
 			<span class='st_linkedin_hcount' displayText='LinkedIn'></span>
 			<span class='st_facebook_hcount' displayText='Facebook'></span>
 			<span class='st_twitter_hcount' displayText='Tweet'></span>
 			<span class='st_googleplus_hcount' displayText='Google +'></span>
--->
-		</h2>
 		</div>
 	</div>
 </div>

@@ -108,6 +108,7 @@ class directoryCore {
 					$output .= '<input type="text" ';
 					$output .= $question['name'] ? 'name="'.$question['name'].'" ' : '';
 					$output .= $question['placeholder'] ? 'placeholder="'.$question['placeholder'].'" ' : '';
+					$output .= $question['label'] ? 'label="'.$question['label'].'" ' : '';
 					$output .= $question['required'] ? 'required="'.$question['required'].'" ' : '';
 					$output .= 'value="'.$value.'" ';
 					$output .= '/>';
@@ -374,7 +375,7 @@ class directoryCore {
 
 		// create output
 		$output .= '<tr>';
-		$output .= '<td style="width:50%">'.$q['label'].'</td>';
+		$output .= '<td style="width:50%">'.($q ? $q['label'] : $name).'</td>';
 		$output .= '<td>'.$value.'</td>';
 		$output .= '</tr>';
 		
