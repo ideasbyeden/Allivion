@@ -3,10 +3,7 @@
 		<div class="col-md-12">
 		<h3 class="purple">Share our content</h3>
 
-			<span class='st_linkedin_hcount' displayText='LinkedIn'></span>
-			<span class='st_facebook_hcount' displayText='Facebook'></span>
-			<span class='st_twitter_hcount' displayText='Tweet'></span>
-			<span class='st_googleplus_hcount' displayText='Google +'></span>
+			<?php get_template_part('includes/addtoany'); ?>
 		</div>
 	</div>
 </div>

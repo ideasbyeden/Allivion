@@ -1,26 +1,6 @@
-<!--
-	<pre>
-		<?php
-//Generate an array of custom taxonomy
-  $arr = wp_list_categories_array("sector");//Feed your taxonomy to generate array
-  
-  print_r($sector->taxTree());
-?>
-	</pre>
--->
-
-
 <?php 
 
-/*
-	echo '<h3>';
-//	$taxterms = get_terms('sector',array( 'hide_empty' => 0));
-	echo '<pre>'; print_r($sector->taxTree()); echo '</pre>';
-	echo '</h3>';
 
-	//echo '<h4>'; print_r(get_term_children(406,'sector')); echo '</h4>';
-	//echo '<h5>'; print_r(get_term(409,'sector')); echo '</h5>';
-*/
 $dircore->canAccess(array('group_id' => get_post_meta($_REQUEST['i'],'group_id',true)));
 
 /*

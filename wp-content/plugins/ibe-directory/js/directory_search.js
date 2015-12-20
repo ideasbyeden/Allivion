@@ -54,15 +54,18 @@ jQuery(function(){
 						row.removeClass('prototype');
 						row.attr('data-href', clickableurl+'?i='+postdata['ID']);
 						jQuery.each(returndata, function(k,v){
-							if(typeof postdata.meta[v] != 'undefined'){
+							var hasvalue = false;
+							if(typeof postdata.meta[v] != 'undefined' && postdata.meta[v] != ''){
+								hasvalue = true;
 								if(jQuery.isArray(postdata.meta[v])){
 									row.html(row.html().replace('['+v+']',postdata.meta[v][0]));
 								} else {
 									row.html(row.html().replace('['+v+']',postdata.meta[v]));
 								}
-							}
+							} 
 							
-							if(typeof postdata.groupmeta[v] != 'undefined'){
+							if(typeof postdata.groupmeta[v] != 'undefined' && postdata.meta[v] != ''){
+								hasvalue = true;
 								if(jQuery.isArray(postdata.groupmeta[v])){
 									row.html(row.html().replace('['+v+']',postdata.groupmeta[v][0]));
 								} else {
@@ -70,7 +73,8 @@ jQuery(function(){
 								}
 							}
 
-							if(typeof postdata.authormeta[v] != 'undefined'){
+							if(typeof postdata.authormeta[v] != 'undefined' && postdata.meta[v] != ''){
+								hasvalue = true;
 								if(jQuery.isArray(postdata.authormeta[v])){
 									row.html(row.html().replace('['+v+']',postdata.authormeta[v][0]));
 								} else {
@@ -78,6 +82,8 @@ jQuery(function(){
 								}
 							}
 							
+							if(!hasvalue) row.html(row.html().replace('class="'+v+'"','class="hide"'));
+
 							
 						});
 						row.html(row.html().replace(/[\, ]\[.*?\]/g,''));
@@ -92,9 +98,13 @@ jQuery(function(){
 							});
 						row += '</tr>';
 					}
-					if(postdata.meta.promote == datajson.industry && typeof postdata.meta.promote_enabled != 'undefined'){
+					if(postdata.meta.promote == datajson.industry && postdata.meta.promote_enabled == 'enabled' && postdata.meta.ad_type[0] == 'sponsored'){
 						row.addClass('promoted');
 					}
+					
+					if(postdata.meta.ad_type == 'premium') row.addClass('premium');
+					
+					//console.log(postdata.meta.ad_type[0]);
 
 					jQuery('#'+target).append(row);				
 				});

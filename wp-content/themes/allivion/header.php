@@ -39,8 +39,7 @@
     <![endif]-->
 
 
-	<script type="text/javascript" src="http://w.sharethis.com/button/buttons.js"></script>
-	<script type="text/javascript">stLight.options({publisher: "5c9feb5b-d9eb-44fb-95ef-a54292286d69", doNotHash: false, doNotCopy: false, hashAddressBar: false});</script>
+	
 
 
 	<script src="<?php bloginfo('template_url'); ?>/js/jquery.uniform.min.js"></script>

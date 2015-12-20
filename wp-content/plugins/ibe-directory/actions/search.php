@@ -153,7 +153,13 @@ function directory_search($params = null){
 			$q = $$type->getQuestion($k);
 			
 			if($q['fieldtype'] == 'date') {
-				$v[0] = formatDate($v[0],$q);
+				if($v[0]){
+					$v[0] = formatDate($v[0],$q);
+					$datearr = explode(' ', $v[0]);
+					$cleanmeta[$k.'_day'] = $datearr[0];
+					$cleanmeta[$k.'_month'] = $datearr[1];
+					$cleanmeta[$k.'_year'] = $datearr[2];
+				}
 			}
 			
 
@@ -243,7 +249,9 @@ function directory_search($params = null){
 		}
 		
 		// build posts array with promoted items first
-		if($thispost->meta['promote'][0] != '' && $thispost->meta['promote_enabled'][0] != ''){
+		// this smacks of business logic...
+		
+		if($thispost->meta['promote'][0] == $params['industry'] && $thispost->meta['promote_enabled'][0] != '' && $thispost->meta['ad_type'][0] == 'sponsored'){
 			array_unshift($posts, $thispost);	
 		} else {
 			$posts[] = $thispost;

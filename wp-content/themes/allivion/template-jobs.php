@@ -19,7 +19,7 @@ while (have_posts()) {
 /////////////////////////////////////////////
 
 // Fields to be shown in search results
-$returnfields = array('job_title','location','summary','recruiter_name','publish_from','salary_details','closing_date','logo','logo_image');
+$returnfields = array('job_title','location','summary','recruiter_name','publish_from','salary_details','closing_date','closing_date_day','closing_date_month','closing_date_year','logo','logo_image');
 
 
 /////////////////////////////////////////////
@@ -246,18 +246,20 @@ $returnfields = array('job_title','location','summary','recruiter_name','publish
 						<td style="width: 60px;">[logo_image]</td>
 						<td>
 							<h4>[job_title], [location]</h4>
-							<p>[department]</p>
-							<p><strong>[recruiter_name]</strong></p>
-							<p>Salary <strong>[salary_details]</strong></p>
-							<p>Placed on <strong>[publish_from]</strong></p>
+							<p class="department">[department]</p>
+							<p class="recruiter_name"><strong>[recruiter_name]</strong></p>
+							<p class="salary_details">Salary <strong>[salary_details]</strong></p>
+							<p class="publish_from">Placed on <strong>[publish_from]</strong></p>
 						</td>
 						<td></td>
 						<td style="text-align: center">
-							<p>Closes</p>
-							<div class="calpanel">
-								<div class="day">[closing_date]</div>
-								<div class="month"></div>
-							</div>
+							<span class="closing_date">
+								<p>Closes</p>
+								<div class="calpanel">
+									<div class="day">[closing_date_day]</div>
+									<div class="month">[closing_date_month]</div>
+								</div>
+							</span>
 						</td>
 					</tr>
 								
@@ -267,7 +269,7 @@ $returnfields = array('job_title','location','summary','recruiter_name','publish
 							$class = '';
 							if($item->meta['ad_type'][0] == 'premium') $class = 'premium';
 							if($item->meta['ad_type'][0] == 'sponsored') {
-								if($item->meta['promote'][0] == $_REQUEST['industry'] && $item->meta['promote_enabled'][0] == 'enabled') {
+								if($item->meta['promote'][0] == $_REQUEST['industry'] && $item->meta['promote_enabled'][0] == 'enabled' && $item->meta['ad_type'][0] == 'sponsored') {
 									$class = 'promoted';
 								}
 							}

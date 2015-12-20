@@ -48,9 +48,10 @@ $uservals['email'] = $user->user_email;
 //
 /////////////////////////////////////////////
 
+$adtype = $vals['ad_type'][0] ? $vals['ad_type'][0] : 'standard';
 
 ?>
-<div class="container-fluid single-job">
+<div class="container-fluid single-job-<?php echo $adtype; ?>">
 <div class="container">
 	<div class="row">
 		
@@ -168,11 +169,7 @@ $uservals['email'] = $user->user_email;
 		
 		<div class="col-md-4">
 			<h3 class="purple">Share this job</h3>
-			<span class='st_linkedin_hcount' displayText='LinkedIn'></span>
-			<span class='st_facebook_hcount' displayText='Facebook'></span>
-			<span class='st_twitter_hcount' displayText='Tweet'></span>
-			<span class='st_googleplus_hcount' displayText='Google +'></span>
-			
+			<?php get_template_part('includes/addtoany'); ?>
 			
 			<h3 class="purple">Other jobs from <?php echo $employer['recruiter_name']; ?></h3>
 			
