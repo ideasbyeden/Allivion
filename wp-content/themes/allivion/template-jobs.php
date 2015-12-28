@@ -19,7 +19,7 @@ while (have_posts()) {
 /////////////////////////////////////////////
 
 // Fields to be shown in search results
-$returnfields = array('job_title','location','summary','recruiter_name','publish_from','salary_details','closing_date','closing_date_day','closing_date_month','closing_date_year','logo','logo_image');
+$returnfields = array('job_title','location','summary','recruiter_name','department','publish_from','salary_details','closing_date','closing_date_day','closing_date_month','closing_date_year','logo','logo_image');
 
 
 /////////////////////////////////////////////
@@ -126,7 +126,7 @@ $returnfields = array('job_title','location','summary','recruiter_name','publish
 
 <!-- <pre><?php print_r($job->getVars()); ?></pre> -->
 
-<div class="container">
+<div class="container a2apad">
 	<div class="stage" style="margin: 0">
 		
 		<div class="col-md-12">
@@ -153,7 +153,7 @@ $returnfields = array('job_title','location','summary','recruiter_name','publish
 							<input type="hidden" name="action" value="directory_search" />
 							<input type="hidden" name="inc_search_count" value="true" />
 							
-							<input type="hidden" name="encrypted" value="<?php echo $dircore->encrypt('type=job&job_status=published'); ?>" />
+							<input type="hidden" name="encrypted" value="<?php echo $dircore->encrypt('type=job&job_status=published&publish_from=<'.strtotime('now')); ?>" />
 						
 		
 							<div class="question">
@@ -245,7 +245,9 @@ $returnfields = array('job_title','location','summary','recruiter_name','publish
 					<tr class="prototype" data-href="/job?i=">
 						<td style="width: 60px;">[logo_image]</td>
 						<td>
-							<h4>[job_title], [location]</h4>
+							<h4>
+								<span class="job_title">[job_title]</span><span class="location">, [location]</span>
+							</h4>
 							<p class="department">[department]</p>
 							<p class="recruiter_name"><strong>[recruiter_name]</strong></p>
 							<p class="salary_details">Salary <strong>[salary_details]</strong></p>
@@ -286,8 +288,12 @@ $returnfields = array('job_title','location','summary','recruiter_name','publish
 								<h4><?php echo $item->meta['job_title']; ?><?php if($item->meta['location']) echo ', '.$item->meta['location']; ?></h4>
 								<p><?php echo $item->meta['department'] ? $item->meta['department'].'<br />' : ''?>
 								<p><strong><?php echo $item->groupmeta['recruiter_name']; ?></strong></p>
-								<p>Salary <strong><?php echo $item->meta['salary_details']; ?></strong></p>
-								<p>Placed on <strong><?php echo $item->meta['publish_from']; ?></strong></p>
+								<?php if($item->meta['salary_details'] != ''){ ?>
+									<p>Salary <strong><?php echo $item->meta['salary_details']; ?></strong></p>
+								<?php } ?>
+								<?php if($item->meta['publish_from'] != '') { ?>
+									<p>Placed on <strong><?php echo $item->meta['publish_from']; ?></strong></p>
+								<?php } ?>
 							</td>
 							<td>
 								<?php //echo $item->meta['publish_from']; ?>

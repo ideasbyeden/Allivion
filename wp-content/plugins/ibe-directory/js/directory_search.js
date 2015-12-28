@@ -57,6 +57,7 @@ jQuery(function(){
 							var hasvalue = false;
 							if(typeof postdata.meta[v] != 'undefined' && postdata.meta[v] != ''){
 								hasvalue = true;
+								console.log(k+': '+postdata.meta[v]);
 								if(jQuery.isArray(postdata.meta[v])){
 									row.html(row.html().replace('['+v+']',postdata.meta[v][0]));
 								} else {

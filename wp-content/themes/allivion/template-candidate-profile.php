@@ -37,7 +37,7 @@ while (have_posts()) {
 
 ?>
 
-<div class="container">
+<div class="container a2apad">
 	
 <!-- 			<pre><?php print_r($usermeta); ?></pre> -->
 

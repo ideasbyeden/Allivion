@@ -21,7 +21,7 @@ while (have_posts()) {
 
 ?>
 
-<div class="container">
+<div class="container a2apad">
 	<div class="row">
 		
 

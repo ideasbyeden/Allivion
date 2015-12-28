@@ -42,7 +42,7 @@ while (have_posts()) {
 
 ?>
 
-<div class="container">
+<div class="container a2apad">
 	<div class="row">
 		
 		<div class="col-md-8">

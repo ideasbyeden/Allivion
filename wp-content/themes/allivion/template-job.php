@@ -51,7 +51,7 @@ $uservals['email'] = $user->user_email;
 $adtype = $vals['ad_type'][0] ? $vals['ad_type'][0] : 'standard';
 
 ?>
-<div class="container-fluid single-job-<?php echo $adtype; ?>">
+<div class="container-fluid a2apad single-job-<?php echo $adtype; ?>">
 <div class="container">
 	<div class="row">
 		
@@ -131,6 +131,8 @@ $adtype = $vals['ad_type'][0] ? $vals['ad_type'][0] : 'standard';
 					</ul>
 -->
 					
+					<?php if($vals['application_method'][0] == 'form') { ?>
+					
 					<?php if(!$user) { ?>
 					<h4>Already registered?</h4>
 					<p><a href="/log-in" class="show_login" redirect="<?php echo $_SERVER['REQUEST_URI']; ?>">Click here to login and autocomplete this form</a></p>
@@ -142,6 +144,23 @@ $adtype = $vals['ad_type'][0] ? $vals['ad_type'][0] : 'standard';
 					<?php $application->printQuestion('job_ref',$vals['job_ref']); ?>
 					<input type="submit" value="Submit application" class="btn btn-default"/>
 					<div class="clear"></div>
+					
+					<?php } ?>
+					
+					<?php if($vals['application_method'][0] == 'website') { 
+					
+					$weburl = 'http://'.preg_replace('#^https?://#', '', $vals['application_website']);
+					echo '<p>Go to employer website to apply:</p>';
+					echo '<p><a href="'.$weburl.'">'.$weburl.'</a></p>';
+					
+					 } ?>
+
+					<?php if($vals['application_method'][0] == 'email') { 
+					
+					echo '<p>Email employer to apply:</p>';
+					echo '<a href="mailto:'.$vals['application_email'].'">'.$vals['application_email'].'</a>';
+					
+					} ?>
 				</div>
 
 			</form>

@@ -37,7 +37,7 @@ while (have_posts()) {
 
 ?>
 
-<div class="container">
+<div class="container a2apad">
 	<div class="row">
 			<form class="directory <?php echo $recruiter_admin->role; ?>" id="updateprofile" action="<?php echo admin_url('admin-ajax.php'); ?>" method="post" enctype="multipart/form-data">
 		

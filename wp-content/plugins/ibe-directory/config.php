@@ -9,6 +9,7 @@ Application name and email (used in notify function et al)
 define('APPLICATION', 'Allivion');
 define('APPLICATION_EMAIL', 'noreply@allivion.com');
 define('NOTIFY_EMAIL', 'notifications@allivion.com');
+define('SYSADMIN_EMAIL', 'david@dlrobins.co.uk');
 
 
 /*-----------------------------------------------

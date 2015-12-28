@@ -40,7 +40,7 @@ while (have_posts()) {
 
 ?>
 
-<div class="container">
+<div class="container a2apad">
 	<div class="row">
 		<div class="col-md-12">
 			<h1 class="purple">Create user</h1>

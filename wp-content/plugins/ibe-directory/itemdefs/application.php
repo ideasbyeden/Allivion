@@ -88,6 +88,13 @@ $vars = array(
 		'group' => 'headline'
 	),
 	array(
+		'name' => 'cv_upload',
+		'label' => 'CV upload',
+		'placeholder' => '',
+		'fieldtype' => 'file',
+		'group' => 'headline',
+	),
+	array(
 		'name' => 'job_id',
 		'fieldtype' => 'hidden',
 		'group' => 'hidden'

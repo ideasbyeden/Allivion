@@ -64,6 +64,27 @@ function directory_create(){
 	update_post_meta($newitemID,'search_count',0);
 	
 	
+	
+	// Check if files were submitted with the form
+	// NB If handed by AJAX FormData, $_FILES still exists but array contains no file data
+	$uploads = $$type->uploadFiles($newitemID);
+	if($uploads){
+		foreach($uploads as $upload){
+			// need to ensure these are mutually exclusive
+			if($upload['attachment_id']) {
+				update_post_meta($newitemID,$upload['varname'],array($upload['attachment_id']));
+				update_post_meta($newitemID,$upload['varname'].'_label',$upload['original_filename']);
+				$params[$upload['varname']] = wp_get_attachment_url($upload['attachment_id']);
+				$params[$upload['varname'].'_label'] = $upload['original_filename'];
+			} else  {
+				update_post_meta($newitemID,$upload['varname'],$upload['filepath'].$upload['filename']);
+				update_post_meta($newitemID,$upload['varname'].'_label',$upload['original_filename']);
+				$params[$upload['varname']] = $upload['filepath'].$upload['filename'];
+				$params[$upload['varname'].'_label'] = $upload['original_filename'];
+			}
+		}
+	}
+	
 	// Send notification of item creation to supplied email
 	if($params['notify']){
 		$dircore->notify($params);
@@ -80,6 +101,7 @@ function directory_create(){
 	if(!$user) {
 		setcookie('allivion_unli',json_encode($result),time()+3600);
 	}
+
 
 	
 	// Form submitted by AJAX

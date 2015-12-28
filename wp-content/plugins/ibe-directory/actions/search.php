@@ -29,7 +29,8 @@ function directory_search($params = null){
 	// set up basic query args
 	$query_args = array(	'post_type' => $type,
 							'orderby' => 'date',
-							'order' => $order
+							'order' => $order,
+							'posts_per_page' => -1
 							); 
 	
 	if($params['author']) $query_args['author'] = $params['author'];

@@ -799,7 +799,8 @@ class directoryCore {
 		$template = $data['notify_template'] ? $data['notify_template'] : 'default';
 		$body = file_get_contents(__DIR__ . '/email_templates/'.$template.'.php');
 		foreach($data as $k=>$v){
-			$body = preg_replace('/\['.$k.'\]/', $v, $body);
+			$replace = is_array($v) ? $v[0] : $v;
+			$body = preg_replace('/\['.$k.'\]/', $replace, $body);
 		}
 
 			

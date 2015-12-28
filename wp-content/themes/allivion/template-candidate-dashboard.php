@@ -35,7 +35,7 @@ $returnfields = array('job_title','job_ref','location');
 
 ?>
 
-<div class="container">
+<div class="container a2apad">
 	<div class="row">
 		<div class="col-md-12">
 			<h1 class="purple">My applications</h1>

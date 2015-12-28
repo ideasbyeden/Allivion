@@ -34,7 +34,7 @@ $returnfields = array('job_title','job_ref','promote','promote_from','promote_to
 
 ?>
 
-<div class="container">
+<div class="container a2apad">
 	<div class="row">
 		
 		<div class="col-md-8">

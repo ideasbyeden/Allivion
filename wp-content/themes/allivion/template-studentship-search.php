@@ -98,7 +98,7 @@ $returnfields = array('job_title','location','summary','recruiter_name','closing
 	</div>
 </div>
 	
-<div class="container">			
+<div class="container a2apad">			
 	
 	<div class="row boxad_array boxad_array_1" style="padding-top: 60px; padding-bottom: 40px;">
 		<div class="col-sm-4" style="text-align: center">

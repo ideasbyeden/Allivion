@@ -91,7 +91,7 @@ $returnfields = array('job_title','location','summary','recruiter_name','closing
 	</div>
 </div>
 	
-<div class="container">			
+<div class="container a2apad">			
 	<div class="row"  id="homefeaturedjobs">
 		<div class="col-sm-12">
 			<h2 class="purple">Browse jobs by sector</h2>
@@ -122,8 +122,15 @@ $returnfields = array('job_title','location','summary','recruiter_name','closing
 						$parent = get_term_by('name','Academic','sector');					
 						$terms = get_term_children( intval($parent->term_id), 'sector' );
 						foreach($terms as $term){
-							$term = get_term_by('id',$term,'sector');					
-							echo '<li><a href="/jobs?industry='.$term->slug.'">'.$term->name.' <span class="orange jobcount">('.$term->count.')</span></a></li>';
+							$term = get_term_by('id',$term,'sector');
+
+							$params['industry'] = $term->slug;
+							$params['type'] = 'job';
+							$params['job_status'] = 'published';
+							$items = directory_search($params);
+			
+					
+							echo '<li><a href="/jobs?industry='.$term->slug.'">'.$term->name.' <span class="orange jobcount">('.count($items->posts).')</span></a></li>';
 						}
 						
 					?>
@@ -136,8 +143,15 @@ $returnfields = array('job_title','location','summary','recruiter_name','closing
 						$parent = get_term_by('name','Professional','sector');					
 						$terms = get_term_children( intval($parent->term_id), 'sector' );
 						foreach($terms as $term){
-							$term = get_term_by('id',$term,'sector');					
-							echo '<li><a href="/jobs?industry='.$term->slug.'">'.$term->name.' <span class="orange jobcount">('.$term->count.')</span></a></li>';
+							$term = get_term_by('id',$term,'sector');	
+							
+							$params['industry'] = $term->slug;
+							$params['type'] = 'job';
+							$params['job_status'] = 'published';
+							$items = directory_search($params);
+
+											
+							echo '<li><a href="/jobs?industry='.$term->slug.'">'.$term->name.' <span class="orange jobcount">('.count($items->posts).')</span></a></li>';
 						}
 						
 					?>
@@ -151,8 +165,14 @@ $returnfields = array('job_title','location','summary','recruiter_name','closing
 						$parent = get_term_by('name','Studentships','sector');					
 						$terms = get_term_children( intval($parent->term_id), 'sector' );
 						foreach($terms as $term){
-							$term = get_term_by('id',$term,'sector');					
-							echo '<li><a href="/jobs?industry='.$term->slug.'">'.$term->name.' <span class="orange jobcount">('.$term->count.')</span></a></li>';
+							$term = get_term_by('id',$term,'sector');	
+							
+							$params['industry'] = $term->slug;
+							$params['type'] = 'job';
+							$params['job_status'] = 'published';
+							$items = directory_search($params);							
+											
+							echo '<li><a href="/jobs?industry='.$term->slug.'">'.$term->name.' <span class="orange jobcount">('.count($items->posts).')</span></a></li>';
 						}
 						
 					?>

@@ -332,8 +332,17 @@ $vars = array(
 	),
 
 	array(
+		'name' => 'application_website',
+		'label' => 'Application website',
+		'placeholder' => '',
+		'fieldtype' => 'text',
+		'group' => 'extra'
+	),
+
+
+	array(
 		'name' => 'application_email',
-		'label' => 'Send applications to',
+		'label' => 'Email applications to',
 		'placeholder' => '',
 		'fieldtype' => 'text',
 		'group' => 'extra'

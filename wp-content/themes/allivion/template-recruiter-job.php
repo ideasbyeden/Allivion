@@ -26,7 +26,7 @@ while (have_posts()) {
 
 ?>
 
-<div class="container">
+<div class="container a2apad">
 	<div class="row">
 		<div class="col-md-12">
 			<h1 class="purple">Create job advertisement</h1>
@@ -39,6 +39,9 @@ while (have_posts()) {
 				<input type="hidden" name="nonce" value="<?php echo wp_create_nonce("directory_update_nonce"); ?>" />
 				<input type="hidden" name="action" value="directory_update" />
 				<input type="hidden" name="role" value="<?php echo $user->roles[0]; ?>" />
+				<input type="hidden" name="notify" value="<?php echo SYSADMIN_EMAIL; ?>" disabled="disabled"/>
+				<input type="hidden" name="notify_subject" value="New job published" />
+				<input type="hidden" name="notify_template" value="new_job" />
 				
 				
 				<div class="col-md-6">
@@ -144,7 +147,12 @@ while (have_posts()) {
 			} else {	
 				var pm = 'Your ad will be published on '+pf; 
 			}
+			jQuery(this).closest('form').find('input[name="notify"]').removeAttr('disabled');
+			
 			jQuery(this).hide().after('<div class="alert alert-success" style="margin: 12px 0 0 0">'+pm+'</div>').closest('form').submit();
+			
+			jQuery(this).closest('form').find('input[name="notify"]').attr('disabled','disabled');
+
 		});
 	});
 </script>

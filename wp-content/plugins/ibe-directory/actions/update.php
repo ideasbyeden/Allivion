@@ -4,6 +4,8 @@ add_action("wp_ajax_directory_update", "directory_update");
 
 function directory_update(){
 	
+	global $user, $dircore;
+
 	// Nonce check	
 	if ( !wp_verify_nonce( $_REQUEST['nonce'], 'directory_update_nonce')) {
       exit('You are not authorised to take this action');
@@ -54,6 +56,12 @@ function directory_update(){
 				update_post_meta($_REQUEST['post_id'],$upload['varname'].'_label',$upload['original_filename']);
 			}
 		}
+	}
+	
+	// Send notification of item creation to supplied email
+	if($_REQUEST['notify']){
+		$dircore->notify($_REQUEST);
+		$result['notifyuser'] = $_REQUEST['notify'];
 	}
 	
 

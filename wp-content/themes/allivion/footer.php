@@ -1,5 +1,5 @@
 <div class="container">
-	<div class="row" id="sharethis">
+	<div class="row" id="addtoany">
 		<div class="col-md-12">
 		<h3 class="purple">Share our content</h3>
 

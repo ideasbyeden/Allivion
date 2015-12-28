@@ -9,12 +9,17 @@ jQuery(function(){
 	
 	function submitForm(form){
 		
-		var data = form.serialize();
+		//var data = form.serialize();
+		var data = new FormData(form[0]);
+
 		
 		jQuery.ajax({
 			type: 'POST',
 			url:  directory_create.ajaxurl,
 			data: data,
+			cache: false,
+			contentType: false,
+			processData: false,
 			dataType: 'json',
 					
 			success: function(result){
