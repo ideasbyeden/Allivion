@@ -105,6 +105,13 @@ $vars = array(
 		'datedisplay' => 'j M Y',
 		'group' => 'publishing'	
 	),
+	array(
+		'name' => 'closing_date',
+		'label' => 'Closing date',
+		'fieldtype' => 'date',
+		'datedisplay' => 'j M Y',
+		'group' => 'publishing'	
+	),
 	
 	array(
 		'name' => 'job_title',
@@ -125,10 +132,18 @@ $vars = array(
 	),
 	
 	array(
-		'name' => 'job_func',
-		'label' => 'Job function',
-		'placeholder' => '',
-		'fieldtype' => 'text',
+		'name' => 'role_func',
+		'label' => 'Role function',
+		'fieldtype' => 'dropdown',
+		'value' => array(
+			'Academic, Research, Teaching'		=> array('slug' => 'acadamic'),	
+			'PhD'								=> array('slug' => 'phd'),	
+			'Professional & Managerial' 		=> array('slug' => 'professional')
+			'Clerical & Administrative' 		=> array('slug' => 'clerical')
+			'Technical'					 		=> array('slug' => 'technical')
+			'Craft & Manual' 					=> array('slug' => 'craftmanual')
+			'Masters'					 		=> array('slug' => 'masters')
+		),
 		'group' => 'headline',
 		'keyword' => 'true'
 	),
@@ -192,19 +207,17 @@ $vars = array(
 		'group' => 'package'
 	),
 
-	array(
-		'name' => 'benefits',
-		'label' => 'Benefits',
-		'placeholder' => '',
-		'fieldtype' => 'text',
-		'group' => 'package'
-	),
+
 	
 	array(
 		'name' => 'hours',
 		'label' => 'Hours',
-		'placeholder' => '',
-		'fieldtype' => 'text',
+		'fieldtype' => 'dropdown',
+		'value' => array(
+			'Full time'			=> array('slug' => 'fulltime'),	
+			'Part time' 		=> array('slug' => 'parttime'),	
+			'Variable hours' 	=> array('slug' => 'variablehours')	
+		),
 		'group' => 'package'
 	),
 	
@@ -214,9 +227,8 @@ $vars = array(
 		'placeholder' => '',
 		'fieldtype' => 'check',
 		'value' => array(
-			'Part time' 		=> array('slug' => 'parttime'),	
-			'Full time'			=> array('slug' => 'fulltime'),	
-			'Contract' 			=> array('slug' => 'contract'),	
+			'Permanent' 		=> array('slug' => 'permanent'),	
+			'Fixed Term'		=> array('slug' => 'fixedterm'),	
 			'Job share' 		=> array('slug' => 'jobshare')
 		),
 		'group' => 'package'
@@ -240,20 +252,20 @@ $vars = array(
 		'placeholder' => '',
 		'fieldtype' => 'check',
 		'value' => array(
-			'South East'		=> array('slug' => 'southeast'),	
-			'South West'		=> array('slug' => 'southwest'),	
-			'West Midlands'		=> array('slug' => 'westmidlands'),	
-			'East Midlands'		=> array('slug' => 'eastmidlands'),	
-			'East Anglia'		=> array('slug' => 'eastanglia'),	
-			'North West'		=> array('slug' => 'northwest'),	
-			'North East'		=> array('slug' => 'northeast'),	
-			'Scotland'			=> array('slug' => 'scotland'),	
-			'Ireland'			=> array('slug' => 'ireland'),	
-			'Wales'				=> array('slug' => 'wales'),	
-			'Europe'			=> array('slug' => 'europe'),	
-			'Asia'				=> array('slug' => 'asia'),	
-			'Americas'			=> array('slug' => 'americas'),	
-			'International'		=> array('slug' => 'international'),	
+			'London'				=> array('slug' => 'london'),	
+			'Midlands of England'	=> array('slug' => 'midlandsengland'),	
+			'Northern England'		=> array('slug' => 'northengland'),	
+			'Northern Ireland'		=> array('slug' => 'northernireland'),	
+			'Republic of Ireland'	=> array('slug' => 'republicireland'),	
+			'Scotland'				=> array('slug' => 'scotland'),	
+			'South East England'	=> array('slug' => 'southeastengland'),	
+			'South West England'	=> array('slug' => 'southwestengland'),	
+			'Wales'					=> array('slug' => 'wales'),	
+			'North, South & Central America' => array('slug' => 'americas'),	
+			'Europe'				=> array('slug' => 'europe'),	
+			'Asia & Middle East'	=> array('slug' => 'asia'),	
+			'Australasia'			=> array('slug' => 'australasia'),	
+			'Africa'				=> array('slug' => 'africa'),	
 		),
 		'group' => 'industry_location'
 	),
@@ -266,17 +278,11 @@ $vars = array(
 		'group' => 'industry_location'
 	),
 
-	array(
-		'name' => 'summary',
-		'label' => 'Advert summary',
-		'placeholder' => '',
-		'fieldtype' => 'textarea',
-		'group' => 'details'
-	),
+
 
 	array(
 		'name' => 'full_description_limited',
-		'label' => 'Advert full description',
+		'label' => 'Advert summary',
 		'placeholder' => '',
 		'fieldtype' => 'richtext',
 		'group' => 'details',
@@ -285,7 +291,7 @@ $vars = array(
 	
 	array(
 		'name' => 'full_description',
-		'label' => 'Advert full description',
+		'label' => 'Advert summary',
 		'placeholder' => '',
 		'fieldtype' => 'richtext',
 		'group' => 'details',
@@ -348,13 +354,6 @@ $vars = array(
 		'group' => 'extra'
 	),
 
-	array(
-		'name' => 'closing_date',
-		'label' => 'Closing date',
-		'fieldtype' => 'date',
-		'datedisplay' => 'j M Y',
-		'group' => 'extra'	
-	),
 	array(
 		'name' => 'promote',
 		'label' => 'Promote for',

@@ -245,6 +245,7 @@ img {
 #homefeaturedjobs .tab-content li {
 	border-bottom: 1px solid #DDDDDD;
 	padding: 4px 0;
+	list-style: none !important;
 }
 
 #homefeaturedjobs .tab-content li .jobcount {
