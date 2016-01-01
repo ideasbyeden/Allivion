@@ -130,6 +130,7 @@ add_filter( 'wp_nav_menu_items', 'menu_logo', 10, 2 );
 // thumbnails and image sizes
 add_theme_support( 'post-thumbnails' );
 add_image_size('tinythumb', 50, 50);
+add_image_size('smallthumb', 80, 80);
 add_image_size('recruiter_icon', 300, 300);
 add_image_size('recruiter_icon_small', 150, 150);
 add_image_size('brand_header', 9999, 150);
@@ -229,9 +230,18 @@ add_action( 'wp_enqueue_scripts', 'bootstrap_enqueue' );
 function scripts_enqueue() {
     wp_register_script( 'moment', get_bloginfo('template_url').'/js/moment.js', array('jquery'), NULL, true );
     wp_enqueue_script( 'moment' );
+
+    //wp_register_script( 'tinymce', get_bloginfo('template_url').'/js/tinymce/tinymce.min.js', array('jquery'), NULL, true );
+    //if (function_exists('wp_tiny_mce')) wp_tiny_mce();
+    
 }
 add_action( 'wp_enqueue_scripts', 'scripts_enqueue' );
 
+function tinymcefront(){
+    wp_enqueue_script( 'tiny_mce' );
+}
+
+add_action('wp_head','tinymcefront');
 
 ///////////////////////////////////////////// load other functions ///////////////////////////////////////////////
 

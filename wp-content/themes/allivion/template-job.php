@@ -56,6 +56,9 @@ $adtype = $vals['ad_type'][0] ? $vals['ad_type'][0] : 'standard';
 	<div class="row">
 		
 		<div class="col-md-8">
+			<a href="" class="back">
+				<input type="button" class="btn btn-default" value="Back to search results" />
+			</a>
 			<div class="whitepanel">
 
 			<div>
@@ -66,15 +69,18 @@ $adtype = $vals['ad_type'][0] ? $vals['ad_type'][0] : 'standard';
 						foreach(unserialize($employer['logo']) as $image_id) echo '<span id="logo">'.wp_get_attachment_image($image_id,'recruiter_icon_small').'</span>';
 					} ?>
 			</div>					
-			<h1 class="purple"><?php echo $vals['job_title']; echo $vals['location'] ? ', '.$vals['location'] : ''; ?></h1>
-			<h4><span id="employer"><?php echo $employer['recruiter_name']; ?></span><?php echo $vals['department']; ?></h6>
+			<h1 class="purple"><?php echo $vals['job_title']; ?></h1>
+			<h4>
+				<span id="employer"><?php echo $employer['recruiter_name']; ?></span>
+				<span id="department"><?php echo $vals['department'] ? ' - '.$vals['department'] : ''; ?></h6>
 				<h5>Posted: <strong><?php echo $vals['publish_from']; ?></strong></h5>
 			
 			<div class="row jobspec">
 			<div class="col-md-4">
-				<h5>Location: <strong><?php echo $vals['location']; ?></strong></h5>
-				<h5>Salary: <strong><?php echo $vals['salary_details']; ?></strong></h5>
-				<h5>Hours: <strong><?php echo $vals['hours']; ?></strong></h5>
+				<h5><strong>
+					<?php echo $vals['salary_details']; ?><?php echo $vals['location'] ? ', '.$vals['location'] : ''; ?>
+				</strong></h5>
+				<h5>Hours: <strong><?php echo $vals['hours'][0]; ?></strong></h5>
 				<h5>Contract: <strong><?php echo $vals['contract'][0]; ?></strong></h5>
 				<h5>Job ref: <strong><?php echo $vals['job_ref']; ?></strong></h5>
 			</div>
@@ -122,7 +128,6 @@ $adtype = $vals['ad_type'][0] ? $vals['ad_type'][0] : 'standard';
  				<input type="hidden" name="formafter" value="hide" />
 				
 				<div class="qpanel">
-					<h3 class="purple" style="margin-top: 0px;">Apply now</h3>
 <!--
 					<ul class="tabs">
 						<li class="active">Application form</li>
@@ -132,34 +137,35 @@ $adtype = $vals['ad_type'][0] ? $vals['ad_type'][0] : 'standard';
 -->
 					
 					<?php if($vals['application_method'][0] == 'form') { ?>
-					
-					<?php if(!$user) { ?>
-					<h4>Already registered?</h4>
-					<p><a href="/log-in" class="show_login" redirect="<?php echo $_SERVER['REQUEST_URI']; ?>">Click here to login and autocomplete this form</a></p>
-					<?php } ?>
+						
+						<h3 class="purple" style="margin-top: 0px;">Apply now</h3>
 
-					<?php $application->printGroup('headline',$uservals); ?>
-					<?php $application->printQuestion('job_id',$_REQUEST['i']); ?>
-					<?php $application->printQuestion('job_title',$vals['job_title']); ?>
-					<?php $application->printQuestion('job_ref',$vals['job_ref']); ?>
-					<input type="submit" value="Submit application" class="btn btn-default"/>
-					<div class="clear"></div>
-					
+						<?php if(!$user) { ?>
+						<h4>Already registered?</h4>
+						<p><a href="/log-in" class="show_login" redirect="<?php echo $_SERVER['REQUEST_URI']; ?>">Click here to login and autocomplete this form</a></p>
+						<?php } ?>
+	
+						<?php $application->printGroup('headline',$uservals); ?>
+						<?php $application->printQuestion('job_id',$_REQUEST['i']); ?>
+						<?php $application->printQuestion('job_title',$vals['job_title']); ?>
+						<?php $application->printQuestion('job_ref',$vals['job_ref']); ?>
+						<input type="submit" value="Submit application" class="btn btn-default"/>
+						<div class="clear"></div>
+						
 					<?php } ?>
 					
 					<?php if($vals['application_method'][0] == 'website') { 
+						
+						$weburl = 'http://'.preg_replace('#^https?://#', '', $vals['application_website']);
+						echo '<a href="'.$weburl.'"><input type="button" class="btn btn-default btn-lg purplegrad" value="Apply now" /></a>';
 					
-					$weburl = 'http://'.preg_replace('#^https?://#', '', $vals['application_website']);
-					echo '<p>Go to employer website to apply:</p>';
-					echo '<p><a href="'.$weburl.'">'.$weburl.'</a></p>';
-					
-					 } ?>
+					} ?>
 
 					<?php if($vals['application_method'][0] == 'email') { 
-					
-					echo '<p>Email employer to apply:</p>';
-					echo '<a href="mailto:'.$vals['application_email'].'">'.$vals['application_email'].'</a>';
-					
+						
+						echo '<a href="mailto:'.$vals['application_email'].'"><input type="button" class="btn btn-default btn-lg purplegrad" value="Apply now" /></a>';
+
+										
 					} ?>
 				</div>
 

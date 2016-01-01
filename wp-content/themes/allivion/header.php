@@ -51,6 +51,7 @@
  	
  	<script src="<?php bloginfo('template_url'); ?>/js/QueryToJSON.js"></script>
  	<script src="<?php bloginfo('template_url'); ?>/js/jquery.sticky-kit.min.js"></script>
+ 	<script src="<?php bloginfo('template_url'); ?>/js/backbutton.js"></script>
  	
  	<script>
 	 	jQuery(function(){

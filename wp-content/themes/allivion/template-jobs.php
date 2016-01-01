@@ -80,6 +80,8 @@ $returnfields = array('job_title','location','summary','recruiter_name','departm
 
 	jQuery(function(){
 		jQuery('form.directory.search').submit(function(e){
+			
+			var querystring = '?';
 			jQuery('#job_bullets table').html('');
 			jQuery(this).find('select, input[type="text"]').each(function(){
 				if(jQuery(this).val() != ''){
@@ -87,12 +89,16 @@ $returnfields = array('job_title','location','summary','recruiter_name','departm
 					if(jQuery(this).is('input')){
 						var opval = jQuery(this).val();						
 					} else {
-						var opval = jQuery(this).find('option:selected').text().replace(/^- /,'');						
+						var opval = jQuery(this).find('option:selected').text().replace(/^- /,'');
 					}
 					
+					querystring += jQuery(this).attr('name') + '=' + jQuery(this).val() + '&';
+										
 	 			jQuery('#job_bullets table').append('<tr><td style="width:50%">'+label+'</td><td><strong>'+opval+'</strong></td></tr>').hide().fadeIn(100);
 	 			}
 			});
+			var newurl = document.location.protocol + '//' + document.location.hostname  + document.location.pathname + querystring;
+			document.location = newurl;
 		});
 	});	
 	
@@ -243,7 +249,7 @@ $returnfields = array('job_title','location','summary','recruiter_name','departm
 					<tbody id="jobslist">
 						
 					<tr class="prototype" data-href="/job?i=">
-						<td style="width: 60px;">[logo_image]</td>
+						<td style="width: 90px;">[logo_image]</td>
 						<td>
 							<h4>
 								<span class="job_title">[job_title]</span><span class="location">, [location]</span>
@@ -279,9 +285,9 @@ $returnfields = array('job_title','location','summary','recruiter_name','departm
 							?>
 					
 						<tr class="clickable rowitem <?php echo $class ?>" data-href="/job?i=<?php echo $item->ID; ?>">
-							<td style="width: 60px;">
+							<td style="width: 90px;">
 								<?php if($item->groupmeta['logo']) { ?>
-										<?php foreach($item->groupmeta['logo'] as $image_id) echo wp_get_attachment_image($image_id,'tinythumb'); ?>
+										<?php foreach($item->groupmeta['logo'] as $image_id) echo wp_get_attachment_image($image_id,'smallthumb'); ?>
 								<?php } ?>
 							</td>
 							<td>

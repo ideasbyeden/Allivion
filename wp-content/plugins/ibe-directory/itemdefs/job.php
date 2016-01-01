@@ -138,10 +138,10 @@ $vars = array(
 		'value' => array(
 			'Academic, Research, Teaching'		=> array('slug' => 'acadamic'),	
 			'PhD'								=> array('slug' => 'phd'),	
-			'Professional & Managerial' 		=> array('slug' => 'professional')
-			'Clerical & Administrative' 		=> array('slug' => 'clerical')
-			'Technical'					 		=> array('slug' => 'technical')
-			'Craft & Manual' 					=> array('slug' => 'craftmanual')
+			'Professional & Managerial' 		=> array('slug' => 'professional'),
+			'Clerical & Administrative' 		=> array('slug' => 'clerical'),
+			'Technical'					 		=> array('slug' => 'technical'),
+			'Craft & Manual' 					=> array('slug' => 'craftmanual'),
 			'Masters'					 		=> array('slug' => 'masters')
 		),
 		'group' => 'headline',

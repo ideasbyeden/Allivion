@@ -61,7 +61,9 @@ $returnfields = array('job_title','location','summary','recruiter_name','closing
 		<div class="row">
 			<div class="col-sm-12">
 				
-				<div id="homesearch">				
+				<div id="homesearch">
+					
+					<h1 style="color: white !important; margin: -30px 0 30px; text-align: center;">Welcome to Allivion, your academic, professional and research job board</h1>				
 	
 					<form class="directory <?php echo $job->type; ?> homesearch" id="searchjobs" action="/jobs" method="get">
 					<h2 style="color: white;">Find your job</h2>
@@ -99,13 +101,13 @@ $returnfields = array('job_title','location','summary','recruiter_name','closing
 				<li role="presentation" class="active">
 					<a data-toggle="tab" href="#academic_cats" class="academic">
 						<span class="icon"></span>
-						Academic &<br />Research Careers
+						Academic &<br />Research Jobs
 					</a>
 				</li>
 				<li role="presentation">
 					<a data-toggle="tab" href="#professional_cats" class="professional">
 						<span class="icon"></span>
-						Professional<br />Careers
+						Professional<br />Jobs
 					</a>
 				</li>
 				<li role="presentation">

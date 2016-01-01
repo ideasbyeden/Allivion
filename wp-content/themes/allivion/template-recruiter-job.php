@@ -65,7 +65,6 @@ while (have_posts()) {
 						<?php $job->printGroup('industry_location',$vals); ?>
 					</div>
 					<div class="qpanel">
-						<?php $job->printQuestion('summary',$vals['summary']); ?>
 						<?php $job->printQuestion('full_description_limited',$vals['full_description_limited']); ?>
 						<?php $job->printQuestion('full_description',$vals['full_description']); ?>
 						<?php $job->printQuestion('spec_upload',$vals['spec_upload']); ?>
@@ -113,6 +112,9 @@ while (have_posts()) {
 	</div>
 </div>
 
+<?php wp_tiny_mce( true, array( "editor_selector" => 'richtext' ) ); ?>
+
+
 <script type="text/javascript" src="<?php bloginfo('template_url'); ?>/js/wordlimit.js"></script>
 
 <script>
@@ -155,6 +157,17 @@ while (have_posts()) {
 
 		});
 	});
+	
+/*
+	jQuery(function(){
+		tinyMCE.init({
+	        mode : "specific_textareas",
+	        theme : "simple", 
+	        plugins : "autolink, lists, spellchecker, style, layer, table, advhr, advimage, advlink, emotions, iespell, inlinepopups, insertdatetime, preview, media, searchreplace, print, contextmenu, paste, directionality, fullscreen, noneditable, visualchars, nonbreaking, xhtmlxtras, template",
+	        editor_selector :"richtext"
+	    });
+	});
+*/
 </script>
 
 

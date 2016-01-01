@@ -56,6 +56,7 @@ img {
 	width: 310px;
 }
 
+
 #nav {
 	position: absolute;
 	bottom: 20px;
@@ -815,8 +816,7 @@ ul.tabs li.active {
 }
 
 .searchresults tbody tr {
-	background-color: #EEEEEE;
-
+	background-color: #FBFBFB;
 }
 
 .searchresults thead {
@@ -843,7 +843,7 @@ ul.tabs li.active {
 }
 
 .searchresults img {
-	width: 50px;
+	width: 80px;
 }
 
 .searchresults p {
@@ -856,7 +856,7 @@ ul.tabs li.active {
 }
 
 tr.clickable:hover {
-	background-color: #DDDDDD;
+	background-color: #F2F2F2;
 }
 
 #job_bullets {
