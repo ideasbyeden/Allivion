@@ -110,6 +110,7 @@ class directoryCore {
 					$output .= $question['placeholder'] ? 'placeholder="'.$question['placeholder'].'" ' : '';
 					$output .= $question['label'] ? 'label="'.$question['label'].'" ' : '';
 					$output .= $question['required'] ? 'required="'.$question['required'].'" ' : '';
+					$output .= $question['dependency'] ? 'dependency="'.$question['dependency'].'" ' : '';
 					$output .= 'value="'.$value.'" ';
 					$output .= '/>';
 				break;
@@ -120,10 +121,12 @@ class directoryCore {
 					$output .= '<textarea ';
 					$output .= $question['name'] ? 'name="'.$question['name'].'" ' : '';
 					$output .= $question['placeholder'] ? 'placeholder="'.$question['placeholder'].'" ' : '';
+					$output .= $question['dependency'] ? 'dependency="'.$question['dependency'].'" ' : '';
 					$output .= $question['required'] ? 'required="'.$question['required'].'" ' : '';
 					$output .= '>'.$value.'</textarea>';
 				break;
 
+/*
 				case 'richtext':
 					$output .= $question['limit'] ? '<span class="limited">' : '<span class="unlimited">';
 					$output .= $question['label'] ? '<label>'.$question['label'].'</label>' : '';
@@ -137,6 +140,27 @@ class directoryCore {
 					$output .= $question['limit'] ? '<p class="wordlimit"><span class="wordcount">'.count(array_filter(explode(' ', $value))).'</span> of '.$question['limit'].' words</p>' : '';
 					$output .= '</span>';
 				break;
+*/
+
+
+				case 'richtext':
+					$output .= $question['limit'] ? '<span class="limited">' : '<span class="unlimited">';
+					$output .= $question['label'] ? '<label>'.$question['label'].'</label>' : '';
+					$output .= $question['instructions'] ? '<p class="instructions">'.$question['instructions'].'</p>' : '';
+					
+					ob_start();
+					$editor_args = array(
+						'media_buttons' => false,
+						'teeny' => true,
+						'wpautop' => false
+					);
+					wp_editor($value,$question['name'],$editor_args);
+					$output .= ob_get_clean();
+					
+					//$output .= $question['limit'] ? '<p class="wordlimit"><span class="wordcount">'.count(array_filter(explode(' ', $value))).'</span> of '.$question['limit'].' words</p>' : '';
+					$output .= '</span>';
+				break;
+
 				
 				case 'date':
 					$output .= $question['label'] ? '<label>'.$question['label'].'</label>' : '';
@@ -144,6 +168,7 @@ class directoryCore {
 					$output .= '<input type="text" class="datepicker" ';
 					$output .= $question['name'] ? 'name="'.$question['name'].'" ' : '';
 					$output .= $question['placeholder'] ? 'placeholder="'.$question['placeholder'].'" ' : '';
+					$output .= $question['dependency'] ? 'dependency="'.$question['dependency'].'" ' : '';
 					$output .= $question['required'] ? 'required="'.$question['required'].'" ' : '';
 					$output .= 'value="'.$value.'" ';
 					$output .= '/>';
@@ -155,6 +180,7 @@ class directoryCore {
 					$output .= '<input type="email" ';
 					$output .= $question['name'] ? 'name="'.$question['name'].'" ' : '';
 					$output .= $question['placeholder'] ? 'placeholder="'.$question['placeholder'].'" ' : '';
+					$output .= $question['dependency'] ? 'dependency="'.$question['dependency'].'" ' : '';
 					$output .= $question['required'] ? 'required="'.$question['required'].'" ' : '';
 					$output .= 'value="'.$value.'" ';
 					$output .= '/>';
@@ -165,6 +191,7 @@ class directoryCore {
 					$output .= $question['instructions'] ? '<p class="instructions">'.$question['instructions'].'</p>' : '';
 					$output .= '<input type="text" ';
 					$output .= $question['name'] ? 'name="'.$question['name'].'" ' : '';
+					$output .= $question['dependency'] ? 'dependency="'.$question['dependency'].'" ' : '';
 					$output .= $question['placeholder'] ? 'placeholder="'.$question['placeholder'].'" ' : '';
 					$output .= $question['required'] ? 'required="'.$question['required'].'" ' : '';
 					$output .= 'value="'.$value.'" ';
@@ -188,6 +215,7 @@ class directoryCore {
 					$output .= $question['name'] ? 'name="'.$question['name'].'" ' : '';
 					$output .= $question['label'] ? 'label="'.$question['label'].'" ' : '';
 					$output .= $question['placeholder'] ? 'placeholder="'.$question['placeholder'].'" ' : '';
+					$output .= $question['dependency'] ? 'dependency="'.$question['dependency'].'" ' : '';
 					$output .= $question['required'] ? 'required="'.$question['required'].'" ' : '';
 					$output .= '>';
 					if($question['addblank'] || $add_blank){
@@ -226,6 +254,7 @@ class directoryCore {
 						if($question['select_parent'] !== 'false'){
 							$output .= '<input type="checkbox" value="'.$v['slug'].'" ';
 							$output .= $question['name'] ? 'name="'.$question['name'].'[]" ' : '';
+							$output .= $question['dependency'] ? 'dependency="'.$question['dependency'].'" ' : '';
 							$output .= $question['required'] ? 'required="'.$question['required'].'" ' : '';
 							if($value && in_array($v['slug'], $value)){
 								$output .= 'CHECKED ';
@@ -239,6 +268,7 @@ class directoryCore {
 							$output .= '<p class="inset1">';
 							$output .= '<input type="checkbox" value="'.$v['slug'].'" ';
 							$output .= $question['name'] ? 'name="'.$question['name'].'[]" ' : '';
+							$output .= $question['dependency'] ? 'dependency="'.$question['dependency'].'" ' : '';
 							$output .= $question['required'] ? 'required="'.$question['required'].'" ' : '';
 							if($value && in_array($v['slug'], $value)){
 							//if($v == $value){
@@ -268,6 +298,7 @@ class directoryCore {
 					$output .= '<fieldset class="cc'.$cols.' ">';
 					foreach($question['value'] as $k=>$v){
 						$output .= '<input type="radio" value="'.$v.' ';
+						$output .= $question['dependency'] ? 'dependency="'.$question['dependency'].'" ' : '';
 						$output .= $question['name'] ? 'name="'.$question['name'].'[]" ' : '';
 						$output .= $question['required'] ? 'required="'.$question['required'].'" ' : '';
 						if(in_array($v, $value)){
@@ -283,6 +314,7 @@ class directoryCore {
 					$output .= $question['instructions'] ? '<p class="instructions">'.$question['instructions'].'</p>' : '';
 					$output .= '<input type="file" class="fileupload"';
 					$output .= $question['name'] ? 'name="'.$question['name'].'" ' : '';
+					$output .= $question['dependency'] ? 'dependency="'.$question['dependency'].'" ' : '';
 					$output .= $question['required'] ? 'required="'.$question['required'].'" ' : '';
 					$output .= '/>';
 				break;
@@ -291,6 +323,7 @@ class directoryCore {
 					$output .= $question['label'] ? '<label>'.$question['label'].'</label>' : '';
 					$output .= $question['instructions'] ? '<p class="instructions">'.$question['instructions'].'</p>' : '';
 					$output .= '<input type="file" class="imageupload"';
+					$output .= $question['dependency'] ? 'dependency="'.$question['dependency'].'" ' : '';
 					$output .= $question['name'] ? 'name="'.$question['name'].'" ' : '';
 					$output .= $question['required'] ? 'required="'.$question['required'].'" ' : '';
 					$output .= '/>';

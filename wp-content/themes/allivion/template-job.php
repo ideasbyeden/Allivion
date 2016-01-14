@@ -71,22 +71,28 @@ $adtype = $vals['ad_type'][0] ? $vals['ad_type'][0] : 'standard';
 			</div>					
 			<h1 class="purple"><?php echo $vals['job_title']; ?></h1>
 			<h4>
-				<span id="employer"><?php echo $employer['recruiter_name']; ?></span>
+				<span id="employer"><strong><?php echo $employer['recruiter_name']; ?></strong></span>
 				<span id="department"><?php echo $vals['department'] ? ' - '.$vals['department'] : ''; ?></h6>
 				<h5>Posted: <strong><?php echo $vals['publish_from']; ?></strong></h5>
 			
 			<div class="row jobspec">
 			<div class="col-md-4">
-				<h5><strong>
-					<?php echo $vals['salary_details']; ?><?php echo $vals['location'] ? ', '.$vals['location'] : ''; ?>
-				</strong></h5>
+				<h5>Salary: <strong><?php echo $vals['salary_details']; ?></strong></h5>
+				<h5>Location: <strong><?php echo $vals['location'] ? $vals['location'] : ''; ?></strong></h5>
 				<h5>Hours: <strong><?php echo $vals['hours'][0]; ?></strong></h5>
 				<h5>Contract: <strong><?php echo $vals['contract'][0]; ?></strong></h5>
 				<h5>Job ref: <strong><?php echo $vals['job_ref']; ?></strong></h5>
 			</div>
 			<div class="col-md-4" style="">
 				<h5>Further information</h5>
-				<?php if($vals['spec_upload']) echo '<a href="'.$vals['spec_upload'].'" target="_blank"><strong>'.get_post_meta($_REQUEST['i'],'spec_upload_label',true).'</strong></a><p></p>'; ?>
+				<?php if($vals['doc_upload']) { 
+					$q = $job->getQuestion('doc_download_label');
+					$ddl = $job->recursive_array_search($vals['doc_download_label'][0],$q['value']);
+				?>
+				<a href="<?php echo $vals['doc_upload']; ?>" target="_blank">
+				<input type="button" value="Download <?php echo $ddl; ?>" class="btn btn-default"/>
+				</a><p></p>
+				<?php } ?>
 			</div>
 			<div class="col-md-4" style="text-align: center;">
 				

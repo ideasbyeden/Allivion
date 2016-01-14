@@ -67,12 +67,14 @@ while (have_posts()) {
 					<div class="qpanel">
 						<?php $job->printQuestion('full_description_limited',$vals['full_description_limited']); ?>
 						<?php $job->printQuestion('full_description',$vals['full_description']); ?>
-						<?php $job->printQuestion('spec_upload',$vals['spec_upload']); ?>
-						<?php if($vals['spec_upload']) echo '<a href="'.$vals['spec_upload'].'" target="_blank">'.get_post_meta($_REQUEST['i'],'spec_upload_label',true).'</a>'; ?>
+						<?php $job->printQuestion('doc_upload',$vals['doc_upload']); ?>
+						<?php if($vals['doc_upload']) echo '<a href="'.$vals['doc_upload'].'" target="_blank">'.get_post_meta($_REQUEST['i'],'doc_upload_label',true).'</a>'; ?>
+						<?php $job->printQuestion('doc_download_label',$vals['doc_download_label']); ?>
 					</div>
 					<div class="qpanel">
 						<?php $job->printGroup('extra',$vals); ?>
 					</div>
+					
 					<div class="qpanel">
 						<?php $job->printGroup('admin',$vals); ?>
 					</div>
@@ -89,9 +91,11 @@ while (have_posts()) {
 						<h3>Ad preview</h3>
 						<input type="submit" value="Save changes" class="btn btn-default"/>
 						<hr>
-						<h2 class="purple"><span id="job_title"><?php echo $vals['job_title'] ? $vals['job_title'] : 'Job Title'; ?></span>, <span id="location"><?php echo $vals['location'] ? $vals['location'] : 'Location'; ?></span></h2>
-						<h4><span id="employer"><?php echo get_user_meta($vals['group_id'],'recruiter_name',true); ?></span></h4>
-						<h4><span id="salary_details"><?php echo $vals['salary_details'] ? $vals['salary_details'] : 'Salary'; ?></span></h4>
+						<h2 class="purple"><span id="job_title"><?php echo $vals['job_title'] ? $vals['job_title'] : 'Job Title'; ?></span></h2>
+						<h4><span id="employer"><?php echo get_user_meta($vals['group_id'],'recruiter_name',true); ?></span> - <span id="department"><?php echo $vals['department'] ? $vals['department'] : 'Department'; ?></span></h4>
+						<h4>
+							<span id="salary_details"><?php echo $vals['salary_details'] ? $vals['salary_details'] : 'Salary'; ?></span>, <span id="location"><?php echo $vals['location'] ? $vals['location'] : 'Location'; ?></span>	
+						</h4>
 						<div class="limited">
 							<span id="full_description_limited">
 								<?php echo $vals['full_description_limited'] ? $vals['full_description_limited'] : 'Job description'; ?>
@@ -112,7 +116,6 @@ while (have_posts()) {
 	</div>
 </div>
 
-<?php wp_tiny_mce( true, array( "editor_selector" => 'richtext' ) ); ?>
 
 
 <script type="text/javascript" src="<?php bloginfo('template_url'); ?>/js/wordlimit.js"></script>
@@ -136,6 +139,62 @@ while (have_posts()) {
 				jQuery('.limited').show();				
 			}
 		});
+	});
+
+	// Show / hide promotion options based on ad type
+/*
+	jQuery(function(){
+		jQuery('select[name="ad_type"]').change(function(){
+			if(jQuery(this).val() == 'sponsored'){
+				jQuery('#qg-admin').show();
+			} else {
+				jQuery('#qg-admin').hide();
+			}
+		});
+	});
+*/
+	
+	// Show / hide application web address field
+/*
+	jQuery(function(){
+		jQuery('select[name="application_method"]').change(function(){
+			if(jQuery(this).val() == 'sponsored'){
+				jQuery('#qg-admin').show();
+			} else {
+				jQuery('#qg-admin').hide();
+			}
+		});
+	});
+*/
+
+	jQuery(function(){
+		
+		showHide();
+		jQuery('input, select, textarea').change(function(){
+			showHide();
+		});
+		
+		function showHide(){
+			jQuery('input, select, textarea').each(function(){
+
+
+				if(typeof jQuery(this).attr('dependency') != 'undefined'){
+
+					var dep = jQuery(this).attr('dependency').split(':');
+					console.log(dep);
+
+					var depval = jQuery('[name="'+dep[0]+'"]').val();
+					if(depval == dep[1]){
+						jQuery(this).closest('.question').show();					
+					} else {
+						jQuery(this).closest('.question').hide();					
+					}
+
+				}
+
+
+			});
+		}
 	});
 	
 	jQuery(function(){

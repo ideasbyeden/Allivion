@@ -1,12 +1,14 @@
 jQuery(function(){
 	
 	jQuery('form.directory.updateuser').submit(function(e){
+		tinyMCE.triggerSave();
 		e.preventDefault();
 		console.log('updating user');
 		submitForm(jQuery(this));
 	});
 
 	jQuery('form.directory.updateuser input, form.directory.updateuser textarea, form.directory.updateuser select').change(function(){
+		tinyMCE.triggerSave();
 		var form = jQuery(this).closest('form');
 		if(form.attr('autosave') == 'true'){
 			submitForm(form);

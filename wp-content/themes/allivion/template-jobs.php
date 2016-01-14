@@ -252,11 +252,14 @@ $returnfields = array('job_title','location','summary','recruiter_name','departm
 						<td style="width: 90px;">[logo_image]</td>
 						<td>
 							<h4>
-								<span class="job_title">[job_title]</span><span class="location">, [location]</span>
+								<span class="job_title">[job_title]</span>
 							</h4>
-							<p class="department">[department]</p>
 							<p class="recruiter_name"><strong>[recruiter_name]</strong></p>
-							<p class="salary_details">Salary <strong>[salary_details]</strong></p>
+							<p class="department">[department]</p>
+							<p>
+								<span class="salary_details"><strong>[salary_details]</strong></span>
+								<span class="location"><strong>, [location]</strong></span>
+							</p>
 							<p class="publish_from">Placed on <strong>[publish_from]</strong></p>
 						</td>
 						<td></td>
@@ -291,11 +294,13 @@ $returnfields = array('job_title','location','summary','recruiter_name','departm
 								<?php } ?>
 							</td>
 							<td>
-								<h4><?php echo $item->meta['job_title']; ?><?php if($item->meta['location']) echo ', '.$item->meta['location']; ?></h4>
-								<p><?php echo $item->meta['department'] ? $item->meta['department'].'<br />' : ''?>
+								<h4><?php echo $item->meta['job_title']; ?></h4>
 								<p><strong><?php echo $item->groupmeta['recruiter_name']; ?></strong></p>
+								<p><?php echo $item->meta['department'] ? $item->meta['department'].'<br />' : ''?>
 								<?php if($item->meta['salary_details'] != ''){ ?>
-									<p>Salary <strong><?php echo $item->meta['salary_details']; ?></strong></p>
+									<p>
+										<span><strong><?php echo $item->meta['salary_details']; ?></strong></span><span><strong><?php if($item->meta['location']) echo ', '.$item->meta['location']; ?></strong></span>	
+									</p>
 								<?php } ?>
 								<?php if($item->meta['publish_from'] != '') { ?>
 									<p>Placed on <strong><?php echo $item->meta['publish_from']; ?></strong></p>

@@ -110,7 +110,8 @@ $vars = array(
 		'label' => 'Closing date',
 		'fieldtype' => 'date',
 		'datedisplay' => 'j M Y',
-		'group' => 'publishing'	
+		'group' => 'publishing',
+		'required' => 'publish',
 	),
 	
 	array(
@@ -128,7 +129,8 @@ $vars = array(
 		'label' => 'Job reference',
 		'placeholder' => '',
 		'fieldtype' => 'text',
-		'group' => 'headline'
+		'group' => 'headline',
+		'required' => 'save',
 	),
 	
 	array(
@@ -154,7 +156,8 @@ $vars = array(
 		'placeholder' => '',
 		'fieldtype' => 'text',
 		'group' => 'headline',
-		'keyword' => 'true'
+		'keyword' => 'true',
+		'required' => 'publish',
 	),
 
 	array(
@@ -163,7 +166,8 @@ $vars = array(
 		'placeholder' => '',
 		'fieldtype' => 'text',
 		'group' => 'headline',
-		'keyword' => 'true'
+		'keyword' => 'true',
+		'required' => 'publish',
 	),
 	
 	array(
@@ -183,7 +187,7 @@ $vars = array(
 			'£100,000+' 		=> array('slug' => '100000'),	
 		),
 		'group' => 'package',
-		//'required' => 'publish'
+		'required' => 'publish'
 	),
 
 	array(
@@ -204,7 +208,8 @@ $vars = array(
 		'label' => 'Salary details',
 		'placeholder' => '',
 		'fieldtype' => 'text',
-		'group' => 'package'
+		'group' => 'package',
+		'required' => 'publish'
 	),
 
 
@@ -243,7 +248,8 @@ $vars = array(
 		'taxonomy' => 'sector',
 		'group' => 'industry_location',
 		'keyword' => 'true',
-		'select_parent' => 'false'
+		'select_parent' => 'false',
+		'required' => 'publish'
 	),
 
 	array(
@@ -267,7 +273,8 @@ $vars = array(
 			'Australasia'			=> array('slug' => 'australasia'),	
 			'Africa'				=> array('slug' => 'africa'),	
 		),
-		'group' => 'industry_location'
+		'group' => 'industry_location',
+		'required' => 'publish'
 	),
 
 	array(
@@ -275,7 +282,8 @@ $vars = array(
 		'label' => 'Location',
 		'placeholder' => '',
 		'fieldtype' => 'text',
-		'group' => 'industry_location'
+		'group' => 'industry_location',
+		'required' => 'publish'
 	),
 
 
@@ -286,7 +294,7 @@ $vars = array(
 		'placeholder' => '',
 		'fieldtype' => 'richtext',
 		'group' => 'details',
-		'limit' => '600'
+		'limit' => '10'
 	),
 	
 	array(
@@ -298,8 +306,8 @@ $vars = array(
 	),
 
 	array(
-		'name' => 'spec_upload',
-		'label' => 'Job specification upload',
+		'name' => 'doc_upload',
+		'label' => 'Document upload',
 		'placeholder' => '',
 		'fieldtype' => 'file',
 		'group' => 'details',
@@ -307,13 +315,19 @@ $vars = array(
 	),
 
 	array(
-		'name' => 'link_text',
-		'label' => 'Job specification link text',
-		'fieldtype' => 'text',
-		'value' => 'Download full job specification',
-		'group' => 'details',
-		'extra_class' => 'widelabel'
+		'name' => 'doc_download_label',
+		'label' => 'Document download label',
+		'placeholder' => '',
+		'fieldtype' => 'dropdown',
+		'value' => array(
+			'Job description' 		=> array('slug' => 'jobdescription'),	
+			'Research brief'		=> array('slug' => 'researchbrief'),	
+			'Further information document' 		=> array('slug' => 'furtherinfo')
+		),
+		'group' => 'details'
 	),
+
+
 
 	array(
 		'name' => 'extra_info',
@@ -342,6 +356,7 @@ $vars = array(
 		'label' => 'Application website',
 		'placeholder' => '',
 		'fieldtype' => 'text',
+		'dependency' => 'application_method:website',
 		'group' => 'extra'
 	),
 
@@ -351,6 +366,7 @@ $vars = array(
 		'label' => 'Email applications to',
 		'placeholder' => '',
 		'fieldtype' => 'text',
+		'dependency' => 'application_method:email',
 		'group' => 'extra'
 	),
 
@@ -360,6 +376,7 @@ $vars = array(
 		'fieldtype' => 'dropdown',
 		'addblank' => true,
 		'value' => $sector->taxTree(),
+		'dependency' => 'ad_type:sponsored',
 		'group' => 'admin'
 	),
 	array(
@@ -367,6 +384,7 @@ $vars = array(
 		'label' => 'Promote from',
 		'fieldtype' => 'date',
 		'datedisplay' => 'j M Y',
+		'dependency' => 'ad_type:sponsored',
 		'group' => 'admin'	
 	),
 	array(
@@ -374,6 +392,7 @@ $vars = array(
 		'label' => 'Promote to',
 		'fieldtype' => 'date',
 		'datedisplay' => 'j M Y',
+		'dependency' => 'ad_type:sponsored',
 		'group' => 'admin'	
 	),
 	array(

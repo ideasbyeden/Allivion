@@ -2,12 +2,15 @@ jQuery(function(){
 	
 	var autosave = 'false';
 	
+	
 	jQuery('form.directory.update').submit(function(e){
+		tinyMCE.triggerSave();
 		e.preventDefault();
 		submitForm(jQuery(this),autosave);
 	});
 
 	jQuery('form.directory.update input, form.directory.update textarea, form.directory.update select').change(function(){
+		tinyMCE.triggerSave();
 		console.log('changes made');
 		var form = jQuery(this).closest('form');
 		autosave = form.attr('autosave');

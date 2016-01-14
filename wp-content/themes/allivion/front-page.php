@@ -63,7 +63,8 @@ $returnfields = array('job_title','location','summary','recruiter_name','closing
 				
 				<div id="homesearch">
 					
-					<h1 style="color: white !important; margin: -30px 0 30px; text-align: center;">Welcome to Allivion, your academic, professional and research job board</h1>				
+					<h1 style="color: white !important; margin: -30px 0 0 0; text-align: center; font-size: 4em;">Welcome to Allivion</h1>
+					<h2 style="color: white !important; margin: 0 0 30px;text-align: center;">Your academic, professional and research job board</h2>				
 	
 					<form class="directory <?php echo $job->type; ?> homesearch" id="searchjobs" action="/jobs" method="get">
 					<h2 style="color: white;">Find your job</h2>
