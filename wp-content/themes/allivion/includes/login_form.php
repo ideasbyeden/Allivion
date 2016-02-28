@@ -1,6 +1,6 @@
 <script>
 	jQuery(function(){
-		jQuery('a.show_login').on('click', function(e){
+		jQuery('.show_login').on('click', function(e){
 	        jQuery('body').prepend('<div class="login_overlay"></div>');
 	        var redirect = jQuery(this).attr('redirect');
 	        console.log(redirect);

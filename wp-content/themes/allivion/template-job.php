@@ -34,13 +34,11 @@ $vals = $_REQUEST['i'] ? $job->getVals($_REQUEST['i']) : null;
 
 // Data for employer
 $employer = $_REQUEST['i'] ? $recruiter->getVals(get_post_meta($_REQUEST['i'],'group_id',true)) : null;
-//echo '<pre>'; print_r($employer); echo '</pre>';
 
 // Data for logged in user to autopopulate
 $uservals['first_name'] = $usermeta['first_name'];
 $uservals['last_name'] = $usermeta['last_name'];
 $uservals['email'] = $user->user_email;
-
 
 /////////////////////////////////////////////
 //
@@ -54,57 +52,80 @@ $adtype = $vals['ad_type'][0] ? $vals['ad_type'][0] : 'standard';
 <div class="container-fluid a2apad single-job-<?php echo $adtype; ?>">
 <div class="container">
 	<div class="row">
+	
 		
 		<div class="col-md-8">
-			<a href="" class="back">
-				<input type="button" class="btn btn-default" value="Back to search results" />
+			<a href="" class="back btn btn-default">
+			<i class="fa fa-arrow-left"></i> Back to search results
 			</a>
 			<div class="whitepanel">
 
 			<div>
 				<?php
 					if($vals['ad_type'][0] && $vals['ad_type'][0] != 'standard' && $employer['brand_header']){
-						foreach(unserialize($employer['brand_header']) as $image_id) echo '<span id="brand_header">'.wp_get_attachment_image($image_id,'brand_header').'</span>';						
+						foreach($employer['brand_header'] as $image_id) echo '<span id="brand_header">'.wp_get_attachment_image($image_id,'brand_header').'</span>';						
 					} else if($employer['logo']) {
-						foreach(unserialize($employer['logo']) as $image_id) echo '<span id="logo">'.wp_get_attachment_image($image_id,'recruiter_icon_small').'</span>';
+						foreach($employer['logo'] as $image_id) echo '<span id="logo">'.wp_get_attachment_image($image_id,'recruiter_icon_small').'</span>';
 					} ?>
 			</div>					
 			<h1 class="purple"><?php echo $vals['job_title']; ?></h1>
 			<h4>
 				<span id="employer"><strong><?php echo $employer['recruiter_name']; ?></strong></span>
 				<span id="department"><?php echo $vals['department'] ? ' - '.$vals['department'] : ''; ?></h6>
-				<h5>Posted: <strong><?php echo $vals['publish_from']; ?></strong></h5>
+				<h6>Posted: <strong><?php echo $vals['publish_from']; ?></strong></h6>
 			
 			<div class="row jobspec">
-			<div class="col-md-4">
-				<h5>Salary: <strong><?php echo $vals['salary_details']; ?></strong></h5>
-				<h5>Location: <strong><?php echo $vals['location'] ? $vals['location'] : ''; ?></strong></h5>
-				<h5>Hours: <strong><?php echo $vals['hours'][0]; ?></strong></h5>
-				<h5>Contract: <strong><?php echo $vals['contract'][0]; ?></strong></h5>
-				<h5>Job ref: <strong><?php echo $vals['job_ref']; ?></strong></h5>
-			</div>
-			<div class="col-md-4" style="">
-				<h5>Further information</h5>
+			<div class="col-xs-8">
+				<h6>Salary: <strong><?php echo $vals['salary_details']; ?></strong></h6>
+				<h6>Location: <strong><?php echo $vals['location'] ? $vals['location'] : ''; ?></strong></h6>
+				<h6>Hours: <strong><?php echo $vals['hours'][0]; ?></strong></h6>
+				<h6>Contract: <strong><?php echo $vals['contract'][0]; ?></strong></h6>
+				<h6>Job ref: <strong><?php echo $vals['job_ref']; ?></strong></h6>
+				
+				<p></p>
+
 				<?php if($vals['doc_upload']) { 
 					$q = $job->getQuestion('doc_download_label');
 					$ddl = $job->recursive_array_search($vals['doc_download_label'][0],$q['value']);
 				?>
 				<a href="<?php echo $vals['doc_upload']; ?>" target="_blank">
 				<input type="button" value="Download <?php echo $ddl; ?>" class="btn btn-default"/>
-				</a><p></p>
+				</a>
+								
 				<?php } ?>
+
+				<?php if($employer['video']) { 
+					$q = $job->getQuestion('doc_download_label');
+					$ddl = $job->recursive_array_search($vals['doc_download_label'][0],$q['value']);
+				?>
+				<input type="button" value="Recruiter video" class="btn btn-default openswitch" target="<?php echo $employer['video']; ?>"/>
+
+								
+				<?php } ?>
+				
+				
+				
 			</div>
-			<div class="col-md-4" style="text-align: center;">
+
+			<div class="col-xs-4" style="text-align: center;">
 				
 				<?php if($vals['closing_date']) {
 					$datearr = explode(' ', $vals['closing_date']); ?>
-					<h4 class="purple">Applications close</h4>
+					<h4 class="purple"><span class="hidden-xs">Applications close</span><span class="visible-xs">Closes</span></h4>
 				<div class="calpanel">
 					<div class="day"><?php echo $datearr[0]; ?></div>
 					<div class="month"><?php echo $datearr[1]; ?></div>
 				</div>
 				<?php } ?>
 				
+			</div>
+			
+			<div class="clear"></div>
+
+			<div class="col-md-12">
+				<div class="videoholder" id="<?php echo $employer['video']; ?>">
+					<?php include('includes/recruiter_video.php'); ?>
+				</div>
 			</div>
 			</div>
 			
@@ -194,6 +215,11 @@ $adtype = $vals['ad_type'][0] ? $vals['ad_type'][0] : 'standard';
 					<input type="submit" value="Register" class="btn btn-default"/>
 				</div>				
 			</form>
+			
+			<?php $terms = wp_get_post_terms($_REQUEST['i'],'sector');
+	foreach($terms as $term) $termsarr[] = $term->name; ?>
+	
+	<h6 style="color: #999999;">Listed in <?php echo implode(', ', $termsarr); ?></h6>
 		
 			</div>
 		</div><!-- end threeqtrscol -->
@@ -202,7 +228,27 @@ $adtype = $vals['ad_type'][0] ? $vals['ad_type'][0] : 'standard';
 			<h3 class="purple">Share this job</h3>
 			<?php get_template_part('includes/addtoany'); ?>
 			
-			<h3 class="purple">Other jobs from <?php echo $employer['recruiter_name']; ?></h3>
+						<div class="whitepanel" style="padding: 12px;">
+			<h3 class="purple" style="margin-top: 0px">Similar jobs</h3>
+			
+			<?php $similar = similarByString($vals['job_title'],'job_title',array('job_title','location','salary_details'),'job');
+					foreach($similar as $sim){ 
+						if($_REQUEST['i'] != $sim['ID']){
+					?>						<hr style="margin: 8px 0;">
+
+						<h5 class="purple" style="margin-bottom: 0px; font-size: 1.1em;">
+							<a href="/job?i=<?php echo $sim['ID']; ?>">
+								<?php echo $sim['job_title']; ?>
+							</a>
+						</h5>
+						<p><?php echo $sim['salary_details']; ?>, <?php echo $sim['location']; ?></p>
+
+			<?php }}	?>
+						</div>
+
+						<div class="whitepanel" style="padding: 12px;">
+
+			<h3 class="purple" style="margin-top: 0px">Other jobs from <?php echo $employer['recruiter_name']; ?></h3>
 			
 			<?php $args = array(
 					'post_type' => 'job',
@@ -217,12 +263,76 @@ $adtype = $vals['ad_type'][0] ? $vals['ad_type'][0] : 'standard';
 				$others = new WP_Query($args);
 				
 				while($others->have_posts()) : $others->the_post(); if($_REQUEST['i'] != get_the_id()) { ?>
-				
-				<h5><a href="/job?i=<?php echo get_the_id(); ?>">
-					<?php echo get_post_meta(get_the_id(),'job_title',true); ?>
-				</a></h5>
+										<hr style="margin: 8px 0;">
+
+				<h5 class="purple" style="margin-bottom: 0px; font-size: 1.1em;">
+					<a href="/job?i=<?php echo get_the_id(); ?>">
+						<?php echo get_post_meta(get_the_id(),'job_title',true); ?>
+					</a>
+				</h5>
+				<p><?php echo get_post_meta(get_the_id(),'salary_details',true); ?>, <?php echo get_post_meta(get_the_id(),'location',true); ?></p>
 				
 				<?php } endwhile; wp_reset_postdata(); ?>
+				
+
+						</div>
+						
+				<div class="whitepanel" style="padding: 12px;">
+					<h3 class="purple">Email me jobs like this</h3>
+					<form class="directory subscription create" id="jobs_subscribe" action="<?php echo admin_url('admin-ajax.php'); ?>" method="post">
+						
+						<input type="hidden" name="type" value="subscription" />
+						<input type="hidden" name="subscription_type" value="jobalert" />
+						<input type="hidden" name="nonce" value="<?php echo wp_create_nonce("directory_create_nonce"); ?>" />
+						<input type="hidden" name="action" value="directory_create" />
+
+						<input type="hidden" name="job_title" value="<?php echo $vals['job_title']; ?>" />
+						<?php $subscription->printQuestion('item_type','job'); ?>
+						<?php $subscription->printQuestion('status','active'); ?>
+						<?php $subscription->printQuestion('industry',$vals['industry'][0]); ?>
+						<?php $subscription->printQuestion('subscription_date',strtotime('now')); ?>
+						
+						<input type="email" name="subscriber_email" value="<?php echo $user->user_email ? $user->user_email : ''; ?>" />
+						<input type="hidden" name="expire" value="7" />
+						<input type="submit" value="Submit" class="btn btn-default" />
+						
+					</form>
+				</div>
+
+			
+				
+				<p style="padding-top: 20px;">
+				<a href="../job-print?i=<?php echo $_REQUEST['i']; ?>" class="purple" target="_blank">Print job</a>
+				</p>
+
+				<p style="padding-top: 15px;">
+				<a href="#" class="reportjob purple">Report this job</a>
+				</p>
+				
+				<form class="directory job notify" id="report_job" action="<?php echo admin_url('admin-ajax.php'); ?>" method="post" style="display: none;">
+					
+					<?php
+						$secured = array(
+										'type' => 'job',
+										'post_id' => $_REQUEST['i'],
+										'job_title' => $vals['job_title'],
+										'job_ref' => $vals['job_ref'],
+										'notify' => SYSADMIN_EMAIL
+									);
+									
+						$secured = http_build_query($secured);
+											
+					 ?>
+			 	
+					<input type="hidden" name="nonce" value="<?php echo wp_create_nonce("directory_notify"); ?>" />
+					<input type="hidden" name="action" value="directory_notify" />
+					<input type="hidden" name="successmessage" value="The job has been reported. If you provided your email address we will notify you of any action we have taken." />
+					<input type="hidden" name="notify_subject" value="Report Job" />
+					<input type="hidden" name="notify_template" value="report_job" />
+					<input type="hidden" name="encrypted" value="<?php echo $dircore->encrypt($secured); ?>" />
+					<input type="email" name="reporter_email" placeholder="Your email (optional)" style="width: 100%; margin-bottom: 6px"/>
+	 				<input type="submit" class="btn btn-default" value="Report this job" />
+				</form>
 		</div>
 
 
@@ -232,4 +342,24 @@ $adtype = $vals['ad_type'][0] ? $vals['ad_type'][0] : 'standard';
 </div>
 </div>
 
+<?php $sector->getTermChildren(0); ?>
+
+
+
 <?php get_footer(); ?>
+
+<script>
+	jQuery(function(){
+		jQuery('a.reportjob').click(function(e){
+			e.preventDefault();
+			jQuery('#report_job').fadeIn();
+		});
+		
+		jQuery('.openswitch').click(function(){
+			var target = jQuery(this).attr('target');
+			//alert('opening '+target);
+			jQuery('#'+target).toggleClass('open');
+			
+		});
+	});
+</script>

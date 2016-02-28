@@ -105,6 +105,10 @@ class taxdef extends directoryCore {
 			foreach($taxterms as $term){
 				$varr = array('id' => $term->term_id,'slug' => $term->slug);
 				// recursive
+				
+
+				
+				
 				$children = get_term_children($term->term_id,$this->type);
 				if(count($children) > 0){
 					foreach($children as $child){
@@ -117,11 +121,102 @@ class taxdef extends directoryCore {
 			}
 		}
 		
+		//echo '<pre>'; print_r($taxtree); echo '</pre>';
 		
 		return $taxtree;
 
 		
 		
 	}
+	
+	public function getTermChildren($parent){
+		
+		$args = array(
+		    'parent' => $parent,
+		    'taxonomy' => $this->type,
+		    'hide_empty' => 0,
+		    'hierarchical' => true,
+		    );
+		$children = get_categories( $args );
+		
+/*
+		echo '<pre>';
+		echo 'Count children = '.count($children).'<br />';
+		print_r($children);
+		echo '</pre>';
+*/
+		return $children;
+		
+	}
+
+
+	public function taxTreeRecursive(){
+		
+		$terms = get_terms($this->type, array('hide_empty' => false));
+		
+		$condterms = array();
+		
+		foreach($terms as $term){
+			$condterm['term_id'] = $term->term_id;
+			$condterm['parent'] = $term->parent;
+			$condterm['slug'] = $term->slug;
+			$condterm['name'] = $term->name;
+			$condterms[$term->name] = $condterm;
+		}
+		
+
+		for($i=0; $i<count($terms); $i++){
+			unset($terms[$i]->term_group);
+			unset($terms[$i]->term_taxonomy_id);
+			unset($terms[$i]->description);
+			unset($terms[$i]->count);
+			unset($terms[$i]->taxonomy);
+			$terms[$terms[$i]->name] = $terms[$i];
+			unset($terms[$i]);
+		}
+
+		
+		$categoryHierarchy = array();
+		//$this->sort_terms_hierarchicaly($termsArr, $categoryHierarchy);
+		$this->sort_terms_hierarchicaly_original($terms, $categoryHierarchy);
+		
+		return $categoryHierarchy;
+		
+	}
+	
+	 public function sort_terms_hierarchicaly(&$terms, &$into, $parentId = 0){
+	    foreach ($terms as $i => $term) {
+	        if ($term['parent'] == $parentId) {
+	            $into[$term['name']] = $term;
+	            unset($terms[$i]);
+	        }
+	    }
+	
+	    foreach ($into as $topTerm) {
+	        $topTerm['children'] = array();
+	        $this->sort_terms_hierarchicaly($terms, $topTerm['children'], $topTerm['term_id']);
+	    }
+	}
+	
+	
+	public function sort_terms_hierarchicaly_original(Array &$cats, Array &$into, $parentId = 0)
+{
+    foreach ($cats as $i => $cat) {
+        if ($cat->parent == $parentId) {
+            $into[$cat->name] = $cat;
+            unset($cats[$i]);
+        }
+    }
+
+    foreach ($into as $topCat) {
+        $topCat->children = array();
+        $this->sort_terms_hierarchicaly_original($cats, $topCat->children, $topCat->term_id);
+    }
+}
+	
+		
+		//Below code to call function As my main Custom Taxonomy is Location please replace with yours
+		
+
 	
 }

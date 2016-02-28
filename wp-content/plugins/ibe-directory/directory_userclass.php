@@ -63,7 +63,7 @@ class userdef extends directoryCore {
 		
 		if($user_id){
 			foreach(get_user_meta($user_id) as $k=>$v){
-				$vals[$k] = $v[0];
+				$vals[$k] = unserialize($v[0]) ? unserialize($v[0]) : $v[0];
 			}
 			$vals['user'] = get_user_by('id',$user_id);
 			

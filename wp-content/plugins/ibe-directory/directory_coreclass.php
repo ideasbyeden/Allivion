@@ -3,6 +3,7 @@
 class directoryCore {
 	
 	public $vars = array();
+	public $expire = '';
 	public $adminroot = '/';
 
 	
@@ -16,6 +17,14 @@ class directoryCore {
 	
 	public function AdminRoot(){
 		return $this->adminroot;
+	}
+	
+	public function setExpire($expire){
+		$this->expire = $expire;
+	}
+
+	public function getExpire(){
+		return $this->expire;
 	}
 	
 	// put this inside an call action on init?	
@@ -38,7 +47,9 @@ class directoryCore {
 					$preppedVars[$k] = $v;
 				}
 			}
+
 		}
+		//echo '<pre>Prepped vars: <br />'; print_r($preppedVars); echo '</pre>';
 		return $preppedVars ? $preppedVars : null;
 	}
 	
@@ -109,7 +120,16 @@ class directoryCore {
 					$output .= $question['name'] ? 'name="'.$question['name'].'" ' : '';
 					$output .= $question['placeholder'] ? 'placeholder="'.$question['placeholder'].'" ' : '';
 					$output .= $question['label'] ? 'label="'.$question['label'].'" ' : '';
-					$output .= $question['required'] ? 'required="'.$question['required'].'" ' : '';
+				
+					
+					if($question['required']) $question['required'] = array_filter(explode(':', $question['required']));
+					if(count($question['required']) > 1){
+						$output .= 'reqdep="'.$question['required'][0].'" ';
+						$output .= 'req="'.$question['required'][1].'" ';						
+					} else {
+						$output .= 'req="'.$question['required'][0].'" ';							
+					}
+					
 					$output .= $question['dependency'] ? 'dependency="'.$question['dependency'].'" ' : '';
 					$output .= 'value="'.$value.'" ';
 					$output .= '/>';
@@ -122,26 +142,9 @@ class directoryCore {
 					$output .= $question['name'] ? 'name="'.$question['name'].'" ' : '';
 					$output .= $question['placeholder'] ? 'placeholder="'.$question['placeholder'].'" ' : '';
 					$output .= $question['dependency'] ? 'dependency="'.$question['dependency'].'" ' : '';
-					$output .= $question['required'] ? 'required="'.$question['required'].'" ' : '';
+					$output .= $question['required'] ? 'req="'.$question['required'].'" ' : '';
 					$output .= '>'.$value.'</textarea>';
 				break;
-
-/*
-				case 'richtext':
-					$output .= $question['limit'] ? '<span class="limited">' : '<span class="unlimited">';
-					$output .= $question['label'] ? '<label>'.$question['label'].'</label>' : '';
-					$output .= $question['instructions'] ? '<p class="instructions">'.$question['instructions'].'</p>' : '';
-					$output .= '<textarea class="richtext " ';
-					$output .= $question['name'] ? 'name="'.$question['name'].'" ' : '';
-					$output .= $question['placeholder'] ? 'placeholder="'.$question['placeholder'].'" ' : '';
-					$output .= $question['required'] ? 'required="'.$question['required'].'" ' : '';
-					$output .= $question['limit'] ? 'limit="'.$question['limit'].'" ' : '';
-					$output .= '>'.$value.'</textarea>';
-					$output .= $question['limit'] ? '<p class="wordlimit"><span class="wordcount">'.count(array_filter(explode(' ', $value))).'</span> of '.$question['limit'].' words</p>' : '';
-					$output .= '</span>';
-				break;
-*/
-
 
 				case 'richtext':
 					$output .= $question['limit'] ? '<span class="limited">' : '<span class="unlimited">';
@@ -152,12 +155,13 @@ class directoryCore {
 					$editor_args = array(
 						'media_buttons' => false,
 						'teeny' => true,
-						'wpautop' => false
+						'wpautop' => false,
+						'editor_height' => 600,
+						'quicktags' => false
 					);
 					wp_editor($value,$question['name'],$editor_args);
 					$output .= ob_get_clean();
-					
-					//$output .= $question['limit'] ? '<p class="wordlimit"><span class="wordcount">'.count(array_filter(explode(' ', $value))).'</span> of '.$question['limit'].' words</p>' : '';
+
 					$output .= '</span>';
 				break;
 
@@ -169,7 +173,7 @@ class directoryCore {
 					$output .= $question['name'] ? 'name="'.$question['name'].'" ' : '';
 					$output .= $question['placeholder'] ? 'placeholder="'.$question['placeholder'].'" ' : '';
 					$output .= $question['dependency'] ? 'dependency="'.$question['dependency'].'" ' : '';
-					$output .= $question['required'] ? 'required="'.$question['required'].'" ' : '';
+					$output .= $question['required'] ? 'req="'.$question['required'].'" ' : '';
 					$output .= 'value="'.$value.'" ';
 					$output .= '/>';
 				break;
@@ -181,7 +185,7 @@ class directoryCore {
 					$output .= $question['name'] ? 'name="'.$question['name'].'" ' : '';
 					$output .= $question['placeholder'] ? 'placeholder="'.$question['placeholder'].'" ' : '';
 					$output .= $question['dependency'] ? 'dependency="'.$question['dependency'].'" ' : '';
-					$output .= $question['required'] ? 'required="'.$question['required'].'" ' : '';
+					$output .= $question['required'] ? 'req="'.$question['required'].'" ' : '';
 					$output .= 'value="'.$value.'" ';
 					$output .= '/>';
 				break;
@@ -193,7 +197,7 @@ class directoryCore {
 					$output .= $question['name'] ? 'name="'.$question['name'].'" ' : '';
 					$output .= $question['dependency'] ? 'dependency="'.$question['dependency'].'" ' : '';
 					$output .= $question['placeholder'] ? 'placeholder="'.$question['placeholder'].'" ' : '';
-					$output .= $question['required'] ? 'required="'.$question['required'].'" ' : '';
+					$output .= $question['required'] ? 'req="'.$question['required'].'" ' : '';
 					$output .= 'value="'.$value.'" ';
 					$output .= '/>';
 				break;
@@ -203,7 +207,7 @@ class directoryCore {
 					$output .= $question['instructions'] ? '<p class="instructions">'.$question['instructions'].'</p>' : '';
 					$output .= '<input type="password" ';
 					$output .= $question['name'] ? 'name="'.$question['name'].'" ' : '';
-					$output .= $question['required'] ? 'required="'.$question['required'].'" ' : '';
+					$output .= $question['required'] ? 'req="'.$question['required'].'" ' : '';
 					$output .= 'value="'.$value.'" ';
 					$output .= '/>';
 				break;
@@ -216,23 +220,34 @@ class directoryCore {
 					$output .= $question['label'] ? 'label="'.$question['label'].'" ' : '';
 					$output .= $question['placeholder'] ? 'placeholder="'.$question['placeholder'].'" ' : '';
 					$output .= $question['dependency'] ? 'dependency="'.$question['dependency'].'" ' : '';
-					$output .= $question['required'] ? 'required="'.$question['required'].'" ' : '';
+					$output .= $question['required'] ? 'req="'.$question['required'].'" ' : '';
 					$output .= '>';
 					if($question['addblank'] || $add_blank){
-						$output .= '<option value="">'.$question['label'].'</option>';
+						$output .= '<option value="">'.(!is_bool($add_blank) ? $add_blank : $question['label']).'</option>';
 					}
 					foreach($question['value'] as $k=>$v){
-						$output .= '<option value="'.$v['slug'].'" ';
+						$v = is_array($v) ? $v : (array)$v;
+						$output .= '<option value="'.$v['slug'].'" termid="'.$v['term_id'].'"';
 						if($value[0] == $v['slug']){
 							$output .= 'SELECTED ';
 						}
 						$output .= '>'.$k.'</option>';
 						if(isset($v['children'])) foreach ($v['children'] as $k=>$v){
-							$output .= '<option value="'.$v['slug'].'" ';
+							$v = is_array($v) ? $v : (array)$v;
+							$output .= '<option value="'.$v['slug'].'" termid="'.$v['term_id'].'"';
 							if($value[0] == $v['slug']){
 								$output .= 'SELECTED ';
 							}
 							$output .= '>- '.$k.'</option>';
+								if(isset($v['children'])) foreach ($v['children'] as $kk=>$vv){
+									$vv = is_array($vv) ? $vv : (array)$vv;
+									$output .= '<option value="'.$vv['slug'].'" termid="'.$vv['term_id'].'"';
+									if($value[0] == $vv['slug']){
+										$output .= 'SELECTED ';
+									}
+									$output .= '>- - '.$kk.'</option>';
+								}
+
 						}
 					}
 					$output .= '</select>';
@@ -250,12 +265,13 @@ class directoryCore {
 					$output .= $question['instructions'] ? '<p class="instructions">'.$question['instructions'].'</p>' : '';
 					$output .= '<fieldset class="cc'.$cols.' ">';
 					foreach($question['value'] as $k=>$v){
-						$output .= '<p>';
+						$v = is_array($v) ? $v : (array)$v;
+					$output .= '<p>';
 						if($question['select_parent'] !== 'false'){
 							$output .= '<input type="checkbox" value="'.$v['slug'].'" ';
 							$output .= $question['name'] ? 'name="'.$question['name'].'[]" ' : '';
 							$output .= $question['dependency'] ? 'dependency="'.$question['dependency'].'" ' : '';
-							$output .= $question['required'] ? 'required="'.$question['required'].'" ' : '';
+							$output .= $question['required'] ? 'req="'.$question['required'].'" ' : '';
 							if($value && in_array($v['slug'], $value)){
 								$output .= 'CHECKED ';
 							}
@@ -265,17 +281,36 @@ class directoryCore {
 						$output .= '</p>';
 
 						if(isset($v['children'])) foreach($v['children'] as $k=>$v){
+							$v = is_array($v) ? $v : (array)$v;
 							$output .= '<p class="inset1">';
 							$output .= '<input type="checkbox" value="'.$v['slug'].'" ';
 							$output .= $question['name'] ? 'name="'.$question['name'].'[]" ' : '';
 							$output .= $question['dependency'] ? 'dependency="'.$question['dependency'].'" ' : '';
-							$output .= $question['required'] ? 'required="'.$question['required'].'" ' : '';
+							$output .= $question['required'] ? 'req="'.$question['required'].'" ' : '';
 							if($value && in_array($v['slug'], $value)){
 							//if($v == $value){
 								$output .= 'CHECKED ';
 							}
 							$output .= '/><label>'.$k.'</label>';
 							$output .= '</p>';
+
+
+							if(isset($v['children'])) foreach($v['children'] as $k=>$v){
+							$v = is_array($v) ? $v : (array)$v;
+								$output .= '<p class="inset2">';
+								$output .= '<input type="checkbox" value="'.$v['slug'].'" ';
+								$output .= $question['name'] ? 'name="'.$question['name'].'[]" ' : '';
+								$output .= $question['dependency'] ? 'dependency="'.$question['dependency'].'" ' : '';
+								$output .= $question['required'] ? 'req="'.$question['required'].'" ' : '';
+								if($value && in_array($v['slug'], $value)){
+								//if($v == $value){
+									$output .= 'CHECKED ';
+								}
+								$output .= '/><label>'.$k.'</label>';
+								$output .= '</p>';
+							}
+
+
 						}
 
 
@@ -300,7 +335,7 @@ class directoryCore {
 						$output .= '<input type="radio" value="'.$v.' ';
 						$output .= $question['dependency'] ? 'dependency="'.$question['dependency'].'" ' : '';
 						$output .= $question['name'] ? 'name="'.$question['name'].'[]" ' : '';
-						$output .= $question['required'] ? 'required="'.$question['required'].'" ' : '';
+						$output .= $question['required'] ? 'req="'.$question['required'].'" ' : '';
 						if(in_array($v, $value)){
 							$output .= 'CHECKED ';
 						}
@@ -315,7 +350,7 @@ class directoryCore {
 					$output .= '<input type="file" class="fileupload"';
 					$output .= $question['name'] ? 'name="'.$question['name'].'" ' : '';
 					$output .= $question['dependency'] ? 'dependency="'.$question['dependency'].'" ' : '';
-					$output .= $question['required'] ? 'required="'.$question['required'].'" ' : '';
+					$output .= $question['required'] ? 'req="'.$question['required'].'" ' : '';
 					$output .= '/>';
 				break;
 
@@ -325,7 +360,7 @@ class directoryCore {
 					$output .= '<input type="file" class="imageupload"';
 					$output .= $question['dependency'] ? 'dependency="'.$question['dependency'].'" ' : '';
 					$output .= $question['name'] ? 'name="'.$question['name'].'" ' : '';
-					$output .= $question['required'] ? 'required="'.$question['required'].'" ' : '';
+					$output .= $question['required'] ? 'req="'.$question['required'].'" ' : '';
 					$output .= '/>';
 				break;
 
@@ -371,6 +406,7 @@ class directoryCore {
 					 if(is_array($vitem)) foreach($vitem as $i){
 					
 						foreach($q['value'] as $s=>$t){
+							$t = is_array($t) ? $t : (array)$t;
 							if($t['slug'] == $i){
 								$foundkeys[] = $s;
 							}
@@ -384,10 +420,12 @@ class directoryCore {
 					} else {
 						
 						foreach($q['value'] as $s=>$t){
+							$t = is_array($t) ? $t : (array)$t;
 							if($t['slug'] == $vitem){
 								$foundkeys[] = $s;
 							}
 							if($t['children']) foreach($t['children'] as $f=>$g){
+								$g = is_array($g) ? $g : (array)$g;
 								if($g['slug'] == $vitem){
 									$foundkeys[] = $f;
 								}
@@ -479,11 +517,7 @@ class directoryCore {
 			
 		*/
 		
-		///////////////////////////////////////////
-		//
-		// Form is being submitted via ajax, so files not being uploaded?
-		//
-		///////////////////////////////////////////
+
 		
 
 		if($_FILES){
@@ -577,7 +611,6 @@ class directoryCore {
 			
 			if(!$out['error']){ // Any errors?	
 				
-				//die('no errors, lets do this');			
 				
 				///////////////////////////////////////////
 				//
@@ -824,6 +857,8 @@ class directoryCore {
 			$to = isset($data[$data['notify']]) ? $data[$data['notify']] : 'no email';
 		}
 		
+		$data['logo'] = get_bloginfo('template_url').'/img/logo_strap.png';
+		
 		// if the $to does not contain a valid email address
 		if (!filter_var($to, FILTER_VALIDATE_EMAIL)) return false;
 	
@@ -836,9 +871,11 @@ class directoryCore {
 			$body = preg_replace('/\['.$k.'\]/', $replace, $body);
 		}
 
+		//echo $body;
 			
 		// send email
 		$this->sendEmail($to,NOTIFY_EMAIL,$data['notify_subject'],$body);
+		return true;
 	}
 	
 	public function sendEmail($toemail,$fromemail = APPLICATION_EMAIL,$subject,$body,$fromname = APPLICATION,$toname = null){
@@ -847,9 +884,11 @@ class directoryCore {
 		$headers  = 'MIME-Version: 1.0' . "\r\n";
 		$headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
 		$headers .= 'From: '.$fromname.' <'.$fromemail.'>'."\r\n";
-		$option   = '-f '.$fromemail;
+		$option = '-f '.$fromemail;
 		
+		// swap in wp_mail to use Sendgrid
 		mail($to, $subject, $body, $headers, $option);
+		//wp_mail($to, $subject, $body, $headers, $option = null);
 	}
 	
 	
@@ -899,23 +938,7 @@ class directoryCore {
 	    return false;
 	}
 	
-/*
-	public function taxArraySearch($needle,$haystack,$found = null) {
-	 	
-	    foreach($haystack as $key=>$value) {
-	        if($needle == $value['slug']) {
-		        $found = $key;
-		        return $found;
-			} else if(!$found && $value['children'] && is_array($value['children'])){
-				$this->taxArraySearch($needle,$value['children'],$found);
-			}
-	        
-	    }
-	    
-	    return false;	    
-		
-	}
-*/
+
 	
 	
 	public function getCurrencySymbol($locale, $currency)
@@ -933,6 +956,8 @@ class directoryCore {
 	    // Extract just the currency symbol from the first string
 	    return str_replace($withoutCurrency, '', $withCurrency);    
 	}
+	
+
 
 	
 	

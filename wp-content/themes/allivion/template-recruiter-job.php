@@ -26,6 +26,18 @@ while (have_posts()) {
 
 ?>
 
+<?php $args = array('taxonomy' => 'sector'); 
+	
+//	$sector->asjad($args);
+
+
+		
+		//echo '<pre>'; print_r($sector->taxTreeRecursive()); echo '</pre>';
+
+
+
+?>
+
 <div class="container a2apad">
 	<div class="row">
 		<div class="col-md-12">
@@ -167,35 +179,6 @@ while (have_posts()) {
 	});
 */
 
-	jQuery(function(){
-		
-		showHide();
-		jQuery('input, select, textarea').change(function(){
-			showHide();
-		});
-		
-		function showHide(){
-			jQuery('input, select, textarea').each(function(){
-
-
-				if(typeof jQuery(this).attr('dependency') != 'undefined'){
-
-					var dep = jQuery(this).attr('dependency').split(':');
-					console.log(dep);
-
-					var depval = jQuery('[name="'+dep[0]+'"]').val();
-					if(depval == dep[1]){
-						jQuery(this).closest('.question').show();					
-					} else {
-						jQuery(this).closest('.question').hide();					
-					}
-
-				}
-
-
-			});
-		}
-	});
 	
 	jQuery(function(){
 		jQuery('#publish_ad').click(function(){

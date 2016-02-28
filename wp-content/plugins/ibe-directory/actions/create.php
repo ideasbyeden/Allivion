@@ -4,7 +4,7 @@ add_action("wp_ajax_directory_create", "directory_create");
 add_action("wp_ajax_nopriv_directory_create", "directory_create");
 
 function directory_create(){
-	
+		
 	global $user, $dircore;
 	foreach($_REQUEST as $k=>$v) $params[$k] = $v;
 		
@@ -22,10 +22,11 @@ function directory_create(){
 		$params = array_merge($params,$safeparams);
 	} 
 	
+	$post_title = $params[POSTTITLEFIELD] ? $params[POSTTITLEFIELD] : $params['type'];
 	
 	// insert new post with data
 	$newitem = array(	'post_type' => $params['type'],
-						'post_title' => $params[POSTTITLEFIELD],
+						'post_title' => $post_title,
 						'post_status' => 'publish'
 					);
 							

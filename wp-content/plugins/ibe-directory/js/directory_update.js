@@ -6,7 +6,10 @@ jQuery(function(){
 	jQuery('form.directory.update').submit(function(e){
 		tinyMCE.triggerSave();
 		e.preventDefault();
-		submitForm(jQuery(this),autosave);
+		var validates = dirvalidates(jQuery(this));
+		if(validates == 'true'){
+			submitForm(jQuery(this),autosave);
+		}
 	});
 
 	jQuery('form.directory.update input, form.directory.update textarea, form.directory.update select').change(function(){
@@ -16,12 +19,17 @@ jQuery(function(){
 		autosave = form.attr('autosave');
 		if (typeof autosave !== 'undefined' && autosave == 'true') {
 			console.log('autosaving');
-			submitForm(form,autosave);
+			var validates = dirvalidates(jQuery(this));
+			if(validates == 'true'){
+				submitForm(jQuery(this),autosave);
+			}
 		}
 	});	
 		
 
 	function submitForm(form,autosave){
+		
+
 				
 		var data = new FormData(form[0]);
 

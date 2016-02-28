@@ -151,6 +151,14 @@ $vars = array(
 		'fieldtype' => 'textarea',
 		'group' => 'profile'
 	),
+	
+	array(
+		'name' => 'video',
+		'label' => 'Promo video',
+		'placeholder' => 'Your YouTube video ID',
+		'fieldtype' => 'text',
+		'group' => 'profile'
+	),
 
 	array(
 		'name' => 'contact_phone',

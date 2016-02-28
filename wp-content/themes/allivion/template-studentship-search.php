@@ -43,11 +43,8 @@ $returnfields = array('job_title','location','summary','recruiter_name','closing
 			var d = 0;
 			if(jQuery(this).hasClass('open')){
 				jQuery(this).removeClass('open').html('Use advanced search');
-				form.animate({
-					height: '155'
-				},500);
 				jQuery(jQuery('div.selector').get().reverse()).each(function() {
-				    jQuery(this).delay(d).fadeOut(400);
+					jQuery(this).delay(d).fadeOut(400);
 				    d += 100;
 				});
 			} else {
@@ -56,14 +53,12 @@ $returnfields = array('job_title','location','summary','recruiter_name','closing
 				    jQuery(this).delay(d).fadeIn(400);
 				    d += 100;
 				});
-				form.animate({
-					height: '317'
-				},500);		}
-		})
+			}
+		});
 	});
 </script>
 
-<div class="container-fluid homesearch-container">
+<div class="container-fluid studentshipsearch-container">
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-12">
@@ -85,6 +80,7 @@ $returnfields = array('job_title','location','summary','recruiter_name','closing
 							<?php $job->printQuestion('region',null,'dropdown',true); ?>
 							<?php $job->printQuestion('salary_range',null,'dropdown',true); ?>
 							<?php $job->printQuestion('contract',null,'dropdown',true); ?>
+							<?php $job->printQuestion('industry',null,'dropdown','Studentship'); ?>
 						</div>
 						
 						<input type="submit" value="Go" class="fr"/>
@@ -126,5 +122,21 @@ $returnfields = array('job_title','location','summary','recruiter_name','closing
  
 				
 </div>
+
+<?php $studentships = get_term_by( 'slug', 'studentships', 'sector' );
+	$children = get_term_children($studentships->term_id, 'sector'); ?>
+<script>
+	
+	jQuery(function(){
+		var showids = [<?php echo implode(',', $children); ?>];
+		jQuery('select[name="industry"]').find('option').each(function(){
+			var termid = parseInt(jQuery(this).attr('termid'));
+			if(showids.indexOf(termid) == -1){
+				jQuery(this).hide();
+			}
+		});
+	});
+	
+</script>
 
 <?php get_footer(); ?>

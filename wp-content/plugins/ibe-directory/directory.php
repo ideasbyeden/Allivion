@@ -12,6 +12,7 @@ require_once('directory_coreclass.php');
 require_once('directory_itemclass.php');
 require_once('directory_userclass.php');
 require_once('directory_taxclass.php');
+require_once('directory_subscriptionclass.php');
 require_once('user_functions.php');
 require_once('item_functions.php');
 require_once('dev_functions.php');
@@ -40,6 +41,7 @@ function directoryInit(){
 	    global $$type;
 	    $$type = new itemdef($type,$label,$single_label,$hierarchical);
 	    $$type->vars = $vars;
+	    $$type->setExpire($expires);
 	    $$type->tax = &$sector->getTerms();
 	    
 	    // this happens before wordpress init so can't access custom taxonomies 

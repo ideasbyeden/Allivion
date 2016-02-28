@@ -2,6 +2,9 @@
 	
 get_header();
 
+echo '<h1>Page.php</h1>';
+
+
 ?>
 
 <div class="container a2apad">

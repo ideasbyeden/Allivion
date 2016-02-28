@@ -61,3 +61,66 @@ function formatDate($timestamp = null,$q,$default = 'j M Y'){
 	
 	return $date ? $date : null;
 }
+
+function similarByString($string,$matchfield,$returnfields,$type){
+	
+	if($string == '' || $matchfield == '' || $returnfields == '' || $type == '') return false;
+	
+	global $wpdb;
+	$keywords = array_filter(explode(' ', $string));
+	
+	
+/*
+	$kwreg = implode('|', $keywords);
+	$keymatch = $wpdb->get_col("select post_id from $wpdb->postmeta where ".$matchfield." REGEXP '".$kwreg."' ");
+*/
+
+	$keymatches = array();
+	foreach($keywords as $word){
+		$thismatch = $wpdb->get_col("SELECT DISTINCT post_id FROM {$wpdb->postmeta} WHERE meta_key = '$matchfield' AND (meta_value LIKE '{$word}%' OR meta_value LIKE '%{$word}') ");
+		
+		$keymatches = array_unique(array_merge($keymatches,$thismatch));
+	}
+
+	$args = array(	'post_type' => $type,
+					'posts_per_page' => -1,
+					'post__in' => $keymatches
+	);
+	
+	$titlematches = new WP_Query($args);
+	
+	while($titlematches->have_posts()) : $titlematches->the_post();
+	
+		$item['ID'] = get_the_ID();
+		$item[$matchfield] = get_post_meta(get_the_ID(),$matchfield,true);
+		foreach($returnfields as $field){
+			$item[$field] = get_post_meta(get_the_ID(),$field,true);		
+		}
+		
+		$item_keywords = array_filter(explode(' ', $item[$matchfield]));
+		$item['matchcount'] = count(array_intersect($keywords, $item_keywords));
+		
+		$items[] = $item;
+		
+	endwhile; wp_reset_postdata();
+	
+	$result = sort2d($items, 'matchcount','DESC',false);
+	return $result;
+
+	
+}
+
+function sort2d ($array, $index, $order='ASC', $natsort=TRUE, $case_sensitive=FALSE){
+    if(is_array($array) && count($array)>0){
+        foreach(array_keys($array) as $key)
+            $temp[$key]=$array[$key][$index];
+            if(!$natsort)($order=='ASC')? asort($temp) : arsort($temp);
+            else {
+                ($case_sensitive)? natsort($temp) : natcasesort($temp);
+                if($order!='ASC') $temp=array_reverse($temp,TRUE);
+            }
+        foreach(array_keys($temp) as $key) (is_numeric($key))? $sorted[]=$array[$key] : $sorted[$key]=$array[$key];
+        return $sorted;
+    }
+    return $array;
+}

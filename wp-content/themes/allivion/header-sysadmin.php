@@ -25,6 +25,15 @@
 
 	
 	<?php wp_head(); ?>
+	
+
+ 	<script>
+	 	jQuery(function(){
+		 	jQuery('.menu-toggle').click(function(){
+			 	jQuery('nav#main').toggleClass('open');
+		 	});
+	 	});
+ 	</script>
 
 </head>
 
@@ -35,7 +44,9 @@
 
 
 		
-		<div class="container-fluid" id="navigation">
+
+		
+				<div class="container-fluid" id="navigation">
 			<div class="container"
 				<div class="row">
 					<div class="col-sm-6">
@@ -44,14 +55,19 @@
 						</nav>
 					</div>
 					<div class="col-sm-6">
-						<?php  global $user, $usermeta; if($user) echo '<p class="loginstatus">Logged in as <span class="name">'.$user->display_name.'</span></p>'; ?>
+						<?php global $user, $usermeta;
+							if($user) echo '<p class="loginstatus">Logged in as <span class="name">'.$user->display_name.'</span></p>'; ?>
 					</div>
 					<nav id="main">
-						<?php wp_nav_menu('theme_location=sysadmin'); ?>
+						<div id="main-nav">
+							<span class="menu-toggle visible-sm visible-xs">Menu</span>
+							<?php wp_nav_menu('theme_location=sysadmin'); ?>
+						</div>
 					</nav>
 				</div>
 			</div>
 		</div>
+
 		
 
 			

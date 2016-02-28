@@ -38,6 +38,7 @@ while (have_posts()) {
 ?>
 
 <div class="container a2apad">
+	Recruiter profile
 	<div class="row">
 			<form class="directory <?php echo $recruiter_admin->role; ?>" id="updateprofile" action="<?php echo admin_url('admin-ajax.php'); ?>" method="post" enctype="multipart/form-data">
 		
@@ -68,6 +69,7 @@ while (have_posts()) {
 						<?php $recruiter_admin->printQuestion('brand_header',$usermeta['brand_header']); ?>
 
 						<?php $recruiter_admin->printQuestion('boilerplate',$usermeta['boilerplate']); ?>
+						<?php $recruiter_admin->printQuestion('video',$usermeta['video']); ?>
 						<div class="clear"></div>
 					</div>
 					

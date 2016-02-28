@@ -3,7 +3,7 @@ jQuery(function(){
 	var autosave;
 
 	jQuery('form.directory.create').submit(function(e){
-		tinyMCE.triggerSave();
+		//tinyMCE.triggerSave();
 		e.preventDefault();
 		submitForm(jQuery(this));
 	});

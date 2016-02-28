@@ -4,8 +4,10 @@ add_action("wp_ajax_directory_search", "directory_search");
 add_action("wp_ajax_nopriv_directory_search", "directory_search"); 
 
 function directory_search($params = null){
+
 		
 	if($_REQUEST) foreach($_REQUEST as $k=>$v) $params[$k] = $v;
+	
 	
 	
 	if($params['encrypted']){
@@ -18,9 +20,19 @@ function directory_search($params = null){
 			
 	$type = post_type_exists($params['type']) ? $params['type'] : 'post';
 	global $$type;
-	$vars = $$type->getVarNames();
+	$vars = $params['type'] == 'post' ? array() : $$type->getVarNames();
 	
+	
+	$expire = $params['expire'] ? $params['expire'] : null;
+	
+	// Cleans all params, removing anything unexpected
 	$params = $$type->prepVars($params);
+	
+/*
+				if($k == 'expire' && is_array($v)){
+					$preppedVars[$k] = $v;
+				}
+*/
 
 
 	$order = $params['order'] ? $params['order'] : 'DESC';
@@ -31,9 +43,27 @@ function directory_search($params = null){
 							'orderby' => 'date',
 							'order' => $order,
 							'posts_per_page' => -1
-							); 
+							);
+							
+	$query_args['meta_query'] = $params['meta_query'] ? $params['meta_query'] : array();
 	
 	if($params['author']) $query_args['author'] = $params['author'];
+	
+
+
+	// Get the default expiration period for the item, unless it's provided in the initial params
+	if(!$params['expire'] || !is_array($params['expire'])){
+		$params['expire'] = $$type->getExpire() != '' ? $$type->getExpire() : null;
+	}
+
+	if($params['expire']){
+		foreach($params['expire'] as $k=>$v){
+			$expires_if_older = strtotime('now') - (intval($v)*24*60*60);
+			$query_args['meta_query'][] = array('key' => $k, 'value' => $expires_if_older, 'compare' => '>');
+		}
+	}
+	
+	//echo '<pre>Queryargs'; print_r($query_args); echo '</pre>';
 
 	
 	// add ordering if requested
@@ -41,6 +71,12 @@ function directory_search($params = null){
 		$query_args['meta_key']	= $params['orderby'];
 		$query_args['orderby'] = 'meta_value';
 	}
+
+/*
+	echo '<pre>Params'; print_r($params); echo '</pre>';
+	echo '<pre>Vars'; print_r($vars); echo '</pre>';
+*/
+
 	
 	// remove unexpected search variables
 	if($params){
@@ -52,6 +88,8 @@ function directory_search($params = null){
 			}
 		}
 	}
+
+	//echo '<pre>Clean Params'; print_r($clean_params); echo '</pre>';
 
 	// check which params have multichoice answers
 	if($clean_params){
@@ -135,10 +173,13 @@ function directory_search($params = null){
 	//die(print_r($query_args));
 	//echo '<pre>'; print_r($params); echo '</pre>';
 	//echo '<pre>'; print_r($query_args); echo '</pre>';
+//	echo '<pre>Final Query Args:<br />'; print_r($params); echo '</pre>';
 
 	
 	// run WP query
 	$result = new WP_Query($query_args);
+	
+	//echo '<pre>'; print_r($result); echo '</pre>';
 	
 	//setup posts array
 	$posts = array();
@@ -185,7 +226,7 @@ function directory_search($params = null){
 		//push author meta into post object
 		$cleanauthormeta = array();
 		$authormeta = get_user_meta($thispost->post_author);
-		foreach($authormeta as $k=>$v){
+		if($authormeta) foreach($authormeta as $k=>$v){
 			$cleanauthormeta[$k] = unserialize($v[0]) ? unserialize($v[0]) : $v[0];
 			$q = $$type->getQuestion($k);
 			if($q['fieldtype'] == 'image'){
@@ -209,7 +250,7 @@ function directory_search($params = null){
 		}
 
 		$cleangroupmeta = array();
-		foreach($groupmeta as $k=>$v){
+		if($groupmeta) foreach($groupmeta as $k=>$v){
 			$cleangroupmeta[$k] = unserialize($v[0]) ? unserialize($v[0]) : $v[0];
 
 

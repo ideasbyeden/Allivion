@@ -17,37 +17,43 @@ h1,h2,h3,h4,h5,h6 {
 h1 {
 	font-size: 2.5em;
 	line-height: 1em;
-	margin: 0 0 16px 0;
+	margin-top: 10px !important;
+	margin-bottom: 16px !important;
 }
 
 h2 {
 	font-size: 2.2em;
 	line-height: 1em;
-	margin: 0 0 16px 0;
+	margin-top: 10px !important;
+	margin-bottom: 16px !important;
 }
 
 h3 {
 	font-size: 1.8em;
 	line-height: 1em;
-	margin: 0 0 12px 0;
+	margin-top: 10px !important;
+	margin-bottom: 12px !important;
 }
 
 h4 {
 	font-size: 1.5em;
 	line-height: 1em;
-	margin: 0 0 12px 0;
+	margin-top: 10px !important;
+	margin-bottom: 12px !important;
 }
 
 h5 {
 	font-size: 1.3em;
 	line-height: 1em;
-	margin: 0 0 4px 0;
+	margin-top: 0px !important;
+	margin-bottom: 4px !important;
 }
 
 h6 {
 	font-size: 1.15em;
 	line-height: 1em;
-	margin: 0 0 4px 0;
+	margin-top: 0px !important;
+	margin-bottom: 4px !important;
 }
 
 

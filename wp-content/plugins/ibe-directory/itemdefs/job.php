@@ -30,18 +30,15 @@ $hierarchical = false;
 
 ///////////////////////////////////////////
 //
-// Define value arrays for multiple use
+// Item type expires after (days)
+// Will no longer appear in search results if older than $expires
 //
 ///////////////////////////////////////////
 
-/*
-$sector_vals = array(
-			'Agrictulture, Food & Veterinary' 		=> 'agri/food/vet',	
-			'Architecture, Building & Planning' 	=> 'architecture/building',	
-			'Biological Sciences' 					=> 'biological_science',
-			'IT'									=> 'it'
-			);
-*/
+$expires = array('publish_from' => 90);
+
+
+
 
 
 ///////////////////////////////////////////
@@ -56,13 +53,13 @@ $sector_vals = array(
 //		'placeholder' => 'field suggestion for question 2',
 //		'fieldtype' => 'check', (can be 'text', 'date', 'textarea', 'richtext', 'dropdown', 'check', 'radio', 'password', 'email', 'file')
 //		'value' => array(
-//			'Option 1' 		=> '1',	
-//			'Option 2' 		=> '2',	
-//			'Option 3' 		=> '3'	
+//			'Option 1' 		=> array('slug' => '1'),	
+//			'Option 2' 		=> array('slug' => '2'),	
+//			'Option 3' 		=> array('slug' => '3')	
 //		),
 //		'datedisplay' => 'relative' (can be 'relative' for '3 days ago' or use PHP date function syntax eg 'jS M Y' for '12th Jan 2015'. Only affects field of type 'date')
 //		'group' => 'package',
-//		'required' => 'publish', (can be 'save', 'publish'. Fields set to publish will also be required for save)
+//		'required' => 'job_status:published', (can be 'save', 'publish'. Fields set to publish will also be required for save)
 //		'extra_class' => 'myclass'
 //	),
 //
@@ -111,7 +108,7 @@ $vars = array(
 		'fieldtype' => 'date',
 		'datedisplay' => 'j M Y',
 		'group' => 'publishing',
-		'required' => 'publish',
+		'required' => 'job_status:published',
 	),
 	
 	array(
@@ -146,6 +143,7 @@ $vars = array(
 			'Craft & Manual' 					=> array('slug' => 'craftmanual'),
 			'Masters'					 		=> array('slug' => 'masters')
 		),
+		'addblank' => true,
 		'group' => 'headline',
 		'keyword' => 'true'
 	),
@@ -154,10 +152,16 @@ $vars = array(
 		'name' => 'job_level',
 		'label' => 'Job level',
 		'placeholder' => '',
-		'fieldtype' => 'text',
+		'fieldtype' => 'dropdown',
+		'value' => array(
+			'Senior' 	=> array('slug' => 'senior'),	
+			'Intermediate'	=> array('slug' => 'intermediate'),	
+			'Entry' => array('slug' => 'entry'),		
+		),		
 		'group' => 'headline',
+		'addblank' => true,
 		'keyword' => 'true',
-		'required' => 'publish',
+		'required' => 'job_status:published',
 	),
 
 	array(
@@ -167,8 +171,26 @@ $vars = array(
 		'fieldtype' => 'text',
 		'group' => 'headline',
 		'keyword' => 'true',
-		'required' => 'publish',
+		'required' => 'job_status:published',
 	),
+	
+		array(
+		'name' => 'qualification',
+		'label' => 'Qualification level',
+		'placeholder' => '',
+		'fieldtype' => 'dropdown',
+		'group' => 'headline',
+		'value' => array(
+			'Integrated Doctorate/Masters' 	=> array('slug' => 'integrated_doctors_masters'),	
+			'International Doctorate'	=> array('slug' => 'international_doctorate'),	
+			'PhD' => array('slug' => 'phd'),		
+			'Professional Doctorate' => array('slug' => 'professional_doctorate'),		
+		),		
+		'keyword' => 'true',
+		'dependency' => 'role_func:phd',
+	),
+	
+
 	
 	array(
 		'name' => 'salary_range',
@@ -187,7 +209,7 @@ $vars = array(
 			'£100,000+' 		=> array('slug' => '100000'),	
 		),
 		'group' => 'package',
-		'required' => 'publish'
+		'required' => 'job_status:published'
 	),
 
 	array(
@@ -209,9 +231,28 @@ $vars = array(
 		'placeholder' => '',
 		'fieldtype' => 'text',
 		'group' => 'package',
-		'required' => 'publish'
+		'required' => 'job_status:published'
 	),
 
+	array(
+		'name' => 'studentship_funding',
+		'label' => 'Studentship funding',
+		'placeholder' => '',
+		'fieldtype' => 'dropdown',
+		'group' => 'package',
+		'value' => array(
+			'All types of Funding' 	=> array('slug' => 'all'),	
+			'EU Students'	=> array('slug' => 'eu'),	
+			'International Students' => array('slug' => 'international'),		
+			'Self-Funded Students' => array('slug' => 'self_funded'),		
+			'UK Students' => array('slug' => 'uk'),		
+			'Other' => array('slug' => 'other'),		
+		),		
+		'addblank' => true,
+		'keyword' => 'true',
+		'dependency' => 'industry:masters,industry:phd',
+	),
+	
 
 	
 	array(
@@ -244,12 +285,12 @@ $vars = array(
 		'label' => 'Industry',
 		'placeholder' => '',
 		'fieldtype' => 'check',
-		'value' => $sector->taxTree(),
+		'value' => $sector->taxTreeRecursive(),
 		'taxonomy' => 'sector',
 		'group' => 'industry_location',
 		'keyword' => 'true',
 		'select_parent' => 'false',
-		'required' => 'publish'
+		'required' => 'job_status:published'
 	),
 
 	array(
@@ -274,7 +315,7 @@ $vars = array(
 			'Africa'				=> array('slug' => 'africa'),	
 		),
 		'group' => 'industry_location',
-		'required' => 'publish'
+		'required' => 'job_status:published'
 	),
 
 	array(
@@ -283,7 +324,7 @@ $vars = array(
 		'placeholder' => '',
 		'fieldtype' => 'text',
 		'group' => 'industry_location',
-		'required' => 'publish'
+		'required' => 'job_status:published'
 	),
 
 
@@ -294,7 +335,8 @@ $vars = array(
 		'placeholder' => '',
 		'fieldtype' => 'richtext',
 		'group' => 'details',
-		'limit' => '10'
+		'limit' => '10',
+		'tags_allowed' => 'p,br,strong,em'
 	),
 	
 	array(
@@ -329,6 +371,7 @@ $vars = array(
 
 
 
+/*
 	array(
 		'name' => 'extra_info',
 		'label' => 'Extra information',
@@ -337,6 +380,7 @@ $vars = array(
 		'fieldtype' => 'textarea',
 		'group' => 'extra'
 	),
+*/
 
 	array(
 		'name' => 'application_method',
@@ -356,7 +400,6 @@ $vars = array(
 		'label' => 'Application website',
 		'placeholder' => '',
 		'fieldtype' => 'text',
-		'dependency' => 'application_method:website',
 		'group' => 'extra'
 	),
 
@@ -375,7 +418,7 @@ $vars = array(
 		'label' => 'Promote for',
 		'fieldtype' => 'dropdown',
 		'addblank' => true,
-		'value' => $sector->taxTree(),
+		'value' => $sector->taxTreeRecursive(),
 		'dependency' => 'ad_type:sponsored',
 		'group' => 'admin'
 	),

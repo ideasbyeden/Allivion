@@ -5,7 +5,6 @@ global $user, $usermeta;
 if(!isset($_REQUEST['i'])) $_REQUEST['i'] = $user->ID;
 $dircore->canAccess(array('id' => $_REQUEST['i'].','.get_user_meta($_REQUEST['i'],'group_id',true)));
 
-
 /*
 Template Name: Update user
 */

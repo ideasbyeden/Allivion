@@ -36,11 +36,8 @@ $returnfields = array('job_title','location','summary','recruiter_name','closing
 			var d = 0;
 			if(jQuery(this).hasClass('open')){
 				jQuery(this).removeClass('open').html('Use advanced search');
-				form.animate({
-					height: '155'
-				},500);
 				jQuery(jQuery('div.selector').get().reverse()).each(function() {
-				    jQuery(this).delay(d).fadeOut(400);
+					jQuery(this).delay(d).fadeOut(400);
 				    d += 100;
 				});
 			} else {
@@ -49,12 +46,11 @@ $returnfields = array('job_title','location','summary','recruiter_name','closing
 				    jQuery(this).delay(d).fadeIn(400);
 				    d += 100;
 				});
-				form.animate({
-					height: '317'
-				},500);		}
-		})
+			}
+		});
 	});
 </script>
+
 
 <div class="container-fluid homesearch-container">
 	<div class="container">
@@ -93,28 +89,43 @@ $returnfields = array('job_title','location','summary','recruiter_name','closing
 		</div>
 	</div>
 </div>
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-4">
+			<?php include('includes/cta-uploadcv.php'); ?>
+		</div>
+		<div class="col-md-4">
+			<?php include('includes/cta-feedback.php'); ?>
+		</div>
+		<div class="col-md-4">
+			<?php include('includes/cta-jobalert.php'); ?>
+		</div>
+	</div>
+</div>
+
 	
 <div class="container a2apad">			
 	<div class="row"  id="homefeaturedjobs">
 		<div class="col-sm-12">
 			<h2 class="purple">Browse jobs by sector</h2>
-			<ul class="nav nav-tabs nav-justified">
+			<ul class="nav nav-tabs nav-justified" id="sectortabs">
 				<li role="presentation" class="active">
 					<a data-toggle="tab" href="#academic_cats" class="academic">
 						<span class="icon"></span>
-						Academic &<br />Research Jobs
+						Academic &&nbsp;<br class="hidden-sm hidden-xs"/>Research Jobs
 					</a>
 				</li>
 				<li role="presentation">
 					<a data-toggle="tab" href="#professional_cats" class="professional">
 						<span class="icon"></span>
-						Professional<br />Jobs
+						Professional&nbsp;<br class="hidden-sm hidden-xs"/>Jobs
 					</a>
 				</li>
 				<li role="presentation">
 					<a data-toggle="tab" href="#studentships_cats" class="studentships">
 						<span class="icon"></span>
-						Studentships<br />&nbsp;
+						Studentships<br class="hidden-sm hidden-xs"/>&nbsp;
 					</a>
 				</li>
 			</ul>
@@ -127,13 +138,17 @@ $returnfields = array('job_title','location','summary','recruiter_name','closing
 						foreach($terms as $term){
 							$term = get_term_by('id',$term,'sector');
 
-							$params['industry'] = $term->slug;
-							$params['type'] = 'job';
-							$params['job_status'] = 'published';
-							$items = directory_search($params);
-			
-					
-							echo '<li><a href="/jobs?industry='.$term->slug.'">'.$term->name.' <span class="orange jobcount">('.count($items->posts).')</span></a></li>';
+							if($term->parent == $parent->term_id){
+
+								$params['industry'] = $term->slug;
+								$params['type'] = 'job';
+								$params['job_status'] = 'published';
+								$items = directory_search($params);
+				
+						
+								echo '<li><a href="/jobs?industry='.$term->slug.'">'.$term->name.' <span class="orange jobcount">('.count($items->posts).')</span></a></li>';
+							
+							}
 						}
 						
 					?>
@@ -189,29 +204,38 @@ $returnfields = array('job_title','location','summary','recruiter_name','closing
 			
 			
 			<!-- Logo carousel -->
+	<div class="hidden-xs">
 	<?php require(TEMPLATEPATH.'/includes/logo_carousel.php'); ?>	
+	</div>
 	
 	
 	<div class="row boxad_array boxad_array_1" style="padding-top: 60px; padding-bottom: 40px;">
+		<div class="col-md-12">
+			<h2 class="purple">Featured jobs</h2>
+		</div>
 		<div class="col-sm-4" style="text-align: center">
 			
-			<?php //include(TEMPLATEPATH.'/revive-zones/boxad_1.html'); ?>
-			<img src="<?php bloginfo('template_url'); ?>/img/box_ad_1.jpg" />
-
+			<a href="<?php the_field('boxad_1_link'); ?>" target="_blank">
+			<img src="<?php the_field('box_ad_1'); ?>" class="mptrack" data-mpitem="boxad" data-mpevent="ad1click" />
+			</a>
 			
 		</div>
 		<div class="col-sm-4" style="text-align: center">
 		
 	
 			<?php //include(TEMPLATEPATH.'/revive-zones/boxad_2.html'); ?>
-			<img src="<?php bloginfo('template_url'); ?>/img/box_ad_2.jpg" />
+			<a href="<?php the_field('boxad_2_link'); ?>" target="_blank">
+			<img src="<?php the_field('box_ad_2'); ?>" class="mptrack" data-mpitem="boxad" data-mpevent="ad2click"  />
+			</a>
 
 		</div>
 		<div class="col-sm-4" style="text-align: center">
 
 
 			<?php //include(TEMPLATEPATH.'/revive-zones/boxad_3.html'); ?>
-			<img src="<?php bloginfo('template_url'); ?>/img/box_ad_3.jpg" />
+			<a href="<?php the_field('boxad_3_link'); ?>" target="_blank">
+			<img src="<?php the_field('box_ad_3'); ?>" class="mptrack" data-mpitem="boxad" data-mpevent="ad3click"  />
+			</a>
 
 		</div>
 	</div>	

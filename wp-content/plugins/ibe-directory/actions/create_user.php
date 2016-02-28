@@ -11,7 +11,7 @@ function directory_create_user(){
       exit('You are not authorised to take this action');
 	}
 	
-	$valid = array('user_pass','user_login','user_nicename','user_url','user_email','display_name','nickname','first_name','last_name','description','rich_editing','user_registered','role','jabber','aim','yim');
+	$valid = array('user_pass','user_login','user_nicename','user_url','user_email','display_name','nickname','first_name','last_name','description','rich_editing','user_registered','role','jabber','aim','yim','redirect');
 	
 	foreach($_REQUEST as $k=>$v){
 		if(in_array($k, $valid)){

@@ -4,6 +4,8 @@
 	//echo '<pre>'; print_r($users); echo '</pre>';
 
 	if(is_array($users->results)) foreach($users->results as $user){
+		
+		$params = array();
 		if(get_user_meta($user->ID,'subscriber',true) == 'annual' && get_user_meta($user->ID,'logo',true) != ''){
 			
 			$logo = get_user_meta($user->ID,'logo',true);

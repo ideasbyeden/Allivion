@@ -26,6 +26,16 @@
 	
 	<?php wp_head(); ?>
 
+	
+ 	<script>
+	 	jQuery(function(){
+		 	jQuery('.menu-toggle').click(function(){
+			 	jQuery('nav#main').toggleClass('open');
+		 	});
+	 	});
+ 	</script>
+
+
 </head>
 
 <body <?php body_class(); ?>>
@@ -49,11 +59,14 @@
 							if($user) echo '<p class="loginstatus">Logged in as <span class="name">'.$user->display_name.'</span></p>'; ?>
 					</div>
 					<nav id="main">
-						<?php 
-						$usertype = $user->roles[0];
-						if($usertype == 'recruiter') wp_nav_menu('theme_location=recruiter');
-						if($usertype == 'recruiter_admin') wp_nav_menu('theme_location=recadmin');
-						?>
+						<div id="main-nav">
+							<span class="menu-toggle visible-sm visible-xs">Menu</span>
+							<?php 
+							$usertype = $user->roles[0];
+							if($usertype == 'recruiter') wp_nav_menu('theme_location=recruiter');
+							if($usertype == 'recruiter_admin') wp_nav_menu('theme_location=recadmin');
+							?>						
+						</div>
 					</nav>
 				</div>
 			</div>

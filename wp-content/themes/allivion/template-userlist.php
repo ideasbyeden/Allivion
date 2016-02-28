@@ -30,7 +30,7 @@ while (have_posts()) {
 			<h1 class="purple"><?php the_title(); ?></h1>
 		</div>
 		<div class="col-md-4" style="text-align: right">
-			<a href="create">
+			<a href="/createuser">
 				<button type="button" class="btn btn-default" style="margin-top: 20px;">New</button>
 			</a>
 		</div>
@@ -50,7 +50,7 @@ while (have_posts()) {
 						
 						if (!empty($user_query->results)) {
 							foreach($user_query->results as $user) { ?>
-								<tr class="clickable" data-href="/users/update?i=<?php echo $user->ID; ?>">
+								<tr class="clickable" data-href="/updateuser?i=<?php echo $user->ID; ?>">
 									<td><?php echo $user->display_name; ?></td>
 									<td><?php echo $wp_roles->roles[$user->roles[0]]['name']; ?></td>
 								</tr>

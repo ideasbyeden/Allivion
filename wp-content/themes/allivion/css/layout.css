@@ -25,10 +25,33 @@ img {
 	width: 100%;
 	max-width: 1200px;
 	margin: 0 auto;
-	padding: 0 10px;
+	padding: 0px;
 	box-sizing:border-box;
 	-moz-box-sizing:border-box; 
 	-webkit-box-sizing:border-box;
+}
+
+@media screen and (max-width: 960px) {
+	
+	.stage {
+		padding: 0px;
+	}
+	.sticky {
+		position: absolute !important;
+		width: 100%;
+		top: auto !important;
+		padding: 0px !important;
+		margin-bottom: 0px !important;
+	}
+	
+	#job_bullets { 
+		width: 100%;
+		padding: 0 10px !important;
+	}
+	
+	.dontcoversticky {
+		margin-top: 200px;
+	}
 }
 
 /* header */
@@ -74,10 +97,41 @@ img {
 	font-weight: 700;
 }
 
+@media screen and (max-width: 600px) {
+
+	.loginstatus {
+		display: none;
+	}
+
+}
+
 /* homepage */
 
 .homesearch-container {
+	position: relative;
 	background-image: url(../img/cloisters.jpg);
+	background-size: cover;
+	background-position: center center;
+	padding-top: 120px;
+	padding-bottom: 120px;
+	border-bottom: 2px solid #333333;
+}
+
+.homesearch-container:after {
+	display: block !important;
+	position: absolute;
+	left: 8px;
+	bottom: 8px;
+	color: white;
+	content: 'The Halls, University of Glasgow' !important;
+	opacity: 0.8;
+	font-size: 0.8em;
+}
+
+
+
+.studentshipsearch-container {
+	background-image: url(../img/book-glasses.jpg);
 	background-size: cover;
 	background-position: center center;
 	padding-top: 120px;
@@ -93,8 +147,14 @@ img {
 	background-color: rgba(0,0,0,0.4);
 	border-radius: 12px;
 	-moz-border-radius: 12px;
-	-webkit-border-radius: 12px;	
+	-webkit-border-radius: 12px;
+	transition: height 8s;
+	-moz-transition: height 8s;
+	-webkit-transition: height 8s;
+	height: auto;	
 }
+
+
 
 #homesearch form h2 {
 	color: white !important;
@@ -151,6 +211,44 @@ img {
 	cursor: pointer;
 }
 
+@media screen and (max-width: 960px) {
+	
+	#homesearch form {
+		padding: 20px;
+	}
+	
+	#homesearch form input[type='submit'] {
+		position: relative;
+		float: left !important;
+		margin: 0;
+		margin-left: 50%;
+		left: -24px;
+		right: auto;
+		bottom: -10px;
+	}
+}
+
+@media screen and (max-width: 960px) {
+	
+	.homesearch-container {
+		padding-top: 40px;
+		padding-bottom: 40px;
+	}
+	
+	#homesearch form h2 {
+		color: white !important;
+		margin: 0px !important;
+	}
+	
+	#homesearch #searchform_toggle {
+		position: relative;
+		top: auto;
+		right: auto;
+
+	}
+
+}
+
 #homecats {
 	background-color: #EEEEEE;
 	border-radius: 0 0 12px 12px;
@@ -186,7 +284,21 @@ img {
 	padding-left: 56px;
 }
 
-#homefeaturedjobs .nav-tabs li a .icon {
+#homefeaturedjobs .panel-heading a {
+	background: url(../img/nav_active_bg.png) repeat-x center bottom;
+	color: white !important;	
+	border: none;
+	font-size: 1.6em;
+	line-height: 1em;
+	text-align: left;
+	border-radius: 4px 4px 0 0;
+	-moz-border-radius: 4px 4px 0 0;
+	-webkit-border-radius: 4px 4px 0 0;
+	padding-left: 56px;
+}
+
+#homefeaturedjobs .nav-tabs li a .icon,
+#homefeaturedjobs .panel-heading a .icon {
 	display: block;
 	width: 32px;
 	height: 32px;
@@ -197,27 +309,54 @@ img {
 	background-repeat: no-repeat;
 }
 
-#homefeaturedjobs .nav-tabs li a.academic .icon {
+#homefeaturedjobs .panel-heading a .icon {
+	left: 6px;
+	top: 6px;
+}
+
+#homefeaturedjobs .panel-title a {
+	position: relative;
+}
+
+#homefeaturedjobs .panel-title a::before {
+	display: none;
+	position: absolute;
+	width: 30px;
+	height: 30px;
+	top: 0px;
+	left: 0px;
+	content: '';
+	border: 1px solid red;
+}
+
+
+#homefeaturedjobs .nav-tabs li a.academic .icon,
+#homefeaturedjobs .panel-heading a.academic .icon {
 	background-image: url(../img/sector_icon_academic_white.png);
 }
 
-#homefeaturedjobs .nav-tabs li a.professional .icon {
+#homefeaturedjobs .nav-tabs li a.professional .icon,
+#homefeaturedjobs .panel-heading a.professional .icon {
 	background-image: url(../img/sector_icon_professional_white.png);
 }
 
-#homefeaturedjobs .nav-tabs li a.studentships .icon {
+#homefeaturedjobs .nav-tabs li a.studentships .icon,
+#homefeaturedjobs .panel-heading a.studentships .icon {
 	background-image: url(../img/sector_icon_studentships_white.png);
 }
 
-#homefeaturedjobs .nav-tabs li.active a.academic .icon {
+#homefeaturedjobs .nav-tabs li.active a.academic .icon,
+#homefeaturedjobs .panel-heading a.academic.collapsed .icon {
 	background-image: url(../img/sector_icon_academic.png);
 }
 
-#homefeaturedjobs .nav-tabs li.active a.professional .icon {
+#homefeaturedjobs .nav-tabs li.active a.professional .icon,
+#homefeaturedjobs .panel-heading a.professional.collapsed .icon {
 	background-image: url(../img/sector_icon_professional.png);
 }
 
-#homefeaturedjobs .nav-tabs li.active a.studentships .icon {
+#homefeaturedjobs .nav-tabs li.active a.studentships .icon,
+#homefeaturedjobs .panel-heading a.studentships.collapsed .icon {
 	background-image: url(../img/sector_icon_studentships.png);
 }
 
@@ -232,7 +371,8 @@ img {
 	border-bottom: 1px solid #EEEEEE;
 }
 
-#homefeaturedjobs .tab-content{
+#homefeaturedjobs .tab-content,
+#homefeaturedjobs .js-tabcollapse-panel-body{
 	background-color: #EEEEEE;
 	border-radius: 0 0 12px 12px;
 	-moz-border-radius:  0 0 12px 12px;
@@ -243,18 +383,59 @@ img {
 	
 }
 
-#homefeaturedjobs .tab-content li {
+#homefeaturedjobs .panel-heading{
+	border: none;
+	background: none;
+	padding: 0px;
+}
+
+#homefeaturedjobs .panel-title{
+	margin-bottom: 0px !important;
+}
+
+#homefeaturedjobs .panel-title a{
+	padding-top: 10px;
+	padding-bottom: 10px;
+	font-size: 1.2em;
+	display: block;
+	width: 100%;
+}
+
+#homefeaturedjobs .panel-title .js-tabcollapse-panel-heading.collapsed {
+	background: none !important;
+	background-color: #EEEEEE !important;
+	color: #53247E !important;
+	border-radius: 4px;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+}
+
+
+
+
+#homefeaturedjobs .panel-default{
+	border: none;
+}
+
+#homefeaturedjobs .js-tabcollapse-panel-body {
+	margin-bottom: 0px;
+}
+
+#homefeaturedjobs .tab-content li,
+#homefeaturedjobs .js-tabcollapse-panel-body li {
 	border-bottom: 1px solid #DDDDDD;
 	padding: 4px 0;
 	list-style: none !important;
 }
 
-#homefeaturedjobs .tab-content li .jobcount {
+#homefeaturedjobs .tab-content li .jobcount,
+#homefeaturedjobs .js-tabcollapse-panel-body li .jobcount {
 	float: right;
 }
 
 
-#homefeaturedjobs .tab-content a {
+#homefeaturedjobs .tab-content a,
+#homefeaturedjobs .js-tabcollapse-panel-body a {
 	color: #333333;
 }
 
@@ -404,6 +585,27 @@ img {
 	-webkit-column-count: 3;
 }
 
+@media screen and (max-width: 960px) {
+	
+	.qtrcol, .threeqtrscol {
+		width: 100%;
+		padding: 0px !important;
+		
+	}
+	
+	.sticky {
+		position: relative !important;
+	}
+	
+	.cc3 {
+		column-count: 2;
+		-moz-column-count: 2;
+		-webkit-column-count: 2;
+	}
+	
+}
+
+
 /* adserver zones */
 
 .leaderboard {
@@ -412,11 +614,11 @@ img {
 	float: right;
 }
 
-.leaderboard ins {
+.leaderboard {
 	width: 100%;
 }
 
-.leaderboard ins img {
+.leaderboard img {
 	width: 100% !important;
 	max-width: 728px;
 	height: auto !important;
@@ -430,11 +632,11 @@ img {
 }
 
 
-.boxad_array ins {
+.boxad_array {
 	width: 100%;
 }
 
-.boxad_array ins img {
+.boxad_array img {
 	width: 100% !important;
 	max-width: 336px;
 	height: auto !important;
@@ -461,9 +663,9 @@ img {
 .whitepanel {
 	padding: 20px;
 	border: 1px solid #EEEEEE;
-	box-shadow: 0 0 8px rgba(0,0,0,0.1);
-	-moz-box-shadow: 0 0 8px rgba(0,0,0,0.1);
-	-webkit-box-shadow: 0 0 8px rgba(0,0,0,0.1);
+	box-shadow: 0 0 1px rgba(0,0,0,0.2);
+	-moz-box-shadow: 0 0 1px rgba(0,0,0,0.2);
+	-webkit-box-shadow: 0 0 1px rgba(0,0,0,0.2);
 	background-color: white;
 	margin-top: 24px;
 	border-radius: 4px;
@@ -472,6 +674,7 @@ img {
 }
 
 .jobspec {
+	padding: 15px 0;
 	margin: 30px 0px !important;
 	border-radius: 4px;
 	-moz-border-radius: 4px;
@@ -512,6 +715,19 @@ img {
 .calpanel .year {
 	font-size: 1em;
 	background-color: #F0F0F0;	
+}
+
+.videoholder {
+	width: 100%;
+	height: 0px;
+	overflow: hidden;
+		transition: 0.3s;
+	-moz-transition: 0.3s;
+	-webkit-transition: 0.3s;
+}
+
+.videoholder.open {
+	height: 350px;
 }
 /* footer */
 
@@ -631,6 +847,26 @@ img {
 	column-count: 4;
 	-moz-column-count: 4;
 	-webkit-column-count: 4;
+}
+
+@media screen and (max-width: 960px) {
+	
+	.cc3 {
+		column-count: 2;
+		-moz-column-count: 2;
+		-webkit-column-count: 2;
+	}
+	
+}
+
+@media screen and (max-width: 600px) {
+	
+	.cc3 {
+		column-count: 1;
+		-moz-column-count: 1;
+		-webkit-column-count: 1;
+	}
+	
 }
 
 /* ibe directory */
@@ -787,6 +1023,14 @@ ul.tabs li.active {
 	padding-left: 20px;
 }
 
+.question fieldset p.inset2 {
+	padding-left: 40px;
+}
+
+.question fieldset p.inset3 {
+	padding-left: 60px;
+}
+
 .question fieldset label {
 	color: #999999;
 	width: auto;
@@ -817,6 +1061,7 @@ ul.tabs li.active {
 
 .searchresults tbody tr {
 	background-color: #FBFBFB;
+	position: relative;
 }
 
 .searchresults thead {
@@ -824,9 +1069,12 @@ ul.tabs li.active {
 }
 
 .searchresults tbody tr.premium {
-	background: #d5c9de url(../img/sponsored_paleorange.png) repeat-x !important;
+	background: #FDE8DC url(../img/sponsored_paleorange.png) repeat-x !important;
 }
 
+.searchresults tbody tr.premium td, .searchresults tbody tr.promoted td {
+	padding-top: 24px;	
+}
 
 .searchresults tbody tr.promoted {
 	background: #d5c9de url(../img/promote_palepurple.png) repeat-x !important;
@@ -834,6 +1082,27 @@ ul.tabs li.active {
 
 .searchresults tbody tr.promoted h4 {
 	font-size: 2em;
+}
+
+.searchresults tbody tr:before {
+	display: block;
+	color: white;
+	width: 100%;
+	position: absolute;
+	content: ''; 	
+
+}
+
+.searchresults tbody tr.premium:before {
+	background-color: #FF6600;
+	padding: 3px 8px;
+	content: 'Premium job'; 	
+}
+
+.searchresults tbody tr.promoted:before {
+	background-color: #53247E;
+	padding: 3px 8px;
+	content: 'Promoted job'; 	
 }
 
 
@@ -919,6 +1188,16 @@ tr.clickable:hover {
 
 }
 
+@media screen and (max-width: 960px) {
+	#job_bullets .popoutform {
+		display: block;
+		left: 0px;
+		width: 100%;
+		background: none !important;
+		padding-left: 20px;	
+	}
+}
+
 #job_bullets .popoutform form {
 	width: 100%;
 	position: relative;
@@ -984,6 +1263,10 @@ tr.clickable:hover {
 	
 }
 
+.invalid {
+	border: 1px solid red !important;
+}
+
 
 /* login form */
 
@@ -996,7 +1279,7 @@ form#login{
     padding: 8px;
     z-index: 999;
     left: 50%;
-    margin-left: -200px;
+    margin-left: -175px;
     border-radius: 8px;
     -moz-border-radius: 8px;
     -webkit-border-radius: 8px;
@@ -1058,4 +1341,63 @@ form#login input[type='submit'] {
     opacity: 0.9;
     position: fixed;
     z-index: 998;
+}
+
+/* calls to action */
+
+.cta {
+	padding: 15px;
+	border-radius: 8px;
+	-moz-border-radius: 8px;
+	-webkit-border-radius: 8px;
+	background-color: #53247E;
+	color: white !important;
+	cursor: pointer;
+	margin-top: 10px;
+}
+
+.cta h3 {
+	background-repeat: no-repeat;
+	background-position: right center;
+	height: 36px;
+	background-size: contain;
+	padding-right: 40px;
+}
+
+.cta hr {
+	border: none;
+	border-bottom: 1px solid white;
+}
+
+.cta-jobalerts h3 {
+	background-image: url(../img/cta_jobalert.png);
+}
+
+.cta-uploadcv h3 {
+	background-image: url(../img/cta_uploadcv.png);
+}
+
+.cta-feedback h3 {
+	background-image: url(../img/cta_feedback.png);
+}
+
+.cta input[type='submit'] {
+	width: 45px;
+	height: 45px;
+	background: none;
+	border: 2px solid white;
+	border-radius: 50%;
+	-moz-border-radius: 50%;
+	-webkit-border-radius: 50%;
+	color: white;
+	font-size: 1.6em;	
+	line-height: 0.9em;
+	font-family: 'Source Sans Pro', sans-serif;
+	cursor: pointer;
+	transition: 0.3s;
+	-moz-transition: 0.3s;
+	-webkit-transition: 0.3s;
+	float: right;
+	clear: both;
+	
 }

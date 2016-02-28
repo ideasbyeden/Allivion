@@ -26,7 +26,7 @@
 	<link rel="stylesheet" media="screen" href="<?php bloginfo('template_url') ?>/css/textstyles.css" />
 	<link rel="stylesheet" media="screen" href="<?php bloginfo('template_url') ?>/css/nav.css" />
 	<link rel="stylesheet" media="screen" href="<?php bloginfo('template_url') ?>/css/uniform.default.css" />
-	
+	<link rel="stylesheet" href="<?php bloginfo('template_url') ?>/css/fontawesome/css/font-awesome.min.css">	
 
 	
 	<?php wp_head(); ?>
@@ -38,8 +38,6 @@
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-
-	
 
 
 	<script src="<?php bloginfo('template_url'); ?>/js/jquery.uniform.min.js"></script>
@@ -66,8 +64,18 @@
 			})
 			.on('sticky_kit:unbottom', function(e) {
 			    jQuery(this).parent().css('position', 'relative');
-			})
+			});
+			
+			jQuery('#sectortabs').tabCollapse();
 		});
+ 	</script>
+ 	
+ 	<script>
+	 	jQuery(function(){
+		 	jQuery('.menu-toggle, .show_login').click(function(){
+			 	jQuery('nav#main').toggleClass('open');
+		 	});
+	 	});
  	</script>
  	
  	<style>#sharethis{display:block}</style>
@@ -95,7 +103,7 @@
 	
 	<?php require_once(TEMPLATEPATH.'/includes/login_form.php'); ?>
 	
-		<?php if(is_front_page()){ ?>
+		<?php  ?>
 		<div class="container" id="header">
 			<div class="row">
 				<div class="col-sm-12">
@@ -105,12 +113,15 @@
 					
 					<div class="leaderboard">
 						<?php //include(TEMPLATEPATH.'/revive-zones/leaderboard_iframe.html'); ?>
-						<img src="<?php bloginfo('template_url'); ?>/img/banner_ad.jpg" />
+						<?php $home = get_page_by_title('Home');?>
+						<a href="<?php the_field('header_banner_link',$home->ID); ?>" target="_blank">
+						<img src="<?php the_field('header_banner_ad',$home->ID); ?>" class="mptrack" data-mpitem="boxad" data-mpevent="leaderboardClick"  />
+						</a>
 					</div>
 				</div>
 			</div>
 		</div>
-		<?php } ?>
+		<?php ?>
 
 		<div class="container-fluid" id="navigation">
 			<div class="container"
@@ -124,7 +135,10 @@
 						<?php if($user) echo '<p class="loginstatus">Logged in as <span class="name">'.$user->display_name.'</span></p>'; ?>
 					</div>
 					<nav id="main">
-						<?php wp_nav_menu('theme_location=main'); ?>
+						<div id="main-nav">
+							<span class="menu-toggle visible-sm visible-xs">Menu</span>
+							<?php wp_nav_menu('theme_location=main'); ?>
+						</div>
 					</nav>
 				</div>
 			</div>

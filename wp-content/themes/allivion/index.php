@@ -2,6 +2,8 @@
 	
 get_header();
 
+
+
 ?>
 
 <div class="container a2apad">
@@ -14,6 +16,8 @@ while (have_posts()) {
 		the_post();
 		the_content();
 }
+
+echo '<h1>Index.php</h1>';
 
 ?>
 

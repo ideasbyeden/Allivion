@@ -130,7 +130,8 @@ $returnfields = array('job_title','location','summary','recruiter_name','departm
 
 </script>
 
-<!-- <pre><?php print_r($job->getVars()); ?></pre> -->
+<?php $recruiter = $recruiter->getUsers(); ?>
+
 
 <div class="container a2apad">
 	<div class="stage" style="margin: 0">
@@ -143,14 +144,14 @@ $returnfields = array('job_title','location','summary','recruiter_name','departm
 						
 			<div class="qtrcol sticky">
 				<div class="qpanel darkpurplegrad" id="job_bullets" style="padding: 12px;">
-					<table style="width: 90%; margin-bottom: 30px;">
+					<table style="width: 90%; margin-bottom: 30px;" class="hidden-xs">
 					<?php
 						foreach($_GET as $k=>$v){
 							if($v) $job->printDetail($k,$_GET);
 						}
 					?>
 					</table>				
-					<span id="togglesearchform">Refine search</span>
+					<span id="togglesearchform" class="hidden-sm hidden-xs">Refine search</span>
 
 					<div class="qpanel purplegrad popoutform">
 						<form class="directory <?php echo $job->type; ?> search" id="searchjobs" action="<?php echo admin_url('admin-ajax.php'); ?>" method="post" return="<?php echo implode(',', $returnfields); ?>" targetid="jobslist" clickableurl="/job">
@@ -288,6 +289,7 @@ $returnfields = array('job_title','location','summary','recruiter_name','departm
 							?>
 					
 						<tr class="clickable rowitem <?php echo $class ?>" data-href="/job?i=<?php echo $item->ID; ?>">
+
 							<td style="width: 90px;">
 								<?php if($item->groupmeta['logo']) { ?>
 										<?php foreach($item->groupmeta['logo'] as $image_id) echo wp_get_attachment_image($image_id,'smallthumb'); ?>
