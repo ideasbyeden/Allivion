@@ -80,6 +80,8 @@ while (have_posts()) {
 					<div class="qpanel">
 						<?php $recruiter_admin->printQuestion('user_email',$user->user_email); ?>
 						<?php $recruiter_admin->printQuestion('contact_phone',$usermeta['contact_phone']); ?>
+						<?php $recruiter_admin->printQuestion('job_title',$usermeta['job_title']); ?>
+						<?php $recruiter_admin->printQuestion('department',$usermeta['department']); ?>
 						<?php $recruiter_admin->printQuestion('default_app_email',$usermeta['default_app_email']); ?>
 						<?php $recruiter_admin->printQuestion('website',$usermeta['website']); ?>
 					</div>

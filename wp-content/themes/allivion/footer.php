@@ -3,7 +3,7 @@
 		<div class="col-md-12">
 		<h3 class="purple">Share our content</h3>
 
-			<?php get_template_part('includes/addtoany'); ?>
+			<?php //get_template_part('includes/addtoany'); ?>
 		</div>
 	</div>
 </div>

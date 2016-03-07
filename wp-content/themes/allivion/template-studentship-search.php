@@ -77,10 +77,11 @@ $returnfields = array('job_title','location','summary','recruiter_name','closing
 							<div class="clear"></div>
 							
 							<input type="hidden" name="industry" value="studentships" />
-							<?php $job->printQuestion('region',null,'dropdown',true); ?>
-							<?php $job->printQuestion('salary_range',null,'dropdown',true); ?>
-							<?php $job->printQuestion('contract',null,'dropdown',true); ?>
-							<?php $job->printQuestion('industry',null,'dropdown','Studentship'); ?>
+							<?php $job->printQuestion('region',null,'dropdown',true,false); ?>
+							<?php $job->printQuestion('salary_range',null,'dropdown',true,false); ?>
+							<?php $job->printQuestion('studentship_funding',null,'dropdown',true,false); ?>
+							<?php $job->printQuestion('qualification',null,'dropdown',true,false); ?>
+							<?php $job->printQuestion('industry',null,'dropdown',true,false); ?>
 						</div>
 						
 						<input type="submit" value="Go" class="fr"/>
@@ -90,40 +91,81 @@ $returnfields = array('job_title','location','summary','recruiter_name','closing
 				</div>
 	
 			</div>
+			
+			
+		</div><!-- end row -->
+	</div>
+</div>
+
+<div class="container-fluid">
+	<div class="container">
+		<div class="row">
+
+			<!-- Logo carousel -->
+			<div class="hidden-xs">
+			<?php $extraparams['industry'] = 'studentships'; require(TEMPLATEPATH.'/includes/logo_carousel.php'); ?>	
+			</div>
+			
 		</div>
 	</div>
 </div>
+
 	
-<div class="container a2apad">			
+<div class="container">			
 	
 	<div class="row boxad_array boxad_array_1" style="padding-top: 60px; padding-bottom: 40px;">
+		<div class="col-md-12">
+			<h2 class="purple">Featured jobs</h2>
+		</div>
+		<?php $home = get_page_by_title('Home'); ?>
 		<div class="col-sm-4" style="text-align: center">
 			
-			<?php //include(TEMPLATEPATH.'/revive-zones/boxad_1.html'); ?>
-			<img src="<?php bloginfo('template_url'); ?>/img/box_ad_1.jpg" />
-
+			<a href="<?php the_field('boxad_1_link',$home->ID); ?>" target="_blank">
+			<img src="<?php the_field('box_ad_1',$home->ID); ?>" class="mptrack" data-mpitem="boxad" data-mpevent="ad1click" />
+			</a>
 			
 		</div>
 		<div class="col-sm-4" style="text-align: center">
 		
 	
 			<?php //include(TEMPLATEPATH.'/revive-zones/boxad_2.html'); ?>
-			<img src="<?php bloginfo('template_url'); ?>/img/box_ad_2.jpg" />
+			<a href="<?php the_field('boxad_2_link',$home->ID); ?>" target="_blank">
+			<img src="<?php the_field('box_ad_2',$home->ID); ?>" class="mptrack" data-mpitem="boxad" data-mpevent="ad2click"  />
+			</a>
 
 		</div>
 		<div class="col-sm-4" style="text-align: center">
 
 
 			<?php //include(TEMPLATEPATH.'/revive-zones/boxad_3.html'); ?>
-			<img src="<?php bloginfo('template_url'); ?>/img/box_ad_3.jpg" />
+			<a href="<?php the_field('boxad_3_link',$home->ID); ?>" target="_blank">
+			<img src="<?php the_field('box_ad_3',$home->ID); ?>" class="mptrack" data-mpitem="boxad" data-mpevent="ad3click"  />
+			</a>
 
 		</div>
-	</div>	
- 
+	</div> 
 				
 </div>
 
-<?php $studentships = get_term_by( 'slug', 'studentships', 'sector' );
+
+<div class="container a2apad">
+	<div class="row">
+		<div class="col-md-3">
+			<?php include('includes/cta-uploadcv.php'); ?>
+		</div>
+		<div class="col-md-3">
+			<?php include('includes/cta-feedback.php'); ?>
+		</div>
+		<div class="col-md-3">
+			<?php include('includes/cta-jobalert.php'); ?>
+		</div>
+		<div class="col-md-3">
+			<?php include('includes/cta-advertise.php'); ?>
+		</div>
+	</div>
+</div>
+
+<?php $studentships = get_term_by( 'slug', 'academic', 'sector' );
 	$children = get_term_children($studentships->term_id, 'sector'); ?>
 <script>
 	
@@ -138,5 +180,7 @@ $returnfields = array('job_title','location','summary','recruiter_name','closing
 	});
 	
 </script>
+
+
 
 <?php get_footer(); ?>

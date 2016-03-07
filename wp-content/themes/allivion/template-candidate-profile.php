@@ -47,7 +47,7 @@ while (have_posts()) {
 			<h1 class="purple"><?php the_title(); ?></h1>
 		</div>
 		<div class="col-md-4" style="text-align: right;">
-			<input type="submit" class="btn btn-default" value="Save changes" style="margin-top: 20px;"/>
+			<input type="submit" class="btn btn-default" value="Save and update" style="margin-top: 20px;"/>
 		</div>
 			</div>
 			<div class="row">
@@ -66,6 +66,7 @@ while (have_posts()) {
 						<?php $candidate->printQuestion('last_name',$usermeta['last_name']); ?>
 						<?php $candidate->printQuestion('user_email',$user->user_email); ?>
 						<?php $candidate->printQuestion('contact_phone',$usermeta['contact_phone']); ?>
+						<?php $candidate->printQuestion('current_job_title',$usermeta['current_job_title']); ?>
 
 						<div class="clear"></div>
 					</div>

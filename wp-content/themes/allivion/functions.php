@@ -111,7 +111,7 @@ add_filter( 'wp_nav_menu_items', 'postjob_menu_link', 10, 2 );
 
 // add logo to admin nav
 function menu_logo( $items, $args ) {
-	if ($args->theme_location == 'recadmin' || $args->theme_location == 'sysadmin') {
+    if($args->theme_location != 'secondary' && $args->theme_location != 'main'){
 		$items = '<li class="nav_logo"><a href="/"><img src="'.get_bloginfo('template_url').'/img/nav_logo.png" /></a></li>'.$items;
 	}
     return $items;
@@ -178,6 +178,16 @@ for($s=1; $s<=6; $s++){
 		'after_title'   => '' );
 	register_sidebar( $footer );	
 }
+
+$blog_sidebar = array(
+		'name'          => sprintf(__('Blog Sidebar'), $i ),
+		'id'            => 'blog_sidebar',
+		'description'   => '',
+		'before_widget' => '<div class="qpanel">',
+		'after_widget'  => '</div>',
+		'before_title'  => '<span class="hide">',
+		'after_title'   => '</span>' );
+	register_sidebar( $blog_sidebar );
 
 
 

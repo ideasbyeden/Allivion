@@ -65,7 +65,7 @@ $adtype = $vals['ad_type'][0] ? $vals['ad_type'][0] : 'standard';
 					if($vals['ad_type'][0] && $vals['ad_type'][0] != 'standard' && $employer['brand_header']){
 						foreach($employer['brand_header'] as $image_id) echo '<span id="brand_header">'.wp_get_attachment_image($image_id,'brand_header').'</span>';						
 					} else if($employer['logo']) {
-						foreach($employer['logo'] as $image_id) echo '<span id="logo">'.wp_get_attachment_image($image_id,'recruiter_icon_small').'</span>';
+						foreach($employer['logo'] as $image_id) echo '<span id="brand_logo">'.wp_get_attachment_image($image_id,'recruiter_icon_small').'</span>';
 					} ?>
 			</div>					
 			<h1 class="purple"><?php echo $vals['job_title']; ?></h1>
@@ -76,11 +76,29 @@ $adtype = $vals['ad_type'][0] ? $vals['ad_type'][0] : 'standard';
 			
 			<div class="row jobspec">
 			<div class="col-xs-8">
-				<h6>Salary: <strong><?php echo $vals['salary_details']; ?></strong></h6>
-				<h6>Location: <strong><?php echo $vals['location'] ? $vals['location'] : ''; ?></strong></h6>
-				<h6>Hours: <strong><?php echo $vals['hours'][0]; ?></strong></h6>
-				<h6>Contract: <strong><?php echo $vals['contract'][0]; ?></strong></h6>
-				<h6>Job ref: <strong><?php echo $vals['job_ref']; ?></strong></h6>
+				<table>
+					<tr>
+						<td style="padding-right: 10px">Salary:</td>
+						<td><strong><?php echo $vals['salary_details']; ?></strong></td>
+					</tr>
+					<tr>
+						<td style="padding-right: 10px">Location:</td>
+						<td><strong><?php echo $vals['location'] ? $vals['location'] : ''; ?></strong></td>
+					</tr>
+					<tr>
+						<td style="padding-right: 10px">Hours:</td>
+						<td><strong><?php echo $vals['hours'][0]; ?></strong></td>
+					</tr>
+					<tr>
+						<td style="padding-right: 10px">Contract:</td>
+						<td><strong><?php echo $vals['contract'][0]; ?></strong></td>
+					</tr>
+					<tr>
+						<td style="padding-right: 10px">Job ref:</td>
+						<td><strong><?php echo $vals['job_ref']; ?></strong></td>
+					</tr>
+				</table>
+
 				
 				<p></p>
 

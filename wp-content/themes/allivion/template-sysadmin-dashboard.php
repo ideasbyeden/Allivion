@@ -122,7 +122,7 @@ $returnfields = array('job_title','job_ref','location','job_status','search_coun
 				<?php foreach ($items->posts as $item){ ?>
 					<tr class="clickable rowitem" data-href="/job-details?i=<?php echo $item->ID; ?>">
 						<?php foreach($returnfields as $field){ ?>
-						<td><?php echo $item->meta[$field]; ?></td>
+						<td><?php echo is_array($item->meta[$field]) ? $item->meta[$field][0] : $item->meta[$field]; ?></td>
 						<?php } ?>
 					</tr>
 				<?php } ?>

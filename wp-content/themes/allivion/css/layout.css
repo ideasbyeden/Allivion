@@ -77,6 +77,9 @@ img {
 
 #logo {
 	width: 310px;
+	position: relative;
+	float: left;
+	clear: none;
 }
 
 
@@ -612,10 +615,7 @@ img {
 	width: 728px;
 	max-width: 100%;
 	float: right;
-}
-
-.leaderboard {
-	width: 100%;
+	clear: none;
 }
 
 .leaderboard img {
@@ -762,7 +762,7 @@ img {
 	background-image: linear-gradient(to right, #B88EC0 0%, #592580 100%);
 	
 	color: white;
-	
+		
 }
 
 #footer .footer_button {
@@ -813,6 +813,36 @@ img {
 	height: auto !important;
 }
 
+#brand_logo {
+	display: block;
+	width: 600px;
+	height: 200px;
+}
+
+/* blog */
+
+.post-item {
+	border-bottom: 1px solid #cccccc;
+	padding-bottom: 20px;
+}
+
+#sidebar {
+	padding-top: 20px;
+}
+
+#sidebar ul {
+	padding: 0px;
+	margin: 0px;
+}
+
+#sidebar ul li {
+	list-style: none !important;
+	margin: 0px;
+	padding: 0px;
+	color: #53247E !important;
+	font-size: 1.2em;
+}
+
 /* misc */
 
 .clear {
@@ -847,6 +877,10 @@ img {
 	column-count: 4;
 	-moz-column-count: 4;
 	-webkit-column-count: 4;
+}
+
+.hide {
+	display: none;;
 }
 
 @media screen and (max-width: 960px) {
@@ -1065,7 +1099,7 @@ ul.tabs li.active {
 }
 
 .searchresults thead {
-	display: none;
+	/*display: none;*/
 }
 
 .searchresults tbody tr.premium {
@@ -1093,6 +1127,10 @@ ul.tabs li.active {
 
 }
 
+.searchresults.recadmin tbody tr:before {
+	display: none;
+}
+
 .searchresults tbody tr.premium:before {
 	background-color: #FF6600;
 	padding: 3px 8px;
@@ -1112,7 +1150,7 @@ ul.tabs li.active {
 }
 
 .searchresults img {
-	width: 80px;
+	/*width: 160px;*/
 }
 
 .searchresults p {
@@ -1298,8 +1336,9 @@ form#login .close {
 	right: 5px;
 }
 
-form#login label {
-	width: 29%;
+form#login label,
+form#login input {
+	width: 100%;
 }
 
 form#login p.status{
@@ -1350,8 +1389,8 @@ form#login input[type='submit'] {
 	border-radius: 8px;
 	-moz-border-radius: 8px;
 	-webkit-border-radius: 8px;
-	background-color: #53247E;
-	color: white !important;
+	background-color: #EEEEEE;
+	color: #53247E !important;
 	cursor: pointer;
 	margin-top: 10px;
 }
@@ -1366,30 +1405,34 @@ form#login input[type='submit'] {
 
 .cta hr {
 	border: none;
-	border-bottom: 1px solid white;
+	border-bottom: 1px solid #53247E;
 }
 
 .cta-jobalerts h3 {
-	background-image: url(../img/cta_jobalert.png);
+	background-image: url(../img/cta_jobalert_purple.png);
 }
 
 .cta-uploadcv h3 {
-	background-image: url(../img/cta_uploadcv.png);
+	background-image: url(../img/cta_uploadcv_purple.png);
 }
 
 .cta-feedback h3 {
-	background-image: url(../img/cta_feedback.png);
+	background-image: url(../img/cta_feedback_purple.png);
+}
+
+.cta-advertise h3 {
+	background-image: url(../img/cta_advertise_purple.png);
 }
 
 .cta input[type='submit'] {
 	width: 45px;
 	height: 45px;
 	background: none;
-	border: 2px solid white;
+	border: 2px solid #53247E;
 	border-radius: 50%;
 	-moz-border-radius: 50%;
 	-webkit-border-radius: 50%;
-	color: white;
+	color: #53247E;
 	font-size: 1.6em;	
 	line-height: 0.9em;
 	font-family: 'Source Sans Pro', sans-serif;
@@ -1400,4 +1443,13 @@ form#login input[type='submit'] {
 	float: right;
 	clear: both;
 	
+}
+
+/* extend bootstrap */
+
+.btn-xlg{
+	padding:16px 24px !important;
+	font-size:24px !important;
+	line-height:1.3333333 !important;
+	border-radius:6px !important;
 }

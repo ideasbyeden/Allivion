@@ -104,7 +104,7 @@ class directoryCore {
 	}
 	
 	
-	public function printQuestion($name,$value = null,$format = null,$add_blank = false){
+	public function printQuestion($name,$value = null,$format = null,$add_blank = false,$use_dependency = true){
 		//$output .= '<p>'.$name.''.print_r($value).'</p>';
 		if($question = $this->getQuestion($name)){
 			
@@ -117,6 +117,7 @@ class directoryCore {
 					$output .= $question['label'] ? '<label>'.$question['label'].'</label>' : '';
 					$output .= $question['instructions'] ? '<p class="instructions">'.$question['instructions'].'</p>' : '';
 					$output .= '<input type="text" ';
+					$output .= $question['class'] ? 'class="'.$question['class'].'" ' : '';
 					$output .= $question['name'] ? 'name="'.$question['name'].'" ' : '';
 					$output .= $question['placeholder'] ? 'placeholder="'.$question['placeholder'].'" ' : '';
 					$output .= $question['label'] ? 'label="'.$question['label'].'" ' : '';
@@ -129,8 +130,7 @@ class directoryCore {
 					} else {
 						$output .= 'req="'.$question['required'][0].'" ';							
 					}
-					
-					$output .= $question['dependency'] ? 'dependency="'.$question['dependency'].'" ' : '';
+					if($use_dependency) $output .= $question['dependency'] ? 'dependency="'.$question['dependency'].'" ' : '';
 					$output .= 'value="'.$value.'" ';
 					$output .= '/>';
 				break;
@@ -141,13 +141,13 @@ class directoryCore {
 					$output .= '<textarea ';
 					$output .= $question['name'] ? 'name="'.$question['name'].'" ' : '';
 					$output .= $question['placeholder'] ? 'placeholder="'.$question['placeholder'].'" ' : '';
-					$output .= $question['dependency'] ? 'dependency="'.$question['dependency'].'" ' : '';
+					if($use_dependency) $output .= $question['dependency'] ? 'dependency="'.$question['dependency'].'" ' : '';
 					$output .= $question['required'] ? 'req="'.$question['required'].'" ' : '';
 					$output .= '>'.$value.'</textarea>';
 				break;
 
 				case 'richtext':
-					$output .= $question['limit'] ? '<span class="limited">' : '<span class="unlimited">';
+					$output .= $question['limit'] ? '<span class="limited" data-limit="'.$question['limit'].'">' : '<span class="unlimited">';
 					$output .= $question['label'] ? '<label>'.$question['label'].'</label>' : '';
 					$output .= $question['instructions'] ? '<p class="instructions">'.$question['instructions'].'</p>' : '';
 					
@@ -169,10 +169,14 @@ class directoryCore {
 				case 'date':
 					$output .= $question['label'] ? '<label>'.$question['label'].'</label>' : '';
 					$output .= $question['instructions'] ? '<p class="instructions">'.$question['instructions'].'</p>' : '';
-					$output .= '<input type="text" class="datepicker" ';
+
+					$class = 'datepicker ';
+					$class .= $question['class'] ? $question['class'] : '';
+
+					$output .= '<input type="text" class="'.$class.'" ';
 					$output .= $question['name'] ? 'name="'.$question['name'].'" ' : '';
 					$output .= $question['placeholder'] ? 'placeholder="'.$question['placeholder'].'" ' : '';
-					$output .= $question['dependency'] ? 'dependency="'.$question['dependency'].'" ' : '';
+					if($use_dependency) $output .= $question['dependency'] ? 'dependency="'.$question['dependency'].'" ' : '';
 					$output .= $question['required'] ? 'req="'.$question['required'].'" ' : '';
 					$output .= 'value="'.$value.'" ';
 					$output .= '/>';
@@ -184,7 +188,7 @@ class directoryCore {
 					$output .= '<input type="email" ';
 					$output .= $question['name'] ? 'name="'.$question['name'].'" ' : '';
 					$output .= $question['placeholder'] ? 'placeholder="'.$question['placeholder'].'" ' : '';
-					$output .= $question['dependency'] ? 'dependency="'.$question['dependency'].'" ' : '';
+					if($use_dependency) $output .= $question['dependency'] ? 'dependency="'.$question['dependency'].'" ' : '';
 					$output .= $question['required'] ? 'req="'.$question['required'].'" ' : '';
 					$output .= 'value="'.$value.'" ';
 					$output .= '/>';
@@ -195,7 +199,7 @@ class directoryCore {
 					$output .= $question['instructions'] ? '<p class="instructions">'.$question['instructions'].'</p>' : '';
 					$output .= '<input type="text" ';
 					$output .= $question['name'] ? 'name="'.$question['name'].'" ' : '';
-					$output .= $question['dependency'] ? 'dependency="'.$question['dependency'].'" ' : '';
+					if($use_dependency) $output .= $question['dependency'] ? 'dependency="'.$question['dependency'].'" ' : '';
 					$output .= $question['placeholder'] ? 'placeholder="'.$question['placeholder'].'" ' : '';
 					$output .= $question['required'] ? 'req="'.$question['required'].'" ' : '';
 					$output .= 'value="'.$value.'" ';
@@ -219,7 +223,8 @@ class directoryCore {
 					$output .= $question['name'] ? 'name="'.$question['name'].'" ' : '';
 					$output .= $question['label'] ? 'label="'.$question['label'].'" ' : '';
 					$output .= $question['placeholder'] ? 'placeholder="'.$question['placeholder'].'" ' : '';
-					$output .= $question['dependency'] ? 'dependency="'.$question['dependency'].'" ' : '';
+					if($use_dependency) $output .= $question['dependency'] ? 'dependency="'.$question['dependency'].'" ' : '';
+					$output .= $question['force'] ? 'force="'.$question['force'].'" ' : '';
 					$output .= $question['required'] ? 'req="'.$question['required'].'" ' : '';
 					$output .= '>';
 					if($question['addblank'] || $add_blank){
@@ -271,6 +276,7 @@ class directoryCore {
 							$output .= '<input type="checkbox" value="'.$v['slug'].'" ';
 							$output .= $question['name'] ? 'name="'.$question['name'].'[]" ' : '';
 							$output .= $question['dependency'] ? 'dependency="'.$question['dependency'].'" ' : '';
+							$output .= $question['force'] ? 'force="'.$question['force'].'" ' : '';
 							$output .= $question['required'] ? 'req="'.$question['required'].'" ' : '';
 							if($value && in_array($v['slug'], $value)){
 								$output .= 'CHECKED ';
@@ -286,6 +292,7 @@ class directoryCore {
 							$output .= '<input type="checkbox" value="'.$v['slug'].'" ';
 							$output .= $question['name'] ? 'name="'.$question['name'].'[]" ' : '';
 							$output .= $question['dependency'] ? 'dependency="'.$question['dependency'].'" ' : '';
+							$output .= $question['force'] ? 'force="'.$question['force'].'" ' : '';
 							$output .= $question['required'] ? 'req="'.$question['required'].'" ' : '';
 							if($value && in_array($v['slug'], $value)){
 							//if($v == $value){
@@ -300,6 +307,7 @@ class directoryCore {
 								$output .= '<p class="inset2">';
 								$output .= '<input type="checkbox" value="'.$v['slug'].'" ';
 								$output .= $question['name'] ? 'name="'.$question['name'].'[]" ' : '';
+								$output .= $question['force'] ? 'force="'.$question['force'].'" ' : '';
 								$output .= $question['dependency'] ? 'dependency="'.$question['dependency'].'" ' : '';
 								$output .= $question['required'] ? 'req="'.$question['required'].'" ' : '';
 								if($value && in_array($v['slug'], $value)){
@@ -349,7 +357,7 @@ class directoryCore {
 					$output .= $question['instructions'] ? '<p class="instructions">'.$question['instructions'].'</p>' : '';
 					$output .= '<input type="file" class="fileupload"';
 					$output .= $question['name'] ? 'name="'.$question['name'].'" ' : '';
-					$output .= $question['dependency'] ? 'dependency="'.$question['dependency'].'" ' : '';
+					if($use_dependency) $output .= $question['dependency'] ? 'dependency="'.$question['dependency'].'" ' : '';
 					$output .= $question['required'] ? 'req="'.$question['required'].'" ' : '';
 					$output .= '/>';
 				break;
@@ -358,7 +366,7 @@ class directoryCore {
 					$output .= $question['label'] ? '<label>'.$question['label'].'</label>' : '';
 					$output .= $question['instructions'] ? '<p class="instructions">'.$question['instructions'].'</p>' : '';
 					$output .= '<input type="file" class="imageupload"';
-					$output .= $question['dependency'] ? 'dependency="'.$question['dependency'].'" ' : '';
+					if($use_dependency) $output .= $question['dependency'] ? 'dependency="'.$question['dependency'].'" ' : '';
 					$output .= $question['name'] ? 'name="'.$question['name'].'" ' : '';
 					$output .= $question['required'] ? 'req="'.$question['required'].'" ' : '';
 					$output .= '/>';

@@ -21,7 +21,7 @@ while (have_posts()) {
 /////////////////////////////////////////////
 
 // Fields to be shown in search results
-$returnfields = array('job_title','job_ref','location','job_status');
+$returnfields = array('job_title','job_ref','location','job_status','publish_from','closing_date');
 
 // Group ID
 $group_id = $usermeta['group_id'] ? $usermeta['group_id'] : $user->ID;
@@ -101,7 +101,7 @@ $group_id = $usermeta['group_id'] ? $usermeta['group_id'] : $user->ID;
 			?>
 
 			<div class="col-md-12" style="padding-top: 20px; padding: 20px;">
-			<table class="searchresults">
+			<table class="searchresults recadmin">
 				<thead>
 					<tr>
 						<?php foreach($returnfields as $field){ ?>

@@ -90,22 +90,10 @@ $returnfields = array('job_title','location','summary','recruiter_name','closing
 	</div>
 </div>
 
-<div class="container">
-	<div class="row">
-		<div class="col-md-4">
-			<?php include('includes/cta-uploadcv.php'); ?>
-		</div>
-		<div class="col-md-4">
-			<?php include('includes/cta-feedback.php'); ?>
-		</div>
-		<div class="col-md-4">
-			<?php include('includes/cta-jobalert.php'); ?>
-		</div>
-	</div>
-</div>
+
 
 	
-<div class="container a2apad">			
+<div class="container">			
 	<div class="row"  id="homefeaturedjobs">
 		<div class="col-sm-12">
 			<h2 class="purple">Browse jobs by sector</h2>
@@ -241,6 +229,23 @@ $returnfields = array('job_title','location','summary','recruiter_name','closing
 	</div>	
  
 				
+</div>
+
+<div class="container a2apad">
+	<div class="row">
+		<div class="col-md-3">
+			<?php include('includes/cta-uploadcv.php'); ?>
+		</div>
+		<div class="col-md-3">
+			<?php include('includes/cta-feedback.php'); ?>
+		</div>
+		<div class="col-md-3">
+			<?php include('includes/cta-jobalert.php'); ?>
+		</div>
+		<div class="col-md-3">
+			<?php include('includes/cta-advertise.php'); ?>
+		</div>
+	</div>
 </div>
 
 <?php get_footer(); ?>

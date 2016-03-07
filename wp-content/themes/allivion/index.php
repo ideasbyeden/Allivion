@@ -17,8 +17,6 @@ while (have_posts()) {
 		the_content();
 }
 
-echo '<h1>Index.php</h1>';
-
 ?>
 
 		</div>

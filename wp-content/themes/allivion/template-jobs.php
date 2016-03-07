@@ -98,7 +98,9 @@ $returnfields = array('job_title','location','summary','recruiter_name','departm
 	 			}
 			});
 			var newurl = document.location.protocol + '//' + document.location.hostname  + document.location.pathname + querystring;
-			document.location = newurl;
+			//document.location = newurl;
+			history.pushState('', document.title, newurl);
+
 		});
 	});	
 	
@@ -200,7 +202,7 @@ $returnfields = array('job_title','location','summary','recruiter_name','departm
 			<div class="threeqtrscol" style="padding-right: 0px;">
 				<table class="searchresults">
 					
-					<thead>
+					<thead style="display: none;">
 						<tr>
 							<td></td>
 							<td>
@@ -290,9 +292,9 @@ $returnfields = array('job_title','location','summary','recruiter_name','departm
 					
 						<tr class="clickable rowitem <?php echo $class ?>" data-href="/job?i=<?php echo $item->ID; ?>">
 
-							<td style="width: 90px;">
+							<td style="width: 150px;">
 								<?php if($item->groupmeta['logo']) { ?>
-										<?php foreach($item->groupmeta['logo'] as $image_id) echo wp_get_attachment_image($image_id,'smallthumb'); ?>
+										<?php foreach($item->groupmeta['logo'] as $image_id) echo wp_get_attachment_image($image_id,'recruiter_icon_small'); ?>
 								<?php } ?>
 							</td>
 							<td>

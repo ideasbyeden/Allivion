@@ -9,6 +9,9 @@ jQuery(function(){
 		var validates = dirvalidates(jQuery(this));
 		if(validates == 'true'){
 			submitForm(jQuery(this),autosave);
+			return true;
+		} else {
+			return false;
 		}
 	});
 
@@ -32,6 +35,7 @@ jQuery(function(){
 
 				
 		var data = new FormData(form[0]);
+		//var data = form.serialize();
 
 		
 		// Is this required? Seems to work without...

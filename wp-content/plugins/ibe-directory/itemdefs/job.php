@@ -100,7 +100,8 @@ $vars = array(
 		'label' => 'Publish from',
 		'fieldtype' => 'date',
 		'datedisplay' => 'j M Y',
-		'group' => 'publishing'	
+		'group' => 'publishing',
+		'class' => 'fromtoday'
 	),
 	array(
 		'name' => 'closing_date',
@@ -145,7 +146,8 @@ $vars = array(
 		),
 		'addblank' => true,
 		'group' => 'headline',
-		'keyword' => 'true'
+		'keyword' => 'true',
+		'force' => 'phd@industry:phd',
 	),
 
 	array(
@@ -185,6 +187,7 @@ $vars = array(
 			'International Doctorate'	=> array('slug' => 'international_doctorate'),	
 			'PhD' => array('slug' => 'phd'),		
 			'Professional Doctorate' => array('slug' => 'professional_doctorate'),		
+			'Masters' => array('slug' => 'masters'),		
 		),		
 		'keyword' => 'true',
 		'dependency' => 'role_func:phd',
@@ -290,7 +293,9 @@ $vars = array(
 		'group' => 'industry_location',
 		'keyword' => 'true',
 		'select_parent' => 'false',
-		'required' => 'job_status:published'
+		'required' => 'job_status:published',
+		'force' => 'phd@role_func:phd',
+
 	),
 
 	array(
@@ -335,7 +340,7 @@ $vars = array(
 		'placeholder' => '',
 		'fieldtype' => 'richtext',
 		'group' => 'details',
-		'limit' => '10',
+		'limit' => '600',
 		'tags_allowed' => 'p,br,strong,em'
 	),
 	
@@ -400,6 +405,7 @@ $vars = array(
 		'label' => 'Application website',
 		'placeholder' => '',
 		'fieldtype' => 'text',
+		'dependency' => 'application_method:website',
 		'group' => 'extra'
 	),
 

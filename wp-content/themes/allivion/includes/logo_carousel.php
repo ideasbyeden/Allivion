@@ -6,6 +6,7 @@
 	if(is_array($users->results)) foreach($users->results as $user){
 		
 		$params = array();
+		if(is_array($extraparams)) $params = array_merge($params,$extraparams);
 		if(get_user_meta($user->ID,'subscriber',true) == 'annual' && get_user_meta($user->ID,'logo',true) != ''){
 			
 			$logo = get_user_meta($user->ID,'logo',true);
@@ -15,6 +16,8 @@
 			$params['encrypted'] = $dircore->encrypt('type=job');
 			$params['group_id'] = $user->ID;
 			$items = directory_search($params);
+			
+			//echo '<pre>Params:<br />'; print_r($params); echo '</pre>';
 
 			$recruiters[] = array('logourl' => $logourl,
 									'job_count' => count($items->posts),
@@ -36,7 +39,10 @@
 	                        
 	                        <?php for($i=0; $i<count($recruiters); $i++){ ?>
 	                        <div class="col-sm-2 recruiter_icon_panel" style="text-align: center;">
-		                        <a href="jobs/?group_id=<?php echo $recruiters[$i]['ID']; ?>">
+		                        
+		                        <?php $extendquery = $extraparams ? '&'.http_build_query($extraparams) : ''; ?>
+		                        
+		                        <a href="jobs/?group_id=<?php echo $recruiters[$i]['ID'].$extendquery; ?>">
 	            <div class="iconframe">
 		            <div class="inner">
 	                <?php echo $recruiters[$i]['logourl']; ?>

@@ -1,0 +1,701 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"table",
+				"table-row"
+			],
+			[
+				"in",
+				"inherit"
+			],
+			[
+				"im",
+				"important"
+			],
+			[
+				"pad",
+				"padding-right"
+			],
+			[
+				"font",
+				"font-size"
+			],
+			[
+				"mar",
+				"margin"
+			],
+			[
+				"bord",
+				"border-bottom"
+			],
+			[
+				"h",
+				"h1	Tag"
+			],
+			[
+				"padding",
+				"padding-right"
+			],
+			[
+				"for",
+				"forceVals"
+			],
+			[
+				"chec",
+				"checked"
+			],
+			[
+				"force",
+				"forceTarget"
+			],
+			[
+				"print",
+				"print_r"
+			],
+			[
+				"get_class",
+				"get_class_methods"
+			],
+			[
+				"this",
+				"thisGall"
+			],
+			[
+				"inlin",
+				"inline-block"
+			],
+			[
+				"thi",
+				"thisGall"
+			],
+			[
+				"con",
+				"console"
+			],
+			[
+				"ima",
+				"imagesNotFetched"
+			],
+			[
+				"all",
+				"allImages"
+			],
+			[
+				"imag",
+				"imagesNotFetched"
+			],
+			[
+				"th",
+				"thisGall"
+			],
+			[
+				"upda",
+				"updateAllImages"
+			],
+			[
+				"re",
+				"requestedImages"
+			],
+			[
+				"bs3",
+				"bs3-col	bs3-col"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "css/layout.css",
+			"settings":
+			{
+				"buffer_size": 25583,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Work/MAMP/Allivion/wp-content/plugins/ibe-directory/userdefs/recruiter_admin.php",
+			"settings":
+			{
+				"buffer_size": 4334,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "template-recruiter-profile.php",
+			"settings":
+			{
+				"buffer_size": 3530,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "template-jobs.php",
+			"settings":
+			{
+				"buffer_size": 12024,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "template-recruiter-dashboard.php",
+			"settings":
+			{
+				"buffer_size": 3743,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "template-candidate-profile.php",
+			"settings":
+			{
+				"buffer_size": 3387,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "functions.php",
+			"settings":
+			{
+				"buffer_size": 9007,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "includes/login_form.php",
+			"settings":
+			{
+				"buffer_size": 1796,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "template-register.php",
+			"settings":
+			{
+				"buffer_size": 4159,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Work/MAMP/Allivion/wp-content/plugins/ibe-directory/userdefs/candidate.php",
+			"settings":
+			{
+				"buffer_size": 3639,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 342.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"packa",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 431.0
+	},
+	"console":
+	{
+		"height": 126.0,
+		"history":
+		[
+			"import urllib.request,os,hashlib; h = '2915d1851351e5ee549c20394736b442' + '8bc59f460fa1548d1514676163dafc88'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/Work/MAMP/Allivion/wp-content/themes/allivion",
+		"/Work/MAMP/Allivion/wp-content/plugins/ibe-directory/userdefs"
+	],
+	"file_history":
+	[
+		"/Work/MAMP/Allivion/wp-content/themes/allivion/header.php",
+		"/Work/MAMP/Allivion/wp-content/plugins/ibe-directory/directory_coreclass.php",
+		"/Work/MAMP/Allivion/wp-content/themes/allivion/home.php",
+		"/Work/MAMP/Allivion/wp-content/themes/allivion/page.php",
+		"/Work/MAMP/Allivion/wp-content/themes/allivion/blog.php",
+		"/Work/MAMP/Allivion/wp-content/themes/allivion/functions.php",
+		"/Work/MAMP/Allivion/wp-content/themes/allivion/archive.php",
+		"/Work/MAMP/Allivion/wp-content/themes/allivion/template-careersadvice.php",
+		"/Work/MAMP/Allivion/wp-content/themes/allivion/template-sysadmin-dashboard.php",
+		"/Work/MAMP/Allivion/wp-content/plugins/ibe-directory/userdefs/recruiter_admin.php",
+		"/Work/MAMP/Allivion/wp-content/plugins/ibe-directory/js/directory_core.js",
+		"/Work/MAMP/Allivion/wp-content/themes/allivion/template-job.php",
+		"/Work/MAMP/Allivion/wp-content/plugins/ibe-directory/itemdefs/job.php",
+		"/Work/MAMP/Allivion/wp-content/themes/allivion/front-page.php",
+		"/Work/MAMP/Allivion/wp-content/themes/allivion/css/uniform.default.css",
+		"/Work/MAMP/Allivion/wp-content/themes/allivion/footer.php",
+		"/Work/MAMP/Allivion/wp-content/themes/allivion/template-studentship-search.php",
+		"/Work/MAMP/Allivion/wp-content/plugins/ibe-directory/js/directory_search.js",
+		"/Work/MAMP/Allivion/wp-content/themes/allivion/template-jobs.php",
+		"/Work/MAMP/Allivion/wp-content/themes/allivion/revive-zones/leaderboard.html",
+		"/Work/GITREPOS/nu-wp-dreamteamfc/src/themes/dreamteamfc/functions.php",
+		"/Work/GITREPOS/nu-wp-dreamteamfc/src/themes/dreamteamfc/js/angular-gallery-2.js",
+		"/Work/GITREPOS/nu-wp-dreamteamfc/src/themes/dreamteamfc/functions/Tax-meta-class/migration/tax_to_term_meta.php",
+		"/Work/GITREPOS/nu-wp-dreamteamfc/src/themes/dreamteamfc/functions/Tax-meta-class/Tax-meta-class.php",
+		"/Work/GITREPOS/nu-wp-dreamteamfc/src/themes/dreamteamfc/archive.php",
+		"/Users/davidrobins/Library/Application Support/Sublime Text 3/Cache/Color Scheme - Default/Monokai.tmTheme.cache",
+		"/Work/GITREPOS/nu-wp-dreamteamfc/src/themes/dreamteamfc/css/scss/partials/modules/_modules.scss",
+		"/Work/GITREPOS/nu-wp-dreamteamfc/src/themes/dreamteamfc/css/scss/partials/modules/_plugins.scss",
+		"/Work/GITREPOS/nu-wp-dreamteamfc/src/themes/dreamteamfc/single.php",
+		"/Work/GITREPOS/nu-wp-dreamteamfc/src/themes/dreamteamfc/functions/dtfcGallery.php",
+		"/Work/GITREPOS/nu-wp-dreamteamfc/src/themes/dreamteamfc/functions/dtfcGalleryGetImages.php",
+		"/Users/davidrobins/Library/Application Support/Sublime Text 3/Packages/Default/Preferences.sublime-settings",
+		"/Users/davidrobins/Desktop/some.html",
+		"/Users/davidrobins/Desktop/test.scss",
+		"/Users/davidrobins/Desktop/test.css",
+		"/Work/GITREPOS/nu-wp-dreamteamfc/src/themes/dreamteamfc/404.php"
+	],
+	"find":
+	{
+		"height": 34.0
+	},
+	"find_in_files":
+	{
+		"height": 0.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			"publish_from",
+			"publish",
+			"login",
+			"recadmin",
+			"save",
+			"boot",
+			"publish_fr",
+			"post-item",
+			"industry",
+			"ole_func",
+			"indus",
+			"role",
+			"termmeta",
+			"set_option",
+			"get_tax_meta",
+			"attachmentID",
+			"attachmentId",
+			"dtfcGalleryItem"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 2,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "css/layout.css",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 25583,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								19862,
+								19862
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/CSS/CSS.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 16597.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "/Work/MAMP/Allivion/wp-content/plugins/ibe-directory/userdefs/recruiter_admin.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4334,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3694,
+								3694
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 2439.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "template-recruiter-profile.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3530,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2825,
+								2825
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 949.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "template-jobs.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 12024,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								5850,
+								5850
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 3114.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "template-recruiter-dashboard.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3743,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3062,
+								3062
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1271.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "template-candidate-profile.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3387,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1101,
+								1101
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 696.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 8,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "functions.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 9007,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3792,
+								3792
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 1462.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "includes/login_form.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1796,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1671,
+								1671
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 54.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "template-register.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4159,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2363,
+								2363
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 903.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "/Work/MAMP/Allivion/wp-content/plugins/ibe-directory/userdefs/candidate.php",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3639,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3557,
+								3557
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/PHP/PHP.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1989.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 9,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 23.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "",
+	"project": "allivion.sublime-project",
+	"replace":
+	{
+		"height": 42.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 500.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"",
+				"/Work/GITREPOS/nu-wp-dreamteamfc/src/themes/dreamteamfc/dtfc.sublime-project"
+			]
+		],
+		"width": 380.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 265.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

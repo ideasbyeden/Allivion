@@ -105,7 +105,7 @@ $vars = array(
 	
 	array(
 		'name' => 'recruiter_name',
-		'label' => 'Name',
+		'label' => 'Organisation Name',
 		'placeholder' => '',
 		'fieldtype' => 'text',
 		'group' => 'profile',
@@ -167,7 +167,22 @@ $vars = array(
 		'fieldtype' => 'text',
 		'group' => 'profile'
 	),
+
+	array(
+		'name' => 'job_title',
+		'label' => 'Job title',
+		'placeholder' => '',
+		'fieldtype' => 'text',
+		'group' => 'profile'
+	),
 	
+	array(
+		'name' => 'department',
+		'label' => 'Department',
+		'placeholder' => '',
+		'fieldtype' => 'text',
+		'group' => 'profile'
+	),
 	array(
 		'name' => 'default_app_email',
 		'label' => 'Default application email',
@@ -177,7 +192,7 @@ $vars = array(
 	),
 	array(
 		'name' => 'website',
-		'label' => 'Website',
+		'label' => 'Main website address',
 		'placeholder' => '',
 		'fieldtype' => 'link',
 		'group' => 'profile'

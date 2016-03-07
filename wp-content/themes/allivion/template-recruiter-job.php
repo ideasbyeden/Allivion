@@ -77,8 +77,11 @@ while (have_posts()) {
 						<?php $job->printGroup('industry_location',$vals); ?>
 					</div>
 					<div class="qpanel">
+						<span id="wordcount"></span> words&nbsp;<span id="wordalert" class="alert"></span>
+						
 						<?php $job->printQuestion('full_description_limited',$vals['full_description_limited']); ?>
 						<?php $job->printQuestion('full_description',$vals['full_description']); ?>
+
 						<?php $job->printQuestion('doc_upload',$vals['doc_upload']); ?>
 						<?php if($vals['doc_upload']) echo '<a href="'.$vals['doc_upload'].'" target="_blank">'.get_post_meta($_REQUEST['i'],'doc_upload_label',true).'</a>'; ?>
 						<?php $job->printQuestion('doc_download_label',$vals['doc_download_label']); ?>
@@ -180,25 +183,40 @@ while (have_posts()) {
 */
 
 	
+
 	jQuery(function(){
 		jQuery('#publish_ad').click(function(){
-			var pf = jQuery('input[name="publish_from"]').val();
 
-			jQuery('select[name="job_status"]').val('published');
-			if(pf == ''){
-				jQuery('input[name="publish_from"]').val(moment().format('D MMM YYYY'));
-				var pm = 'Your ad is published'; 
-			} else {	
-				var pm = 'Your ad will be published on '+pf; 
-			}
-			jQuery(this).closest('form').find('input[name="notify"]').removeAttr('disabled');
+			// temporarily enable notify
+			var form = jQuery(this).closest('form');
+			form.find('input[name="notify"]').removeAttr('disabled');
 			
-			jQuery(this).hide().after('<div class="alert alert-success" style="margin: 12px 0 0 0">'+pm+'</div>').closest('form').submit();
+			
+			tinyMCE.triggerSave();
+			var validates = dirvalidates(form);
+			if(validates == 'true'){
+				form.submit();
+				
+				jQuery('select[name="job_status"]').val('published');
+
+				var pf = jQuery('input[name="publish_from"]').val();	
+
+				if(pf == ''){
+					jQuery('input[name="publish_from"]').val(moment().format('D MMM YYYY'));
+					var pm = 'Your ad is published'; 
+				} else {	
+					var pm = 'Your ad will be published on '+pf; 
+				}
+				
+				jQuery(this).hide().after('<div class="alert alert-success" style="margin: 12px 0 0 0">'+pm+'</div>');
+				
+			} 
 			
 			jQuery(this).closest('form').find('input[name="notify"]').attr('disabled','disabled');
 
 		});
 	});
+
 	
 /*
 	jQuery(function(){
@@ -210,6 +228,49 @@ while (have_posts()) {
 	    });
 	});
 */
+</script>
+
+<script type="text/javascript">
+jQuery(document).ready(function(){
+    // visual mode
+    // the iframe id
+    //jQuery("#description_ifr").ready(function () {
+        setInterval(function(){
+            var tinymceval = stripHTML(jQuery('#full_description_limited_ifr').contents().find('body').text());
+            var wordscount = tinymceval.split(" ");
+            var wordlimit = parseInt(jQuery('#full_description_limited_ifr').closest('span.limited').data('limit'));
+            
+            jQuery("#wordcount").text(wordscount.length+'/'+wordlimit);
+            if(wordscount.length > wordlimit){
+				jQuery('#full_description_limited_ifr').addClass('invalid');
+				jQuery("#wordalert").text('Your text is too long');
+	        } else {
+				jQuery('#full_description_limited_ifr').removeClass('invalid');
+				jQuery("#wordalert").text('');
+	        }
+        }, 300)
+    //});
+
+/*
+jQuery('#full_description_limited_ifr').contents().find('body').keydown(function(e) {
+    if(e.keyCode !== 8) {
+        e.preventDefault();
+    }
+});
+*/
+
+				
+// automatically trims content back to word limit, but moves cursor to start of text
+//jQuery('#full_description_limited_ifr').contents().find('body').text(wordscount.slice(0, wordlimit).join(' '));
+
+function stripHTML(dirtyString) {
+  var container = document.createElement('div');
+  var text = document.createTextNode(dirtyString);
+  container.appendChild(text);
+  return container.innerHTML; // innerHTML will be a xss safe string
+}
+
+}); 
 </script>
 
 

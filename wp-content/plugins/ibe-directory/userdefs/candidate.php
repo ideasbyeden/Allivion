@@ -162,5 +162,13 @@ $vars = array(
 		'fieldtype' => 'text',
 		'group' => 'profile'
 	),
+
+	array(
+		'name' => 'current_job_title',
+		'label' => 'Current job title',
+		'placeholder' => '',
+		'fieldtype' => 'text',
+		'group' => 'profile'
+	),
 	
 );

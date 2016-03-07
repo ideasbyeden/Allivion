@@ -38,6 +38,7 @@
 	    </div>
     <input class="submit_button" type="submit" value="Go" name="submit">
     <p class="lost"><a href="<?php echo wp_lostpassword_url(); ?>">Lost your password?</a></p>
+    <p class="register"><a href="/register">Register</a></p>
     <div class="clear"></div>
     </div>
     

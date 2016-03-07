@@ -104,3 +104,8 @@ li {
 strong {
 	font-weight: 400;
 }
+
+.alert {
+	color: red;
+	font-weight: bold;
+}

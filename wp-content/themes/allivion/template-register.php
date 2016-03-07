@@ -63,20 +63,24 @@ while (have_posts()) {
 
 					<div class="qpanel">
 						<div class="question">
-							<label>I am a:</label><br />
+							<label>I am a:</label>
 							<select name="role">
 								<option value="candidate" <?php echo $_SESSION['userdata']['role'] == 'candidate' ? 'SELECTED' : ''; ?>>Candidate</option>
 								<option value="recruiter_admin" <?php echo $_SESSION['userdata']['role'] == 'recruiter_admin' ? 'SELECTED' : ''; ?>>Recruiter</option>
 							</select>
 						</div>
 						<div class="question recruiter_admin" style="display:none;">
-							<label>Sector:</label><br />
+							<label>Sector:</label>
 							<select name="recruiter_sector">
 								<option value="private" <?php echo $_SESSION['userdata']['role'] == 'private' ? 'SELECTED' : ''; ?>>Private</option>
 								<option value="public" <?php echo $_SESSION['userdata']['role'] == 'public' ? 'SELECTED' : ''; ?>>Public/Charity/University/HE</option>
 							</select>
 						</div>
+						<div class="question recruiter_admin" style="display:none;">
+							<label>Organisation name:</label>
+							<input type="text" name="recruiter_name" value="<?php echo $_SESSION['userdata']['recruiter_name']; ?>"/>
 
+						</div>
 						<div class="question">
 							<label>First Name</label>
 							<input type="text" name="first_name" value="<?php echo $_SESSION['userdata']['first_name']; ?>"/>
