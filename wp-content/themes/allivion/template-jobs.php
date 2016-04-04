@@ -132,10 +132,10 @@ $returnfields = array('job_title','location','summary','recruiter_name','departm
 
 </script>
 
-<?php $recruiter = $recruiter->getUsers(); ?>
+<?php $recruiter = $recruiter_admin->getUsers(array('id'=>$_REQUEST['group_id']))->results[0]; ?>
 
-
-<div class="container a2apad">
+<div class="container-fluid a2apad <?php if($_REQUEST['group_id'] && $recruiter->meta['subscriber'] == 'annual') echo 'single-job-standard'; ?>">
+<div class="container">
 	<div class="stage" style="margin: 0">
 		
 		<div class="col-md-12">
@@ -145,11 +145,12 @@ $returnfields = array('job_title','location','summary','recruiter_name','departm
 		</div>
 						
 			<div class="qtrcol sticky">
+				<?php if(!isset($_REQUEST['group_id'])) { ?>
 				<div class="qpanel darkpurplegrad" id="job_bullets" style="padding: 12px;">
 					<table style="width: 90%; margin-bottom: 30px;" class="hidden-xs">
 					<?php
 						foreach($_GET as $k=>$v){
-							if($v) $job->printDetail($k,$_GET);
+							if($v && $k != 'group_id') $job->printDetail($k,$_GET);
 						}
 					?>
 					</table>				
@@ -162,7 +163,7 @@ $returnfields = array('job_title','location','summary','recruiter_name','departm
 							<input type="hidden" name="action" value="directory_search" />
 							<input type="hidden" name="inc_search_count" value="true" />
 							
-							<input type="hidden" name="encrypted" value="<?php echo $dircore->encrypt('type=job&job_status=published&publish_from=<'.strtotime('now')); ?>" />
+							<input type="hidden" name="encrypted" value="<?php echo $dircore->encrypt('type=job&job_status=published&publish_from=<'.strtotime('now').'&closing_date=>'.strtotime('now')); ?>" />
 						
 		
 							<div class="question">
@@ -185,21 +186,49 @@ $returnfields = array('job_title','location','summary','recruiter_name','departm
 						</form>
 					</div>
 				</div>
+				<?php } ?>
+
+				<div class="qpanel" style="padding: 12px;">
+					<h3 class="purple">Job alerts</h3>
+					<p>Sign up for our job alerts and receive new opportunities straight to your inbox</p>
+					<form class="directory subscription create" id="jobs_subscribe" action="<?php echo admin_url('admin-ajax.php'); ?>" method="post">
+						
+						<input type="hidden" name="type" value="subscription" />
+						<input type="hidden" name="subscription_type" value="jobalert" />
+						<input type="hidden" name="nonce" value="<?php echo wp_create_nonce("directory_create_nonce"); ?>" />
+						<input type="hidden" name="action" value="directory_create" />
+
+						<input type="hidden" name="job_title" value="<?php echo $vals['job_title']; ?>" />
+						<?php $subscription->printQuestion('item_type','job'); ?>
+						<?php $subscription->printQuestion('status','active'); ?>
+						<?php $subscription->printQuestion('industry',$vals['industry'][0],'dropdown'); ?>
+						<?php $subscription->printQuestion('subscription_date',strtotime('now')); ?>
+						
+						<input type="email" name="subscriber_email" value="<?php echo $user->user_email ? $user->user_email : ''; ?>" />
+						<input type="hidden" name="expire" value="7" />
+						<input type="submit" value="Submit" class="btn btn-default" />
+						
+					</form>
+				</div>
 			</div>
 				
 			
 			
 			<?php 
 				$params = $_REQUEST ? $_REQUEST : array();
-				$params['encrypted'] = $dircore->encrypt('type=job&job_status=published&publish_from=<'.strtotime('now'));
+				$params['encrypted'] = $dircore->encrypt('type=job&job_status=published&publish_from=<'.strtotime('now').'&closing_date=>'.strtotime('now'));
 				$params['inc_search_count'] = true;
 				$items = directory_search($params);
 				
 			?>
 			
-<!-- 			<pre><?php print_r($items); ?></pre> -->
 
 			<div class="threeqtrscol" style="padding-right: 0px;">
+
+			<?php if($_REQUEST['group_id'] && $recruiter->meta['subscriber'] == 'annual') {
+						require(TEMPLATEPATH.'/includes/employer_profile.php');
+					} ?>
+
 				<table class="searchresults">
 					
 					<thead style="display: none;">
@@ -345,5 +374,26 @@ $returnfields = array('job_title','location','summary','recruiter_name','departm
 		</div>
 	</div>
 </div>
+</div>
+
+<?php $studentships = get_term_by( 'slug', 'academic', 'sector' );
+	$children = get_term_children($studentships->term_id, 'sector'); ?>
+<script>
+	
+	jQuery(function(){
+		var showids = [<?php echo implode(',', $children); ?>];
+		jQuery('#jobs_subscribe select[name="industry"]').find('option').each(function(){
+			var termid = parseInt(jQuery(this).attr('termid'));
+			if(jQuery(this).val() != ''){
+				if(showids.indexOf(termid) !== -1){
+					jQuery(this).hide();
+				}
+			}
+		});
+	});
+
+</script>
+
+
 
 <?php get_footer(); ?>

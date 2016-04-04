@@ -4,9 +4,9 @@ add_action("wp_ajax_directory_notify", "directory_notify");
 add_action("wp_ajax_nopriv_directory_notify", "directory_notify");
 
 function directory_notify(){
+		global $dircore;
 	
 	if($_REQUEST['encrypted']){
-		global $dircore;
 		parse_str($dircore->decrypt($_REQUEST['encrypted']),$safeparams);
 		$_REQUEST = array_merge($_REQUEST,$safeparams);
 	}

@@ -16,10 +16,7 @@ Template Name: Register
 	
 get_header();
 	
-while (have_posts()) { 
-		the_post();
-		the_content();
-} 
+
 
 
 /////////////////////////////////////////////
@@ -45,11 +42,18 @@ while (have_posts()) {
 <div class="container a2apad">
 	<div class="row">
 		
-		<div class="col-md-8">
-			<h1 class="purple">Register</h1>
+		<div class="col-md-6">
+			<h1 class="purple">Why register?</h1>
+			<?php while (have_posts()) { 
+								the_post();
+								the_content();
+						} ?>
+			
 		</div>
 		
 			<div class="col-md-6">
+			<h2 class="purple" style="margin-bottom: 0px !important;">Create an account</h2>
+			<p>Already have an account? <a href="/log-in" class="show_login">Click here to log in</a></p>
 
 				<form class="directory" id="createuser" action="<?php echo admin_url('admin-ajax.php'); ?>" method="post">
 				
@@ -60,8 +64,18 @@ while (have_posts()) {
 					<input type="hidden" name="notify_subject" value="Allivion registration" />
 					<input type="hidden" name="notify_template" value="new_registration" />
   					<input type="hidden" name="redirect" value="/register-success/" />
+  					<input type="hidden" name="submitfail" value="/register" />
 
 					<div class="qpanel">
+
+					<?php
+							if($_SESSION){ 
+								echo '<p>';
+								foreach($_SESSION['errors'] as $error) { echo '<span class="formerror">'.$error.'</span><br/>'; }
+								echo '</p>';
+								session_unset();
+							}
+						?>
 						<div class="question">
 							<label>I am a:</label>
 							<select name="role">
@@ -94,6 +108,10 @@ while (have_posts()) {
 							<input type="text" name="user_email" value="<?php echo $_SESSION['userdata']['user_email']; ?>" />
 						</div>
 						<div class="question">
+							<label>Confirm email</label>
+							<input type="text" name="confirm_user_email" />
+						</div>
+						<div class="question">
 							<label>Password</label>
 							<input type="password" name="user_pass" value="<?php echo $_SESSION['userdata']['user_pass']; ?>" />
 						</div>
@@ -101,13 +119,12 @@ while (have_posts()) {
 							<label>Confirm password</label>
 							<input type="password" name="confirm_user_pass" />
 						</div>
-						<?php
-							if($_SESSION){ 
-								foreach($_SESSION['errors'] as $error) { echo '<p class="formerror">'.$error.'</p>'; }
-								session_unset();
-							}
-						?>
-						<input type="submit" value="Save" class="btn btn-default fr" />
+						<div class="question" style="padding-top: 10px;">
+							<input type="checkbox" name="readterms" value="true" />
+							<span>I have read the <a href="/terms" class="purple" target="_blank" style="text-decoration: underline !important;">terms and conditions</a></span>
+						</div>
+						
+						<input type="submit" value="Register" class="btn btn-default fr" />
 						<div class="clear"></div>
 					</div>
 					

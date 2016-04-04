@@ -30,7 +30,9 @@ jQuery(function(){
 					
 			success: function(result){
 				console.log('ajax complete');
-				form.append('<p class="alert" style="text-align: left;">'+successmessage+'</p>');
+				form[0].reset();
+				form.find('.alert').remove();
+				form.append('<div class="alert alert-success" style="text-align: left; margin-top: 10px;">'+successmessage+'</p>');
 			}
 		});
 	});

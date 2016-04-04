@@ -47,7 +47,7 @@ while (have_posts()) {
 			<h1 class="purple"><?php the_title(); ?></h1>
 		</div>
 		<div class="col-md-4" style="text-align: right;">
-			<input type="submit" class="btn btn-default" value="Save and update" style="margin-top: 20px;"/>
+		<button type="submit" class="btn btn-default" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Saving" style="margin-top: 20px;">Save and update</button>
 		</div>
 			</div>
 			<div class="row">
@@ -67,6 +67,8 @@ while (have_posts()) {
 						<?php $candidate->printQuestion('user_email',$user->user_email); ?>
 						<?php $candidate->printQuestion('contact_phone',$usermeta['contact_phone']); ?>
 						<?php $candidate->printQuestion('current_job_title',$usermeta['current_job_title']); ?>
+						<?php $candidate->printQuestion('profile_status',$usermeta['profile_status']); ?>
+						<?php $candidate->printQuestion('industry',$usermeta['industry']); ?>
 
 						<div class="clear"></div>
 					</div>
@@ -81,11 +83,9 @@ while (have_posts()) {
 						<?php if($usermeta['cv_upload']) echo '<a href="'.$usermeta['cv_upload'].'" target="_blank">'.get_user_meta($user->ID,'cv_upload_label',true).'</a><p></p>'; ?>
 
 						
-						<?php $candidate->printQuestion('cv_intro',$usermeta['cv_intro']); ?>
-						<?php $candidate->printQuestion('cv_positions',$usermeta['cv_positions']); ?>
-						<?php $candidate->printQuestion('cv_education',$usermeta['cv_education']); ?>
-						<?php $candidate->printQuestion('cv_interests',$usermeta['cv_interests']); ?>
-						<?php $candidate->printQuestion('cv_summary',$usermeta['cv_summary']); ?>
+						<?php $candidate->printQuestion('personal_summary',$usermeta['personal_summary']); ?>
+						<?php $candidate->printQuestion('education',$usermeta['education']); ?>
+						<?php $candidate->printQuestion('career_history',$usermeta['career_history']); ?>
 
 					</div>
 				</div>

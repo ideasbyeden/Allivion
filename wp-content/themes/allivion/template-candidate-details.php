@@ -76,11 +76,10 @@ while (have_posts()) {
 		<div class="row">
 			<div class="col-md-6">
 
-				<h3 class="purple">Summary</h3>
+				<h3 class="purple">Personal Summary</h3>
 				<?php echo $vals['cv_summary']; ?>
 				
-				<h3 class="purple">Introduction</h3>
-				<?php echo $vals['cv_intro']; ?>
+
 				
 				<h3 class="purple">Career History</h3>
 				<?php echo $vals['cv_positions']; ?>
@@ -88,8 +87,7 @@ while (have_posts()) {
 				<h3 class="purple">Education</h3>
 				<?php echo $vals['cv_education']; ?>
 
-				<h3 class="purple">Interests</h3>
-				<?php echo $vals['cv_interests']; ?>
+
 
 
 

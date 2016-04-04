@@ -9,7 +9,6 @@ $dircore->canAccess(array('roles' => 'administrator'));
 get_template_part('header','sysadmin');
 
 $vals = $_REQUEST['i'] ? $recruiter_admin->getVals($_REQUEST['i']) : null;
-//echo '<pre>'; print_r($usermeta); echo '</pre>';
 
 	
 while (have_posts()) { 
@@ -39,7 +38,7 @@ foreach($usercustom as $k=>$v){
 	$this_usermeta[$k] = $v[0];
 }
 
-//echo '<pre>'; print_r($usermeta); echo '</pre>';
+//echo '<pre>'; print_r($this_usermeta); echo '</pre>';
 
 ?>
 
@@ -47,7 +46,7 @@ foreach($usercustom as $k=>$v){
 	<div class="row">
 		
 		
-		<form class="directory <?php echo $recruiter_admin->role; ?>" id="updateprofile" action="<?php echo admin_url('admin-ajax.php'); ?>" method="post" enctype= "multipart/form-data">
+		<form class="directory <?php echo $recruiter_admin->role; ?> updateuser" id="updateprofile" action="<?php echo admin_url('admin-ajax.php'); ?>" method="post" enctype= "multipart/form-data">
 			
 			<div class="col-md-8">		
 				<h1 class="purple"><?php the_title(); ?></h1>
@@ -61,35 +60,56 @@ foreach($usercustom as $k=>$v){
 					
 			<input type="hidden" name="nonce" value="<?php echo wp_create_nonce("directory_update_user_nonce"); ?>" />
 				<input type="hidden" name="action" value="directory_update_user" />
-				<input type="hidden" name="redirect" value="<?php echo DIRECTORY_SYSADMIN; ?>" />
-				<input type="hidden" name="role" value="recruiter_admin" />
+<!-- 				<input type="hidden" name="redirect" value="<?php echo DIRECTORY_SYSADMIN; ?>" />
+ -->				<input type="hidden" name="role" value="recruiter_admin" />
 				<input type="hidden" name="encrypted" value="<?php echo $dircore->encrypt('ID='.$this_user->ID); ?>" />
 	
 	
 				<div class="qpanel">
 					<?php $recruiter_admin->printQuestion('recruiter_name',$vals['recruiter_name']); ?>
 					
-					<?php if($this_usermeta['logo']) foreach(unserialize($vals['logo']) as $image_id) echo wp_get_attachment_image($image_id); ?>
+					<?php if($this_usermeta['logo']) foreach($vals['logo'] as $image_id) echo wp_get_attachment_image($image_id); ?>
 				
 					<?php $recruiter_admin->printQuestion('logo',$vals['logo']); ?>
+
+					<div id="brand_header"><?php if($vals['brand_header']) foreach(unserialize($vals['brand_header']) as $image_id) echo wp_get_attachment_image($image_id,'brand_header'); ?></div>
+						<?php $recruiter_admin->printQuestion('brand_header',$vals['brand_header']); ?>
+
 					<?php $recruiter_admin->printQuestion('boilerplate',$vals['boilerplate']); ?>
+						<?php $recruiter_admin->printQuestion('video',$vals['video']); ?>
 					<div class="clear"></div>
 				</div>
+
+	
 				
 			
 			</div>
 		
-			<div class="col-sm-6">
-				<div class="qpanel">
-					<?php $recruiter_admin->printQuestion('user_email',$this_user->user_email); ?>
-					<?php $recruiter_admin->printQuestion('contact_phone',$vals['contact_phone']); ?>
-					<?php $recruiter_admin->printQuestion('default_app_email',$vals['default_app_email']); ?>
-				</div>
+
+
+
+
+				<div class="col-md-6">
+					<div class="qpanel">
+						<?php $recruiter_admin->printQuestion('user_email',$this_user->user_email); ?>
+						<?php $recruiter_admin->printQuestion('contact_phone',$vals['contact_phone']); ?>
+						<?php $recruiter_admin->printQuestion('job_title',$vals['job_title']); ?>
+						<?php $recruiter_admin->printQuestion('department',$vals['department']); ?>
+						<?php $recruiter_admin->printQuestion('default_app_email',$vals['default_app_email']); ?>
+						<?php $recruiter_admin->printQuestion('website',$vals['website']); ?>
+						<?php $recruiter_admin->printQuestion('contactpage',$vals['contactpage']); ?>
+						<?php $recruiter_admin->printQuestion('jobspage',$vals['jobspage']); ?>
+						<?php $recruiter_admin->printQuestion('main_address',$vals['main_address']); ?>
+						<?php $recruiter_admin->printQuestion('invoice_address',$vals['invoice_address']); ?>
+						<button type="button" class="btn btn-default" id="copymainaddress">Same as main address</button>
+					</div>
+				
+
 		
 				<?php if($user->roles[0] == 'administrator') { ?>
 					<div class="qpanel">
-						<?php $recruiter_admin->printQuestion('subscriber',$vals['subscriber']); ?>							
-						<?php $recruiter_admin->printQuestion('recruiter_sector',$vals['recruiter_sector']); ?>							
+						<?php $recruiter_admin->printQuestion('subscriber',$this_usermeta['subscriber']); ?>							
+						<?php $recruiter_admin->printQuestion('recruiter_sector',$this_usermeta['recruiter_sector']); ?>							
 					</div>
 				<?php } ?>
 			</div>

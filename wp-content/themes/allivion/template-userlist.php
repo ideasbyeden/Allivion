@@ -31,7 +31,7 @@ while (have_posts()) {
 		</div>
 		<div class="col-md-4" style="text-align: right">
 			<a href="/createuser">
-				<button type="button" class="btn btn-default" style="margin-top: 20px;">New</button>
+				<button type="button" class="btn btn-default" style="margin-top: 20px;">Create a new user</button>
 			</a>
 		</div>
 

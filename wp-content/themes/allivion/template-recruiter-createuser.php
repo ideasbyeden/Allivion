@@ -48,12 +48,18 @@ while (have_posts()) {
 		<div class="col-md-6">
 
 			<form class="directory" id="createuser" action="<?php echo admin_url('admin-ajax.php'); ?>" method="post">
-			
-				<input type="hidden" name="group_id" value="<?php echo $user->ID ?>" />
+
+
+					<input type="hidden" name="group_id" value="<?php echo $user->ID ?>" />
 					<input type="hidden" name="role" value="recruiter" />
-				<input type="hidden" name="nonce" value="<?php echo wp_create_nonce("directory_create_user_nonce"); ?>" />
-					<input type="hidden" name="action" value="directory_create_user" />
-					<input type="hidden" name="redirect" value="/users/" />
+					<input type="hidden" name="nonce" value="<?php echo wp_create_nonce("directory_create_user_nonce"); ?>" />
+ 					<input type="hidden" name="action" value="directory_create_user" />
+  					<input type="hidden" name="redirect" value="/users/" />
+  					<input type="hidden" name="submitfail" value="/createuser" />
+
+					<input type="hidden" name="readterms" value="true" />
+			
+
 
 				<div class="qpanel">
 					<div class="question">
@@ -67,6 +73,10 @@ while (have_posts()) {
 					<div class="question">
 						<label>Email</label>
 						<input type="text" name="user_email" value="<?php echo $_SESSION['userdata']['user_email']; ?>" />
+					</div>
+					<div class="question">
+						<label>Confirm email</label>
+						<input type="email" name="confirm_user_email" value="<?php echo $_SESSION['userdata']['confirm_user_email']; ?>" />
 					</div>
 					<div class="question">
 						<label>Password</label>

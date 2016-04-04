@@ -1,16 +1,20 @@
 jQuery(function(){
+
+	var autosave = null
 	
 	jQuery('form.directory.updateuser').submit(function(e){
-		tinyMCE.triggerSave();
+		if(typeof tinyMCE != 'undefined' )tinyMCE.triggerSave();
 		e.preventDefault();
+		jQuery(this).find('[type="submit"]').button('loading').addClass('saving');
 		console.log('updating user');
 		submitForm(jQuery(this));
 	});
 
 	jQuery('form.directory.updateuser input, form.directory.updateuser textarea, form.directory.updateuser select').change(function(){
-		tinyMCE.triggerSave();
+		if(typeof tinyMCE != 'undefined' ) tinyMCE.triggerSave();
 		var form = jQuery(this).closest('form');
 		if(form.attr('autosave') == 'true'){
+			jQuery(this).find('[type="submit"]').button('loading').addClass('saving');
 			submitForm(form);
 		}
 	});	
@@ -33,6 +37,7 @@ jQuery(function(){
 			processData: false,
 					
 			success: function(result){
+				form.find('[type="submit"]').button('reset').removeClass('saving');
 				if(autosave){
 					jQuery.each(result, function(k,v){
 						jQuery('.preview').find('span#'+k).html(v);				

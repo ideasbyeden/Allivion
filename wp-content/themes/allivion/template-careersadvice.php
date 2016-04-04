@@ -25,7 +25,7 @@ get_header();
 				
 				<div class="post-item" id="post-<?php echo $post->ID; ?>">
 					<h3 class="purple"><?php the_title(); ?></h3>
-					<?php the_content(); ?>
+					<?php the_excerpt(); ?>
 				</div>
 				
 				<?php endwhile; wp_reset_postdata(); ?>

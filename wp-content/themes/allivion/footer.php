@@ -1,12 +1,16 @@
+
+<?php if(get_post_type() != 'systemplate') { ?>
 <div class="container">
 	<div class="row" id="addtoany">
 		<div class="col-md-12">
 		<h3 class="purple">Share our content</h3>
 
-			<?php //get_template_part('includes/addtoany'); ?>
+			<?php get_template_part('includes/addtoany'); ?>
 		</div>
 	</div>
 </div>
+<?php } ?>
+
 <div class="container-fluid" id="footer">
 	<div class="container">
 		<div class="row">
@@ -32,6 +36,7 @@
 			<div class="clear"></div>
 	
 			<div class="col-md-12 legal">
+				<a href="/terms" style="text-decoration: underline !important;">Terms and conditions.</a>&nbsp;
 				&copy; <?php echo date('Y'); ?>. <a href="http://www.ibecreative.co.uk/expertise/cambridge-web-design" target="_blank">Website design</a> by ibe.
 			</div>
 		</div>

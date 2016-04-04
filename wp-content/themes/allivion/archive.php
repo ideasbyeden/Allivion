@@ -9,7 +9,6 @@ get_header();
 		<div class="col-md-9">
 
 		<h2 class="purple"><?php $cat = get_the_category(); echo $cat[0]->name; ?></h2>
-		<pre><?php print_r($cat); ?></pre>
 
 			<?php
 	
@@ -17,9 +16,9 @@ get_header();
 				
 				<div class="post-item" id="post-<?php echo $post->ID; ?>">
 					<h3 class="purple"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
-					<?php the_content(); ?>
-					<a href="<?php the_permalink(); ?>" class="purple">Read more</a>
-				</div>
+					<?php the_excerpt(); ?>
+<!-- 					<a href="<?php the_permalink(); ?>" class="purple">Read more</a>
+ -->				</div>
 				
 				<?php endwhile; ?>
 

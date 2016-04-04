@@ -6,12 +6,16 @@ jQuery(function(){
 	jQuery('form.directory.update').submit(function(e){
 		tinyMCE.triggerSave();
 		e.preventDefault();
+		console.log('form submitted');
 		var validates = dirvalidates(jQuery(this));
 		if(validates == 'true'){
+
+			jQuery(this).find('[type="submit"]').button('loading').addClass('saving');
+    		jQuery('.invalidmsg').html('');
 			submitForm(jQuery(this),autosave);
 			return true;
 		} else {
-			return false;
+			jQuery('.invalidmsg').html('<div class="alert alert-danger">You did not complete some required fields - please check the form below and try again.</div>');
 		}
 	});
 
@@ -24,7 +28,10 @@ jQuery(function(){
 			console.log('autosaving');
 			var validates = dirvalidates(jQuery(this));
 			if(validates == 'true'){
-				submitForm(jQuery(this),autosave);
+    			jQuery('.invalidmsg').html('');
+				submitForm(form,autosave);
+			} else {
+				jQuery('.invalidmsg').html('<div class="alert alert-danger">You did not complete some required fields - please check the form below and try again.</div>');
 			}
 		}
 	});	
@@ -32,7 +39,7 @@ jQuery(function(){
 
 	function submitForm(form,autosave){
 		
-
+		console.log(form);
 				
 		var data = new FormData(form[0]);
 		//var data = form.serialize();
@@ -57,6 +64,7 @@ jQuery(function(){
 			dataType: 'json',
 					
 			success: function(result){
+				form.find('[type="submit"]').button('reset').removeClass('saving');
 				if(autosave == 'true'){
 					jQuery.each(result, function(k,v){
 						jQuery('.preview').find('span#'+k).html(v);				

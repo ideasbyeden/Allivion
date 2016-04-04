@@ -21,6 +21,7 @@
 	<link rel="stylesheet" media="screen" href="<?php bloginfo('template_url') ?>/css/layout.css" />
 	<link rel="stylesheet" media="screen" href="<?php bloginfo('template_url') ?>/css/textstyles.css" />
 	<link rel="stylesheet" media="screen" href="<?php bloginfo('template_url') ?>/css/nav.css" />
+	<link rel="stylesheet" href="<?php bloginfo('template_url') ?>/css/fontawesome/css/font-awesome.min.css">	
 	
 
 	

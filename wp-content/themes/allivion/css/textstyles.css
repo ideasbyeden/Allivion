@@ -89,7 +89,7 @@ li {
 	list-style: none;
 }
 
-.purple {
+.purple, a.purple {
 	color: #53247E !important;
 }
 
@@ -105,7 +105,18 @@ strong {
 	font-weight: 400;
 }
 
-.alert {
+p.alert, span.alert, .formerror {
 	color: red;
 	font-weight: bold;
+}
+
+p.alert.success, span.alert.success {
+	color: green;
+}
+
+.sliderheadline {
+	text-shadow: 0 0 3px rgba(0,0,0,0.4);
+	-moz-text-shadow: 0 0 3px rgba(0,0,0,0.4);
+	-webkit-text-shadow: 0 0 3px rgba(0,0,0,0.4);
+}
 }

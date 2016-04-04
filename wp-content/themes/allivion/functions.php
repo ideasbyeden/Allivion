@@ -54,6 +54,7 @@ register_nav_menus( array(
 	'main' => 'Main Navigation',
 	'secondary' => 'Secondary Navigation',
 	'recadmin' => 'Recruiter Admin Navigation',
+	'recadminannual' => 'Recruiter Admin Navigation (annual)',
 	'recruiter' => 'Recruiter Navigation',
 	'advadmin' => 'Advertiser Navigation',
 	'candadmin' => 'Candidate Navigation',
@@ -69,7 +70,7 @@ function add_last_item_class($strHTML) {
 		substr($strHTML,$intPos,strlen($strHTML))
 	);
 }
-add_filter('wp_nav_menu','add_last_item_class');
+//add_filter('wp_nav_menu','add_last_item_class');
 
 // add login / logout items to end of nav
 function loginout_menu_link($items,$args) {
@@ -133,6 +134,7 @@ add_image_size('tinythumb', 50, 50);
 add_image_size('smallthumb', 80, 80);
 add_image_size('recruiter_icon', 300, 300);
 add_image_size('recruiter_icon_small', 150, 150);
+add_image_size('recruiter_icon_large', 600, 200);
 add_image_size('brand_header', 9999, 150);
 
 
@@ -163,6 +165,17 @@ function remove_width_attribute_ga( $attr ) {
 
 add_filter( 'wp_get_attachment_image_attributes', 'remove_width_attribute_ga', 10);
 
+function the_post_thumbnail_caption() {
+  global $post;
+
+  $thumbnail_id    = get_post_thumbnail_id($post->ID);
+  $thumbnail_image = get_posts(array('p' => $thumbnail_id, 'post_type' => 'attachment'));
+
+  if ($thumbnail_image && isset($thumbnail_image[0])) {
+    echo '<span class="caption">'.$thumbnail_image[0]->post_excerpt.'</span>';
+  }
+}
+
 ///////////////////////////////////////////// sidebar functions ///////////////////////////////////////////////
 
 
@@ -188,6 +201,24 @@ $blog_sidebar = array(
 		'before_title'  => '<span class="hide">',
 		'after_title'   => '</span>' );
 	register_sidebar( $blog_sidebar );
+
+
+// cats sidebar widget
+add_filter('widget_categories_args','show_empty_categories_links');
+function show_empty_categories_links($args) {
+
+	// show empty cats
+	$args['hide_empty'] = 0;
+
+	// exclude uncategorized
+	$exclude_arr = array( 1 );
+	if( isset( $args['exclude'] ) && !empty( $args['exclude'] ) ) 
+		$exclude_arr = array_unique( array_merge( explode( ',', $args['exclude'] ), $exclude_arr ) );
+	$args['exclude'] = implode( ',', $exclude_arr );
+
+	return $args;
+
+}
 
 
 

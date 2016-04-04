@@ -51,8 +51,9 @@ $returnfields = array('job_title','location','summary','recruiter_name','closing
 	});
 </script>
 
+<?php $bg = wp_get_attachment_image_src(get_post_thumbnail_id(get_the_id()), 'full' ); ?>
 
-<div class="container-fluid homesearch-container">
+<div class="container-fluid homesearch-container" style="background-image: url(<?php echo $bg[0]; ?>);">
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-12">
@@ -88,6 +89,10 @@ $returnfields = array('job_title','location','summary','recruiter_name','closing
 			</div>
 		</div>
 	</div>
+
+	<?php the_post_thumbnail_caption(); ?>
+
+	<span class="featurelinks"><a href="/career-advice">Tour blog</a> | Do you want us to visit and feature your University? <a href="/host-a-visit">Host a Visit</a>
 </div>
 
 
@@ -128,9 +133,9 @@ $returnfields = array('job_title','location','summary','recruiter_name','closing
 
 							if($term->parent == $parent->term_id){
 
+								$params['encrypted'] = $dircore->encrypt('type=job&job_status=published&publish_from=<'.strtotime('now').'&closing_date=>'.strtotime('now'));
+
 								$params['industry'] = $term->slug;
-								$params['type'] = 'job';
-								$params['job_status'] = 'published';
 								$items = directory_search($params);
 				
 						
@@ -151,10 +156,10 @@ $returnfields = array('job_title','location','summary','recruiter_name','closing
 						foreach($terms as $term){
 							$term = get_term_by('id',$term,'sector');	
 							
-							$params['industry'] = $term->slug;
-							$params['type'] = 'job';
-							$params['job_status'] = 'published';
-							$items = directory_search($params);
+							$params['encrypted'] = $dircore->encrypt('type=job&job_status=published&publish_from=<'.strtotime('now').'&closing_date=>'.strtotime('now'));
+
+								$params['industry'] = $term->slug;
+								$items = directory_search($params);
 
 											
 							echo '<li><a href="/jobs?industry='.$term->slug.'">'.$term->name.' <span class="orange jobcount">('.count($items->posts).')</span></a></li>';
@@ -173,10 +178,10 @@ $returnfields = array('job_title','location','summary','recruiter_name','closing
 						foreach($terms as $term){
 							$term = get_term_by('id',$term,'sector');	
 							
-							$params['industry'] = $term->slug;
-							$params['type'] = 'job';
-							$params['job_status'] = 'published';
-							$items = directory_search($params);							
+							$params['encrypted'] = $dircore->encrypt('type=job&job_status=published&publish_from=<'.strtotime('now').'&closing_date=>'.strtotime('now'));
+
+								$params['industry'] = $term->slug;
+								$items = directory_search($params);						
 											
 							echo '<li><a href="/jobs?industry='.$term->slug.'">'.$term->name.' <span class="orange jobcount">('.count($items->posts).')</span></a></li>';
 						}

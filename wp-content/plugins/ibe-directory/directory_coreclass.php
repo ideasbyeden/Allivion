@@ -109,6 +109,17 @@ class directoryCore {
 		if($question = $this->getQuestion($name)){
 			
 			$value ? $value : ($question['value'] ? $question['value'] : '');
+
+			//*=========================
+			//
+			// Needed this for something, can't remember what...
+			//
+			// $value = unserialize($value) ? unserialize($value) : $value;
+			//
+			//===========================
+
+			
+
 			$question['fieldtype'] = $format ? $format : $question['fieldtype'];
 				
 			switch($question['fieldtype']){
@@ -217,6 +228,7 @@ class directoryCore {
 				break;
 				
 				case 'dropdown':
+
 					$output .= $question['label'] ? '<label>'.$question['label'].'</label>' : '';
 					$output .= $question['instructions'] ? '<p class="instructions">'.$question['instructions'].'</p>' : '';
 					$output .= '<select ';
@@ -232,6 +244,7 @@ class directoryCore {
 					}
 					foreach($question['value'] as $k=>$v){
 						$v = is_array($v) ? $v : (array)$v;
+						$value = is_array($value) ? $value : (array)$value;
 						$output .= '<option value="'.$v['slug'].'" termid="'.$v['term_id'].'"';
 						if($value[0] == $v['slug']){
 							$output .= 'SELECTED ';
@@ -239,6 +252,7 @@ class directoryCore {
 						$output .= '>'.$k.'</option>';
 						if(isset($v['children'])) foreach ($v['children'] as $k=>$v){
 							$v = is_array($v) ? $v : (array)$v;
+							$value = is_array($value) ? $value : (array)$value;
 							$output .= '<option value="'.$v['slug'].'" termid="'.$v['term_id'].'"';
 							if($value[0] == $v['slug']){
 								$output .= 'SELECTED ';
@@ -246,6 +260,7 @@ class directoryCore {
 							$output .= '>- '.$k.'</option>';
 								if(isset($v['children'])) foreach ($v['children'] as $kk=>$vv){
 									$vv = is_array($vv) ? $vv : (array)$vv;
+									$value = is_array($value) ? $value : (array)$value;
 									$output .= '<option value="'.$vv['slug'].'" termid="'.$vv['term_id'].'"';
 									if($value[0] == $vv['slug']){
 										$output .= 'SELECTED ';
@@ -406,7 +421,7 @@ class directoryCore {
 		$q = $this->getQuestion($name);
 		
 		
-		if(is_array($value)){
+		if($q && is_array($value)){
 			
 			if(is_array($q['value'])){
 				$foundkeys = array();

@@ -11,7 +11,7 @@ function directory_create_user(){
       exit('You are not authorised to take this action');
 	}
 	
-	$valid = array('user_pass','user_login','user_nicename','user_url','user_email','display_name','nickname','first_name','last_name','description','rich_editing','user_registered','role','jabber','aim','yim','redirect');
+	$valid = array('user_pass','user_login','user_nicename','user_url','user_email','display_name','nickname','first_name','last_name','description','rich_editing','user_registered','role','jabber','aim','yim','redirect','readterms','recruiter_name');
 	
 	foreach($_REQUEST as $k=>$v){
 		if(in_array($k, $valid)){
@@ -19,20 +19,24 @@ function directory_create_user(){
 		}
 	}
 	
+	$error = array();
 	
 	if($params['first_name'] == '') $error[] = 'First name missing';
 	if($params['user_email'] == '') $error[] = 'Email missing';
 	if($params['user_pass'] == '') $error[] = 'Password missing';
 	if($params['user_pass'] != $_REQUEST['confirm_user_pass']) $error[] = 'Passwords do not match';
+	if($params['user_email'] != $_REQUEST['confirm_user_email']) $error[] = 'Email addresses do not match';
+	if($params['readterms'] == '') $error[] = 'Confirm you have read the terms and conditions';
 	
 	
 
-	if(!$error){ // Data supplied is good, no errors
+	if(count($error) == 0){ // Data supplied is good, no errors
 		$params['user_login'] = strtolower($params['first_name']).'_'.strtolower($params['last_name']);
 		$newuserID = wp_insert_user($params);
 		if(!is_wp_error($newuserID)){
 			if($_REQUEST['group_id']) update_user_meta($newuserID,'group_id',$_REQUEST['group_id']);
 			if($_REQUEST['recruiter_sector']) update_user_meta($newuserID,'recruiter_sector',$_REQUEST['recruiter_sector']);
+			if($_REQUEST['recruiter_name']) update_user_meta($newuserID,'recruiter_name',$_REQUEST['recruiter_name']);
 
 			if($_REQUEST['autologin'] == 'true'){
 			    wp_set_current_user($id); // set the current wp user
@@ -56,7 +60,7 @@ function directory_create_user(){
 		session_start();
 		$_SESSION['errors'] = $error;
 		$_SESSION['userdata'] = $params;
-		header('Location: '.$_SERVER['HTTP_REFERER']);
+		header('Location: '.$_REQUEST['submitfail']);
 	}
 	
 	
@@ -67,34 +71,34 @@ function directory_create_user(){
 /////////////////////////////////////////////
 	
 	
-	$params['subtype'] = ($_SERVER['HTTP_X_REQUESTED_WITH'] && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') ? 'AJAX' : 'HTTP';
-	$params['referer'] = $_SERVER['HTTP_REFERER'];
-	$dircore->formAfter($params);
+	// $params['subtype'] = ($_SERVER['HTTP_X_REQUESTED_WITH'] && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') ? 'AJAX' : 'HTTP';
+	// $params['referer'] = $_SERVER['HTTP_REFERER'];
+	// $dircore->formAfter($params);
 	
 	
 	
-	// Form submitted by AJAX
+	// // Form submitted by AJAX
 
-	if($_SERVER['HTTP_X_REQUESTED_WITH'] && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
-		$result['result'] = 'success';
-		if($params['success_message']){
-			$result['message'] = $params['success_message'];
-		}
+	// if($_SERVER['HTTP_X_REQUESTED_WITH'] && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+	// 	$result['result'] = 'success';
+	// 	if($params['success_message']){
+	// 		$result['message'] = $params['success_message'];
+	// 	}
 
-		if($params['redirect']){
-			$result['redirect'] = $params['redirect'].'?i='.$newitemID.'&u='.$result['post_author'];
-		}
-		echo json_encode($result);
+	// 	if($params['redirect']){
+	// 		$result['redirect'] = $params['redirect'].'?i='.$newitemID.'&u='.$result['post_author'];
+	// 	}
+	// 	echo json_encode($result);
 		
 	
-	// Form submitted by HTTP
-	} else {
-		if($params['redirect']){
-			header('Location: '.$_REQUEST['redirect']);
-		} else {
-			header('Location: '.$_SERVER['HTTP_REFERER'].'?u='.$newuserID);
-		}
-	}
+	// // Form submitted by HTTP
+	// } else {
+	// 	if($params['redirect']){
+	// 		header('Location: '.$_REQUEST['redirect']);
+	// 	} else {
+	// 		header('Location: '.$_SERVER['HTTP_REFERER'].'?u='.$newuserID);
+	// 	}
+	// }
 
 	
 	
@@ -112,8 +116,8 @@ function directory_create_user(){
 
 //add_action( 'init', 'directory_create_user_enqueue' );
 
-function directory_create_user_enqueue() {
-   wp_register_script( 'directory_create_user', WP_PLUGIN_URL.'/ibe-directory/js/directory_create_user.js', array('jquery') );
-   wp_localize_script( 'directory_create_user', 'directory_create_user', array( 'ajaxurl' => admin_url( 'admin-ajax.php' )));        
-   wp_enqueue_script( 'directory_create_user' );
-}
+// function directory_create_user_enqueue() {
+//    wp_register_script( 'directory_create_user', WP_PLUGIN_URL.'/ibe-directory/js/directory_create_user.js', array('jquery') );
+//    wp_localize_script( 'directory_create_user', 'directory_create_user', array( 'ajaxurl' => admin_url( 'admin-ajax.php' )));        
+//    wp_enqueue_script( 'directory_create_user' );
+// }

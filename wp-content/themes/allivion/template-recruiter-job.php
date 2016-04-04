@@ -38,6 +38,8 @@ while (have_posts()) {
 
 ?>
 
+
+
 <div class="container a2apad">
 	<div class="row">
 		<div class="col-md-12">
@@ -59,12 +61,22 @@ while (have_posts()) {
 				<div class="col-md-6">
 
 					<div class="qpanel purplegrad">
-						<p>Create or edit your ad here, any changes will be automatically saved and shown in the ad preview on the right.<br />When you're ready, publish your ad. If you've selected a 'publish from' date your ad will appear on the site after that date.</p>
+						<p>You can create or edit your ad here. Any changes you make are automatically saved and displayed in the ad preview on the right. When you’re happy with your ad, simply press ‘publish’. </p>
 						
+						
+
+
 
 						<?php $job->printGroup('publishing',$vals); ?>
 						
 						<input type="button" id="publish_ad" value="Publish" class="btn btn-default purplegrad" style="width: 100%; margin-top: 12px;<?php echo $vals['job_status'][0] == 'published' ? 'display:none;' : ''; ?>"/>
+
+						<div class="invalidmsg" style="padding-top: 8px"></div>
+
+						<p style="margin-top: 16px"><strong>Please note:</strong>
+							All adverts are published immediately – to delay publication, please select an alternative date using the ‘publish from’ box above.
+						</p>	
+						
 						
 					</div>
 					<div class="qpanel">
@@ -104,7 +116,10 @@ while (have_posts()) {
 				<div class="col-md-6">
 					<div id="adpreview" class="preview">
 						<h3>Ad preview</h3>
-						<input type="submit" value="Save changes" class="btn btn-default"/>
+						<button type="submit" class="btn btn-default" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Saving">Save changes</button>
+
+
+
 						<hr>
 						<h2 class="purple"><span id="job_title"><?php echo $vals['job_title'] ? $vals['job_title'] : 'Job Title'; ?></span></h2>
 						<h4><span id="employer"><?php echo get_user_meta($vals['group_id'],'recruiter_name',true); ?></span> - <span id="department"><?php echo $vals['department'] ? $vals['department'] : 'Department'; ?></span></h4>
@@ -128,8 +143,16 @@ while (have_posts()) {
 		
 		<div class="clear"></div>
 		
+<div class="totop" <?php echo $vals['job_status'][0] == 'published' ? 'style="display:none"' : '' ?>>
+<h2 class="fl purple" style="margin-right: 8px;"><i class="fa fa-arrow-up"></i></h2>
+
+<h3 class="purple" style="margin-bottom: 0px !important;">Completed?</h3>
+<p style="margin-top: 0px;">If you are done, please scroll up to the top of the page and select 'Publish' to advertise your role</p>
+</div>
+
 	</div>
 </div>
+
 
 
 
@@ -186,6 +209,7 @@ while (have_posts()) {
 
 	jQuery(function(){
 		jQuery('#publish_ad').click(function(){
+				jQuery('select[name="job_status"]').val('published');
 
 			// temporarily enable notify
 			var form = jQuery(this).closest('form');
@@ -195,22 +219,25 @@ while (have_posts()) {
 			tinyMCE.triggerSave();
 			var validates = dirvalidates(form);
 			if(validates == 'true'){
+				jQuery('.invalidmsg').html('');
 				form.submit();
 				
-				jQuery('select[name="job_status"]').val('published');
 
 				var pf = jQuery('input[name="publish_from"]').val();	
 
 				if(pf == ''){
 					jQuery('input[name="publish_from"]').val(moment().format('D MMM YYYY'));
-					var pm = 'Your ad is published'; 
+					var pm = 'Thank you for placing an ad - it is now live on our site'; 
 				} else {	
-					var pm = 'Your ad will be published on '+pf; 
+					var pm = 'Thank you for placing an ad. It will be live on our site on '+pf+'. '; 
+					pm += 'Your reference number for this ad is ALR<?php echo $_REQUEST['i']; ?>';
 				}
 				
 				jQuery(this).hide().after('<div class="alert alert-success" style="margin: 12px 0 0 0">'+pm+'</div>');
 				
-			} 
+			}  else {
+				jQuery('.invalidmsg').html('<div class="alert alert-danger">You did not complete some required fields - please check the form below and try again.</div>');
+			}
 			
 			jQuery(this).closest('form').find('input[name="notify"]').attr('disabled','disabled');
 

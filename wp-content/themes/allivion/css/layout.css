@@ -120,13 +120,12 @@ img {
 	border-bottom: 2px solid #333333;
 }
 
-.homesearch-container:after {
+.homesearch-container .caption {
 	display: block !important;
 	position: absolute;
 	left: 8px;
 	bottom: 8px;
 	color: white;
-	content: 'The Halls, University of Glasgow' !important;
 	opacity: 0.8;
 	font-size: 0.8em;
 }
@@ -212,6 +211,17 @@ img {
 	right: 30px;
 	top: 30px;
 	cursor: pointer;
+}
+
+.homesearch-container .featurelinks {
+	color: white;
+	position: absolute;
+	right: 10px;
+	bottom: 10px;
+}
+
+.homesearch-container .featurelinks a {
+	text-decoration: underline !important;
 }
 
 @media screen and (max-width: 960px) {
@@ -442,6 +452,41 @@ img {
 	color: #333333;
 }
 
+#studentshipsectors .faketab {
+	position: relative;
+	padding: 12px 12px 12px 56px;
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	background-color: #F3F3F3 !important;
+	border-radius: 12px 12px 0 0;
+	-moz-border-radius: 12px 12px 0 0;
+	-webkit-border-radius: 12px 12px 0 0;
+	font-size: 1.6em;
+	color: #53247E !important;
+	margin-bottom: -12px;
+
+}
+
+#studentshipsectors .faketab .icon {
+	display: block;
+	width: 32px !important;
+	height: 32px !important;
+	position: absolute;
+	left: 15px;
+	top: 15px;
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-image: url(../img/sector_icon_academic.png);
+	z-index: 9;
+}
+
+#studentshipsectors .qpanel li {
+	border-bottom: 1px solid #DDDDDD;
+	padding: 4px 0;
+	list-style: none !important;
+}
+
 .recruiter_icon_panel {
 	text-align: center;
 	height: 220px;
@@ -512,6 +557,12 @@ img {
 .carousel-control.right {
 	background-position: right center !important;
 	background-image: url(../img/carousel-control-right.png) !important;
+}
+
+/* candidate search */
+
+#userslist tr td:first-child {
+	width: 20%;
 }
 
 /* columns */
@@ -641,6 +692,12 @@ img {
 	max-width: 336px;
 	height: auto !important;
 	margin-bottom: 20px;
+}
+
+/* jobs search results */
+
+#jobs_subscribe select {
+	width: 70%;
 }
 
 /* single job page */
@@ -816,8 +873,16 @@ img {
 #brand_logo {
 	display: block;
 	width: 600px;
-	height: 200px;
+	max-height: 200px;
 }
+
+/* recruiter dashboard */
+
+
+#dashboard_counts h1 {
+	margin-bottom: 0px !important;
+}
+
 
 /* blog */
 
@@ -1106,11 +1171,13 @@ ul.tabs li.active {
 	background: #FDE8DC url(../img/sponsored_paleorange.png) repeat-x !important;
 }
 
-.searchresults tbody tr.premium td, .searchresults tbody tr.promoted td {
+.searchresults tbody tr.premium td,
+.searchresults tbody tr.promoted td {
 	padding-top: 24px;	
 }
 
-.searchresults tbody tr.promoted {
+.searchresults tbody tr.promoted,
+.searchresults tbody tr.sponsored {
 	background: #d5c9de url(../img/promote_palepurple.png) repeat-x !important;
 }
 
@@ -1125,6 +1192,10 @@ ul.tabs li.active {
 	position: absolute;
 	content: ''; 	
 
+}
+
+#sysadmin-promotions tbody tr:before, #sysadmin-users tbody tr:before {
+	display: none;
 }
 
 .searchresults.recadmin tbody tr:before {
@@ -1393,6 +1464,7 @@ form#login input[type='submit'] {
 	color: #53247E !important;
 	cursor: pointer;
 	margin-top: 10px;
+	min-height: 225px;
 }
 
 .cta h3 {
@@ -1452,4 +1524,47 @@ form#login input[type='submit'] {
 	font-size:24px !important;
 	line-height:1.3333333 !important;
 	border-radius:6px !important;
+}
+
+button.saving{
+	background-color: #53247E !important;
+	color: white !important;
+}
+
+.btn-purple {
+	color: #333;
+	background-color: #d5c9de;
+	border-color: #ccc;
+}
+
+.btn-purple:hover {
+	background-color: #c5a9ce;
+}
+
+
+/* misc */
+
+.nolabel label {
+	display: none;
+}
+
+.firstinitial {
+    display:inline-block;
+    visibility:hidden;
+}
+
+.firstinitial:first-letter {
+    visibility:visible;
+}
+
+.rad6 {
+	border-radius: 6px;
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;	
+}
+
+.rad12 {
+	border-radius: 12px;
+	-moz-border-radius: 12px;
+	-webkit-border-radius: 12px;	
 }

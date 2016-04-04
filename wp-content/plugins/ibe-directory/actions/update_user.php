@@ -108,7 +108,9 @@ function directory_update_user(){
 	$update_user['ID'] = $params['ID'] ? $params['ID'] : $user->ID; 
 
 
+// echo '<pre>'; print_r($update_user); echo '</pre>';
 	
+// echo '<pre>'; print_r($params); echo '</pre>';
 
 /*
 	echo '<pre>Item var names '; print_r($varnames); echo '</pre>';
@@ -136,6 +138,9 @@ function directory_update_user(){
 		// Check if files were submitted with the form
 		// NB If handed by AJAX FormData, $_FILES still exists but array contains no file data
 		$uploads = $$role->uploadFiles();
+
+// echo '<pre>'; print_r($uploads); echo '</pre>';
+
 		if($uploads){
 			foreach($uploads as $upload){
 				if($upload['attachment_id']) {
@@ -159,7 +164,7 @@ function directory_update_user(){
 		die();
 	}
 	
-	// Form submitted by AJAX
+	//Form submitted by AJAX
 	if($_SERVER['HTTP_X_REQUESTED_WITH'] && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
 		$result['result'] = 'success';
 		if($params['success_message']){
@@ -170,6 +175,7 @@ function directory_update_user(){
 			$result['redirect'] = $params['redirect'];
 		}
 		echo json_encode($result);
+		die();
 		
 	
 	// Form submitted by HTTP

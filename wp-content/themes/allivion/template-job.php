@@ -34,6 +34,7 @@ $vals = $_REQUEST['i'] ? $job->getVals($_REQUEST['i']) : null;
 
 // Data for employer
 $employer = $_REQUEST['i'] ? $recruiter->getVals(get_post_meta($_REQUEST['i'],'group_id',true)) : null;
+//echo '<pre>'; print_r($employer['user']->ID); echo '</pre>';
 
 // Data for logged in user to autopopulate
 $uservals['first_name'] = $usermeta['first_name'];
@@ -49,6 +50,7 @@ $uservals['email'] = $user->user_email;
 $adtype = $vals['ad_type'][0] ? $vals['ad_type'][0] : 'standard';
 
 ?>
+
 <div class="container-fluid a2apad single-job-<?php echo $adtype; ?>">
 <div class="container">
 	<div class="row">
@@ -63,9 +65,9 @@ $adtype = $vals['ad_type'][0] ? $vals['ad_type'][0] : 'standard';
 			<div>
 				<?php
 					if($vals['ad_type'][0] && $vals['ad_type'][0] != 'standard' && $employer['brand_header']){
-						foreach($employer['brand_header'] as $image_id) echo '<span id="brand_header">'.wp_get_attachment_image($image_id,'brand_header').'</span>';						
+						foreach($employer['brand_header'] as $image_id) echo '<a href="/jobs/?group_id='.$employer['user']->ID.'"><span id="brand_header">'.wp_get_attachment_image($image_id,'brand_header').'</span></a>';						
 					} else if($employer['logo']) {
-						foreach($employer['logo'] as $image_id) echo '<span id="brand_logo">'.wp_get_attachment_image($image_id,'recruiter_icon_small').'</span>';
+						echo '<a href="/jobs/?group_id='.$employer['user']->ID.'"><span id="brand_logo">'.wp_get_attachment_image($employer['logo'][0],'recruiter_icon_large').'</span></a>';
 					} ?>
 			</div>					
 			<h1 class="purple"><?php echo $vals['job_title']; ?></h1>
@@ -112,11 +114,8 @@ $adtype = $vals['ad_type'][0] ? $vals['ad_type'][0] : 'standard';
 								
 				<?php } ?>
 
-				<?php if($employer['video']) { 
-					$q = $job->getQuestion('doc_download_label');
-					$ddl = $job->recursive_array_search($vals['doc_download_label'][0],$q['value']);
-				?>
-				<input type="button" value="Recruiter video" class="btn btn-default openswitch" target="<?php echo $employer['video']; ?>"/>
+				<?php if($employer['video']) { ?>
+				<input type="button" value="Recruiter video" class="btn btn-default openswitch" target="videoholder"/>
 
 								
 				<?php } ?>
@@ -235,7 +234,7 @@ $adtype = $vals['ad_type'][0] ? $vals['ad_type'][0] : 'standard';
 			</form>
 			
 			<?php $terms = wp_get_post_terms($_REQUEST['i'],'sector');
-	foreach($terms as $term) $termsarr[] = $term->name; ?>
+	foreach($terms as $term) $termsarr[] = '<a href="/jobs?industry='.$term->slug.'" class="purple">'.$term->name.'</a>'; ?>
 	
 	<h6 style="color: #999999;">Listed in <?php echo implode(', ', $termsarr); ?></h6>
 		
@@ -376,7 +375,7 @@ $adtype = $vals['ad_type'][0] ? $vals['ad_type'][0] : 'standard';
 		jQuery('.openswitch').click(function(){
 			var target = jQuery(this).attr('target');
 			//alert('opening '+target);
-			jQuery('#'+target).toggleClass('open');
+			jQuery('.'+target).toggleClass('open');
 			
 		});
 	});

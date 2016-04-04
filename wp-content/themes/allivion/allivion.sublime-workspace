@@ -4,12 +4,160 @@
 		"selected_items":
 		[
 			[
-				"table",
-				"table-row"
+				"mi",
+				"min-height"
+			],
+			[
+				"bs3",
+				"bs3-col	bs3-col"
+			],
+			[
+				"print",
+				"print_r"
+			],
+			[
+				"min",
+				"min-width"
+			],
+			[
+				"margin",
+				"margin-bottom"
+			],
+			[
+				"mar",
+				"margin-bottom"
+			],
+			[
+				"resu",
+				"results"
+			],
+			[
+				"sus",
+				"suspended_users"
+			],
+			[
+				"WP_User",
+				"WP_User_Query"
+			],
+			[
+				"text",
+				"text-shadow"
+			],
+			[
+				"padd",
+				"padding-top"
+			],
+			[
+				"update",
+				"updateResult"
+			],
+			[
+				"user",
+				"usermeta"
+			],
+			[
+				"new",
+				"newitemID"
+			],
+			[
+				"re",
+				"relative"
+			],
+			[
+				"box",
+				"box-sizing"
+			],
+			[
+				"marg",
+				"margin-top"
+			],
+			[
+				"l",
+				"li	Tag"
+			],
+			[
+				"u",
+				"ul	Tag"
 			],
 			[
 				"in",
-				"inherit"
+				"input	Tag"
+			],
+			[
+				"tex",
+				"text-decoration"
+			],
+			[
+				"v",
+				"value"
+			],
+			[
+				"va",
+				"validmeta"
+			],
+			[
+				"wid",
+				"width"
+			],
+			[
+				"col",
+				"color"
+			],
+			[
+				"bs",
+				"bs3-alert	bs3-alert"
+			],
+			[
+				"use",
+				"usermeta"
+			],
+			[
+				"this",
+				"this_usermeta"
+			],
+			[
+				"acco",
+				"account_level"
+			],
+			[
+				"gro",
+				"group_id"
+			],
+			[
+				"d",
+				"disabled"
+			],
+			[
+				"indus",
+				"industry_default"
+			],
+			[
+				"back",
+				"background-color"
+			],
+			[
+				"cl",
+				"colspan	Attr"
+			],
+			[
+				"quer",
+				"query_args"
+			],
+			[
+				"tecx",
+				"text-decoration"
+			],
+			[
+				"padding",
+				"padding-top"
+			],
+			[
+				"main",
+				"mainaddress"
+			],
+			[
+				"table",
+				"table-row"
 			],
 			[
 				"im",
@@ -24,20 +172,12 @@
 				"font-size"
 			],
 			[
-				"mar",
-				"margin"
-			],
-			[
 				"bord",
 				"border-bottom"
 			],
 			[
 				"h",
 				"h1	Tag"
-			],
-			[
-				"padding",
-				"padding-right"
 			],
 			[
 				"for",
@@ -52,16 +192,8 @@
 				"forceTarget"
 			],
 			[
-				"print",
-				"print_r"
-			],
-			[
 				"get_class",
 				"get_class_methods"
-			],
-			[
-				"this",
-				"thisGall"
 			],
 			[
 				"inlin",
@@ -94,96 +226,24 @@
 			[
 				"upda",
 				"updateAllImages"
-			],
-			[
-				"re",
-				"requestedImages"
-			],
-			[
-				"bs3",
-				"bs3-col	bs3-col"
 			]
 		]
 	},
 	"buffers":
 	[
 		{
-			"file": "css/layout.css",
+			"file": "/Work/MAMP/Scribe/beta/controllers/client.php",
 			"settings":
 			{
-				"buffer_size": 25583,
+				"buffer_size": 7848,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "/Work/MAMP/Allivion/wp-content/plugins/ibe-directory/userdefs/recruiter_admin.php",
+			"file": "header.php",
 			"settings":
 			{
-				"buffer_size": 4334,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "template-recruiter-profile.php",
-			"settings":
-			{
-				"buffer_size": 3530,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "template-jobs.php",
-			"settings":
-			{
-				"buffer_size": 12024,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "template-recruiter-dashboard.php",
-			"settings":
-			{
-				"buffer_size": 3743,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "template-candidate-profile.php",
-			"settings":
-			{
-				"buffer_size": 3387,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "functions.php",
-			"settings":
-			{
-				"buffer_size": 9007,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "includes/login_form.php",
-			"settings":
-			{
-				"buffer_size": 1796,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "template-register.php",
-			"settings":
-			{
-				"buffer_size": 4159,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/Work/MAMP/Allivion/wp-content/plugins/ibe-directory/userdefs/candidate.php",
-			"settings":
-			{
-				"buffer_size": 3639,
+				"buffer_size": 4558,
 				"line_ending": "Unix"
 			}
 		}
@@ -196,15 +256,19 @@
 	"command_palette":
 	{
 		"height": 342.0,
-		"last_filter": "",
+		"last_filter": "pac",
 		"selected_items":
 		[
+			[
+				"pac",
+				"Package Control: Install Package"
+			],
 			[
 				"packa",
 				"Package Control: Install Package"
 			]
 		],
-		"width": 431.0
+		"width": 557.0
 	},
 	"console":
 	{
@@ -226,29 +290,88 @@
 	"expanded_folders":
 	[
 		"/Work/MAMP/Allivion/wp-content/themes/allivion",
-		"/Work/MAMP/Allivion/wp-content/plugins/ibe-directory/userdefs"
+		"/Work/MAMP/Allivion/wp-content/themes/allivion/includes"
 	],
 	"file_history":
 	[
-		"/Work/MAMP/Allivion/wp-content/themes/allivion/header.php",
-		"/Work/MAMP/Allivion/wp-content/plugins/ibe-directory/directory_coreclass.php",
 		"/Work/MAMP/Allivion/wp-content/themes/allivion/home.php",
+		"/Work/MAMP/Allivion/wp-content/themes/allivion/template-careersadvice.php",
+		"/Work/MAMP/Allivion/wp-content/themes/allivion/functions.php",
+		"/Work/MAMP/Allivion/wp-content/themes/allivion/template-job.php",
+		"/Work/MAMP/Allivion/wp-content/themes/allivion/css/layout.css",
+		"/Work/MAMP/Allivion/wp-content/themes/allivion/template-sysadmin-userlist.php",
+		"/Work/MAMP/Allivion/wp-content/plugins/ibe-directory/directory_userclass.php",
+		"/Work/MAMP/Allivion/wp-content/themes/allivion/single.php",
+		"/Work/MAMP/Allivion/wp-content/themes/allivion/archive.php",
+		"/Work/MAMP/Allivion/wp-content/themes/allivion/front-page.php",
+		"/Work/MAMP/Allivion/wp-content/themes/allivion/includes/logo_carousel.php",
+		"/Work/MAMP/Allivion/wp-content/themes/allivion/includes/logo_carousel_studentships.php",
+		"/Work/MAMP/Allivion/wp-content/themes/allivion/template-recruiter-profile.php",
+		"/Work/MAMP/Allivion/wp-content/plugins/ibe-directory/js/directory_update_user.js",
+		"/Work/MAMP/Allivion/wp-content/plugins/ibe-directory/actions/update_user.php",
+		"/Work/MAMP/Allivion/wp-content/themes/allivion/template-sysadmin-promotion.php",
+		"/Work/MAMP/Allivion/wp-content/themes/allivion/template-studentship-search.php",
+		"/Work/MAMP/Allivion/wp-content/plugins/ibe-directory/actions/login.php",
+		"/Work/MAMP/Allivion/wp-content/themes/allivion/includes/login_form.php",
+		"/Work/MAMP/Allivion/wp-content/themes/allivion/template-recruiter-job.php",
+		"/Work/MAMP/Allivion/wp-content/themes/allivion/footer.php",
+		"/Work/MAMP/Allivion/wp-config.php",
+		"/Work/MAMP/Allivion/wp-content/themes/allivion/css/textstyles.css",
+		"/Work/MAMP/Allivion/wp-content/plugins/ibe-directory/directory_coreclass.php",
+		"/Work/MAMP/Allivion/wp-content/plugins/ibe-directory/email_templates/host_visit.php",
+		"/Work/MAMP/Allivion/wp-content/plugins/ibe-directory/config.php",
+		"/Work/MAMP/Allivion/wp-content/plugins/ibe-directory/directory.php",
+		"/Work/MAMP/Allivion/wp-content/plugins/ibe-directory/actions/notify.php",
+		"/Work/MAMP/Allivion/wp-content/themes/allivion/template-hostvisit.php",
+		"/Work/MAMP/Allivion/wp-content/themes/allivion/includes/cta-jobalert.php",
+		"/Work/MAMP/Allivion/wp-content/themes/allivion/template-jobs.php",
+		"/Work/MAMP/Allivion/wp-content/plugins/ibe-directory/actions/search.php",
+		"/Work/MAMP/Allivion/wp-content/themes/allivion/template-faq.php",
+		"/Work/MAMP/Allivion/wp-content/themes/allivion/template-register.php",
+		"/Work/MAMP/Allivion/wp-content/plugins/ibe-directory/actions/create_user.php",
+		"/Work/MAMP/Allivion/wp-content/themes/allivion/template-sysadmin-profile.php",
+		"/Work/MAMP/Allivion/wp-content/themes/allivion/template-recruiter-updateuser.php",
+		"/Work/MAMP/Allivion/wp-content/themes/allivion/template-recruiter-dashboard.php",
+		"/Work/MAMP/Allivion/wp-content/plugins/ibe-directory/js/directory_search_user.js",
+		"/Work/MAMP/Allivion/wp-content/plugins/ibe-directory/actions/search_user.php",
+		"/Work/MAMP/Allivion/wp-content/themes/allivion/template-sysadmin-candidate-search.php",
+		"/Work/MAMP/Allivion/wp-content/plugins/ibe-directory/userdefs/candidate.php",
+		"/Work/MAMP/Allivion/wp-content/themes/allivion/template-sysadmin-createuser.php",
+		"/Work/MAMP/Allivion/wp-content/themes/allivion/template-recruiter-createuser.php",
+		"/Work/MAMP/Allivion/wp-content/plugins/ibe-directory/userdefs/suspended.php",
+		"/Work/MAMP/Allivion/wp-content/themes/allivion/template-recruiter-candidate-search.php",
+		"/Work/MAMP/Allivion/wp-content/plugins/ibe-directory/taxdefs/faqcategory.php",
+		"/Work/MAMP/Allivion/wp-content/plugins/ibe-directory/directory_taxclass.php",
+		"/Work/MAMP/Allivion/wp-content/plugins/ibe-directory/userdefs/recruiter_admin.php",
+		"/Work/MAMP/Allivion/wp-content/plugins/ibe-directory/itemdefs/job.php",
+		"/Work/MAMP/Allivion/wp-content/themes/allivion/template-allrecruiters.php",
+		"/Work/MAMP/Allivion/wp-content/plugins/ibe-directory/itemdefs/faq.php",
+		"/Work/MAMP/Allivion/wp-content/themes/allivion/header.php",
+		"/Work/MAMP/Allivion/wp-content/themes/allivion/includes/employer_profile.php",
+		"/Work/MAMP/Allivion/wp-content/themes/allivion/css/bootstrap.min.css",
+		"/Work/MAMP/Allivion/wp-content/themes/allivion/template-sysadmin-dashboard.php",
+		"/Work/MAMP/Allivion/wp-content/plugins/ibe-directory/js/directory_update.js",
+		"/Work/MAMP/Allivion/wp-content/plugins/ibe-directory/actions/update.php",
+		"/Work/MAMP/Allivion/wp-content/plugins/ibe-directory/actions/create.php",
+		"/Work/MAMP/Allivion/wp-content/themes/allivion/allivion.sublime-project",
+		"/Work/MAMP/Allivion/wp-content/themes/allivion/includes/cta-advertise.php",
+		"/Work/MAMP/Allivion/wp-content/themes/allivion/includes/cta-feedback.php",
+		"/Work/MAMP/Allivion/wp-content/themes/allivion/includes/cta-uploadcv.php",
+		"/Work/MAMP/Allivion/wp-content/themes/allivion/includes/recruiter_video.php",
+		"/Work/MAMP/Allivion/wp-content/themes/allivion/template-candidate-profile.php",
+		"/Work/MAMP/Allivion/wp-content/plugins/ibe-directory/js/directory_notify.js",
+		"/Work/MAMP/Allivion/wp-content/themes/allivion/template-candidate-details.php",
+		"/Work/MAMP/Allivion/wp-content/themes/allivion/css/uniform.default.css",
+		"/Work/MAMP/Allivion/wp-content/themes/allivion/header-recadmin.php",
+		"/Work/MAMP/Allivion/wp-content/themes/allivion/header-candadmin.php",
+		"/Work/MAMP/Allivion/wp-content/themes/allivion/header-sysadmin.php",
+		"/Work/MAMP/Allivion/wp-content/plugins/ibe-directory/js/directory_login.js",
+		"/Work/MAMP/Allivion/wp-content/plugins/ibe-directory/userdefs/recruiter.php",
+		"/Work/MAMP/Allivion/wp-content/themes/allivion/template-userlist.php",
 		"/Work/MAMP/Allivion/wp-content/themes/allivion/page.php",
 		"/Work/MAMP/Allivion/wp-content/themes/allivion/blog.php",
-		"/Work/MAMP/Allivion/wp-content/themes/allivion/functions.php",
-		"/Work/MAMP/Allivion/wp-content/themes/allivion/archive.php",
-		"/Work/MAMP/Allivion/wp-content/themes/allivion/template-careersadvice.php",
-		"/Work/MAMP/Allivion/wp-content/themes/allivion/template-sysadmin-dashboard.php",
-		"/Work/MAMP/Allivion/wp-content/plugins/ibe-directory/userdefs/recruiter_admin.php",
 		"/Work/MAMP/Allivion/wp-content/plugins/ibe-directory/js/directory_core.js",
-		"/Work/MAMP/Allivion/wp-content/themes/allivion/template-job.php",
-		"/Work/MAMP/Allivion/wp-content/plugins/ibe-directory/itemdefs/job.php",
-		"/Work/MAMP/Allivion/wp-content/themes/allivion/front-page.php",
-		"/Work/MAMP/Allivion/wp-content/themes/allivion/css/uniform.default.css",
-		"/Work/MAMP/Allivion/wp-content/themes/allivion/footer.php",
-		"/Work/MAMP/Allivion/wp-content/themes/allivion/template-studentship-search.php",
 		"/Work/MAMP/Allivion/wp-content/plugins/ibe-directory/js/directory_search.js",
-		"/Work/MAMP/Allivion/wp-content/themes/allivion/template-jobs.php",
 		"/Work/MAMP/Allivion/wp-content/themes/allivion/revive-zones/leaderboard.html",
 		"/Work/GITREPOS/nu-wp-dreamteamfc/src/themes/dreamteamfc/functions.php",
 		"/Work/GITREPOS/nu-wp-dreamteamfc/src/themes/dreamteamfc/js/angular-gallery-2.js",
@@ -283,6 +406,57 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"allivion",
+			"tinym",
+			"notify",
+			"label",
+			"new wp",
+			"directory_search",
+			"new",
+			"meta",
+			"limi",
+			"stripHTML",
+			"alert",
+			"promo",
+			"job_status",
+			"share",
+			"expire",
+			"publish",
+			"invalid",
+			"invald",
+			"print_r",
+			"$result",
+			"studen",
+			"sear",
+			"expire",
+			"publish_",
+			"search",
+			"new ",
+			"new wp",
+			"publish",
+			"days",
+			"©html",
+			"last_item",
+			"alert",
+			"group",
+			"logo",
+			"video",
+			"$recruiter",
+			"recruiter",
+			"unif",
+			"redirect",
+			"<?",
+			"params",
+			"indus",
+			"jobs",
+			"save",
+			"add_blank",
+			"alert",
+			"status",
+			"print",
+			"target",
+			"redirec",
+			"engage",
 			"publish_from",
 			"publish",
 			"login",
@@ -318,82 +492,52 @@
 	"groups":
 	[
 		{
-			"selected": 2,
+			"selected": 1,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "css/layout.css",
+					"file": "/Work/MAMP/Scribe/beta/controllers/client.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 25583,
+						"buffer_size": 7848,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								19862,
-								19862
+								0,
+								0
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/CSS/CSS.sublime-syntax",
-							"translate_tabs_to_spaces": false
+							"syntax": "Packages/PHP/PHP.sublime-syntax"
 						},
 						"translation.x": 0.0,
-						"translation.y": 16597.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "/Work/MAMP/Allivion/wp-content/plugins/ibe-directory/userdefs/recruiter_admin.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 4334,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								3694,
-								3694
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 2439.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,
 					"type": "text"
 				},
 				{
-					"buffer": 2,
-					"file": "template-recruiter-profile.php",
+					"buffer": 1,
+					"file": "header.php",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 3530,
+						"buffer_size": 4558,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2825,
-								2825
+								0,
+								4558
 							]
 						],
 						"settings":
@@ -402,211 +546,10 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 949.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "template-jobs.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 12024,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								5850,
-								5850
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 3114.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
-					"type": "text"
-				},
-				{
-					"buffer": 4,
-					"file": "template-recruiter-dashboard.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3743,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								3062,
-								3062
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 1271.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "template-candidate-profile.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3387,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1101,
-								1101
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 696.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 8,
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"file": "functions.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 9007,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								3792,
-								3792
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 1462.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 7,
-					"type": "text"
-				},
-				{
-					"buffer": 7,
-					"file": "includes/login_form.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1796,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1671,
-								1671
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 54.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 6,
-					"type": "text"
-				},
-				{
-					"buffer": 8,
-					"file": "template-register.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 4159,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								2363,
-								2363
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 903.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 5,
-					"type": "text"
-				},
-				{
-					"buffer": 9,
-					"file": "/Work/MAMP/Allivion/wp-content/plugins/ibe-directory/userdefs/candidate.php",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 3639,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								3557,
-								3557
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/PHP/PHP.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 1989.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 9,
 					"type": "text"
 				}
 			]
@@ -614,11 +557,11 @@
 	],
 	"incremental_find":
 	{
-		"height": 23.0
+		"height": 21.0
 	},
 	"input":
 	{
-		"height": 0.0
+		"height": 26.0
 	},
 	"layout":
 	{
@@ -671,7 +614,7 @@
 		[
 			[
 				"",
-				"/Work/GITREPOS/nu-wp-dreamteamfc/src/themes/dreamteamfc/dtfc.sublime-project"
+				"/Work/MAMP/Scribe/beta/scribe.sublime-project"
 			]
 		],
 		"width": 380.0

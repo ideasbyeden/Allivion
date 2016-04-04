@@ -114,8 +114,8 @@ $vars = array(
 
 	
 	array(
-		'name' => 'cv_intro',
-		'label' => 'Introduction',
+		'name' => 'personal_summary',
+		'label' => 'Personal summary',
 		'instructions' => 'Please do not include any contact information in the fields below. This is the information that recruiters will be able to search against to find candidates.',
 		'placeholder' => '',
 		'fieldtype' => 'textarea',
@@ -123,32 +123,16 @@ $vars = array(
 	),
 
 	array(
-		'name' => 'cv_education',
+		'name' => 'education',
 		'label' => 'Education',
 		'placeholder' => '',
 		'fieldtype' => 'textarea',
 		'group' => 'profile'
 	),
-	
-	array(
-		'name' => 'cv_summary',
-		'label' => 'Summary',
-		'placeholder' => '',
-		'fieldtype' => 'textarea',
-		'group' => 'profile'
-	),
 
 	array(
-		'name' => 'cv_interests',
-		'label' => 'Acheivements & Interests',
-		'placeholder' => '',
-		'fieldtype' => 'textarea',
-		'group' => 'profile'
-	),
-
-	array(
-		'name' => 'cv_positions',
-		'label' => 'Positions',
+		'name' => 'career_history',
+		'label' => 'Career history',
 		'placeholder' => '',
 		'multiple' => 'true',
 		'fieldtype' => 'textarea',
@@ -170,5 +154,24 @@ $vars = array(
 		'fieldtype' => 'text',
 		'group' => 'profile'
 	),
-	
+	array(
+		'name' => 'profile_status',
+		'label' => 'Status',
+		'fieldtype' => 'dropdown',
+		'value' => array(
+			'Actively jobseeking, show me in search results'	=> array('slug' => 'active'),	
+			'Don\'t show me in search results'	=> array('slug' => 'passive'),	
+		),
+		'group' => 'profile'
+	),
+	array(
+		'name' => 'industry',
+		'label' => 'Industry',
+		'placeholder' => '',
+		'fieldtype' => 'check',
+		'value' => $sector->taxTreeRecursive(),
+		'keyword' => 'true',
+		'select_parent' => 'false',
+
+	),
 );

@@ -148,8 +148,10 @@ $vars = array(
 		'name' => 'boilerplate',
 		'label' => 'Succinct profile / Boilerplate',
 		'placeholder' => '',
-		'fieldtype' => 'textarea',
-		'group' => 'profile'
+		'fieldtype' => 'richtext',
+		'group' => 'profile',
+		'limit' => '600',
+		'tags_allowed' => 'p,br,strong,em'
 	),
 	
 	array(
@@ -198,13 +200,41 @@ $vars = array(
 		'group' => 'profile'
 	),
 	array(
+		'name' => 'contactpage',
+		'label' => 'Your website contact page',
+		'placeholder' => '',
+		'fieldtype' => 'link',
+		'group' => 'profile'
+	),
+	array(
+		'name' => 'jobspage',
+		'label' => 'Your website jobs page',
+		'placeholder' => '',
+		'fieldtype' => 'link',
+		'group' => 'profile'
+	),
+	array(
+		'name' => 'main_address',
+		'label' => 'Main address',
+		'placeholder' => '',
+		'fieldtype' => 'textarea',
+		'group' => 'profile'
+	),
+	array(
+		'name' => 'invoice_address',
+		'label' => 'Invoice address',
+		'placeholder' => '',
+		'fieldtype' => 'textarea',
+		'group' => 'profile'
+	),
+	array(
 		'name' => 'subscriber',
 		'label' => 'Subscriber',
 		'fieldtype' => 'dropdown',
 		'value' => array(
+			'Standard'	=> array('slug' => 'standard'),	
 			'Annual'	=> array('slug' => 'annual'),	
 		),
-		'addblank' => true,
 		'group' => 'sysadmin'
 	),
 );

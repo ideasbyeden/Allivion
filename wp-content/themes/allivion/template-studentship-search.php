@@ -58,12 +58,18 @@ $returnfields = array('job_title','location','summary','recruiter_name','closing
 	});
 </script>
 
-<div class="container-fluid studentshipsearch-container">
+<?php $bg = wp_get_attachment_image_src(get_post_thumbnail_id(get_the_id()), 'full' ); ?>
+
+
+<div class="container-fluid studentshipsearch-container" style="background-image: url(<?php echo $bg[0]; ?>);">
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-12">
 				
-				<div id="homesearch">				
+				<div id="homesearch">
+
+				<h1 style="color: white !important; margin: -30px 0 0 0; text-align: center; font-size: 4em;">Searching for a Studentship?</h1>
+					<h2 style="color: white !important; margin: 0 0 30px;text-align: center;">Search for PhDs, Masters and many other research projects here</h2>				
 	
 					<form class="directory <?php echo $job->type; ?> homesearch" id="searchjobs" action="/jobs" method="get">
 					<h2 style="color: white;">Find your studentship</h2>
@@ -76,12 +82,12 @@ $returnfields = array('job_title','location','summary','recruiter_name','closing
 							<input type="text" name="keywords" value="<?php echo $_REQUEST['keywords']; ?>" placeholder="I'm looking for..." class="fl" />
 							<div class="clear"></div>
 							
-							<input type="hidden" name="industry" value="studentships" />
 							<?php $job->printQuestion('region',null,'dropdown',true,false); ?>
 							<?php $job->printQuestion('salary_range',null,'dropdown',true,false); ?>
 							<?php $job->printQuestion('studentship_funding',null,'dropdown',true,false); ?>
 							<?php $job->printQuestion('qualification',null,'dropdown',true,false); ?>
-							<?php $job->printQuestion('industry',null,'dropdown',true,false); ?>
+							<?php $job->printQuestion('industry',null,'dropdown','Discipline',false); ?>
+							<input type="hidden" id="industry_default" name="industry" value="studentships" />
 						</div>
 						
 						<input type="submit" value="Go" class="fr"/>
@@ -95,6 +101,44 @@ $returnfields = array('job_title','location','summary','recruiter_name','closing
 			
 		</div><!-- end row -->
 	</div>
+	<?php the_post_thumbnail_caption(); ?>
+
+	
+</div>
+
+<div class="container-fluid">
+	<div class="container">
+		<div class="row" id="studentshipsectors">
+			<h2 class="purple">Browse studentships by sector</h2>
+			<div class="faketab col-md-6 col-sm-12"><div class="icon"></div>PhD's, Masters and Other research projects</div>
+			<div class="clear"></div>
+			<div class="qpanel faketabs">
+
+			<ul class="cc3">
+					<?php
+						$parent = get_term_by('name','Academic','sector');					
+						$terms = get_term_children( intval($parent->term_id), 'sector' );
+						foreach($terms as $term){
+							$term = get_term_by('id',$term,'sector');
+
+							if($term->parent == $parent->term_id){
+
+								$params['industry'] = $term->slug.',studentships';
+								$params['type'] = 'job';
+								$params['job_status'] = 'published';
+								$items = directory_search($params);
+				
+						
+								echo '<li><a href="/jobs?industry='.$term->slug.'">'.$term->name.' <span class="orange jobcount">('.count($items->posts).')</span></a></li>';
+							
+							}
+						}
+						
+					?>
+					</ul>
+			</div>
+		</div>
+	</div>
 </div>
 
 <div class="container-fluid">
@@ -103,7 +147,7 @@ $returnfields = array('job_title','location','summary','recruiter_name','closing
 
 			<!-- Logo carousel -->
 			<div class="hidden-xs">
-			<?php $extraparams['industry'] = 'studentships'; require(TEMPLATEPATH.'/includes/logo_carousel.php'); ?>	
+			<?php $extraparams['industry'] = 'studentships'; require(TEMPLATEPATH.'/includes/logo_carousel_studentships.php'); ?>	
 			</div>
 			
 		</div>
@@ -115,7 +159,7 @@ $returnfields = array('job_title','location','summary','recruiter_name','closing
 	
 	<div class="row boxad_array boxad_array_1" style="padding-top: 60px; padding-bottom: 40px;">
 		<div class="col-md-12">
-			<h2 class="purple">Featured jobs</h2>
+			<h2 class="purple">Featured studentships</h2>
 		</div>
 		<?php $home = get_page_by_title('Home'); ?>
 		<div class="col-sm-4" style="text-align: center">
@@ -173,9 +217,22 @@ $returnfields = array('job_title','location','summary','recruiter_name','closing
 		var showids = [<?php echo implode(',', $children); ?>];
 		jQuery('select[name="industry"]').find('option').each(function(){
 			var termid = parseInt(jQuery(this).attr('termid'));
-			if(showids.indexOf(termid) == -1){
-				jQuery(this).hide();
+			if(jQuery(this).val() != ''){
+				if(showids.indexOf(termid) == -1){
+					jQuery(this).hide();
+				} else {
+					jQuery(this).val(jQuery(this).val()+',studentships');
+				}
 			}
+		});
+
+		jQuery('select[name="industry"]').change(function(){
+			if(jQuery(this).val() != '') {
+				jQuery('#industry_default').attr('disabled','disabled'); 
+			} else {
+				jQuery('#industry_default').attr('disabled',false); 				
+			}
+
 		});
 	});
 	

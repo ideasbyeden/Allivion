@@ -215,18 +215,18 @@ $vars = array(
 		'required' => 'job_status:published'
 	),
 
-	array(
-		'name' => 'salary_currency',
-		'label' => 'Salary currency',
-		'placeholder' => '',
-		'fieldtype' => 'dropdown',
-		'value' => array(
-			'British pounds'	=> array('slug' => 'GBP'),	
-			'Euro' 				=> array('slug' => 'EUR'),	
-			'US Dollars' 		=> array('slug' => 'USD')	
-		),
-		'group' => 'package'
-	),
+	// array(
+	// 	'name' => 'salary_currency',
+	// 	'label' => 'Salary currency',
+	// 	'placeholder' => '',
+	// 	'fieldtype' => 'dropdown',
+	// 	'value' => array(
+	// 		'British pounds'	=> array('slug' => 'GBP'),	
+	// 		'Euro' 				=> array('slug' => 'EUR'),	
+	// 		'US Dollars' 		=> array('slug' => 'USD')	
+	// 	),
+	// 	'group' => 'package'
+	// ),
 	
 	array(
 		'name' => 'salary_details',

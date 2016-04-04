@@ -78,11 +78,11 @@ foreach($usercustom as $k=>$v){
 						</div>
 						<div class="question">
 							<label>Password</label>
-							<input type="password" name="user_pass" value="" />
+							<input type="text" name="user_pass" value="" />
 						</div>
 						<div class="question">
 							<label>Confirm password</label>
-							<input type="password" name="confirm_user_pass" />
+							<input type="text" name="confirm_user_pass" value=""/>
 						</div>
 
 						<?php

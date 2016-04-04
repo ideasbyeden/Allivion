@@ -14,9 +14,9 @@ get_header();
 				
 				<div class="post-item" id="post-<?php echo $post->ID; ?>">
 					<h3 class="purple"><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h3>
-					<?php the_content(); ?>
-					<a href="<?php the_permalink(); ?>" class="purple">Read more</a>
-				</div>
+					<?php the_excerpt(); ?>
+<!-- 					<a href="<?php the_permalink(); ?>" class="purple">Read more</a>
+ -->				</div>
 				
 				<?php endwhile; ?>
 

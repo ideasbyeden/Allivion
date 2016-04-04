@@ -21,6 +21,7 @@
 	<link rel="stylesheet" media="screen" href="<?php bloginfo('template_url') ?>/css/layout.css" />
 	<link rel="stylesheet" media="screen" href="<?php bloginfo('template_url') ?>/css/textstyles.css" />
 	<link rel="stylesheet" media="screen" href="<?php bloginfo('template_url') ?>/css/nav.css" />
+	<link rel="stylesheet" href="<?php bloginfo('template_url') ?>/css/fontawesome/css/font-awesome.min.css">	
 	
 
 	
@@ -64,7 +65,13 @@
 							<?php 
 							$usertype = $user->roles[0];
 							if($usertype == 'recruiter') wp_nav_menu('theme_location=recruiter');
-							if($usertype == 'recruiter_admin') wp_nav_menu('theme_location=recadmin');
+							if($usertype == 'recruiter_admin') {
+								if($usermeta['subscriber'] == 'annual'){
+									wp_nav_menu('theme_location=recadminannual');
+								} else {
+									wp_nav_menu('theme_location=recadmin');									
+								}
+							}
 							?>						
 						</div>
 					</nav>

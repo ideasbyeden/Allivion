@@ -5,6 +5,7 @@ add_action("wp_ajax_nopriv_directory_search", "directory_search");
 
 function directory_search($params = null){
 
+
 		
 	if($_REQUEST) foreach($_REQUEST as $k=>$v) $params[$k] = $v;
 	
@@ -16,6 +17,7 @@ function directory_search($params = null){
 		$params = array_merge($params,$safeparams);
 	}
 	
+	//echo '<pre>'; print_r($params); echo '</pre>';
 
 			
 	$type = post_type_exists($params['type']) ? $params['type'] : 'post';
@@ -48,6 +50,21 @@ function directory_search($params = null){
 	$query_args['meta_query'] = $params['meta_query'] ? $params['meta_query'] : array();
 	
 	if($params['author']) $query_args['author'] = $params['author'];
+
+	
+
+	// Exclude posts from suspended users
+	$suspended_args = array('role' => 'suspended');
+	$result = new WP_User_Query($suspended_args);
+
+	for($i=0; $i<count($result->results); $i++){
+		$suspended_users[] = $result->results[$i]->ID;
+	}
+
+	if(isset($suspended_users) && is_array($suspended_users)){
+		$query_args['meta_query'][] = array('key' => 'group_id', 'value' => $suspended_users, 'compare' => 'NOT IN');
+		$query_args['author__not_in'] = $suspended_users;
+	}
 	
 
 
@@ -76,6 +93,7 @@ function directory_search($params = null){
 	echo '<pre>Params'; print_r($params); echo '</pre>';
 	echo '<pre>Vars'; print_r($vars); echo '</pre>';
 */
+
 
 	
 	// remove unexpected search variables
@@ -108,16 +126,30 @@ function directory_search($params = null){
 			$q = $$type->getQuestion($k);
 			
 			if($q['taxonomy']){
-				
-				$query_args['tax_query'][] = array( 'taxonomy' => $q['taxonomy'],
-													'field' => 'slug',
-													'terms' => $v
-													);
-				
+
+				foreach(explode(',',$v) as $vterm){
+
+					if(strstr($vterm, '!')){
+						$vterm = preg_replace('@!@','',$vterm);
+						$operator = 'NOT IN';
+					} else {
+						$operator = 'IN';
+					}
+						
+						
+					
+					$query_args['tax_query'][] = array(
+						'taxonomy' => $q['taxonomy'],
+						'field' => 'slug',
+						'terms' => $vterm,
+						'operator' => $operator
+					);
+
+				}
+
 			} else {
 				
-		
-					
+
 	
 				if(strstr($v, '!')){
 					$v = preg_replace('@!@','',$v);
@@ -132,7 +164,9 @@ function directory_search($params = null){
 					$v = preg_replace('@<@','',$v);
 					$compare = '<';
 				
-					
+				} else if(strstr($v, '>')) {
+					$v = preg_replace('@>@','',$v);
+					$compare = '>';					
 					
 				} else  {
 					if(in_array($k, $mc_params)){
@@ -155,7 +189,6 @@ function directory_search($params = null){
 	
 
 	
-	//echo '<pre>'; print_r($user); echo '</pre>';
 	
 	// wpdb keyword search
 	//
@@ -170,12 +203,10 @@ function directory_search($params = null){
 		$query_args['post__in'] = $post_ids_meta;
 	}
 	
-	//die(print_r($query_args));
-	//echo '<pre>'; print_r($params); echo '</pre>';
-	//echo '<pre>'; print_r($query_args); echo '</pre>';
-//	echo '<pre>Final Query Args:<br />'; print_r($params); echo '</pre>';
 
-	
+	//echo '<pre>'; print_r($query_args); echo '</pre>';
+
+
 	// run WP query
 	$result = new WP_Query($query_args);
 	

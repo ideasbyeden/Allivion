@@ -67,10 +67,11 @@ $returnfields = array('job_title','job_ref','location','job_status','search_coun
 			 						$group_id = get_user_meta($user->ID,'group_id',true);
 			 						$group_id = $group_id != '' ? $group_id : $user->ID;
 		 						?>
-		 							<option value="<?php echo $group_id; ?>"><?php echo $user->data->display_name; ?></option>
+		 							<option value="<?php echo $group_id; ?>"><?php echo $user->data->meta['recruiter_name']; ?></option>
 		 						<?php } ?>
 	 						</select>
 	 					</div>
+
 						
 						<div class="question">
 						<label>Appeared in search</label>						
@@ -85,6 +86,7 @@ $returnfields = array('job_title','job_ref','location','job_status','search_coun
 						<label>Status</label>						
 						<select name="job_status">
 							<option value="">Select</option>
+							<option value="active">Draft</option>
 							<option value="active">Active</option>
 							<option value="archived">Archived</option>
 						</select>
@@ -104,12 +106,14 @@ $returnfields = array('job_title','job_ref','location','job_status','search_coun
 			<?php 
 				$params = $_GET ? $_GET : array();
 				$params['type'] = 'job';
+				$params['expire'] = array('publish_from' => 999999999999999);
+
 				//echo pre($params); 
 				$items = directory_search($params);
 			?>
 
 			<div class="col-md-12" style="padding-top: 20px; padding-bottom: 20px;">
-			<table class="searchresults">
+			<table class="searchresults recadmin">
 				<thead>
 					<tr>
 						<?php foreach($returnfields as $field){ ?>
@@ -120,9 +124,9 @@ $returnfields = array('job_title','job_ref','location','job_status','search_coun
 				<tbody id="jobslist">
 							
 				<?php foreach ($items->posts as $item){ ?>
-					<tr class="clickable rowitem" data-href="/job-details?i=<?php echo $item->ID; ?>">
+					<tr class="clickable rowitem <?php echo $item->meta['ad_type'][0]; ?>" data-href="/job-details?i=<?php echo $item->ID; ?>">
 						<?php foreach($returnfields as $field){ ?>
-						<td><?php echo is_array($item->meta[$field]) ? $item->meta[$field][0] : $item->meta[$field]; ?></td>
+						<td style="padding-top: 2px !important;"><?php echo is_array($item->meta[$field]) ? $item->meta[$field][0] : $item->meta[$field]; ?></td>
 						<?php } ?>
 					</tr>
 				<?php } ?>

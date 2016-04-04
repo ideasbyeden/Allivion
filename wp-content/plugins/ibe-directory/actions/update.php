@@ -19,8 +19,6 @@ function directory_update(){
 	$type = $_REQUEST['type'];
 	global $$type;
 	
-	
-
 
 	$varnames = $$type->getVarNames();
 	

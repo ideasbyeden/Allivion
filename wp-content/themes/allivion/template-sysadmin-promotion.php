@@ -90,7 +90,7 @@ $returnfields = array('job_title','job_ref','promote','promote_from','promote_to
 			?>
 
 		<div class="col-md-12" style="padding-top: 20px; padding-bottom: 20px;">	
-			<table class="searchresults">
+			<table class="searchresults" id="sysadmin-promotions">
 				<thead>
 					<tr>
 						<?php foreach($returnfields as $field){ ?>
@@ -103,7 +103,7 @@ $returnfields = array('job_title','job_ref','promote','promote_from','promote_to
 				<?php foreach ($items->posts as $item){ ?>
 					<tr class="clickable rowitem" data-href="/job-details?i=<?php echo $item->ID; ?>">
 						<?php foreach($returnfields as $field){ ?>
-						<td><?php echo $item->meta[$field]; ?></td>
+						<td><?php echo is_array($item->meta[$field]) ? $item->meta[$field][0] : $item->meta[$field]; ?></td>
 						<?php } ?>
 					</tr>
 				<?php } ?>

@@ -1,0 +1,134 @@
+msgid ""
+msgstr "MIME-Version: 1.0\n"
+
+#. Name.
+msgid "Idle User Logout"
+msgstr ""
+
+#. Short description.
+msgid "This plugin automatically logs out the user after a period of idle time. The time period can be configured from admin end."
+msgstr ""
+
+#. Screenshot description.
+msgid "1 <strong>Admin Section</strong> Admin section to describe the behavior of each roles of users"
+msgstr ""
+
+#. Screenshot description.
+msgid "2 <strong>Popup</strong> Pop up shown right after idle timer is reached."
+msgstr ""
+
+#. Found in description paragraph.
+msgid "This plugin detects idle user and execute the action that is being specified in Admin End."
+msgstr ""
+
+#. Found in description paragraph.
+msgid "From version 2.0, you can now specify the action and time for each user role."
+msgstr ""
+
+#. Found in description paragraph.
+msgid "It tracks the users activity in both the front end and admin end."
+msgstr ""
+
+#. Found in description paragraph.
+msgid "You can setup Idle Time from WP Admin &gt; Settings &gt; Idle User Logout"
+msgstr ""
+
+#. Found in description paragraph.
+msgid "Once you reach Idle User Logout Page, you can setup behavior of the plugin for each user\\'s role."
+msgstr ""
+
+#. Found in description paragraph.
+msgid "If there is any problem, or need any help, we can give you a helping hand."
+msgstr ""
+
+#. Found in installation list item.
+msgid "<p>Upload the plugin\\'s folder to the <code>/wp-content/plugins/</code> directory</p>"
+msgstr ""
+
+#. Found in installation list item.
+msgid "<p>Activate the plugin through the \\'Plugins\\' menu in WordPress</p>"
+msgstr ""
+
+#. Found in installation list item.
+msgid "<p>That\\'s it! Go to Settings &gt; Idle User Logout and configure the field \\\"Auto Logout Duration\\\" as you want.</p>"
+msgstr ""
+
+#. Found in installation paragraph.
+msgid "Install this plugin is very simple:"
+msgstr ""
+
+#. Found in installation paragraph.
+msgid "Upload the plugin\\'s folder to the <code>/wp-content/plugins/</code> directory"
+msgstr ""
+
+#. Found in installation paragraph.
+msgid "Activate the plugin through the \\'Plugins\\' menu in WordPress"
+msgstr ""
+
+#. Found in installation paragraph.
+msgid "That\\'s it! Go to Settings &gt; Idle User Logout and configure the field \\\"Auto Logout Duration\\\" as you want."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fix: Minor JavaScript issues."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Ensured WordPress 4.3 compatibility"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fix: Minor issue while activating the plugin."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Feature: Added Idle Behavior for each user roles."
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fix: Mobile issue resolution"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "Fix: Plugin activation error resolution"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "<p>Fix: Bug fixed in Firefox and IE</p>"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "<p>Added independent Settings UI</p>"
+msgstr ""
+
+#. Found in changelog list item.
+msgid "First Version"
+msgstr ""
+
+#. Found in changelog paragraph.
+msgid "Fix: Bug fixed in Firefox and IE"
+msgstr ""
+
+#. Found in changelog paragraph.
+msgid "Added independent Settings UI"
+msgstr ""
+
+#. Found in faq header.
+msgid "How do I change the idle time period?"
+msgstr ""
+
+#. Found in faq header.
+msgid "What happens if I accidentally set time to 1 Second?"
+msgstr ""
+
+#. Found in faq paragraph.
+msgid "Go and configure the time period whatever you like from your admin end general settings page."
+msgstr ""
+
+#. Found in faq paragraph.
+msgid "It\\'s in milliseconds, so 2 seconds is equal to 2000 ms of idle time."
+msgstr ""
+
+#. Found in faq paragraph.
+msgid "It isn\\'t possible. The plugin does some validation, which force user to set idle time minimum 10. If left blank, it will take default time mentioned in General Settings tab."
+msgstr ""

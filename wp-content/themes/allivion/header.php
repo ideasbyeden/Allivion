@@ -43,7 +43,8 @@
 	<script src="<?php bloginfo('template_url'); ?>/js/jquery.uniform.min.js"></script>
 	<script>
 		jQuery(function() {
-	 		jQuery('select, input[type=checkbox]').uniform();
+	 		//jQuery('select, input[type=checkbox]').uniform();
+	 		jQuery('select').uniform();
  		});
  	</script>
  	

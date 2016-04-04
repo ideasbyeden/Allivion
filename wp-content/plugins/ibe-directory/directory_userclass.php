@@ -97,15 +97,14 @@ class userdef extends directoryCore {
 			if(in_array($params['orderby'], $varnames)){
 				$args['meta_key'] = $params['orderby'];
 				$args['orderby'] = 'meta_value';
-				$args['order'] = 'ASC';				
 			} else {
 				$args['orderby'] = $params['orderby'];				
 			}			
 		} else {
 			$args['orderby'] = 'name';
-			$args['order'] = 'ASC';				
 		}
 
+		$args['order'] = $params['order'] ? $params['order'] : 'ASC';
 		
 		if(is_array($params)) foreach($params as $k=>$v){
 			if(in_array($k, $varnames)){

@@ -91,6 +91,9 @@ function directory_create(){
 		$dircore->notify($params);
 		$result['notifyuser'] = $params['notify'];
 	}
+
+	// new item id
+	$result['itemId'] = $newitemID;
 	
 		
 	// post-submission behaviour
