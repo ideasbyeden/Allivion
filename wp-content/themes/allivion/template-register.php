@@ -3,6 +3,8 @@
 //$dircore->canAccess(array('roles' => 'recruiter_admin'));
 //
 // Should this only allow access for non-logged in users?
+
+// Deployed from deploy.com
 	
 session_start();
 
