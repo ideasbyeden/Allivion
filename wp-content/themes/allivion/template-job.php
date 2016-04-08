@@ -267,29 +267,40 @@ $adtype = $vals['ad_type'][0] ? $vals['ad_type'][0] : 'standard';
 
 			<h3 class="purple" style="margin-top: 0px">Other jobs from <?php echo $employer['recruiter_name']; ?></h3>
 			
-			<?php $args = array(
-					'post_type' => 'job',
-					'meta_query' => array(
-						array(
-							'key'     => 'group_id',
-							'value'   => $vals['group_id'],
-						),
-					)
-				);
-				
-				$others = new WP_Query($args);
-				
-				while($others->have_posts()) : $others->the_post(); if($_REQUEST['i'] != get_the_id()) { ?>
-										<hr style="margin: 8px 0;">
+			<?php 
 
-				<h5 class="purple" style="margin-bottom: 0px; font-size: 1.1em;">
-					<a href="/job?i=<?php echo get_the_id(); ?>">
-						<?php echo get_post_meta(get_the_id(),'job_title',true); ?>
-					</a>
-				</h5>
-				<p><?php echo get_post_meta(get_the_id(),'salary_details',true); ?>, <?php echo get_post_meta(get_the_id(),'location',true); ?></p>
+			// $args = array(
+			// 		'post_type' => 'job',
+			// 		'meta_query' => array(
+			// 			array(
+			// 				'key'     => 'group_id',
+			// 				'value'   => $vals['group_id'],
+			// 			),
+			// 		)
+			// 	);
 				
-				<?php } endwhile; wp_reset_postdata(); ?>
+			// 	$others = new WP_Query($args);
+
+
+				$params['encrypted'] = $dircore->encrypt('type=job&job_status=published&publish_from=<'.strtotime('now').'&closing_date=>'.strtotime('now'));
+
+					$params['group_id'] = $vals['group_id'];
+					$others = directory_search($params);
+					//echo '<pre>'; echo count($others->posts); echo '</pre>';
+
+					foreach($others->posts as $other){ if($_REQUEST['i'] != $other->ID){ ?>
+
+						<hr style="margin: 8px 0;">
+						<h5 class="purple" style="margin-bottom: 0px; font-size: 1.1em;">
+							<a href="/job?i=<?php echo $other->ID; ?>">
+								<?php echo $other->meta['job_title']; ?>
+							</a>
+						</h5>
+						<p><?php echo $other->meta['salary_details'] ?>, <?php echo $other->meta['location'] ?></p>
+
+					<?php }} ?>
+
+				
 				
 
 						</div>
