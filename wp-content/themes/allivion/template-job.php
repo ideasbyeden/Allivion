@@ -172,13 +172,8 @@ $adtype = $vals['ad_type'][0] ? $vals['ad_type'][0] : 'standard';
  				<input type="hidden" name="formafter" value="hide" />
 				
 				<div class="qpanel">
-<!--
-					<ul class="tabs">
-						<li class="active">Application form</li>
-						<?php if(!$user) echo '<li><a href="/log-in" class="show_login" redirect="'.$_SERVER['REQUEST_URI'].'">Log in</a></li>'; ?>
-						<li><a href="?linkedin=login">Apply with LinkedIn</a></li>
-					</ul>
--->
+
+
 					
 					<?php if($vals['application_method'][0] == 'form') { ?>
 						
@@ -239,71 +234,105 @@ $adtype = $vals['ad_type'][0] ? $vals['ad_type'][0] : 'standard';
 	<h6 style="color: #999999;">Listed in <?php echo implode(', ', $termsarr); ?></h6>
 		
 			</div>
-		</div><!-- end threeqtrscol -->
+		</div>
+
+
+		<!-- ########################################## end of main content ########################################## -->
+
 		
 		<div class="col-md-4">
+
+
+		<!-- ############## Share this job ############## -->
+
 			<h3 class="purple">Share this job</h3>
 			<?php get_template_part('includes/addtoany'); ?>
 			
-						<div class="whitepanel" style="padding: 12px;">
-			<h3 class="purple" style="margin-top: 0px">Similar jobs</h3>
 			
-			<?php $similar = similarByString($vals['job_title'],'job_title',array('job_title','location','salary_details'),'job');
-					foreach($similar as $sim){ 
-						if($_REQUEST['i'] != $sim['ID']){
-					?>						<hr style="margin: 8px 0;">
+		<!-- ############## Similar jobs ############## -->
 
-						<h5 class="purple" style="margin-bottom: 0px; font-size: 1.1em;">
-							<a href="/job?i=<?php echo $sim['ID']; ?>">
-								<?php echo $sim['job_title']; ?>
-							</a>
-						</h5>
-						<p><?php echo $sim['salary_details']; ?>, <?php echo $sim['location']; ?></p>
 
-			<?php }}	?>
-						</div>
-
-						<div class="whitepanel" style="padding: 12px;">
-
-			<h3 class="purple" style="margin-top: 0px">Other jobs from <?php echo $employer['recruiter_name']; ?></h3>
 			
+			<!-- Similar jobs query -->
 			<?php 
 
-			// $args = array(
-			// 		'post_type' => 'job',
-			// 		'meta_query' => array(
-			// 			array(
-			// 				'key'     => 'group_id',
-			// 				'value'   => $vals['group_id'],
-			// 			),
-			// 		)
-			// 	);
-				
-			// 	$others = new WP_Query($args);
+			$encrypt_string = 'type=job&job_status=published&publish_from=<'.strtotime('now').'&closing_date=>'.strtotime('now');
 
+			$similar = similarByString($vals['job_title'],'job_title');
+			if(is_array($similar)) $encrypt_string .= '&post__in='.implode(',',$similar);
+			global $dircore;
+			$params['encrypted'] = $dircore->encrypt($encrypt_string);
+
+			$items = directory_search($params);
+
+			?>
+
+			<!-- if found, build panel -->
+
+					<?php if(count($items->posts) > 1) { ?>
+					<div class="whitepanel" style="padding: 12px;">
+					<h3 class="purple" style="margin-top: 0px">Similar jobs</h3>						
+					
+
+					<?php foreach ($items->posts as $sim){
+						if($_REQUEST['i'] != $sim->ID){ ?>	
+
+						<hr style="margin: 8px 0;">
+
+						<h5 class="purple" style="margin-bottom: 0px; font-size: 1.1em;">
+							<a href="/job?i=<?php echo $sim->ID; ?>">
+								<?php echo $sim->meta['job_title']; ?>
+							</a>
+						</h5>
+						<p><?php echo $sim->meta['salary_details']; ?>, <?php echo $sim->meta['location']; ?></p>
+
+						<?php 
+						}
+					}
+						
+					
+					echo '</div>'; 
+
+					} ?>
+						
+
+			<!-- ############## Other jobs from this employer ############## -->
+
+			
+			<?php 
 
 				$params['encrypted'] = $dircore->encrypt('type=job&job_status=published&publish_from=<'.strtotime('now').'&closing_date=>'.strtotime('now'));
 
 					$params['group_id'] = $vals['group_id'];
 					$others = directory_search($params);
-					//echo '<pre>'; echo count($others->posts); echo '</pre>';
 
-					foreach($others->posts as $other){ if($_REQUEST['i'] != $other->ID){ ?>
+					if(count($others->posts) > 1) { ?>
 
-						<hr style="margin: 8px 0;">
-						<h5 class="purple" style="margin-bottom: 0px; font-size: 1.1em;">
-							<a href="/job?i=<?php echo $other->ID; ?>">
-								<?php echo $other->meta['job_title']; ?>
-							</a>
-						</h5>
-						<p><?php echo $other->meta['salary_details'] ?>, <?php echo $other->meta['location'] ?></p>
+					<div class="whitepanel" style="padding: 12px;">
+						<h3 class="purple" style="margin-top: 0px">Other jobs from <?php echo $employer['recruiter_name']; ?></h3>
 
-					<?php }} ?>
+						<?php 
 
+						foreach($others->posts as $other){ if($_REQUEST['i'] != $other->ID){ ?>
+
+							<hr style="margin: 8px 0;">
+							<h5 class="purple" style="margin-bottom: 0px; font-size: 1.1em;">
+								<a href="/job?i=<?php echo $other->ID; ?>">
+									<?php echo $other->meta['job_title']; ?>
+								</a>
+							</h5>
+							<p><?php echo $other->meta['salary_details'] ?>, <?php echo $other->meta['location'] ?></p>
+
+					<?php } // end if is not this post
+
+					} // end foreach
+
+					 echo '</div>';
+
+					 }
+					 ?>
 				
-				
 
-						</div>
 						
 				<div class="whitepanel" style="padding: 12px;">
 					<h3 class="purple">Email me jobs like this</h3>

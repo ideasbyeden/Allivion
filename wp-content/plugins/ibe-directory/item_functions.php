@@ -62,9 +62,9 @@ function formatDate($timestamp = null,$q,$default = 'j M Y'){
 	return $date ? $date : null;
 }
 
-function similarByString($string,$matchfield,$returnfields,$type){
+function similarByString($string,$matchfield,$returnfields = null,$type = null){
 	
-	if($string == '' || $matchfield == '' || $returnfields == '' || $type == '') return false;
+	//if($string == '' || $matchfield == '' || $returnfields == '' || $type == '') return false;
 	
 	global $wpdb;
 	$keywords = array_filter(explode(' ', $string));
@@ -80,32 +80,33 @@ function similarByString($string,$matchfield,$returnfields,$type){
 		$thismatch = $wpdb->get_col("SELECT DISTINCT post_id FROM {$wpdb->postmeta} WHERE meta_key = '$matchfield' AND (meta_value LIKE '{$word}%' OR meta_value LIKE '%{$word}') ");
 		
 		$keymatches = array_unique(array_merge($keymatches,$thismatch));
+		$keymatches = count($keymatches) > 0 ? $keymatches : array(0);
 	}
 
-	$args = array(	'post_type' => $type,
-					'posts_per_page' => -1,
-					'post__in' => $keymatches
-	);
+	// $args = array(	'post_type' => $type,
+	// 				'posts_per_page' => -1,
+	// 				'post__in' => $keymatches
+	// );
 	
-	$titlematches = new WP_Query($args);
+	// $titlematches = new WP_Query($args);
 	
-	while($titlematches->have_posts()) : $titlematches->the_post();
+	// while($titlematches->have_posts()) : $titlematches->the_post();
 	
-		$item['ID'] = get_the_ID();
-		$item[$matchfield] = get_post_meta(get_the_ID(),$matchfield,true);
-		foreach($returnfields as $field){
-			$item[$field] = get_post_meta(get_the_ID(),$field,true);		
-		}
+	// 	$item['ID'] = get_the_ID();
+	// 	$item[$matchfield] = get_post_meta(get_the_ID(),$matchfield,true);
+	// 	foreach($returnfields as $field){
+	// 		$item[$field] = get_post_meta(get_the_ID(),$field,true);		
+	// 	}
 		
-		$item_keywords = array_filter(explode(' ', $item[$matchfield]));
-		$item['matchcount'] = count(array_intersect($keywords, $item_keywords));
+	// 	$item_keywords = array_filter(explode(' ', $item[$matchfield]));
+	// 	$item['matchcount'] = count(array_intersect($keywords, $item_keywords));
 		
-		$items[] = $item;
+	// 	$items[] = $item;
 		
-	endwhile; wp_reset_postdata();
+	// endwhile; wp_reset_postdata();
 	
-	$result = sort2d($items, 'matchcount','DESC',false);
-	return $result;
+	// $result = sort2d($items, 'matchcount','DESC',false);
+	return $keymatches;
 
 	
 }

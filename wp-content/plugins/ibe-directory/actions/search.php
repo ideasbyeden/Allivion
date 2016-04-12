@@ -26,6 +26,9 @@ function directory_search($params = null){
 	
 	
 	$expire = $params['expire'] ? $params['expire'] : null;
+
+	//echo '<pre>'; print_r($vars); echo '</pre>';
+
 	
 	// Cleans all params, removing anything unexpected
 	$params = $$type->prepVars($params);
@@ -36,6 +39,7 @@ function directory_search($params = null){
 				}
 */
 
+	//echo '<pre>'; print_r($params); echo '</pre>';
 
 	$order = $params['order'] ? $params['order'] : 'DESC';
 
@@ -46,7 +50,8 @@ function directory_search($params = null){
 							'order' => $order,
 							'posts_per_page' => -1
 							);
-							
+
+
 	$query_args['meta_query'] = $params['meta_query'] ? $params['meta_query'] : array();
 	
 	if($params['author']) $query_args['author'] = $params['author'];
@@ -100,90 +105,97 @@ function directory_search($params = null){
 	if($params){
 		$clean_params = array();
 		foreach($params as $k=>$v){
-			if(in_array($k, $vars) && $v != ''){
+			if(in_array($k, $vars) && $v != '' || $k == 'post__in'){
 				// (below) supports individual search values presented as array but not multiple values within a search field
 				$clean_params[$k] = is_array($v) ? $v[0] : $v; 
 			}
 		}
 	}
 
-	//echo '<pre>Clean Params'; print_r($clean_params); echo '</pre>';
 
 	// check which params have multichoice answers
 	if($clean_params){
 		$mc_params = array();
 		foreach($clean_params as $k=>$v){
 			$q = $$type->getQuestion($k);
-			if(is_array($q['value'])){
+			if($q && is_array($q['value'])){
 				$mc_params[] = $k;
 			}
 		}
 	}		
 
+	//echo '<pre>Clean Params'; print_r($clean_params); echo '</pre>';
+
+
 	// set meta query for each valid search param
 	foreach($clean_params as $k=>$v){
 		
 			$q = $$type->getQuestion($k);
+
+			if($q){
 			
-			if($q['taxonomy']){
+				if($q['taxonomy']){
 
-				foreach(explode(',',$v) as $vterm){
+					foreach(explode(',',$v) as $vterm){
 
-					if(strstr($vterm, '!')){
-						$vterm = preg_replace('@!@','',$vterm);
-						$operator = 'NOT IN';
-					} else {
-						$operator = 'IN';
+						if(strstr($vterm, '!')){
+							$vterm = preg_replace('@!@','',$vterm);
+							$operator = 'NOT IN';
+						} else {
+							$operator = 'IN';
+						}
+							
+							
+						
+						$query_args['tax_query'][] = array(
+							'taxonomy' => $q['taxonomy'],
+							'field' => 'slug',
+							'terms' => $vterm,
+							'operator' => $operator
+						);
+
 					}
-						
-						
+
+				} else {
 					
-					$query_args['tax_query'][] = array(
-						'taxonomy' => $q['taxonomy'],
-						'field' => 'slug',
-						'terms' => $vterm,
-						'operator' => $operator
+
+		
+					if(strstr($v, '!')){
+						$v = preg_replace('@!@','',$v);
+						if(in_array($k, $mc_params)){
+							$compare = 'NOT LIKE';
+							$v = '"'.$v.'"';
+						} else {
+							$compare = '!=';
+						}
+						
+					} else if(strstr($v, '<')) {
+						$v = preg_replace('@<@','',$v);
+						$compare = '<';
+					
+					} else if(strstr($v, '>')) {
+						$v = preg_replace('@>@','',$v);
+						$compare = '>';					
+						
+					} else  {
+						if(in_array($k, $mc_params)){
+							$compare = 'LIKE';
+							$v = '"'.$v.'"';
+						} else {
+							$compare = '=';
+						}
+					}
+				
+					$query_args['meta_query'][] = array(
+						'key' => $k,
+						'value' => $v,
+						'compare' => $compare,
+						'type' => $fieldtype	
 					);
-
-				}
-
-			} else {
 				
-
-	
-				if(strstr($v, '!')){
-					$v = preg_replace('@!@','',$v);
-					if(in_array($k, $mc_params)){
-						$compare = 'NOT LIKE';
-						$v = '"'.$v.'"';
-					} else {
-						$compare = '!=';
-					}
-					
-				} else if(strstr($v, '<')) {
-					$v = preg_replace('@<@','',$v);
-					$compare = '<';
-				
-				} else if(strstr($v, '>')) {
-					$v = preg_replace('@>@','',$v);
-					$compare = '>';					
-					
-				} else  {
-					if(in_array($k, $mc_params)){
-						$compare = 'LIKE';
-						$v = '"'.$v.'"';
-					} else {
-						$compare = '=';
-					}
 				}
-			
-				$query_args['meta_query'][] = array(
-					'key' => $k,
-					'value' => $v,
-					'compare' => $compare,
-					'type' => $fieldtype	
-				);
-			
+			} else if(strstr($k, '__')){
+				$query_args[$k] = explode(',',$v);
 			}
 	}
 	
@@ -196,12 +208,12 @@ function directory_search($params = null){
 	// next version: loop through $job->getVars to build get_col query for specified fields only
 	
 
-	if($params['keywords'] && $params['keywords'] != ''){
-		global $wpdb;
-		$keywords = sanitize_text_field( $params['keywords'] );
-		$post_ids_meta = $wpdb->get_col( " SELECT DISTINCT post_id FROM {$wpdb->postmeta} WHERE meta_key NOT LIKE '\_%' AND meta_value LIKE '%".mysql_real_escape_string($keywords)."%'" );
-		$query_args['post__in'] = $post_ids_meta;
-	}
+	// if($params['keywords'] && $params['keywords'] != ''){
+	// 	global $wpdb;
+	// 	$keywords = sanitize_text_field( $params['keywords'] );
+	// 	$post_ids_meta = $wpdb->get_col( " SELECT DISTINCT post_id FROM {$wpdb->postmeta} WHERE meta_key NOT LIKE '\_%' AND meta_value LIKE '%".mysql_real_escape_string($keywords)."%'" );
+	// 	$query_args['post__in'] = $post_ids_meta != '' ? $post_ids_meta : 0;
+	// }
 	
 
 	//echo '<pre>'; print_r($query_args); echo '</pre>';
@@ -289,7 +301,7 @@ function directory_search($params = null){
 			if($q['fieldtype'] == 'image'){
 				if(is_array($cleangroupmeta[$k])){
 					foreach($cleangroupmeta[$k] as $img){
-						$src = wp_get_attachment_image_src($img,'full');
+						$src = wp_get_attachment_image_src($img,'recruiter_icon_small');
 						$cleangroupmeta[$k.'_image'][] = '<img src="'.$src[0].'" />';
 					}
 				}

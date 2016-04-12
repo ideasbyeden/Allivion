@@ -470,7 +470,7 @@ class directoryCore {
 		// create output
 		$output .= '<tr>';
 		$output .= '<td style="width:50%">'.($q ? $q['label'] : $name).'</td>';
-		$output .= '<td>'.$value.'</td>';
+		$output .= '<td>'.(is_array($value) ? implode(', ', $value) : $value).'</td>';
 		$output .= '</tr>';
 		
 		echo $output;
