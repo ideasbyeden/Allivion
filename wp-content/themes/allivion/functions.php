@@ -280,7 +280,8 @@ function scripts_enqueue() {
     wp_register_script( 'mixpanel', get_bloginfo('template_url').'/js/mixpanel.js', array('jquery'), NULL, true );
     wp_enqueue_script( 'mixpanel' );
     
-    
+    wp_register_script( 'gotourl', get_bloginfo('template_url').'/js/gotourl.js', array('jquery'), NULL, true );
+    wp_enqueue_script( 'gotourl' );    
 }
 add_action( 'wp_enqueue_scripts', 'scripts_enqueue' );
 
