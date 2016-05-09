@@ -133,7 +133,7 @@ $returnfields = array('job_title','location','summary','recruiter_name','closing
 
 							if($term->parent == $parent->term_id){
 
-								$params['encrypted'] = $dircore->encrypt('type=job&job_status=published&publish_from=<'.strtotime('now').'&closing_date=>'.strtotime('now'));
+								$params['encrypted'] = $dircore->encrypt('type=job&job_status=published&publish_from=<'.strtotime('now').'&closing_date=>'.strtotime('yesterday'));
 
 								$params['industry'] = $term->slug;
 								$items = directory_search($params);
@@ -156,7 +156,7 @@ $returnfields = array('job_title','location','summary','recruiter_name','closing
 						foreach($terms as $term){
 							$term = get_term_by('id',$term,'sector');	
 							
-							$params['encrypted'] = $dircore->encrypt('type=job&job_status=published&publish_from=<'.strtotime('now').'&closing_date=>'.strtotime('now'));
+							$params['encrypted'] = $dircore->encrypt('type=job&job_status=published&publish_from=<'.strtotime('now').'&closing_date=>'.strtotime('yesterday'));
 
 								$params['industry'] = $term->slug;
 								$items = directory_search($params);
@@ -178,7 +178,7 @@ $returnfields = array('job_title','location','summary','recruiter_name','closing
 						foreach($terms as $term){
 							$term = get_term_by('id',$term,'sector');	
 							
-							$params['encrypted'] = $dircore->encrypt('type=job&job_status=published&publish_from=<'.strtotime('now').'&closing_date=>'.strtotime('now'));
+							$params['encrypted'] = $dircore->encrypt('type=job&job_status=published&publish_from=<'.strtotime('now').'&closing_date=>'.strtotime('yesterday'));
 
 								$params['industry'] = $term->slug;
 								$items = directory_search($params);						

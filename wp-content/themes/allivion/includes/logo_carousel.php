@@ -13,7 +13,7 @@
 			$logourl = wp_get_attachment_image($logo[0],'recruiter_icon');
 			$logourl = preg_replace( '/(width|height)="\d*"\s/', "", $logourl );
 			
-			$params['encrypted'] = $dircore->encrypt('type=job&job_status=published&publish_from=<'.strtotime('now').'&closing_date=>'.strtotime('now'));
+			$params['encrypted'] = $dircore->encrypt('type=job&job_status=published&publish_from=<'.strtotime('now').'&closing_date=>'.strtotime('yesterday'));
 			$params['group_id'] = $user->ID;
 			$items = directory_search($params);
 			

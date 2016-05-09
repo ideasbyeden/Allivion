@@ -256,7 +256,7 @@ $adtype = $vals['ad_type'][0] ? $vals['ad_type'][0] : 'standard';
 			<!-- Similar jobs query -->
 			<?php 
 
-			$encrypt_string = 'type=job&job_status=published&publish_from=<'.strtotime('now').'&closing_date=>'.strtotime('now');
+			$encrypt_string = 'type=job&job_status=published&publish_from=<'.strtotime('now').'&closing_date=>'.strtotime('yesterday');
 
 			$similar = similarByString($vals['job_title'],'job_title');
 			if(is_array($similar)) $encrypt_string .= '&post__in='.implode(',',$similar);
@@ -301,7 +301,7 @@ $adtype = $vals['ad_type'][0] ? $vals['ad_type'][0] : 'standard';
 			
 			<?php 
 
-				$params['encrypted'] = $dircore->encrypt('type=job&job_status=published&publish_from=<'.strtotime('now').'&closing_date=>'.strtotime('now'));
+				$params['encrypted'] = $dircore->encrypt('type=job&job_status=published&publish_from=<'.strtotime('now').'&closing_date=>'.strtotime('yesterday'));
 
 					$params['group_id'] = $vals['group_id'];
 					$others = directory_search($params);

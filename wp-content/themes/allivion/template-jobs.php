@@ -163,7 +163,7 @@ $returnfields = array('job_title','location','summary','recruiter_name','departm
 							<input type="hidden" name="action" value="directory_search" />
 							<input type="hidden" name="inc_search_count" value="true" />
 							
-							<input type="hidden" name="encrypted" value="<?php echo $dircore->encrypt('type=job&job_status=published&publish_from=<'.strtotime('now').'&closing_date=>'.strtotime('now')); ?>" />
+							<input type="hidden" name="encrypted" value="<?php echo $dircore->encrypt('type=job&job_status=published&publish_from=<'.strtotime('now').'&closing_date=>'.strtotime('tomorrow')); ?>" />
 						
 		
 							<div class="question">
@@ -216,7 +216,7 @@ $returnfields = array('job_title','location','summary','recruiter_name','departm
 			
 			<?php 
 				$params = $_REQUEST ? $_REQUEST : array();
-				$params['encrypted'] = $dircore->encrypt('type=job&job_status=published&publish_from=<'.strtotime('now').'&closing_date=>'.strtotime('now'));
+				$params['encrypted'] = $dircore->encrypt('type=job&job_status=published&publish_from=<'.strtotime('now').'&closing_date=>'.strtotime('yesterday'));
 				$params['inc_search_count'] = true;
 				$items = directory_search($params);
 				
