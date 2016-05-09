@@ -2,7 +2,7 @@
 
 function footer_feed(){
 	
-	$args = array('posts_per_page' => 4);
+	$args = array('posts_per_page' => 3);
 	
 	$feed = new WP_Query($args);
 	
@@ -15,7 +15,7 @@ function footer_feed(){
 	
 	
 	<div class="feeditem <?php echo $cats[0]->slug; ?>">
-		<h5><?php the_title(); ?></h5>
+		<h5><a href="<?php the_permalink(); ?>"><?php the_title(); ?></a></h5>
 		<p><?php echo 'Posted by '.get_the_author().' on '.get_the_time('jS F, Y').' in '.rtrim($catstring,', '); ?>
 	</div>
 	

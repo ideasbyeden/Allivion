@@ -29,7 +29,7 @@
 			</div>
 			
 			<div class="col-md-8">
-				<h4>Latest news, posts and advice</h4>
+				<h4><a href="/career-advice/">Latest news, posts and advice</a></h4>
 				<?php footer_feed(); ?>
 			</div>
 			
