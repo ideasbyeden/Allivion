@@ -89,7 +89,9 @@ while (have_posts()) {
 						<?php $job->printGroup('industry_location',$vals); ?>
 					</div>
 					<div class="qpanel">
+						<div class="limited">
 						<span id="wordcount"></span> words&nbsp;<span id="wordalert" class="alert"></span>
+						</div>
 						
 						<?php $job->printQuestion('full_description_limited',$vals['full_description_limited']); ?>
 						<?php $job->printQuestion('full_description',$vals['full_description']); ?>
