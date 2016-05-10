@@ -49,6 +49,8 @@ $uservals['email'] = $user->user_email;
 
 $adtype = $vals['ad_type'][0] ? $vals['ad_type'][0] : 'standard';
 
+//echo '<pre>'; print_r($job->vars); echo '</pre>';
+
 ?>
 
 <div class="container-fluid a2apad single-job-<?php echo $adtype; ?>">
@@ -89,11 +91,11 @@ $adtype = $vals['ad_type'][0] ? $vals['ad_type'][0] : 'standard';
 					</tr>
 					<tr>
 						<td style="padding-right: 10px">Hours:</td>
-						<td><strong><?php echo $vals['hours'][0]; ?></strong></td>
+						<td><strong><?php echo $job->getVarNameFromVal($vals['hours'][0],'hours'); ?></strong></td>
 					</tr>
 					<tr>
 						<td style="padding-right: 10px">Contract:</td>
-						<td><strong><?php echo $vals['contract'][0]; ?></strong></td>
+						<td><strong><?php echo $job->getVarNameFromVal($vals['contract'][0],'contract'); ?></strong></td>
 					</tr>
 					<tr>
 						<td style="padding-right: 10px">Job ref:</td>

@@ -59,6 +59,28 @@ class directoryCore {
 		}
 		return $names;
 	}
+
+	public function getVarNameFromVal($val = null,$varname = null){
+		if(!$val || !$varname) return false;
+
+		$foundkey = null;
+
+		foreach($this->getVars() as $var){
+
+			if($var['name'] == $varname){
+				if($var['value'] && is_array($var['value'])){
+					foreach($var['value'] as $k=>$v){
+						if($v['slug'] == $val) $foundkey = $k;
+					}	
+				}
+				
+
+			}
+		}
+
+		return $foundkey;
+
+	}
 	
 	
 	public function getVals($id){
