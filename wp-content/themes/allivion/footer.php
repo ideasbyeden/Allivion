@@ -22,10 +22,11 @@
 					<img src="<?php bloginfo('template_url'); ?>/img/footer_socnet_tw.png" />
 					<img src="<?php bloginfo('template_url'); ?>/img/footer_socnet_yt.png" />
 				
-				<h4>Memberships</h4>
-				<p>List trade memberships etc.</p>
-				<a href="/contact" class="footer_button">Contact us</a>
-				<a href="/career-advice/" class="footer_button">Blog</a>
+				<p style="margin-top: 12px;">
+					<a href="/contact" class="footer_button">Contact us</a>
+					<a href="/career-advice/" class="footer_button">Blog</a>
+					<a href="/advertisers/" class="footer_button">Advertise with us</a>
+				</p>
 			</div>
 			
 			<div class="col-md-8">
