@@ -25,7 +25,7 @@
 				<h4>Memberships</h4>
 				<p>List trade memberships etc.</p>
 				<a href="/contact" class="footer_button">Contact us</a>
-				<a href="/blog" class="footer_button">Blog</a>
+				<a href="/career-advice/" class="footer_button">Blog</a>
 			</div>
 			
 			<div class="col-md-8">
